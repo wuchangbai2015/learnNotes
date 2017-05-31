@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to LED’s documentation! &#8212; LED v0.1 documentation</title>
+    <title>LED的基本使用 &#8212; LED v0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -41,18 +41,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-led-s-documentation">
-<h1>Welcome to LED’s documentation!<a class="headerlink" href="#welcome-to-led-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+  <div class="section" id="led">
+<h1>LED的基本使用<a class="headerlink" href="#led" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gpiobrcc">
+<h2>1.使能GPIOB的rcc时钟<a class="headerlink" href="#gpiobrcc" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>GPIO_InitTypeDef GPIO_InitStructure;</p>
+<p>RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);</p>
+</div></blockquote>
 </div>
+<div class="section" id="gpio">
+<h2>2.配置GPIO引脚<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;</p>
+<p>GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;</p>
+<p>GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</p>
+</div></blockquote>
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
+<div class="section" id="id1">
+<h2>3.初始化GPIO<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>GPIO_Init(GPIOB, &amp;GPIO_InitStructure);</div></blockquote>
+</div>
 </div>
 
 
@@ -63,8 +73,12 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to LED’s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#">LED的基本使用</a><ul>
+<li><a class="reference internal" href="#gpiobrcc">1.使能GPIOB的rcc时钟</a></li>
+<li><a class="reference internal" href="#gpio">2.配置GPIO引脚</a></li>
+<li><a class="reference internal" href="#id1">3.初始化GPIO</a></li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>

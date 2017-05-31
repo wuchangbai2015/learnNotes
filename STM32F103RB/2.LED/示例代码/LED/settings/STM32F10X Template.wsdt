@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>STM32F10X Template/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>299</Column0><Column1>4</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+    <Build><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>711</ColumnWidth1><ColumnWidth2>189</ColumnWidth2><ColumnWidth3>47</ColumnWidth3></Build><Find-in-Files><ColumnWidth0>295</ColumnWidth0><ColumnWidth1>49</ColumnWidth1><ColumnWidth2>443</ColumnWidth2><ColumnWidth3>197</ColumnWidth3></Find-in-Files><Select-Ambiguous-Definitions><ColumnWidth0>339</ColumnWidth0><ColumnWidth1>48</ColumnWidth1><ColumnWidth2>581</ColumnWidth2></Select-Ambiguous-Definitions><TerminalIO/></Static>
+    <Windows>
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-17559-15979</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>STM32F10X Template</ExpandedNode><ExpandedNode>STM32F10X Template/CMSIS</ExpandedNode><ExpandedNode>STM32F10X Template/CMSIS/startup</ExpandedNode><ExpandedNode>STM32F10X Template/CMSIS/system</ExpandedNode><ExpandedNode>STM32F10X Template/DRIVER</ExpandedNode><ExpandedNode>STM32F10X Template/USER</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-7108-14639</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-16686-18963</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-8491-21711</Identity><TabName>Ambiguous Definitions</TabName><Factory>Select-Ambiguous-Definitions</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FWLIB\inc\stm32f10x_gpio.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>145</YPos2><SelStart2>6333</SelStart2><SelEnd2>6344</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FWLIB\src\misc.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>29</XPos2><YPos2>125</YPos2><SelStart2>4667</SelStart2><SelEnd2>4667</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\DRIVER\inc\led.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>146</SelStart2><SelEnd2>146</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\DRIVER\src\led.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>177</SelStart2><SelEnd2>177</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FWLIB\inc\stm32f10x_rcc.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>684</YPos2><SelStart2>29474</SelStart2><SelEnd2>29474</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\USER\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>113</SelStart2><SelEnd2>113</SelEnd2></Tab><ActiveTab>5</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FWLIB\src\stm32f10x_rcc.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>67</XPos2><YPos2>1077</YPos2><SelStart2>37235</SelStart2><SelEnd2>37255</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FWLIB\src\stm32f10x_gpio.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>352</YPos2><SelStart2>11200</SelStart2><SelEnd2>11200</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-04FE6C78><key>iaridepm.enu1</key></Toolbar-04FE6C78></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>476</Bottom><Right>350</Right><x>-2</x><y>-2</y><xscreen>227</xscreen><yscreen>37</yscreen><sizeHorzCX>166912</sizeHorzCX><sizeHorzCY>54015</sizeHorzCY><sizeVertCX>258824</sizeVertCX><sizeVertCY>697810</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>164</Bottom><Right>1362</Right><x>-2</x><y>-2</y><xscreen>1364</xscreen><yscreen>166</yscreen><sizeHorzCX>1002941</sizeHorzCX><sizeHorzCY>242336</sizeHorzCY><sizeVertCX>160294</sizeVertCX><sizeVertCY>83212</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

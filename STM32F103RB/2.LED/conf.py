@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # LED documentation build configuration file, created by
-# sphinx-quickstart on Tue May 30 23:44:43 2017.
+# sphinx-quickstart on Wed May 31 13:53:34 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
