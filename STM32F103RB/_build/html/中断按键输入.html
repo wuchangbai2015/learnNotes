@@ -45,11 +45,9 @@
 <h1>通用中断式按键输入-按钮点亮LED<a class="headerlink" href="#led" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>配置流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>1.配置时钟<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>1.配置时钟</div></blockquote>
-<hr class="docutils" />
-<blockquote>
-<div><blockquote>
 <div><p>我们需要同时开启GPIO和AFIO的时钟，
 注：在这里由 于IO 口不是当作普通IO来用的，
 而是启用其复用功能，因此需要开启AFIO时钟。</p>
@@ -57,9 +55,9 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>2.配置GPIO</p>
-</div></blockquote>
-<hr class="docutils" />
+</div>
+<div class="section" id="gpio">
+<h3>2.配置GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><div class="highlight-sh"><div class="highlight"><pre><span></span>GPIO_InitStructure.GPIO_Pin <span class="o">=</span> GPIO_Pin_11<span class="p">;</span>
 
@@ -70,21 +68,20 @@ GPIO_InitStructure.GPIO_Speed <span class="o">=</span> GPIO_Speed_50MHz<span cla
 GPIO_Init<span class="o">(</span>GPIOB, <span class="p">&amp;</span>GPIO_InitStructure<span class="o">)</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>3.将 GPIO 和外部中断线连接起来</p>
 </div></blockquote>
-<hr class="docutils" />
+</div>
+<div class="section" id="id3">
+<h3>3.将 GPIO 和外部中断线连接起来<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><blockquote>
 <div><p>即， 将 PB11 与 EXIT_11 连接起来。</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>GPIO_EXTILineConfig<span class="o">(</span>GPIO_PortSourceGPIOB, GPIO_PinSource11<span class="o">)</span><span class="p">;</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>4.配置 EXIT</p>
-</div></blockquote>
-<hr class="docutils" />
+</div>
+<div class="section" id="exit">
+<h3>4.配置 EXIT<a class="headerlink" href="#exit" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><blockquote>
 <div><div class="highlight-sh"><div class="highlight"><pre><span></span>EXTI_InitTypeDef EXTI_InitStructure<span class="p">;</span>Joy Create Workroom
 
 EXTI_InitStructure.EXTI_Line <span class="o">=</span> EXTI_Line11<span class="p">;</span>
@@ -103,11 +100,10 @@ EXTI_Init<span class="o">(</span><span class="p">&amp;</span>EXTI_InitStructure<
 后再用初始化函数是能此结构体。关于结构体每个元素的赋值参数， 参考 《 STM32
 固件库中文手册》 即可</p>
 </div></blockquote>
-<p>5.配置 NVIC</p>
-</div></blockquote>
-<hr class="docutils" />
+</div>
+<div class="section" id="nvic">
+<h3>5.配置 NVIC<a class="headerlink" href="#nvic" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><blockquote>
 <div><div class="highlight-sh"><div class="highlight"><pre><span></span>NVIC_InitTypeDef NVIC_InitStructure<span class="p">;</span>
 
 NVIC_PriorityGroupConfig<span class="o">(</span>NVIC_PriorityGroup_0<span class="o">)</span><span class="p">;</span> //设置组优先级
@@ -124,9 +120,9 @@ NVIC_Init<span class="o">(</span><span class="p">&amp;</span>NVIC_InitStructure<
 </pre></div>
 </div>
 </div></blockquote>
-<p>6.写中断服务程序</p>
-</div></blockquote>
-<hr class="docutils" />
+</div>
+<div class="section" id="id4">
+<h3>6.写中断服务程序<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><div class="highlight-sh"><div class="highlight"><pre><span></span>void EXTI15_10_IRQHandler<span class="o">(</span>void<span class="o">)</span>
 
@@ -148,6 +144,7 @@ NVIC_Init<span class="o">(</span><span class="p">&amp;</span>NVIC_InitStructure<
 </div></blockquote>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -158,7 +155,15 @@ NVIC_Init<span class="o">(</span><span class="p">&amp;</span>NVIC_InitStructure<
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">通用中断式按键输入-按钮点亮LED</a><ul>
-<li><a class="reference internal" href="#id1">配置流程</a></li>
+<li><a class="reference internal" href="#id1">配置流程</a><ul>
+<li><a class="reference internal" href="#id2">1.配置时钟</a></li>
+<li><a class="reference internal" href="#gpio">2.配置GPIO</a></li>
+<li><a class="reference internal" href="#id3">3.将 GPIO 和外部中断线连接起来</a></li>
+<li><a class="reference internal" href="#exit">4.配置 EXIT</a></li>
+<li><a class="reference internal" href="#nvic">5.配置 NVIC</a></li>
+<li><a class="reference internal" href="#id4">6.写中断服务程序</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
