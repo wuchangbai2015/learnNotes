@@ -1,0 +1,209 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>通用中断式按键输入-按钮点亮LED &#8212; STM32F103RB v0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="led">
+<h1>通用中断式按键输入-按钮点亮LED<a class="headerlink" href="#led" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>配置流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>1.配置时钟</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><p>我们需要同时开启GPIO和AFIO的时钟，
+注：在这里由 于IO 口不是当作普通IO来用的，
+而是启用其复用功能，因此需要开启AFIO时钟。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>RCC_APB2PeriphClockCmd<span class="o">(</span>RCC_APB2Periph_GPIOA <span class="p">|</span> RCC_APB2Periph_AFIO, ENABLE<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>2.配置GPIO</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span></span>GPIO_InitStructure.GPIO_Pin <span class="o">=</span> GPIO_Pin_11<span class="p">;</span>
+
+GPIO_InitStructure.GPIO_Mode <span class="o">=</span> GPIO_Mode_IN_FLOATING<span class="p">;</span>
+
+GPIO_InitStructure.GPIO_Speed <span class="o">=</span> GPIO_Speed_50MHz<span class="p">;</span>
+
+GPIO_Init<span class="o">(</span>GPIOB, <span class="p">&amp;</span>GPIO_InitStructure<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>3.将 GPIO 和外部中断线连接起来</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><p>即， 将 PB11 与 EXIT_11 连接起来。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>GPIO_EXTILineConfig<span class="o">(</span>GPIO_PortSourceGPIOB, GPIO_PinSource11<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>4.配置 EXIT</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span></span>EXTI_InitTypeDef EXTI_InitStructure<span class="p">;</span>Joy Create Workroom
+
+EXTI_InitStructure.EXTI_Line <span class="o">=</span> EXTI_Line11<span class="p">;</span>
+
+EXTI_InitStructure.EXTI_Mode <span class="o">=</span> EXTI_Mode_Interrupt<span class="p">;</span>
+
+EXTI_InitStructure.EXTI_Trigger <span class="o">=</span> EXTI_Trigger_Falling<span class="p">;</span>
+
+EXTI_InitStructure.EXTI_LineCmd <span class="o">=</span> ENABLE<span class="p">;</span>
+
+EXTI_Init<span class="o">(</span><span class="p">&amp;</span>EXTI_InitStructure<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>分析以上的程序代码， 我们来具体研究一下。 首先， 定义了一个关于外部中
+断的初始化结构体。 接着所做的工作即是对此结构体的每一个元素进行赋值。 最
+后再用初始化函数是能此结构体。关于结构体每个元素的赋值参数， 参考 《 STM32
+固件库中文手册》 即可</p>
+</div></blockquote>
+<p>5.配置 NVIC</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span></span>NVIC_InitTypeDef NVIC_InitStructure<span class="p">;</span>
+
+NVIC_PriorityGroupConfig<span class="o">(</span>NVIC_PriorityGroup_0<span class="o">)</span><span class="p">;</span> //设置组优先级
+
+NVIC_InitStructure.NVIC_IRQChannel <span class="o">=</span> EXTI15_10_IRQn<span class="p">;</span> //外部中断线
+
+NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority <span class="o">=</span> <span class="m">0</span><span class="p">;</span> //设置抢占优先级
+
+NVIC_InitStructure.NVIC_IRQChannelSubPriority <span class="o">=</span> <span class="m">0</span><span class="p">;</span> //设置子优先级
+
+NVIC_InitStructure.NVIC_IRQChannelCmd <span class="o">=</span> ENABLE<span class="p">;</span> //使能 IRQ 中断
+
+NVIC_Init<span class="o">(</span><span class="p">&amp;</span>NVIC_InitStructure<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.写中断服务程序</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span></span>void EXTI15_10_IRQHandler<span class="o">(</span>void<span class="o">)</span>
+
+<span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">(</span>EXTI_GetITStatus<span class="o">(</span>EXTI_Line11<span class="o">)</span> !<span class="o">=</span> RESET<span class="o">)</span>
+
+        <span class="o">{</span>
+
+                EXTI_ClearITPendingBit<span class="o">(</span>EXTI_Line11<span class="o">)</span><span class="p">;</span> //清除标志
+
+                ...
+
+        <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">通用中断式按键输入-按钮点亮LED</a><ul>
+<li><a class="reference internal" href="#id1">配置流程</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/中断按键输入.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 伍长柏.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/中断按键输入.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
