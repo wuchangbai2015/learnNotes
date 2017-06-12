@@ -1,0 +1,2511 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR-GCC与AVR单片机C语言开发</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-gccavrc">
+<h1 class="title">AVR-GCC与AVR单片机C语言开发</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">吴双力 等编著</td>
+</tr>
+<tr class="field"><th class="docinfo-name">出版社:</th><td class="field-body">北京：北京航空航天大学出版社，2004.10</td>
+</tr>
+<tr class="field"><th class="docinfo-name">书号:</th><td class="field-body">ISBN 7-81077-513-8</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2008-09-02</td>
+</tr>
+</tbody>
+</table>
+<p>I.A...  II.吴...  III.单片微型计算机-程序设计;C语言-程序设计  IV.TP368.1;TP312</p>
+<p>中国版本图书馆CIP数据核字(2004)第098582号</p>
+<p>开本：787x1092  1/16  印张：17  字数：435千字</p>
+<p>2004年10月第1版  2004年10月第1次印刷  印数：5000册</p>
+<p>定价：28.00元(1CD)</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#avr" id="id145">1&nbsp;&nbsp;&nbsp;AVR基础知识</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id2" id="id146">1.1&nbsp;&nbsp;&nbsp;AVR各系列单片机简介</a></li>
+<li><a class="reference internal" href="#avrc" id="id147">1.2&nbsp;&nbsp;&nbsp;AVR单片机对C语言的优化</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id3" id="id148">1.2.1&nbsp;&nbsp;&nbsp;寻址方式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id149">1.2.1.1&nbsp;&nbsp;&nbsp;带位移间接寻址方式</a></li>
+<li><a class="reference internal" href="#id5" id="id150">1.2.1.2&nbsp;&nbsp;&nbsp;存储器指针的数目</a></li>
+<li><a class="reference internal" href="#id6" id="id151">1.2.1.3&nbsp;&nbsp;&nbsp;直接寻址</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id152">1.2.2&nbsp;&nbsp;&nbsp;零标志位的产生</a></li>
+<li><a class="reference internal" href="#id8" id="id153">1.2.3&nbsp;&nbsp;&nbsp;算术运算的调整</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id154">1.3&nbsp;&nbsp;&nbsp;选择合适的AVR单片机</a></li>
+<li><a class="reference internal" href="#id10" id="id155">1.4&nbsp;&nbsp;&nbsp;选择合适的编程语言</a></li>
+<li><a class="reference internal" href="#id11" id="id156">1.5&nbsp;&nbsp;&nbsp;AVR单片机C语言编译器简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#codevision-avr" id="id157">1.5.1&nbsp;&nbsp;&nbsp;Codevision AVR</a></li>
+<li><a class="reference internal" href="#imagecraft-c-compiler" id="id158">1.5.2&nbsp;&nbsp;&nbsp;Imagecraft C Compiler</a></li>
+<li><a class="reference internal" href="#avr-gcc" id="id159">1.5.3&nbsp;&nbsp;&nbsp;AVR-GCC</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12" id="id160">1.6&nbsp;&nbsp;&nbsp;学习的过程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id13" id="id161">1.6.1&nbsp;&nbsp;&nbsp;开始前的准备</a></li>
+<li><a class="reference internal" href="#id14" id="id162">1.6.2&nbsp;&nbsp;&nbsp;各种有助于学习的资源</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id163">2&nbsp;&nbsp;&nbsp;AVR-GCC编译器及相关开发工具</a><ul class="auto-toc">
+<li><a class="reference internal" href="#winavr" id="id164">2.1&nbsp;&nbsp;&nbsp;WinAVR简介与安装</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id16" id="id165">2.1.1&nbsp;&nbsp;&nbsp;WinAVR简介</a></li>
+<li><a class="reference internal" href="#id17" id="id166">2.1.2&nbsp;&nbsp;&nbsp;WinAVR的安装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pn" id="id167">2.2&nbsp;&nbsp;&nbsp;编辑工具PN简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id18" id="id168">2.2.1&nbsp;&nbsp;&nbsp;PN简介</a></li>
+<li><a class="reference internal" href="#pnc" id="id169">2.2.2&nbsp;&nbsp;&nbsp;用PN建立一个C文件</a></li>
+<li><a class="reference internal" href="#id19" id="id170">2.2.3&nbsp;&nbsp;&nbsp;在PN中编译源文件</a></li>
+<li><a class="reference internal" href="#id20" id="id171">2.2.4&nbsp;&nbsp;&nbsp;在PN中添加工具</a></li>
+<li><a class="reference internal" href="#id21" id="id172">2.2.5&nbsp;&nbsp;&nbsp;在PN中新建一个工程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id22" id="id173">2.3&nbsp;&nbsp;&nbsp;编译器AVR-GCC</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id23" id="id174">2.3.1&nbsp;&nbsp;&nbsp;AVR-GCC简介</a></li>
+<li><a class="reference internal" href="#id24" id="id175">2.3.2&nbsp;&nbsp;&nbsp;AVR-GCC的编译过程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#makemakefile" id="id176">2.4&nbsp;&nbsp;&nbsp;Make及Makefile的结构分析</a><ul class="auto-toc">
+<li><a class="reference internal" href="#make" id="id177">2.4.1&nbsp;&nbsp;&nbsp;Make工具简介</a></li>
+<li><a class="reference internal" href="#makefile" id="id178">2.4.2&nbsp;&nbsp;&nbsp;Makefile</a></li>
+<li><a class="reference internal" href="#pnmake" id="id179">2.4.3&nbsp;&nbsp;&nbsp;PN中添加Make工具</a></li>
+<li><a class="reference internal" href="#id25" id="id180">2.4.4&nbsp;&nbsp;&nbsp;Makefile样例结构分析</a></li>
+<li><a class="reference internal" href="#makefile-mfile" id="id181">2.4.5&nbsp;&nbsp;&nbsp;自动生成Makefile的工具-mfile</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26" id="id182">2.5&nbsp;&nbsp;&nbsp;AVR单片机仿真调试软件</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id27" id="id183">2.5.1&nbsp;&nbsp;&nbsp;各种仿真调试软件的简介和对比</a></li>
+<li><a class="reference internal" href="#avr-studio-4" id="id184">2.5.2&nbsp;&nbsp;&nbsp;使用AVR Studio 4进行代码级仿真</a></li>
+<li><a class="reference internal" href="#vmlab" id="id185">2.5.3&nbsp;&nbsp;&nbsp;VMLAB的使用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id28" id="id186">2.5.3.1&nbsp;&nbsp;&nbsp;VMLAB得到特点</a></li>
+<li><a class="reference internal" href="#id29" id="id187">2.5.3.2&nbsp;&nbsp;&nbsp;VMLAB的下载和安装</a></li>
+<li><a class="reference internal" href="#vmlabavr" id="id188">2.5.3.3&nbsp;&nbsp;&nbsp;VMLAB支持的AVR单片机</a></li>
+<li><a class="reference internal" href="#vmlabavr-studio" id="id189">2.5.3.4&nbsp;&nbsp;&nbsp;VMLAB与AVR Studio的对比</a></li>
+<li><a class="reference internal" href="#id30" id="id190">2.5.3.5&nbsp;&nbsp;&nbsp;在VMLAB中进行硬件/软件协同仿真</a></li>
+<li><a class="reference internal" href="#id31" id="id191">2.5.3.6&nbsp;&nbsp;&nbsp;VMLAB中的基本硬件库</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdb-avr-insight-simulavr" id="id192">2.5.4&nbsp;&nbsp;&nbsp;GDB(AVR-Insight)配合Simulavr的配合仿真方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ponyprog2000" id="id193">2.6&nbsp;&nbsp;&nbsp;PonyProg2000</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id32" id="id194">2.6.1&nbsp;&nbsp;&nbsp;PonyProg2000安装和使用方法</a></li>
+<li><a class="reference internal" href="#pnponyprog2000" id="id195">2.6.2&nbsp;&nbsp;&nbsp;如何利用PN和PonyProg2000配合下载</a></li>
+<li><a class="reference internal" href="#id33" id="id196">2.6.3&nbsp;&nbsp;&nbsp;PonyProg2000的脚本文件</a></li>
+<li><a class="reference internal" href="#id34" id="id197">2.6.4&nbsp;&nbsp;&nbsp;简易下载线制作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id35" id="id198">3&nbsp;&nbsp;&nbsp;AVR单片机C语言开发入门</a><ul class="auto-toc">
+<li><a class="reference internal" href="#gnu-c" id="id199">3.1&nbsp;&nbsp;&nbsp;GNU C基本语法介绍</a><ul class="auto-toc">
+<li><a class="reference internal" href="#c" id="id200">3.1.1&nbsp;&nbsp;&nbsp;C语言的基本结构</a></li>
+<li><a class="reference internal" href="#id36" id="id201">3.1.2&nbsp;&nbsp;&nbsp;C语言的基本字符、标识符和关键字</a></li>
+<li><a class="reference internal" href="#id37" id="id202">3.1.3&nbsp;&nbsp;&nbsp;数据类型</a></li>
+<li><a class="reference internal" href="#id38" id="id203">3.1.4&nbsp;&nbsp;&nbsp;变量、运算符和表达式</a></li>
+<li><a class="reference internal" href="#id39" id="id204">3.1.5&nbsp;&nbsp;&nbsp;条件转移和循环控制</a></li>
+<li><a class="reference internal" href="#id40" id="id205">3.1.6&nbsp;&nbsp;&nbsp;数组</a></li>
+<li><a class="reference internal" href="#id41" id="id206">3.1.7&nbsp;&nbsp;&nbsp;函数</a></li>
+<li><a class="reference internal" href="#id42" id="id207">3.1.8&nbsp;&nbsp;&nbsp;指针</a></li>
+<li><a class="reference internal" href="#id43" id="id208">3.1.9&nbsp;&nbsp;&nbsp;结构和共同体</a></li>
+<li><a class="reference internal" href="#id44" id="id209">3.1.10&nbsp;&nbsp;&nbsp;预处理</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avr-libci-o" id="id210">3.2&nbsp;&nbsp;&nbsp;avr-libc与器件相关的I/O定义</a></li>
+<li><a class="reference internal" href="#id45" id="id211">3.3&nbsp;&nbsp;&nbsp;avr-libc标准I/O工具</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id46" id="id212">3.3.1&nbsp;&nbsp;&nbsp;常量定义</a></li>
+<li><a class="reference internal" href="#id47" id="id213">3.3.2&nbsp;&nbsp;&nbsp;函数声明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avr-libc" id="id214">3.4&nbsp;&nbsp;&nbsp;avr-libc的常用工具</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id48" id="id215">3.4.1&nbsp;&nbsp;&nbsp;数据结构</a></li>
+<li><a class="reference internal" href="#id49" id="id216">3.4.2&nbsp;&nbsp;&nbsp;常量定义</a></li>
+<li><a class="reference internal" href="#id50" id="id217">3.4.3&nbsp;&nbsp;&nbsp;函数定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id51" id="id218">3.5&nbsp;&nbsp;&nbsp;字符串操作函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id52" id="id219">3.5.1&nbsp;&nbsp;&nbsp;字符分类函数</a></li>
+<li><a class="reference internal" href="#id53" id="id220">3.5.2&nbsp;&nbsp;&nbsp;字符转换函数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id54" id="id221">3.6&nbsp;&nbsp;&nbsp;标准字符串和程序空间中的字符串</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id55" id="id222">3.6.1&nbsp;&nbsp;&nbsp;标准字符串操作函数</a></li>
+<li><a class="reference internal" href="#rom" id="id223">3.6.2&nbsp;&nbsp;&nbsp;对存储于ROM中的字符串进行操作</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id56" id="id224">3.7&nbsp;&nbsp;&nbsp;引导加载程序函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#bootloader" id="id225">3.7.1&nbsp;&nbsp;&nbsp;BootLoader简介</a></li>
+<li><a class="reference internal" href="#id57" id="id226">3.7.2&nbsp;&nbsp;&nbsp;BootLoader函数定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#eeprom" id="id227">3.8&nbsp;&nbsp;&nbsp;EEPROM操作函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id58" id="id228">3.8.1&nbsp;&nbsp;&nbsp;EEPROM简介</a></li>
+<li><a class="reference internal" href="#id59" id="id229">3.8.2&nbsp;&nbsp;&nbsp;函数声明</a></li>
+<li><a class="reference internal" href="#id60" id="id230">3.8.3&nbsp;&nbsp;&nbsp;向后兼容的定义</a></li>
+<li><a class="reference internal" href="#iar-c" id="id231">3.8.4&nbsp;&nbsp;&nbsp;与IAR C兼容的定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id61" id="id232">3.9&nbsp;&nbsp;&nbsp;电源管理函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id62" id="id233">3.9.1&nbsp;&nbsp;&nbsp;休眠模式定义</a></li>
+<li><a class="reference internal" href="#id63" id="id234">3.9.2&nbsp;&nbsp;&nbsp;支持休眠的函数</a></li>
+<li><a class="reference internal" href="#id64" id="id235">3.9.3&nbsp;&nbsp;&nbsp;降低电源的消耗</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id65" id="id236">3.10&nbsp;&nbsp;&nbsp;看门狗操作</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id66" id="id237">3.10.1&nbsp;&nbsp;&nbsp;看门狗操作简介</a></li>
+<li><a class="reference internal" href="#id67" id="id238">3.10.2&nbsp;&nbsp;&nbsp;常量定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id68" id="id239">3.11&nbsp;&nbsp;&nbsp;系统错误处理</a></li>
+<li><a class="reference internal" href="#id69" id="id240">3.12&nbsp;&nbsp;&nbsp;绝对跳转指令</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id70" id="id241">3.12.1&nbsp;&nbsp;&nbsp;绝对跳转简介</a></li>
+<li><a class="reference internal" href="#id71" id="id242">3.12.2&nbsp;&nbsp;&nbsp;函数定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id72" id="id243">3.13&nbsp;&nbsp;&nbsp;中断和信号处理函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id73" id="id244">3.13.1&nbsp;&nbsp;&nbsp;全局中断标志操作函数</a></li>
+<li><a class="reference internal" href="#id74" id="id245">3.13.2&nbsp;&nbsp;&nbsp;设置中断处理函数的宏</a></li>
+<li><a class="reference internal" href="#id75" id="id246">3.13.3&nbsp;&nbsp;&nbsp;允许某些全局的中断</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id76" id="id247">3.14&nbsp;&nbsp;&nbsp;算术运算函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id77" id="id248">3.14.1&nbsp;&nbsp;&nbsp;常量定义</a></li>
+<li><a class="reference internal" href="#id78" id="id249">3.14.2&nbsp;&nbsp;&nbsp;算术运算函数的定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id79" id="id250">3.15&nbsp;&nbsp;&nbsp;特殊功能寄存器的操作</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id80" id="id251">3.15.1&nbsp;&nbsp;&nbsp;特殊功能寄存器操作方式</a></li>
+<li><a class="reference internal" href="#i-o" id="id252">3.15.2&nbsp;&nbsp;&nbsp;I/O寄存器位操作指令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id81" id="id253">4&nbsp;&nbsp;&nbsp;AVR单片机典型外设编程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id82" id="id254">4.1&nbsp;&nbsp;&nbsp;计数器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id83" id="id255">4.1.1&nbsp;&nbsp;&nbsp;计数器事件</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id84" id="id256">4.1.1.1&nbsp;&nbsp;&nbsp;时钟溢出事件</a></li>
+<li><a class="reference internal" href="#id85" id="id257">4.1.1.2&nbsp;&nbsp;&nbsp;比较匹配事件</a></li>
+<li><a class="reference internal" href="#id86" id="id258">4.1.1.3&nbsp;&nbsp;&nbsp;输入捕捉事件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id87" id="id259">4.1.2&nbsp;&nbsp;&nbsp;计数器事件的处理</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id88" id="id260">4.1.2.1&nbsp;&nbsp;&nbsp;不停的查询状态标志、中断标志，然后执行相应代码</a></li>
+<li><a class="reference internal" href="#isr" id="id261">4.1.2.2&nbsp;&nbsp;&nbsp;中断程序流程，执行中断服务程序(ISR)</a></li>
+<li><a class="reference internal" href="#id89" id="id262">4.1.2.3&nbsp;&nbsp;&nbsp;自动改变输出电平</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id90" id="id263">4.1.3&nbsp;&nbsp;&nbsp;计数器的时钟选择</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id91" id="id264">4.1.3.1&nbsp;&nbsp;&nbsp;使用系统时钟</a></li>
+<li><a class="reference internal" href="#id92" id="id265">4.1.3.2&nbsp;&nbsp;&nbsp;使用异步时钟</a></li>
+<li><a class="reference internal" href="#id93" id="id266">4.1.3.3&nbsp;&nbsp;&nbsp;使用外部时钟</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id94" id="id267">4.1.4&nbsp;&nbsp;&nbsp;计数器的设置和使用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#timer1" id="id268">4.1.4.1&nbsp;&nbsp;&nbsp;使用Timer1的输入捕捉中断</a></li>
+<li><a class="reference internal" href="#timer2" id="id269">4.1.4.2&nbsp;&nbsp;&nbsp;使用Timer2的输出比较中断</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pwm" id="id270">4.1.5&nbsp;&nbsp;&nbsp;使用计数器的PWM输出</a></li>
+<li><a class="reference internal" href="#pwmdac" id="id271">4.1.6&nbsp;&nbsp;&nbsp;PWM输出实现两路DAC变换</a></li>
+<li><a class="reference internal" href="#id95" id="id272">4.1.7&nbsp;&nbsp;&nbsp;PWM输出实现正弦波输出</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-d" id="id273">4.2&nbsp;&nbsp;&nbsp;A/D转换器</a></li>
+<li><a class="reference internal" href="#uart" id="id274">4.3&nbsp;&nbsp;&nbsp;通用串行接口UART</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id96" id="id275">4.3.1&nbsp;&nbsp;&nbsp;传输模式的选择</a></li>
+<li><a class="reference internal" href="#id97" id="id276">4.3.2&nbsp;&nbsp;&nbsp;波特率的设置</a></li>
+<li><a class="reference internal" href="#id98" id="id277">4.3.3&nbsp;&nbsp;&nbsp;传输帧格式的设置</a></li>
+<li><a class="reference internal" href="#usart" id="id278">4.3.4&nbsp;&nbsp;&nbsp;USART的初始化</a></li>
+<li><a class="reference internal" href="#id99" id="id279">4.3.5&nbsp;&nbsp;&nbsp;发送和接收的处理方法</a></li>
+<li><a class="reference internal" href="#id100" id="id280">4.3.6&nbsp;&nbsp;&nbsp;使用实例</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spispieeprom" id="id281">4.4&nbsp;&nbsp;&nbsp;SPI接口和使用SPI接口的EEPROM</a><ul class="auto-toc">
+<li><a class="reference internal" href="#spi" id="id282">4.4.1&nbsp;&nbsp;&nbsp;SPI接口介绍</a></li>
+<li><a class="reference internal" href="#id101" id="id283">4.4.2&nbsp;&nbsp;&nbsp;SPI的传输原理</a></li>
+<li><a class="reference internal" href="#id102" id="id284">4.4.3&nbsp;&nbsp;&nbsp;SPI器件的主/从模式和设置</a></li>
+<li><a class="reference internal" href="#id103" id="id285">4.4.4&nbsp;&nbsp;&nbsp;SPI的传输模式和设置</a></li>
+<li><a class="reference internal" href="#spi-i-o" id="id286">4.4.5&nbsp;&nbsp;&nbsp;SPI主/从模式和I/O的设置</a></li>
+<li><a class="reference internal" href="#id104" id="id287">4.4.6&nbsp;&nbsp;&nbsp;SPI接口的时钟频率设置</a></li>
+<li><a class="reference internal" href="#id105" id="id288">4.4.7&nbsp;&nbsp;&nbsp;SPI接口与中断</a></li>
+<li><a class="reference internal" href="#id106" id="id289">4.4.8&nbsp;&nbsp;&nbsp;SPI接口的状态</a></li>
+<li><a class="reference internal" href="#id107" id="id290">4.4.9&nbsp;&nbsp;&nbsp;SPI传输的位顺序</a></li>
+<li><a class="reference internal" href="#id108" id="id291">4.4.10&nbsp;&nbsp;&nbsp;SPI接口基本发送和接收程序</a></li>
+<li><a class="reference internal" href="#spieeprom" id="id292">4.4.11&nbsp;&nbsp;&nbsp;使用SPI接口的EEPROM</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id109" id="id293">4.5&nbsp;&nbsp;&nbsp;I/O和中断的使用</a></li>
+<li><a class="reference internal" href="#twi" id="id294">4.6&nbsp;&nbsp;&nbsp;TWI接口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#i2c" id="id295">4.6.1&nbsp;&nbsp;&nbsp;I2C总线的基本知识</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id110" id="id296">4.6.1.1&nbsp;&nbsp;&nbsp;在I2C总线信号</a></li>
+<li><a class="reference internal" href="#id111" id="id297">4.6.1.2&nbsp;&nbsp;&nbsp;主器件和从器件</a></li>
+<li><a class="reference internal" href="#id112" id="id298">4.6.1.3&nbsp;&nbsp;&nbsp;I2C的寻址过程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avrtwi" id="id299">4.6.2&nbsp;&nbsp;&nbsp;AVR单片机的TWI接口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#sclsda" id="id300">4.6.2.1&nbsp;&nbsp;&nbsp;SCL和SDA引脚</a></li>
+<li><a class="reference internal" href="#id113" id="id301">4.6.2.2&nbsp;&nbsp;&nbsp;波特率设置</a></li>
+<li><a class="reference internal" href="#id114" id="id302">4.6.2.3&nbsp;&nbsp;&nbsp;单片机的从设备地址</a></li>
+<li><a class="reference internal" href="#id115" id="id303">4.6.2.4&nbsp;&nbsp;&nbsp;TWI接口相关中断</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id116" id="id304">4.6.3&nbsp;&nbsp;&nbsp;AVR单片机TWI接口的使用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id117" id="id305">4.6.3.1&nbsp;&nbsp;&nbsp;发送开始信号</a></li>
+<li><a class="reference internal" href="#id118" id="id306">4.6.3.2&nbsp;&nbsp;&nbsp;发送停止信号</a></li>
+<li><a class="reference internal" href="#id119" id="id307">4.6.3.3&nbsp;&nbsp;&nbsp;发送数据</a></li>
+<li><a class="reference internal" href="#id120" id="id308">4.6.3.4&nbsp;&nbsp;&nbsp;检查传输状态</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avrtwi-eeprom" id="id309">4.6.4&nbsp;&nbsp;&nbsp;用AVR单片机的TWI接口读/写EEPROM</a></li>
+<li><a class="reference internal" href="#id121" id="id310">4.6.5&nbsp;&nbsp;&nbsp;示例程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id122" id="id311">4.6.5.1&nbsp;&nbsp;&nbsp;从EEPROM中读取数据</a></li>
+<li><a class="reference internal" href="#id123" id="id312">4.6.5.2&nbsp;&nbsp;&nbsp;按页写多个字节到EEPROM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id124" id="id313">5&nbsp;&nbsp;&nbsp;用AVR单片机实现的测量仪表</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id125" id="id314">5.1&nbsp;&nbsp;&nbsp;总体设计思路</a></li>
+<li><a class="reference internal" href="#id126" id="id315">5.2&nbsp;&nbsp;&nbsp;传感器特性曲线拟合</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id127" id="id316">5.2.1&nbsp;&nbsp;&nbsp;采样数据的获得</a></li>
+<li><a class="reference internal" href="#id128" id="id317">5.2.2&nbsp;&nbsp;&nbsp;特性曲线拟合处理</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id129" id="id318">5.3&nbsp;&nbsp;&nbsp;单键开关电路</a></li>
+<li><a class="reference internal" href="#lcd" id="id319">5.4&nbsp;&nbsp;&nbsp;LCD显示模块</a></li>
+<li><a class="reference internal" href="#id130" id="id320">5.5&nbsp;&nbsp;&nbsp;自动量程选择算法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id131" id="id321">6&nbsp;&nbsp;&nbsp;用AVR单片机实现的测量仪表</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id132" id="id322">6.1&nbsp;&nbsp;&nbsp;总体设计思路</a></li>
+<li><a class="reference internal" href="#id133" id="id323">6.2&nbsp;&nbsp;&nbsp;传感器特性曲线拟合</a></li>
+<li><a class="reference internal" href="#id134" id="id324">6.3&nbsp;&nbsp;&nbsp;电池电量检测</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avrxrtos" id="id325">7&nbsp;&nbsp;&nbsp;AVRX实时操作系统RTOS</a><ul class="auto-toc">
+<li><a class="reference internal" href="#rtos" id="id326">7.1&nbsp;&nbsp;&nbsp;RTOS的功能</a></li>
+<li><a class="reference internal" href="#avrx" id="id327">7.2&nbsp;&nbsp;&nbsp;AVRX简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id135" id="id328">7.2.1&nbsp;&nbsp;&nbsp;任务</a></li>
+<li><a class="reference internal" href="#id136" id="id329">7.2.2&nbsp;&nbsp;&nbsp;信号量</a></li>
+<li><a class="reference internal" href="#id137" id="id330">7.2.3&nbsp;&nbsp;&nbsp;定时器</a></li>
+<li><a class="reference internal" href="#id138" id="id331">7.2.4&nbsp;&nbsp;&nbsp;消息队列</a></li>
+<li><a class="reference internal" href="#id139" id="id332">7.2.5&nbsp;&nbsp;&nbsp;单步运行支持</a></li>
+<li><a class="reference internal" href="#id140" id="id333">7.2.6&nbsp;&nbsp;&nbsp;系统对象</a></li>
+<li><a class="reference internal" href="#id141" id="id334">7.2.7&nbsp;&nbsp;&nbsp;系统堆栈</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id142" id="id335">7.3&nbsp;&nbsp;&nbsp;AVRX下的编程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avr-jtagavr" id="id336">8&nbsp;&nbsp;&nbsp;AVR-JTAG与AVR单片机仿真技术</a><ul class="auto-toc">
+<li><a class="reference internal" href="#jtag" id="id337">8.1&nbsp;&nbsp;&nbsp;JTAG简介</a></li>
+<li><a class="reference internal" href="#jtagice" id="id338">8.2&nbsp;&nbsp;&nbsp;制作简易的JTAGICE</a></li>
+<li><a class="reference internal" href="#jtagiceavr" id="id339">8.3&nbsp;&nbsp;&nbsp;用JTAGICE调试AVR单片机</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id143" id="id340">8.3.1&nbsp;&nbsp;&nbsp;JTAGICE的调试接口</a></li>
+<li><a class="reference internal" href="#id144" id="id341">8.3.2&nbsp;&nbsp;&nbsp;JTAGICE与用户板的连接</a></li>
+<li><a class="reference internal" href="#avr-studiojtagice" id="id342">8.3.3&nbsp;&nbsp;&nbsp;在AVR Studio中使用JTAGICE调试程序</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-avr-gccunix" id="id343">9&nbsp;&nbsp;&nbsp;附录A AVR-GCC和Unix类操作系统</a></li>
+</ul>
+</div>
+<div class="section" id="avr">
+<h1><a class="toc-backref" href="#id145">1&nbsp;&nbsp;&nbsp;AVR基础知识</a></h1>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id146">1.1&nbsp;&nbsp;&nbsp;AVR各系列单片机简介</a></h2>
+<p>AVR单片机是ATMEL公司于1997年退出的RISC单片机系列。</p>
+<p>主要有Tiny AVR、Mega AVR、LCD AVR、USB AVR、DVD AVR、RF AVR、Secure AVR、FPGA AVR等类别。虽然型号繁多不过具有相同的存储结构和指令集，代码移植方便。去除外围设备来说都剩下一个AVR核。</p>
+<p>AVR核包括32x8位通用寄存器，AVR核可以把任意两个寄存器送到ALU(算术逻辑单元)，可以避免累加器瓶颈。AVR使用Harvard(哈佛)结构-数据存储空间和程序存储空间是分开的。</p>
+</div>
+<div class="section" id="avrc">
+<h2><a class="toc-backref" href="#id147">1.2&nbsp;&nbsp;&nbsp;AVR单片机对C语言的优化</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id148">1.2.1&nbsp;&nbsp;&nbsp;寻址方式</a></h3>
+<div class="section" id="id4">
+<h4><a class="toc-backref" href="#id149">1.2.1.1&nbsp;&nbsp;&nbsp;带位移间接寻址方式</a></h4>
+<p>通过把指针指向结构体的第一个元素，就可以访问到结构体中的任何一个元素，而不改变16位指针的值。函数的参数和autos常常放在软件堆栈中，以便不修改指针的情况下读写他们。为此AVR专门扩展了带位移间接寻址的范围(从初识的16个位置到了64个位置)。</p>
+</div>
+<div class="section" id="id5">
+<h4><a class="toc-backref" href="#id150">1.2.1.2&nbsp;&nbsp;&nbsp;存储器指针的数目</a></h4>
+<p>AVR有3个16位存储器指针，一个固定用于指向软件堆栈的，另外两个方便拷贝数据。下面是用于把数据从一个区域拷贝到另一个区域的汇编代码:</p>
+<pre class="literal-block">
+Start:
+        LDI     R16,0x60            ;写入字节数
+Loop:   LD      R17,Z+              ;写入字节，增加指针
+        ST      X+,R17              ;保存字节，增加指针
+        SUBI    R16,1               ;字节数减1
+</pre>
+<p>这个循环里省去了一个指针的麻烦，每个指针只作用于一个区域，无需来回更改。</p>
+</div>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id151">1.2.1.3&nbsp;&nbsp;&nbsp;直接寻址</a></h4>
+<p>允许直接按照地址存取，专设的16位地址指令可以存取64KB空间，访问大容量存储器时这个指令占用两个16位字。访问少字节时有效；对于大存储区域还是间接寻址有效。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id152">1.2.2&nbsp;&nbsp;&nbsp;零标志位的产生</a></h3>
+<p>用于实现条件跳转，双方都是8bit数时没问题，但是对于C语言中更多16bit/32bit的整数对比就有些问题了。AVR在内部提供了更宽位数减法的支持。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id153">1.2.3&nbsp;&nbsp;&nbsp;算术运算的调整</a></h3>
+<p>提供了更多位数的加法支持，与常数的比较支持和非破坏比较。</p>
+<p>编译后代码长度比较，DES算法，从小到大:</p>
+<pre class="literal-block">
+Thumb &lt; H8/500 &lt; AVR &lt; 68HC11 &lt; Z80 &lt; ARM7 &lt; H8/300H &lt; 80C51 &lt; H8/300
+</pre>
+<p>Reed-Solomon编码/解码的代码长度比较:</p>
+<pre class="literal-block">
+Thumb &lt; H8/500 &lt; ARM7 &lt; AVR &lt; 68HC11 &lt; H8/300H &lt; Z80 &lt; 80C51 &lt; H8/300
+</pre>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id154">1.3&nbsp;&nbsp;&nbsp;选择合适的AVR单片机</a></h2>
+<p>选择时可以考虑的问题：</p>
+<ol class="arabic simple">
+<li>I/O个数</li>
+<li>程序空间的大小，浮点数支持往往需要大约4KB的代码空间</li>
+<li>RAM的大小，AVR的内存已经比一般单片机大了，但是仍然要考虑应用</li>
+<li>EEPROM的大小，掉电保存数据用</li>
+<li>外围设备，如A/D、通信接口(SPI/USART)、PWM输出、实时时钟(RTC)等等</li>
+</ol>
+<p>Page 7给出了一个AVR选型表。</p>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id155">1.4&nbsp;&nbsp;&nbsp;选择合适的编程语言</a></h2>
+<p>主要就是C和汇编。汇编代码效率高，但是开发比较难，尤其是TCP/IP协议栈就不靠谱了。实在需要时可以在C中内嵌汇编，还有就是AVR对C做了很多优化。所以推荐用C开发。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id156">1.5&nbsp;&nbsp;&nbsp;AVR单片机C语言编译器简介</a></h2>
+<div class="section" id="codevision-avr">
+<h3><a class="toc-backref" href="#id157">1.5.1&nbsp;&nbsp;&nbsp;Codevision AVR</a></h3>
+<p>有支持所有型号的完整版，也有只支持AT90S的简单版。支持ATtiny系列，其内部没有SRAM。有限制代码长度的评估版可免费下载。提供外部器件库。编译以后通过ISP下载，还可以设置编译后自动下载。</p>
+</div>
+<div class="section" id="imagecraft-c-compiler">
+<h3><a class="toc-backref" href="#id158">1.5.2&nbsp;&nbsp;&nbsp;Imagecraft C Compiler</a></h3>
+<p>简称ICC，是完整的IDE。专业版有代码压缩功能。对于没有内存的ATtiny有专门的ICC-Tiny版本。有30天试用版。</p>
+</div>
+<div class="section" id="avr-gcc">
+<h3><a class="toc-backref" href="#id159">1.5.3&nbsp;&nbsp;&nbsp;AVR-GCC</a></h3>
+<p>是GCC在AVR平台的移植，可以运行在多种操作系统下。使用Makefile进行管理。</p>
+<p>还有个IAR C编译器，是与AVR核协同开发的，不过价格昂贵。</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id160">1.6&nbsp;&nbsp;&nbsp;学习的过程</a></h2>
+<p>读数据手册或者改别人的代码。</p>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id161">1.6.1&nbsp;&nbsp;&nbsp;开始前的准备</a></h3>
+<p>电脑一台，要有并口。实验板一个，下载线一个。</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id162">1.6.2&nbsp;&nbsp;&nbsp;各种有助于学习的资源</a></h3>
+<p>www.avrfreaks.net</p>
+<blockquote>
+可以下载工具，这也是全世界avr-gcc用户的交流平台。</blockquote>
+<p>www.atmel.com</p>
+<blockquote>
+atmel公司</blockquote>
+<p><a class="reference external" href="http://www.stanford.edu/class/ee281/lectures.html">http://www.stanford.edu/class/ee281/lectures.html</a></p>
+<blockquote>
+斯坦福大学的课程网站</blockquote>
+<p><a class="reference external" href="http://instructl.cit.cornell.edu/courses/ee476/">http://instructl.cit.cornell.edu/courses/ee476/</a></p>
+<blockquote>
+康奈尔大学课程网站</blockquote>
+<p>www.21ic.com</p>
+<blockquote>
+国内比较大的电子讨论社区</blockquote>
+<p>www.foravr.net</p>
+<blockquote>
+笔者建立的网站</blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h1><a class="toc-backref" href="#id163">2&nbsp;&nbsp;&nbsp;AVR-GCC编译器及相关开发工具</a></h1>
+<p>分为如下几个步骤：</p>
+<ol class="arabic simple">
+<li>前期工作：应用分析，查找器件手册，确定器件和开发环境</li>
+<li>程序设计：将具体应用转化为C代码</li>
+<li>程序编译：将C代码生成机器码文件</li>
+<li>仿真调试：分为芯片级仿真和代码级仿真</li>
+<li>调试成功：成功</li>
+</ol>
+<p>本章主要围绕程序编译和仿真调试。</p>
+<div class="section" id="winavr">
+<h2><a class="toc-backref" href="#id164">2.1&nbsp;&nbsp;&nbsp;WinAVR简介与安装</a></h2>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id165">2.1.1&nbsp;&nbsp;&nbsp;WinAVR简介</a></h3>
+<p>AVR-GCC的Windows移植版。本书使用的是WinAVR-20040404。下载地址为 <a class="reference external" href="http://sourceforge.net/projects/winavr">http://sourceforge.net/projects/winavr</a> 。</p>
+</div>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id166">2.1.2&nbsp;&nbsp;&nbsp;WinAVR的安装</a></h3>
+<p>一路NEXT就是了。</p>
+<p>相关工具介绍见Page 18。</p>
+<p>WinAVR安装完成后在 <tt class="docutils literal"><span class="pre">C:\\WinAVR</span></tt> 目录，通过path命令看到已经自动加入可执行文件路径了。</p>
+</div>
+</div>
+<div class="section" id="pn">
+<h2><a class="toc-backref" href="#id167">2.2&nbsp;&nbsp;&nbsp;编辑工具PN简介</a></h2>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id168">2.2.1&nbsp;&nbsp;&nbsp;PN简介</a></h3>
+<p>Programmer's Notepad是免费开源编辑器。随WinAVR一起发行。</p>
+</div>
+<div class="section" id="pnc">
+<h3><a class="toc-backref" href="#id169">2.2.2&nbsp;&nbsp;&nbsp;用PN建立一个C文件</a></h3>
+<p>File =&gt; New =&gt; C/C++。</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id170">2.2.3&nbsp;&nbsp;&nbsp;在PN中编译源文件</a></h3>
+<p>在 <tt class="docutils literal"><span class="pre">C:\\WinAVR\\sample</span></tt> 目录下有Makefile的样例。其中需要修改的:</p>
+<pre class="literal-block">
+MCU=atmega8         #单片机类型
+TARGET=myprog       #源文件前缀
+</pre>
+<p>在Tools目录有构建相关的菜单项。</p>
+</div>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id171">2.2.4&nbsp;&nbsp;&nbsp;在PN中添加工具</a></h3>
+<p>定制PN的一些快捷键，不感兴趣page23。</p>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id172">2.2.5&nbsp;&nbsp;&nbsp;在PN中新建一个工程</a></h3>
+<p>新建PN的工程，不感兴趣page25。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id173">2.3&nbsp;&nbsp;&nbsp;编译器AVR-GCC</a></h2>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id174">2.3.1&nbsp;&nbsp;&nbsp;AVR-GCC简介</a></h3>
+<p>AVR-GCC本身不能生成用于仿真调试的cof文件和单片机下载编程时用的hex文件，需要用 <strong>avr-objcopy</strong> 来实现。</p>
+<p>除了少数几种没偶遇SRAM的Tiny系列单片机外，目前发布的AVR-GCC支持大多数带有AVR内核的器件。相关支持信息见 <a class="reference external" href="http://www.avrfreaks.net/AVRGCC/index.php">http://www.avrfreaks.net/AVRGCC/index.php</a> 。</p>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id175">2.3.2&nbsp;&nbsp;&nbsp;AVR-GCC的编译过程</a></h3>
+<p>命令行编译:</p>
+<pre class="literal-block">
+avr-gcc -g -Os -mmcu=atmega8 -c myprog.c
+</pre>
+<p>这条命令生成 <tt class="docutils literal">myprog.o</tt> 文件。-g表示加入调试信息。-mmcu=atmega8表明使用的单片机型号，-Os表示优化级别为s，可选有0、1、2、3、s。-c表示只编译不连接。</p>
+<p>连接的命令:</p>
+<pre class="literal-block">
+avr-gcc -g -mmcu=atmega8 -o myprog.elf myprog.o
+</pre>
+<p>此时生成 <tt class="docutils literal">myprog.elf</tt> 。这里还要声明一次单片机型号，否则默认为AT90S8515。</p>
+<p>得到可以下载的hex文件需要执行:</p>
+<pre class="literal-block">
+avr-objcopy -j .text -j .data -O ihex myprog.elf myprog.hex
+</pre>
+<p>若要得到可供仿真调试的cof文件，执行:</p>
+<pre class="literal-block">
+avr-objcopy -O coff-ext-avr myprog.elf myprog.cof
+</pre>
+</div>
+</div>
+<div class="section" id="makemakefile">
+<h2><a class="toc-backref" href="#id176">2.4&nbsp;&nbsp;&nbsp;Make及Makefile的结构分析</a></h2>
+<div class="section" id="make">
+<h3><a class="toc-backref" href="#id177">2.4.1&nbsp;&nbsp;&nbsp;Make工具简介</a></h3>
+<p>make很有用……</p>
+</div>
+<div class="section" id="makefile">
+<h3><a class="toc-backref" href="#id178">2.4.2&nbsp;&nbsp;&nbsp;Makefile</a></h3>
+<p>描述各个文件之间的依赖关系和生成方法。默认可选的有GNUmakefile、makefile或Makefile。如果在make时希望指定特定的Makefile则可以用-f参数加文件名。</p>
+</div>
+<div class="section" id="pnmake">
+<h3><a class="toc-backref" href="#id179">2.4.3&nbsp;&nbsp;&nbsp;PN中添加Make工具</a></h3>
+<p>不感兴趣，page 29</p>
+</div>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id180">2.4.4&nbsp;&nbsp;&nbsp;Makefile样例结构分析</a></h3>
+<p>打开copy过来的Makefile打开研究。前面主要是注释、使用方法、选项。可用选项如下：</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal">make all</tt> ：编译源文件，一直到输出。</li>
+<li><tt class="docutils literal">make clean</tt> ：清除所有编译过程的中间文件。</li>
+<li><tt class="docutils literal">make coff</tt> ：将elf格式的文件转化为AVR COFF格式的文件，用于AVR Studio 3.x和VMLAB的仿真调试。</li>
+<li><tt class="docutils literal">make extcoff</tt> ：基本同上，只不过文件格式用于 AVR Studio 4.07以上版本使用。</li>
+<li><tt class="docutils literal">make program</tt> ：用avrdude工具将hex文件下载到单片机的Flash中，注意初始化。</li>
+</ol>
+<p>设置MCU器件:</p>
+<pre class="literal-block">
+MCU=atmega8
+</pre>
+<p>输出格式，可选的有binary、srec、ihex:</p>
+<pre class="literal-block">
+FORMAT=ihex
+</pre>
+<p>输出文件名，不要带扩展名:</p>
+<pre class="literal-block">
+TARGET=myprog
+</pre>
+<p>源文件名:</p>
+<pre class="literal-block">
+SRC=$(TARGET).c
+</pre>
+<p>汇编源文件名，注意扩展名大写，否则会被 <tt class="docutils literal">make clean</tt> 清除掉:</p>
+<pre class="literal-block">
+ASRC=
+</pre>
+<p>优化级别，可选0、1、2、3、s，其中0为无优化，s为代码最小优化。调试时关闭优化:</p>
+<pre class="literal-block">
+OPT=s
+</pre>
+<p>添加扩展的include文件路径，空格分隔:</p>
+<pre class="literal-block">
+EXTRAINCDIRS=
+</pre>
+<p>C语法标准定义，如c89、gnu89、c99、gnu99等:</p>
+<pre class="literal-block">
+CSTANDARD_C89=c89
+CSTANDARD_GNU89=gnu89
+CSTANDARD_C99=c99
+CSTANDARD_GNU99=gnu99
+CSTANDARD=-std=$(CSTANDARD_GNU99)
+</pre>
+<p>编译器参数:</p>
+<pre class="literal-block">
+CFLAGS= -g
+CFLAGS+= -O$(OPT)
+CFLAGS+= -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS+= -Wall -Wstrict-prototypes
+CFLAGS+= -Wa,-adhlns=$(&lt;:.c=.lst)
+CFLAGS+= $(patsubst %,-I%,$(EXTRAINCDIRS))
+CFLAGS+= $(CSTANDARD)
+</pre>
+<p>汇编器参数:</p>
+<pre class="literal-block">
+ASFLAGS= -Wa,-adhlns=$(&lt;:.S=.lst),-gstabs
+</pre>
+<p>设置printf函数库的类型，有三种选择，不选择 <cite>PRINTF_LIB_NONE</cite> ；最小型的支持整数和字符型 <cite>PRINTF_LIB_MIN</cite> ；支持浮点型的 <cite>PRINTF_LIB_FLOAT</cite> 。另外就是需要sin(x)和exp(x)时需要-lm</p>
+<pre class="literal-block">
+PRINTF_LIB_NONE=
+PRINTF_LIB_MIN= -Wl,-u,vfprintf -lprintf_min
+PRINTF_LIB_FLOAT= -Wl,-u,vfprintf -lprintf_flt
+PRINTF_LIB=$(PRINTF_LIB_NONE)
+MATH_LIB= -lm
+</pre>
+<p>加入浮点型printf支持以后一个简单的例子的.text段从158字节变为4540字节，影响很大。</p>
+<p>连接器的参数:</p>
+<pre class="literal-block">
+LDFLAGS= -Wl,-Map=$(TARGET).map,--cref $(PRINTF_LIB) $(MATH_LIB)
+</pre>
+<p>AVRDUDE的选项，这个东东属于WinAVR的一部分，支持多种串口和并口编程工具:</p>
+<pre class="literal-block">
+AVRDUDE_FLAGS+= $(AVRDUDE_ERASE_COUNTER)
+</pre>
+<p>WinAVR安装后的默认路径等等多种路径，注意使用斜线而不是反斜线:</p>
+<pre class="literal-block">
+DIRAVR= c:/WinAVR
+DIRAVRBIN= $(DIRAVR)/bin
+DIRAVRUTILS= $(DIRAVR)/utils/bin
+DIRINC= .
+DIRLIB= $(DIRAVR)/avr/lib
+</pre>
+<p>各种工具的运行shell:</p>
+<pre class="literal-block">
+SHELL= sh
+</pre>
+<p>将编译器定义为CC:</p>
+<pre class="literal-block">
+CC= AVR-GCC
+</pre>
+<p>定义几个常用工具，详见TkInfo:</p>
+<pre class="literal-block">
+OBJCOPY= avr-objcopy
+OBJDUMP= avr-objdump
+SIZE= avr-size
+NM= avr-nm
+AVRDUDE= avrdude
+</pre>
+<p>定义了删除和拷贝的命令:</p>
+<pre class="literal-block">
+REMOVE= rm -f
+COPY= cp
+</pre>
+<p>编译有关的输出信息:</p>
+<pre class="literal-block">
+MSG_ASSEMBLING=Assembling:
+MSG_CLEANING=Cleaning project:
+</pre>
+<p>定义所有的目标文件:</p>
+<pre class="literal-block">
+OBJ=$(SRC:.c=.o) $(ASRC:.S=.o)
+</pre>
+<p>所有列表文件:</p>
+<pre class="literal-block">
+LST=$(ASRC:.S=.lst) $(SRC:.c=.lst)
+</pre>
+<p>编译器的一些相关参数:</p>
+<pre class="literal-block">
+GENDEPFLAGS=-Wp,-M,-MP,-MT,$(*F).o,-MF,.dep/$(&#64;F).d
+</pre>
+<p>编译参数的组合:</p>
+<pre class="literal-block">
+ALL_CFLAGS= -mmcu=$(MCU) -I. $(CFLAGS) $(GENDEPFLAGS)
+ALL_ASFLAGS= -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
+</pre>
+<p>定义Makefile的缺省目标为all:</p>
+<pre class="literal-block">
+all: begin gccversion sizebefore build sizeafter finished end
+build: elf hex eep lss sym
+elf: $(TARGET).elf
+hex: $(TARGET).hex
+eep: $(TARGET).eep
+lss: $(TARGET).lss
+sym: $(TARGET).sym
+</pre>
+<p>一些显示有关的目标:</p>
+<pre class="literal-block">
+begin:
+    &#64;echo
+    &#64;echo $(MSG_BEGIN)
+    ...
+gccversion:
+    &#64; $(CC) --version
+</pre>
+<p>使用avrdude下载的目标program，本书是推荐用PonyProg2000进行下载的:</p>
+<pre class="literal-block">
+program: $(TARGET).hex $(TARGET).eep
+    $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+</pre>
+<p>从elf格式到coff格式的转化方法:</p>
+<pre class="literal-block">
+COFFCONVERT=$(OBJCOPY) --debugging\
+--change-section-address .data-0x800000 \
+--change-section-address .bss-0x800000 \
+--change-section-address .noinit-0x800000 \
+--change-section-address .eeprom-0x810000
+</pre>
+<p>常用目标，已经在前面的表格中列出:</p>
+<pre class="literal-block">
+coff: $(TARGET).elf
+    &#64;echo
+    &#64;echo $(MSG_COFF) $(TARGET).cof
+    $(COFFCONVERT) -O coff-avr $&lt; $(TARGET).cof
+extcoff: $(TARGET).elf
+    &#64;echo
+    &#64;echo $(MSG_EXTENDED_COFF) $(TARGET).cof
+    $(COFFCONVERT) -O coff-ext-avr $&lt; $(TARGET).cof
+</pre>
+<p>产生输出文件:</p>
+<pre class="literal-block">
+%.hex: %.elf
+    &#64;echo
+    &#64;echo $(MSG_FLASH) $&#64;
+    &#64;(OBJCOPY) -O $(FORMAT) -R . eeprom $&lt; $&#64;
+%.eep: %.elf
+    &#64;echo
+    &#64;echo $(MSG_EEPROM) $&#64;
+    $(OBJCOPY) -j .eeprom --set-section-flags=. eeprom=&quot;alloc,load&quot; \
+    --change-section-lma . eeprom=0 -O $(FORMAT) $&lt; $&#64;
+</pre>
+<p>定义其他一些格式文件的生成方式:</p>
+<pre class="literal-block">
+%.lss: %.elf
+    &#64;echo
+    &#64;echo $(MSG_EXTENDED_LISTING) $&#64;
+    $(OBJDUMP) -h -S $&lt; &gt; $&#64;
+    ...
+%.o: %.S
+    &#64;echo
+    &#64;echo $(MSG_ASSEMBLING) $&lt;
+    $(CC) -c $(ALL_ASFLAGS) $&lt; -o $&#64;
+</pre>
+<p>删除文件的操作:</p>
+<pre class="literal-block">
+clean: begin clean_list finished end
+clean_list:
+    &#64;echo
+    &#64;echo $(MSG_CLEANING)
+    $(REMOVE) $(TARGET).hex
+    $(REMOVE) $(SRC:.c=.d)
+</pre>
+</div>
+<div class="section" id="makefile-mfile">
+<h3><a class="toc-backref" href="#id181">2.4.5&nbsp;&nbsp;&nbsp;自动生成Makefile的工具-mfile</a></h3>
+<p>通过mfile工具的菜单可以设置包括MCU类型设置、输出文件格式、优化级别设置、C语言标准、printf()和scanf()函数库设置等等。修改过的部分会用黄色背景显示，最后保存即可。</p>
+</div>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id182">2.5&nbsp;&nbsp;&nbsp;AVR单片机仿真调试软件</a></h2>
+<div class="section" id="id27">
+<h3><a class="toc-backref" href="#id183">2.5.1&nbsp;&nbsp;&nbsp;各种仿真调试软件的简介和对比</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="10%" />
+<col width="18%" />
+<col width="36%" />
+<col width="15%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>软件名称</td>
+<td>免费</td>
+<td>开放源码</td>
+<td>支持MCU种类</td>
+<td>图形界面</td>
+</tr>
+<tr><td>Simulavr</td>
+<td>是</td>
+<td>是</td>
+<td>部分</td>
+<td>AVR-Insight</td>
+</tr>
+<tr><td>AVR Studio</td>
+<td>是</td>
+<td>否</td>
+<td>全部</td>
+<td>有</td>
+</tr>
+<tr><td>VMLAB</td>
+<td>否</td>
+<td>否</td>
+<td>几乎全部</td>
+<td>有</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="avr-studio-4">
+<h3><a class="toc-backref" href="#id184">2.5.2&nbsp;&nbsp;&nbsp;使用AVR Studio 4进行代码级仿真</a></h3>
+<p>要用.cof文件来做代码级仿真。然后Run、Stop、Reset、Break、StepInto、StepOver、StepOut、RunToCursor、BreakPoint就是常见调试器都带的了。</p>
+<p>用AVR-GCC编译时，应该关闭优化才能运行时查看变量值。</p>
+<p>[Debug] =&gt; [AVR Simulator Options] 可以修改调试参数，如晶振频率。</p>
+<p>Workspace窗口StopWatch估算运行到现在的时间。</p>
+<p>不能仿真的外围设备：A/D转换器、模拟比较器、两线接口(TWI)和统一串行接口(USI)。</p>
+</div>
+<div class="section" id="vmlab">
+<h3><a class="toc-backref" href="#id185">2.5.3&nbsp;&nbsp;&nbsp;VMLAB的使用</a></h3>
+<div class="section" id="id28">
+<h4><a class="toc-backref" href="#id186">2.5.3.1&nbsp;&nbsp;&nbsp;VMLAB得到特点</a></h4>
+<p>全称是Visual Micro Lab，针对AVR和ST62系列单片机设计。特点如下：</p>
+<ol class="arabic simple">
+<li>硬件/软件协同仿真(Co-Simulation)引擎：模拟+数字+MCU(包含全部外设)</li>
+<li>拥有基本的硬件库</li>
+<li>拥有交互器件：开关、电位计、RS-232、LED、LCD、I2C</li>
+<li>硬件/软件结合的观察窗</li>
+<li>I/O的模拟特性：输出电阻、滞后、开漏、模拟信号输入</li>
+<li>类似SPICE的硬件描述语言</li>
+<li>对MCU的停止、等待、睡眠模式的真实仿真</li>
+<li>对中断的真实仿真</li>
+<li>对MCU的复位的真实仿真</li>
+<li>顶级的IDE</li>
+<li>记事本风格的多窗口、多文件编辑器</li>
+<li>仿真调试时显示变量的值：Watch窗口，编辑器变量上</li>
+<li>用不同颜色区分语法</li>
+<li>在线的语法错误定位</li>
+<li>用二进制、十进制、十六进制显示变量和寄存器的值，并可以显示模拟量的大小</li>
+<li>能够显示MCU的外围设备和内存的当前状态</li>
+<li>给出外围设备和寄存器状态的信息</li>
+<li>对MCU的无限制跟踪，软硬件交叉仿真</li>
+<li>源文件中动态代码覆盖</li>
+<li>大量编程中潜在错误提示</li>
+<li>通过COFF文件，支持第三方编译器</li>
+</ol>
+</div>
+<div class="section" id="id29">
+<h4><a class="toc-backref" href="#id187">2.5.3.2&nbsp;&nbsp;&nbsp;VMLAB的下载和安装</a></h4>
+<p>到amctools网站下载试用版。代码长度只能达到芯片的一半，且最大4KB。5万个CPU时钟周期后自动停止。</p>
+</div>
+<div class="section" id="vmlabavr">
+<h4><a class="toc-backref" href="#id188">2.5.3.3&nbsp;&nbsp;&nbsp;VMLAB支持的AVR单片机</a></h4>
+<p>ATtiny系列：</p>
+<ol class="arabic simple">
+<li>ATtiny11</li>
+<li>ATtiny12</li>
+<li>ATtiny15</li>
+<li>ATtiny22</li>
+</ol>
+<p>AT90S系列：</p>
+<ol class="arabic simple">
+<li>AT90S2343</li>
+<li>AT90S2323</li>
+<li>AT90S1200</li>
+<li>AT90S2313</li>
+<li>AT90S4433</li>
+<li>AT90S4414</li>
+<li>AT90S8515</li>
+<li>AT90S4434</li>
+<li>AT90S8535</li>
+</ol>
+<p>ATmega系列：</p>
+<ol class="arabic simple">
+<li>ATmega8</li>
+<li>ATmega16</li>
+<li>ATmega161</li>
+<li>ATmega162</li>
+<li>ATmega32</li>
+<li>ATmega64</li>
+<li>ATmega128</li>
+</ol>
+</div>
+<div class="section" id="vmlabavr-studio">
+<h4><a class="toc-backref" href="#id189">2.5.3.4&nbsp;&nbsp;&nbsp;VMLAB与AVR Studio的对比</a></h4>
+<p>主要优势是对硬件的完全计算机仿真。</p>
+</div>
+<div class="section" id="id30">
+<h4><a class="toc-backref" href="#id190">2.5.3.5&nbsp;&nbsp;&nbsp;在VMLAB中进行硬件/软件协同仿真</a></h4>
+<p>不感兴趣，page 52</p>
+</div>
+<div class="section" id="id31">
+<h4><a class="toc-backref" href="#id191">2.5.3.6&nbsp;&nbsp;&nbsp;VMLAB中的基本硬件库</a></h4>
+<p>不感兴趣，page 59</p>
+</div>
+</div>
+<div class="section" id="gdb-avr-insight-simulavr">
+<h3><a class="toc-backref" href="#id192">2.5.4&nbsp;&nbsp;&nbsp;GDB(AVR-Insight)配合Simulavr的配合仿真方法</a></h3>
+<p>Simulavr是AVR的一个仿真器，可以单独使用，也可以作为GDB的一个远程目标(仿真后端)。当作为仿真后端时，就可以进行代码仿真了。WinAVR附带了GDB的仿真前端AVR-Insight。</p>
+<p>激活Simulavr，命令格式 <tt class="docutils literal">simulavr options&nbsp; [flash_image]</tt> 。举例:</p>
+<pre class="literal-block">
+$ simulavr -d atmega16 - g
+</pre>
+<p>然后就在端口1212监听等待gdb了。</p>
+<p>用AVR-Insight打开.elf文件，然后 [Run] =&gt; [Connect to target]，就会出现对话框可以选择：</p>
+<ol class="arabic simple">
+<li>目标：&quot;GDBserver/TCP&quot;</li>
+<li>主机：localhost</li>
+<li>端口：1212</li>
+<li>自动断点main</li>
+<li>自动断点exit</li>
+<li>设置断点</li>
+<li>显示下载对话框</li>
+<li>使用xterm作为tty</li>
+</ol>
+<p>然后就是OK，再之后Download和Run。在调试界面的操作，会在simulavr上有所显示。例如 <tt class="docutils literal">DDRD=0x00</tt> ，就会显示为 <tt class="docutils literal">Writing 0x00 to 0x0031</tt> 。而 <tt class="docutils literal">i=PIND</tt> 则会要求输入 <tt class="docutils literal">Enter a byte of data to read into0x0030:</tt> ，可以输入 0x10 来作为PIND的值。</p>
+<p>在AVR-Insight上右击i可以添加到观察。</p>
+</div>
+</div>
+<div class="section" id="ponyprog2000">
+<h2><a class="toc-backref" href="#id193">2.6&nbsp;&nbsp;&nbsp;PonyProg2000</a></h2>
+<p>芯片级调试和下载。而PonyProg2000只是下载软件而已。</p>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id194">2.6.1&nbsp;&nbsp;&nbsp;PonyProg2000安装和使用方法</a></h3>
+<p>免费的下载软件。没兴趣page 73</p>
+</div>
+<div class="section" id="pnponyprog2000">
+<h3><a class="toc-backref" href="#id195">2.6.2&nbsp;&nbsp;&nbsp;如何利用PN和PonyProg2000配合下载</a></h3>
+<p>没兴趣，page 78</p>
+</div>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id196">2.6.3&nbsp;&nbsp;&nbsp;PonyProg2000的脚本文件</a></h3>
+<p>没兴趣，page 79</p>
+</div>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id197">2.6.4&nbsp;&nbsp;&nbsp;简易下载线制作</a></h3>
+<p>通过计算机并口连接单片机SPI下载。</p>
+<p>两个电路图，第一个简单，无需有源元件。第二个可以在编程结束后将信号线变成高阻态，避免影响用户电路。</p>
+<p>简单并口编程器：</p>
+<img alt="_images/book_AVR-GCC与AVR单片机C语言开发_2.6_00.png" src="_images/book_AVR-GCC与AVR单片机C语言开发_2.6_00.png" />
+<p>带缓冲的并口编程器：</p>
+<img alt="_images/book_AVR-GCC与AVR单片机C语言开发_2.6_01.png" src="_images/book_AVR-GCC与AVR单片机C语言开发_2.6_01.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id35">
+<h1><a class="toc-backref" href="#id198">3&nbsp;&nbsp;&nbsp;AVR单片机C语言开发入门</a></h1>
+<div class="section" id="gnu-c">
+<h2><a class="toc-backref" href="#id199">3.1&nbsp;&nbsp;&nbsp;GNU C基本语法介绍</a></h2>
+<div class="section" id="c">
+<h3><a class="toc-backref" href="#id200">3.1.1&nbsp;&nbsp;&nbsp;C语言的基本结构</a></h3>
+<p>一个hello world。</p>
+</div>
+<div class="section" id="id36">
+<h3><a class="toc-backref" href="#id201">3.1.2&nbsp;&nbsp;&nbsp;C语言的基本字符、标识符和关键字</a></h3>
+<p>好简单阿，page 83</p>
+</div>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id202">3.1.3&nbsp;&nbsp;&nbsp;数据类型</a></h3>
+<p>整数没啥好说的，avr-libc只支持32-bit的浮点数，不区分单精度和双精度，所以推荐直接用双精度显示。</p>
+<p>因为AVR是8位单片机，所以很多寄存器和端口用字符类型很好。</p>
+</div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id203">3.1.4&nbsp;&nbsp;&nbsp;变量、运算符和表达式</a></h3>
+<p>逗号运算符就是对每个表达式求值，并返回最后一个的值。</p>
+<p>位运算 &amp; | ^ ~ 。</p>
+<p>使特定位翻转可以用异或，如b^=0b00000001，就会让b的最低位翻转。与0做异或的结果是不变的。</p>
+<p>对特定位置位或清零:</p>
+<pre class="literal-block">
+PORTA |= (1&lt;&lt;7);
+PORTA &amp;= ~(1&lt;&lt;7);
+</pre>
+</div>
+<div class="section" id="id39">
+<h3><a class="toc-backref" href="#id204">3.1.5&nbsp;&nbsp;&nbsp;条件转移和循环控制</a></h3>
+<ol class="arabic simple">
+<li>if</li>
+<li>switch</li>
+<li>goto</li>
+<li>while</li>
+<li>do-while</li>
+<li>for</li>
+</ol>
+</div>
+<div class="section" id="id40">
+<h3><a class="toc-backref" href="#id205">3.1.6&nbsp;&nbsp;&nbsp;数组</a></h3>
+<p>一维、二维数组。另外就是字符串。字符串不能直接赋值，需要用循环来对每个字节赋值。</p>
+</div>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id206">3.1.7&nbsp;&nbsp;&nbsp;函数</a></h3>
+<p>很基础，略。</p>
+</div>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id207">3.1.8&nbsp;&nbsp;&nbsp;指针</a></h3>
+<p>取地址 &quot;&amp;&quot; ，访问变量 &quot;*&quot; 。</p>
+</div>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id208">3.1.9&nbsp;&nbsp;&nbsp;结构和共同体</a></h3>
+<ol class="arabic simple">
+<li>struct</li>
+<li>union</li>
+<li>enum</li>
+<li>typedef</li>
+</ol>
+</div>
+<div class="section" id="id44">
+<h3><a class="toc-backref" href="#id209">3.1.10&nbsp;&nbsp;&nbsp;预处理</a></h3>
+<ol class="arabic">
+<li><p class="first">宏定义 <tt class="docutils literal">#define 标示符 字符串</tt></p>
+</li>
+<li><p class="first">文件包含 <tt class="docutils literal">#include &quot;文件名&quot;</tt></p>
+</li>
+<li><p class="first">条件编译:</p>
+<pre class="literal-block">
+#ifdef 标示符
+#else
+#endif
+</pre>
+</li>
+</ol>
+<p>使用宏定义会提高可移植性。</p>
+</div>
+</div>
+<div class="section" id="avr-libci-o">
+<h2><a class="toc-backref" href="#id210">3.2&nbsp;&nbsp;&nbsp;avr-libc与器件相关的I/O定义</a></h2>
+<p>使用AVR-GCC时最基本的是需要引入:</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+</pre>
+<p>该头文件通过-mmcu=选项获得CPU类型，然后自动包含特定的IO定义。特定器件相关的引入实际上是引入&lt;avr/ioXXX.h&gt;实现的。</p>
+<p>&lt;avr/io.h&gt;还包含&lt;avr/sfr_defs.h&gt;头文件，包含了特殊功能寄存器(SFR)的操作函数。</p>
+<p>&lt;avr/io.h&gt;包含了ATMEL公司数据手册中定义的I/O寄存器和特殊的数据位的定义。由于ATMEL公司对寄存器的名称也不是非常固定，可能在不同的设备中，寄存器有不同的名字。</p>
+<p>&lt;avr/io.h&gt;还定义和中断和信号处理程序的定义。还定义了如下常量，表示AVR单片机的地址范围：</p>
+<ol class="arabic simple">
+<li><strong>RAMEND</strong> ：片内内存的结束地址。</li>
+<li><strong>XRAMEND</strong> ：RAM的可能结束地址，对于不能接外部RAM的设备就是等于RAMEND。</li>
+<li><strong>E2END</strong> ：片内EEPROM的结束地址。</li>
+<li><strong>FLASHEND</strong> ：FlashROM的结束地址，字节地址。</li>
+<li><strong>SPM_PAGESIZE</strong> ：如果设备支持引导程序(bootloader)，则定义了SPM指令可以使用的Flash页的大小(字节)。</li>
+</ol>
+</div>
+<div class="section" id="id45">
+<h2><a class="toc-backref" href="#id211">3.3&nbsp;&nbsp;&nbsp;avr-libc标准I/O工具</a></h2>
+<p>使用下面的函数时需要加上stdio.h头文件。avr-libc对标准IO的支持加入时间并不长，未来还可能会改变。而且由于设备限制avr-libc只实现了标准IO的一个子集。不过使用avr-libc使用的一些函数可以提高性能。</p>
+<p>三个标准IO流stdin、stdout、stderr不会被初始化，与标准C不同。可以用 <cite>fdevopen()</cite> 函数来将一个流与一个设备连接起来，提供单个字符的输入输出函数。avr-libc并不区分文本和二进制流。</p>
+<p><cite>put()</cite> 函数用于实现输出数据流到一个具体设备的功能，一般由用户编写。</p>
+<p>如下是一个 <cite>put()</cite> 函数的例子，用于解释如何编制符合 <cite>fdevopen()</cite> 函数要求的底层函数。本例命名为 <cite>uart_putchar()</cite> 功能是向串口发送单个字符，注意特殊字符的处理方法。</p>
+<pre class="literal-block">
+int uart_putchar(char c) {
+    if (c=='\n')
+        uart_putchar('\r');
+    loop_until_bit_is_set(UCSRA,UDRE);
+    UDR=c;
+    return 0;
+}
+</pre>
+<p>首次调用 <cite>fdevopen()</cite> 函数打开的输入流会连接到stdin。首次调用 <cite>fdevopen()</cite> 打开的输出流会连接到stdout和stderr。如果首次调用 <cite>fdevopen()</cite> 打开的流同时做输入和输出，则流会连接到stdin、stdout和stderr。AVR-GCC不区分这3个流，调用 <cite>fclose()</cite> 会关闭所有的流。</p>
+<p>所有的printf族和scanf族函数都分为两类，一类使用标准C的名称，函数的格式字符串放在RAM里，另一类在标准名称后有&quot;_P&quot;后缀，函数假定格式字符串放在Flash中，这时格式字符串可以用PSTR宏声明。</p>
+<div class="section" id="id46">
+<h3><a class="toc-backref" href="#id212">3.3.1&nbsp;&nbsp;&nbsp;常量定义</a></h3>
+<p><tt class="docutils literal">#define EOF <span class="pre">(-1)</span></tt> ：定义了各种输入/输出发生错误时的返回值。</p>
+<p><tt class="docutils literal">#define FILE struct __file</tt> ：用于各类I/O函数之间交换。</p>
+<p><tt class="docutils literal">#define getc(__stream) fgetc(__stream)</tt> ：可以快速执行的宏定义，不过这里只是个 <cite>fgetc()</cite> 的别名。</p>
+<p><tt class="docutils literal">#define getchar(void) fgetc(stdin)</tt> ：从标准输入读取一个字符。</p>
+<p><tt class="docutils literal">#define putc(__c,__stream) fputc(__c,__stream)</tt> ：快速执行的宏定义，输出一个字符。</p>
+<p><tt class="docutils literal">#define putchar(_c) fputc(_c,stdout)</tt> ：输出一个字符。</p>
+<p><tt class="docutils literal">#define stderr (_iob[2])</tt> ：错误输出，除非声明，否则为stdout。要重新指定则需要重新调用 <cite>fdevopen()</cite> ，不要关闭之前的流。</p>
+<p><tt class="docutils literal">#define stdin (_iob[0])</tt> ：标准输入。</p>
+<p><tt class="docutils literal">#define stdout (_iob[1])</tt> ：标准输出。</p>
+</div>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id213">3.3.2&nbsp;&nbsp;&nbsp;函数声明</a></h3>
+<p><tt class="docutils literal">void clearerr(FILE *_stream)</tt> ：清除流_stream中的错误和文件结束标志。</p>
+<p><tt class="docutils literal">int fclose(FILE *_stream)</tt> ：关闭_stream流，禁止之后的操作，返回0，表示成功。</p>
+<p><tt class="docutils literal">FILE *fdevopen(int(* <span class="pre">put)(char),</span> int(* <span class="pre">get)(void),</span> int opts <span class="pre">_attribute_((unused)))</span></tt> ：代替fopen()设置几个标准IO流的的操作函数。</p>
+<p>&#64;page 126-134</p>
+</div>
+</div>
+<div class="section" id="avr-libc">
+<h2><a class="toc-backref" href="#id214">3.4&nbsp;&nbsp;&nbsp;avr-libc的常用工具</a></h2>
+<p>下面的函数需要包含stdlib.h头文件。这个头文件声明了常用C函数和宏定义，另外加入了一些专门为AVR平台扩展的内容。</p>
+<div class="section" id="id48">
+<h3><a class="toc-backref" href="#id215">3.4.1&nbsp;&nbsp;&nbsp;数据结构</a></h3>
+<p><tt class="docutils literal">struct div_t</tt></p>
+<blockquote>
+存储函数 <cite>div()</cite> 的返回值。</blockquote>
+<p><tt class="docutils literal">struct ldiv_t</tt></p>
+<blockquote>
+存储函数 <cite>ldiv()</cite> 的返回值。</blockquote>
+</div>
+<div class="section" id="id49">
+<h3><a class="toc-backref" href="#id216">3.4.2&nbsp;&nbsp;&nbsp;常量定义</a></h3>
+<p>&#64;page 134-135</p>
+</div>
+<div class="section" id="id50">
+<h3><a class="toc-backref" href="#id217">3.4.3&nbsp;&nbsp;&nbsp;函数定义</a></h3>
+<p>&#64;page 135-140</p>
+</div>
+</div>
+<div class="section" id="id51">
+<h2><a class="toc-backref" href="#id218">3.5&nbsp;&nbsp;&nbsp;字符串操作函数</a></h2>
+<p>下面需要包含头文件ctype.h。</p>
+<div class="section" id="id52">
+<h3><a class="toc-backref" href="#id219">3.5.1&nbsp;&nbsp;&nbsp;字符分类函数</a></h3>
+<p>声明都形如 <tt class="docutils literal">int xxx(int __c)</tt> 。各个函数声明：</p>
+<ol class="arabic simple">
+<li><cite>int isalnum(int __c)</cite></li>
+<li><cite>int isalpha(int __c)</cite></li>
+<li><cite>int isascii(int __c)</cite></li>
+<li><cite>int isblank(int __c)</cite></li>
+<li><cite>int iscntrl(int __c)</cite></li>
+<li><cite>int isdigit(int __c)</cite></li>
+<li><cite>int isgraph(int __c)</cite> ：可打印字符，空格除外</li>
+<li><cite>int islower(int __c)</cite></li>
+<li><cite>int isprint(int __c)</cite> ：可打印字符，包含空格</li>
+<li><cite>int ispunct(int __c)</cite> ：空格和字母之外的可打印字符</li>
+<li><cite>int isspace(int __c)</cite> ：空白字符，包括\f、\n、\r、\t、\v</li>
+<li><cite>int issupper(int __c)</cite></li>
+<li><cite>int isxdigit(int __c)</cite></li>
+</ol>
+</div>
+<div class="section" id="id53">
+<h3><a class="toc-backref" href="#id220">3.5.2&nbsp;&nbsp;&nbsp;字符转换函数</a></h3>
+<ol class="arabic simple">
+<li><cite>int toascii(int __c)</cite> ：清除最高位，转换成标准ASCII字符</li>
+<li><cite>int tolower(int __c)</cite></li>
+<li><cite>int toupper(int __c)</cite></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id221">3.6&nbsp;&nbsp;&nbsp;标准字符串和程序空间中的字符串</a></h2>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id222">3.6.1&nbsp;&nbsp;&nbsp;标准字符串操作函数</a></h3>
+<p>&#64;page 142-146</p>
+</div>
+<div class="section" id="rom">
+<h3><a class="toc-backref" href="#id223">3.6.2&nbsp;&nbsp;&nbsp;对存储于ROM中的字符串进行操作</a></h3>
+<p>务必加入两个头文件 <tt class="docutils literal">avr/io.h</tt> 和 <tt class="docutils literal">avr/pgmspace.h</tt> 。本小节函数访问Flash空间的字符串，单片机必须支持LPM和ELPM指令。尽量将常量定义放在低于64K的控件中，并使用 <cite>pgm_read_byte_near()</cite> 和 <cite>pgm_read_word_near()</cite> 函数代替 <cite>pgm_read_byte_far()</cite> 和 <cite>pgm_read_word_far()</cite> 函数，因为这样效率更高。</p>
+<p><tt class="docutils literal">#define PRG_RDB(addr) pgm_read_byte(addr)</tt></p>
+<blockquote>
+为兼容旧程序，不要再用了</blockquote>
+<p><tt class="docutils literal">#define PSTR(s) ({static char __c[] <span class="pre">PROGMEM=(s);</span> <span class="pre">__c;})</span></tt></p>
+<blockquote>
+定义一个静态指针指向存储于Flash中的字符串</blockquote>
+<p><tt class="docutils literal">#define pgm_read_byte_near(address_short) <span class="pre">__LPM((unsigned</span> <span class="pre">short)(address_short))</span></tt></p>
+<blockquote>
+从16位地址address_short读取一个字节的数据，该地址是指字节在Flash中的地址</blockquote>
+<p><tt class="docutils literal">#define pgm_read_word_near(address_short) <span class="pre">__LPM_word((unsigned</span> <span class="pre">short)(address_short))</span></tt></p>
+<blockquote>
+同上，只不过读取的是字</blockquote>
+<p>&#64;page 147-150</p>
+</div>
+</div>
+<div class="section" id="id56">
+<h2><a class="toc-backref" href="#id224">3.7&nbsp;&nbsp;&nbsp;引导加载程序函数</a></h2>
+<div class="section" id="bootloader">
+<h3><a class="toc-backref" href="#id225">3.7.1&nbsp;&nbsp;&nbsp;BootLoader简介</a></h3>
+<p>BootLoader用于实现IAP(在应用编程)。需要包含头文件 <tt class="docutils literal">avr/boot.h</tt> 。在Flash较小的设备，使用in和out指令有利于生成更小的程序代码。</p>
+</div>
+<div class="section" id="id57">
+<h3><a class="toc-backref" href="#id226">3.7.2&nbsp;&nbsp;&nbsp;BootLoader函数定义</a></h3>
+<p>&#64;page 151-152</p>
+</div>
+</div>
+<div class="section" id="eeprom">
+<h2><a class="toc-backref" href="#id227">3.8&nbsp;&nbsp;&nbsp;EEPROM操作函数</a></h2>
+<div class="section" id="id58">
+<h3><a class="toc-backref" href="#id228">3.8.1&nbsp;&nbsp;&nbsp;EEPROM简介</a></h3>
+<p>与RAM分开编址的，按照字节访问，头文件 <tt class="docutils literal">avr/eeprom.h</tt> 。avr-libc提供的访问函数都是查询方式，如果需要中断，需要自己写。</p>
+<p>在读写EEPROM之前必须确保其准备好了，否则会导致很大的延时，实际函数就是 <cite>eeprom_is_ready()</cite> 。</p>
+</div>
+<div class="section" id="id59">
+<h3><a class="toc-backref" href="#id229">3.8.2&nbsp;&nbsp;&nbsp;函数声明</a></h3>
+<p><cite>#define eeprom_is_ready() bit_is_clear(EECR,EEWE)</cite></p>
+<blockquote>
+返回1表示EEPROM准备好读写了。</blockquote>
+<p><cite>uint8_t eeprom_read_byte(const uint8_t *addr)</cite></p>
+<blockquote>
+从EEPROM读取地址addr处一个字节。</blockquote>
+<p><cite>uint16_t eeprom_read_word(const uint16_t *addr)</cite></p>
+<blockquote>
+从EEPROM读取地址addr处一个字。</blockquote>
+<p><cite>void eeprom_read_block(void *buf, const void *addr, size_t n)</cite></p>
+<blockquote>
+从EEPROM读取地址addr处n字节，存入buf指向的缓冲区。</blockquote>
+<p><cite>void eeprom_write_byte(uint8_t *addr, uint8_t val)</cite></p>
+<blockquote>
+将一个字节val写入EEPROM地址addr处。</blockquote>
+<p><cite>void eeprom_write_word(uint16_t *addr, uint16_t val)</cite></p>
+<blockquote>
+将一个字val写入EEPROM地址addr处。</blockquote>
+<p><cite>void eeprom_write_block(const void *buf, void *addr, size_t n)</cite></p>
+<blockquote>
+从buf缓冲区将n字节数据写入EEPROM地址addr处。</blockquote>
+</div>
+<div class="section" id="id60">
+<h3><a class="toc-backref" href="#id230">3.8.3&nbsp;&nbsp;&nbsp;向后兼容的定义</a></h3>
+<p>有如下几个：</p>
+<ol class="arabic simple">
+<li><cite>#define eeprom_rb(addr) eeprom_read_byte((uint8_t*)(addr))</cite></li>
+<li><cite>#define eeprom_rw(addr) eeprom_read_word((uint16_t*)(addr))</cite></li>
+<li><cite>#define eeprom_wb(addr,val) eeprom_write_byte((uint8_t*)(addr),(uint8_t)(val))</cite></li>
+</ol>
+</div>
+<div class="section" id="iar-c">
+<h3><a class="toc-backref" href="#id231">3.8.4&nbsp;&nbsp;&nbsp;与IAR C兼容的定义</a></h3>
+<p>与IAR C兼容，方便移植的：</p>
+<ol class="arabic simple">
+<li><cite>#define _EEPUT(addr,val) eeprom_wb(addr,val)</cite></li>
+<li><cite>#define _EEGET(var,addr) (var)=eeprom_rb(addr)</cite></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id61">
+<h2><a class="toc-backref" href="#id232">3.9&nbsp;&nbsp;&nbsp;电源管理函数</a></h2>
+<p>AVR单片机提供了一系列的休眠模式，可以有效降低功耗。avr-libc也支持这些函数。需要包含头文件 <tt class="docutils literal">avr/sleep.h</tt> 。AVR单片机的休眠模式是通过MCU控制寄存器(MCUCR)中的SM2-SM0位设置的。不同的AVR单片机设置方式还略有不同。</p>
+<div class="section" id="id62">
+<h3><a class="toc-backref" href="#id233">3.9.1&nbsp;&nbsp;&nbsp;休眠模式定义</a></h3>
+<p>&#64;page 154-155</p>
+</div>
+<div class="section" id="id63">
+<h3><a class="toc-backref" href="#id234">3.9.2&nbsp;&nbsp;&nbsp;支持休眠的函数</a></h3>
+<p><tt class="docutils literal">void set_sleep_mode(uint8_t mode)</tt></p>
+<blockquote>
+设置休眠模式。</blockquote>
+<p><tt class="docutils literal">void sleep_mode(void)</tt></p>
+<blockquote>
+实际进入休眠。</blockquote>
+</div>
+<div class="section" id="id64">
+<h3><a class="toc-backref" href="#id235">3.9.3&nbsp;&nbsp;&nbsp;降低电源的消耗</a></h3>
+<ol class="arabic simple">
+<li>ADC ：如果使能ADC则在所有模式下都工作，应该在进入休眠前禁用ADC，唤醒后再启用，注意首次ADC结果是无效的，要丢弃</li>
+<li>模拟比较器：会在ADC降噪和正常模式下工作，如果使用了内部参考源则是所有模式都工作</li>
+<li>BROWN-OUT(低电压检测)电路：所有模式都工作，除非特别需要，否则熔丝禁用</li>
+<li>内部电压参考源：所有模式都工作，所以进入休眠前应该禁用</li>
+<li>看门狗(WDT)电路：所有模式都工作</li>
+<li>端口引脚：主要是别用端口驱动无效负载，如果用引脚唤醒，则接近Vcc/2的电压会让输入缓冲区有额外功耗</li>
+<li>外部器件：不用的就关掉</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id65">
+<h2><a class="toc-backref" href="#id236">3.10&nbsp;&nbsp;&nbsp;看门狗操作</a></h2>
+<div class="section" id="id66">
+<h3><a class="toc-backref" href="#id237">3.10.1&nbsp;&nbsp;&nbsp;看门狗操作简介</a></h3>
+<p>一定程度上提高程序可靠性，防止跑飞。程序应该在看门狗超时之前喂狗，如果因为卡死没有喂狗，则看门狗超时，复位单片机。包含头文件 <tt class="docutils literal">avr/wdt.h</tt> 。</p>
+</div>
+<div class="section" id="id67">
+<h3><a class="toc-backref" href="#id238">3.10.2&nbsp;&nbsp;&nbsp;常量定义</a></h3>
+<p>&#64;page 157-158</p>
+</div>
+</div>
+<div class="section" id="id68">
+<h2><a class="toc-backref" href="#id239">3.11&nbsp;&nbsp;&nbsp;系统错误处理</a></h2>
+<p>avr-libc的库函数出错时会设置全局的errno，头文件 <tt class="docutils literal">errno.h</tt> 包含了错误码定义。该机制在多任务系统中并不可靠，因为没有并发控制。避免使用。</p>
+<p>错误变量：</p>
+<ol class="arabic simple">
+<li><cite>#define EDOM 33</cite> ：定义域错误(参数范围错误)</li>
+<li><cite>#define ERANGE 34</cite> ：值域错误(计算结果范围错误)</li>
+</ol>
+</div>
+<div class="section" id="id69">
+<h2><a class="toc-backref" href="#id240">3.12&nbsp;&nbsp;&nbsp;绝对跳转指令</a></h2>
+<div class="section" id="id70">
+<h3><a class="toc-backref" href="#id241">3.12.1&nbsp;&nbsp;&nbsp;绝对跳转简介</a></h3>
+<p>C语言的goto可以实现局部跳转，而库函数 <cite>setjmp()</cite> 和 <cite>longjmp()</cite> 可以实现任意跳转，适用于底层中断和错误处理。不过会破坏程序结构性，尽量避免吧。头文件 <tt class="docutils literal">setjmp.h</tt> 。</p>
+<p>简单例子:</p>
+<pre class="literal-block">
+#include &lt;setjmp.h&gt;
+
+jmp_buf env;
+
+int main(void) {
+    if (setjmp(env)) {
+        错误处理语句
+    }
+    while(1) {
+        主函数的循环，某处调用foo()...
+    }
+}
+
+void foo(void) {
+    其他语句
+    if (err) {
+        longjmp(env,1);
+    }
+}
+</pre>
+<p>看来就是在 <cite>setjmp()</cite> 处保存环境并设置位置，然后调用 <cite>longjmp()</cite> 就把执行位置跳转到之前 <cite>setjmp()</cite> 处，并设定返回值。</p>
+</div>
+<div class="section" id="id71">
+<h3><a class="toc-backref" href="#id242">3.12.2&nbsp;&nbsp;&nbsp;函数定义</a></h3>
+<p><tt class="docutils literal">int setjmp(jmp_buf __jmpb)</tt></p>
+<blockquote>
+保存段内容，并进行非局部跳转。保存的这些段内容和环境随后被 <cite>longjmp()</cite> 使用。如果直接运行，返回0；如果通过 <cite>longjmp()</cite> 返回，则返回非0。看来类似于 <cite>fork()</cite> 。</blockquote>
+<p><tt class="docutils literal">void longjmp(jmp_buf __jmpb, int __ret)</tt></p>
+<blockquote>
+执行非局部跳转。恢复由 <cite>setjmp()</cite> 保存的运行环境，__ret不可以用0，否则会被1代替。执行后当前执行序停止，由 <cite>setjmp()</cite> 处返回__ret，继续执行。</blockquote>
+</div>
+</div>
+<div class="section" id="id72">
+<h2><a class="toc-backref" href="#id243">3.13&nbsp;&nbsp;&nbsp;中断和信号处理函数</a></h2>
+<p>每一种编译器都有自己的处理中断的方式。avr-libc中，中断向量表已经预先固定指定具有特定名字的函数。这些函数执行中断操作。函数库也提供了默认的中断函数。avr-libc已经将中断处理函数做了封装，只需要用两个宏 <cite>INTERRUPT()</cite> 和 <cite>SIGNAL()</cite> 即可。下面是一个ADC中断的例子:</p>
+<pre class="literal-block">
+#include &lt;avr/signal.h&gt;
+
+INTERRUPT(SIG_ADC)
+{
+    //用户代码
+}
+</pre>
+<p>如果系统发生了异常的中断，即允许该中断，但是没有定义中断处理函数，则执行系统复位。用户也可以提供一个 <cite>__vector_default</cite> 的中断处理函数，并通过调用 <cite>SIGNAL()</cite> 或 <cite>INTERRUPT()</cite> 处理代替默认的异常中断处理函数。例如:</p>
+<pre class="literal-block">
+#include &lt;avr/signal.h&gt;
+SIGNAL(__vector_default)
+{
+    //这里是用户的代码
+}
+</pre>
+<div class="warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><cite>SIGNAL()</cite> 和 <cite>INTERRUPT()</cite> 这两个宏不会做拼写检查，写错了只是不会被调用。小心。</p>
+</div>
+<p>下表列出所有有效的中断处理符号。并非被所有的AVR处理器所支持，需要自己查数据手册。</p>
+<p>AVR-GCC定义的中断符号：</p>
+<ol class="arabic simple">
+<li>SIG_2WIRE_SERIAL</li>
+<li>SIG_ADC</li>
+<li>SIG_COMPARATOR</li>
+<li>SIG_EEPROM_READY</li>
+<li>SIG_FPGA_INTERRUPT0 ~ 15</li>
+<li>SIG_INPUT_CAPTURE0 ~ 3</li>
+<li>SIG_INTERRUPT0 ~ 7</li>
+<li>SIG_OUTPUT_COMPARE0,1,2 1A,1B,1C,...</li>
+<li>SIG_OVERFLOW0 ~ 3</li>
+<li>SIG_PIN</li>
+<li>SIG_PIN_CHANGE0 ~ 1</li>
+<li>SIG_RDMAC</li>
+<li>SIG_SPI</li>
+<li>SIG_SPM_READY</li>
+<li>SIG_SUSPEND_RESUME</li>
+<li>SIG_TDMAC</li>
+<li>SIG_UART0 ~ 1</li>
+<li>SIG_UART0_DATA</li>
+<li>SIG_UART0_RECV</li>
+<li>SIG_UART0_TRANS</li>
+<li>SIG_USART0_DATA</li>
+<li>SIG_USART0_RECV</li>
+<li>SIG_USART0_TRANS</li>
+<li>SIG_USB_HW</li>
+</ol>
+<div class="section" id="id73">
+<h3><a class="toc-backref" href="#id244">3.13.1&nbsp;&nbsp;&nbsp;全局中断标志操作函数</a></h3>
+<p>控制整个系统的中断允许标志，需要包含 <tt class="docutils literal">avr/interrupt.h</tt> 。</p>
+<p><tt class="docutils literal">#define sei()&nbsp; __asm__ <span class="pre">__volatile__(&quot;sei&quot;::)</span></tt> ：允许全局中断。</p>
+<p><tt class="docutils literal">#define cli()&nbsp; __asm__ <span class="pre">__volatile__(&quot;cli&quot;::)</span></tt> ：禁止全局中断。</p>
+</div>
+<div class="section" id="id74">
+<h3><a class="toc-backref" href="#id245">3.13.2&nbsp;&nbsp;&nbsp;设置中断处理函数的宏</a></h3>
+<p>需要包含 <tt class="docutils literal">avr/interrupt.h</tt> 和 <tt class="docutils literal">avr/signal.h</tt> 。</p>
+<p><tt class="docutils literal">#define SIGNAL(signame)</tt></p>
+<blockquote>
+声明一个中断处理函数，其中参数值声明为 <tt class="docutils literal">void signame(void) __attribute__ <span class="pre">((signal));</span></tt> 或 <tt class="docutils literal">void signame(void)</tt> 。</blockquote>
+<p><tt class="docutils literal">#define INTERRUPT(signame)</tt></p>
+<blockquote>
+声明中断处理函数，允许嵌套中断。signame声明为 <tt class="docutils literal">void signame (void) __attribute__ <span class="pre">((interrupt));</span></tt> 或 <tt class="docutils literal">void signame(void);</tt> 。</blockquote>
+<p><tt class="docutils literal">#define EMPTY_INTERRUPT(signame)</tt></p>
+<blockquote>
+定义空的中断处理函数，不会生成多余代码，只是执行ISR操作。注意不要定义函数体。例如 <tt class="docutils literal">EMPTY_INTERRUTP(SIG_ADC)</tt> 。参数值signame声明为 <tt class="docutils literal">void signame (void) __attribute__ <span class="pre">((naked));</span></tt> 或 <tt class="docutils literal">void signame (void) { __asm__ __volatile__ (&quot;reti&quot; <span class="pre">::);}</span></tt> 。</blockquote>
+</div>
+<div class="section" id="id75">
+<h3><a class="toc-backref" href="#id246">3.13.3&nbsp;&nbsp;&nbsp;允许某些全局的中断</a></h3>
+<p>AVR的中断体系，除了使能全局中断，还要使能特定中断才有效。大部分中断在特定寄存器中，只有外部中断和定时器中断在全局寄存器中。</p>
+<p>打开定时器中断：</p>
+<p><tt class="docutils literal">void timer_enable_int(unsigned char ints)</tt></p>
+<blockquote>
+修改TIMSK寄存器，ints与具体设备有关。</blockquote>
+<p>没看懂在说啥。</p>
+</div>
+</div>
+<div class="section" id="id76">
+<h2><a class="toc-backref" href="#id247">3.14&nbsp;&nbsp;&nbsp;算术运算函数</a></h2>
+<p>avr-libc提供了算术运算函数，需要包含 <tt class="docutils literal">math.h</tt> 头文件。而且链接时需要 <tt class="docutils literal">libm.a</tt> 静态库，用选项 <tt class="docutils literal"><span class="pre">-lm</span></tt> 。</p>
+<div class="section" id="id77">
+<h3><a class="toc-backref" href="#id248">3.14.1&nbsp;&nbsp;&nbsp;常量定义</a></h3>
+<p><tt class="docutils literal">#define M_PI 3.141592653589793238462643</tt></p>
+<blockquote>
+圆周率</blockquote>
+<p><tt class="docutils literal">#define M_SQRT2 1.4142135623730950488016887</tt></p>
+<blockquote>
+根号2</blockquote>
+</div>
+<div class="section" id="id78">
+<h3><a class="toc-backref" href="#id249">3.14.2&nbsp;&nbsp;&nbsp;算术运算函数的定义</a></h3>
+<ol class="arabic simple">
+<li><cite>double cos(double x)</cite></li>
+<li><cite>double fabs(double x)</cite> ：计算绝对值</li>
+<li><cite>double fmod(double x, double y)</cite> ：求x/y的余数</li>
+<li><cite>double modf(double value, double *iptr)</cite> ：将value分解成整数和小数，符号同value，将整数部分存储于iptr所指单元，函数本身返回小数部分</li>
+<li><cite>double sin(double x)</cite></li>
+<li><cite>double sqrt(double x)</cite> ：平方根</li>
+<li><cite>double tan(double x)</cite> ：正切</li>
+<li><cite>double floor(double x)</cite> ：不大于x的最大整数</li>
+<li><cite>double ceil(double x)</cite> ：不小于x的最小整数</li>
+<li><cite>double frexp(double value, int *exp)</cite> ：将value分解成常分数和2个整数次幂，2 的整数次幂存入exp所指单元。返回值在[1/2,1)之间或0。有 <tt class="docutils literal"><span class="pre">value=2x+2^(*exp)</span></tt> 。如果value==0，则返回两部分都是0</li>
+<li><cite>double ldexp(double x, int exp)</cite> ：返回2x+2^exp，如果计算结果溢出errno为ERANGE，函数返回NaN</li>
+<li><cite>double exp(double x)</cite> ：x的指数值</li>
+<li><cite>double cosh(double x)</cite> ：双曲余弦</li>
+<li><cite>double sinh(double x)</cite> ：双曲正弦</li>
+<li><cite>double tanh(double x)</cite> ：双曲正切</li>
+<li><cite>double acos(double x)</cite> ：反余弦，返回值范围[0,pi]的弧度，定义域[-1,+1]</li>
+<li><cite>double asin(double x)</cite> ：反正弦</li>
+<li><cite>double atan(double x)</cite> ：反正切</li>
+<li><cite>double atan2(double x, double y)</cite> ：y/x的反正切，并利用输入值符号判断区间，返回[-pi,+pi]的弧度</li>
+<li><cite>double log(double x)</cite> ：x的自然对数</li>
+<li><cite>double log10(double x)</cite> ：以10为底的x的对数</li>
+<li><cite>double pow(double x, double y)</cite> ：x的y次幂</li>
+<li><cite>double isnan(double x)</cite> ：如果输入值是非数字(NaN)则返回1，否则为0</li>
+<li><cite>double isinf(double x)</cite> ：正负无穷时返回1</li>
+<li><cite>double square(double x)</cite> ：返回x*x，注意这个不是标准C函数</li>
+<li><cite>double inverse(double x)</cite> ：返回1/x，注意这个不是标准C函数</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id79">
+<h2><a class="toc-backref" href="#id250">3.15&nbsp;&nbsp;&nbsp;特殊功能寄存器的操作</a></h2>
+<div class="section" id="id80">
+<h3><a class="toc-backref" href="#id251">3.15.1&nbsp;&nbsp;&nbsp;特殊功能寄存器操作方式</a></h3>
+<p>AVR提供了独立的I/O地址空间操作外围设备，同时也被映射到内存中。I/O地址加上0x20就是I/O映射到内存中的地址。avr-libc同时支持两种操作，默认用后者。因为这样易于移植和提高可读性。</p>
+<p>注意访问16位寄存器时必须确保不能发生中断，否则访问失败。</p>
+<p><tt class="docutils literal">#define _BV(bit) <span class="pre">(1&lt;&lt;(bit))</span></tt></p>
+<blockquote>
+将一个位bit数字转换成字节常量。</blockquote>
+</div>
+<div class="section" id="i-o">
+<h3><a class="toc-backref" href="#id252">3.15.2&nbsp;&nbsp;&nbsp;I/O寄存器位操作指令</a></h3>
+<p>需要包含 <tt class="docutils literal">avr/io.h</tt> 。</p>
+<p><tt class="docutils literal">#define bit_is_set(sfr,bit) (sfr &amp; _BV(bit))</tt></p>
+<blockquote>
+测试sfr寄存器中bit位是否为1。</blockquote>
+<p><tt class="docutils literal">#define bit_is_clear(sfr,bit) <span class="pre">(!(sfr</span> &amp; <span class="pre">_BV(bit)))</span></tt></p>
+<blockquote>
+测试sfr寄存器中bit位是否是0。</blockquote>
+<p><tt class="docutils literal">#define loop_until_bit_is_set(sfr,bit) do {} while(bit_is_clear(sfr,bit))</tt></p>
+<blockquote>
+等待sfr中bit位置位，否则一直循环等待。</blockquote>
+<p><tt class="docutils literal">#define loop_until_bit_is_clear(sfr,bit) do {} while(bit_is_set(sfr,bit))</tt></p>
+<blockquote>
+等待sfr中bit位清零，否则一直循环等待。</blockquote>
+<p>如下操作都是将逐渐取消掉的，不要再用了，这里只给出声明和简介：</p>
+<p><tt class="docutils literal">#define cbi(sfr,bit) (_SFR_BYTE(sfr) &amp;= ~_BV(bit))</tt> ：清除sfr的bit位</p>
+<p><tt class="docutils literal">#define sbi(sfr,bit) (_SFR_BYTE(sfr) |= _BV(bit))</tt> ：置位sfr的bit位</p>
+<p><tt class="docutils literal">#define inb(sfr) _SFR_BYTE(sfr)</tt> ：读取sfr</p>
+<p><tt class="docutils literal">#define outb(sfr,val) <span class="pre">(_SFR_BYTE(sfr)=(val))</span></tt> ：写入sfr值val</p>
+<p><tt class="docutils literal">#define inw(sfr) _SFR_WORD(sfr)</tt> ：从16位寄存器读取sfr</p>
+<p><tt class="docutils literal">#define outw(sfr,val) <span class="pre">(_SFR_WORD(sfr)=(val))</span></tt> ：写入16位寄存器sfr值val</p>
+<p><tt class="docutils literal">#define outp(val,sfr) outb(sfr,val)</tt> ：向sfr写入val值</p>
+<p><tt class="docutils literal">#define inp(sfr) inb(sfr)</tt> ：从sfr读取</p>
+<p><tt class="docutils literal">#define BV(bit) _BV(bit)</tt> ：新程序的_BV()宏</p>
+</div>
+</div>
+</div>
+<div class="section" id="id81">
+<h1><a class="toc-backref" href="#id253">4&nbsp;&nbsp;&nbsp;AVR单片机典型外设编程</a></h1>
+<p>AVR的每个计数器都支持PWM功能。</p>
+<div class="section" id="id82">
+<h2><a class="toc-backref" href="#id254">4.1&nbsp;&nbsp;&nbsp;计数器</a></h2>
+<p>AVR单片机有两个8bit计数器和一个16bit计数器。在计数器的基础上可以做输入捕捉、输出比较、PWM输出、实时时钟计数等等。</p>
+<div class="section" id="id83">
+<h3><a class="toc-backref" href="#id255">4.1.1&nbsp;&nbsp;&nbsp;计数器事件</a></h3>
+<p>AVR计数器能够检测几种事件，寄存器TIFR中的标志位表示一个事件是否发生。ATmega16可以检测三种事件：</p>
+<div class="section" id="id84">
+<h4><a class="toc-backref" href="#id256">4.1.1.1&nbsp;&nbsp;&nbsp;时钟溢出事件</a></h4>
+<p>指计数器计数值达到最大值，下一个时钟周期将会回到0并重新计数。</p>
+<p>会导致TIFR的计数器溢出标志位TOVx置位1。</p>
+</div>
+<div class="section" id="id85">
+<h4><a class="toc-backref" href="#id257">4.1.1.2&nbsp;&nbsp;&nbsp;比较匹配事件</a></h4>
+<p>输出比较寄存器OCRx可以设置一个数值，则计数器在每个时钟周期都会检查这个数值，当匹配时，就会设置TIFR的计数器比较标志位OCFx为1。适用于产生不同频率的波。</p>
+</div>
+<div class="section" id="id86">
+<h4><a class="toc-backref" href="#id258">4.1.1.3&nbsp;&nbsp;&nbsp;输入捕捉事件</a></h4>
+<p>AVR单片机可以把一个输入当作触发输入捕捉事件来用，引脚电平的变化引起计数器计数值的读取，同时存入输入捕捉寄存器ICRx。这时TIFR寄存器的输入捕捉标志位ICFx为1。适用于测量外部输入脉冲的宽度。同时也可以把比较器的输出作为触发事件。</p>
+</div>
+</div>
+<div class="section" id="id87">
+<h3><a class="toc-backref" href="#id259">4.1.2&nbsp;&nbsp;&nbsp;计数器事件的处理</a></h3>
+<p>计数器的运行是独立于程序运行的，每个计数器都会在TIFR寄存器对应一个标志位，发生计数器事件时，对应标志位就置为1。</p>
+<p>有三种处理计数器事件的方法：</p>
+<div class="section" id="id88">
+<h4><a class="toc-backref" href="#id260">4.1.2.1&nbsp;&nbsp;&nbsp;不停的查询状态标志、中断标志，然后执行相应代码</a></h4>
+<p>处理器设置TIMSK的相应位，屏蔽中断。如果响应很短则会很及时，缺点是主程序需要额外代码。例如:</p>
+<pre class="literal-block">
+while(1) {
+    if(TIFR &amp; (1&lt;&lt;TOV1))    //如果计数器1溢出
+        PORTC=0x00;
+</pre>
+<p>该循环需要在主程序中，且需要预先的设置代码。</p>
+</div>
+<div class="section" id="isr">
+<h4><a class="toc-backref" href="#id261">4.1.2.2&nbsp;&nbsp;&nbsp;中断程序流程，执行中断服务程序(ISR)</a></h4>
+<p>设置计数器1的过程:</p>
+<pre class="literal-block">
+TIMSK |= (1&lt;&lt;TOIE1);            //允许计数器1溢出中断
+SREG=0x80;                      //CPU开中断
+</pre>
+<p>一个中断服务程序的例子:</p>
+<pre class="literal-block">
+SIGNAL(SIG_OVERFLOW1) {
+    //...
+    PORTC ^= _BV(PIN_OUT);      //反转输出
+    TCNT1H=(65536-CLK)/256;
+    TCNT1L=(65536-CLK)%256;
+}
+</pre>
+</div>
+<div class="section" id="id89">
+<h4><a class="toc-backref" href="#id262">4.1.2.3&nbsp;&nbsp;&nbsp;自动改变输出电平</a></h4>
+<p>AVR可以完全不依赖程序，而是用硬件实现计数器事件处理。当比较匹配时就改变输出端口电平为1、0或取反。不影响程序的执行。</p>
+<p>实现需要设置TCCRx中的COMx0和COMx1两个位。下面设置定时器1，OC1A为输出反转:</p>
+<pre class="literal-block">
+TCCR1 !=  (1&lt;&lt;COM1A) | (1&lt;&lt;COM1A0);
+</pre>
+<p>要使得该引脚不断反转输出，还要在DDRx上设置OC1A为输出。</p>
+</div>
+</div>
+<div class="section" id="id90">
+<h3><a class="toc-backref" href="#id263">4.1.3&nbsp;&nbsp;&nbsp;计数器的时钟选择</a></h3>
+<p>ATmega16有一个10位分频器，和多路选择器。</p>
+<div class="section" id="id91">
+<h4><a class="toc-backref" href="#id264">4.1.3.1&nbsp;&nbsp;&nbsp;使用系统时钟</a></h4>
+<p>&#64;page 173-174</p>
+</div>
+<div class="section" id="id92">
+<h4><a class="toc-backref" href="#id265">4.1.3.2&nbsp;&nbsp;&nbsp;使用异步时钟</a></h4>
+<p>&#64;page 175-175</p>
+</div>
+<div class="section" id="id93">
+<h4><a class="toc-backref" href="#id266">4.1.3.3&nbsp;&nbsp;&nbsp;使用外部时钟</a></h4>
+<p>&#64;page 175-175</p>
+</div>
+</div>
+<div class="section" id="id94">
+<h3><a class="toc-backref" href="#id267">4.1.4&nbsp;&nbsp;&nbsp;计数器的设置和使用</a></h3>
+<p>无论如何先选择时钟源，然后可选的开启中断。</p>
+<div class="section" id="timer1">
+<h4><a class="toc-backref" href="#id268">4.1.4.1&nbsp;&nbsp;&nbsp;使用Timer1的输入捕捉中断</a></h4>
+<p>16bit的Timer1要小心读写，读取应该先低后高，写入应该先高后低。</p>
+<p>设置初始化:</p>
+<pre class="literal-block">
+void init_timer1_icp(void) {
+    TCCR1B != (1&lt;&lt;CS11) ! (CS10);   //分频比64
+    TIFR = 1&lt;&lt;ICF1;                 //清除还没执行的中断
+    TIMSK = 1&lt;&lt;TICIE1;              //允许计数器1的捕捉事件中断
+    DDRB=0xff;                      //PORTB输出
+    DDRD &amp;= ~(1&lt;&lt;PD6);              //PD6(ICF)输入
+}
+</pre>
+<p>捕捉事件中断:</p>
+<pre class="literal-block">
+SIGNAL(SIG_INPUT_CAPTURE1) {
+    PORTB=ICR1&gt;&gt;8;      //输出高8位
+    TCNT1=0;            //清空计数器
+}
+</pre>
+<p>这里没有处理计数器溢出，可以自己写一个试试。</p>
+</div>
+<div class="section" id="timer2">
+<h4><a class="toc-backref" href="#id269">4.1.4.2&nbsp;&nbsp;&nbsp;使用Timer2的输出比较中断</a></h4>
+<p>计数器2可以用异步时钟驱动，设置输出比较匹配每秒发生一次，就可以实现RTC。电路方面接入32768Hz的晶振。分频比为1024，OCR2为32，就得到两次比较匹配时间为1S。初始化代码:</p>
+<pre class="literal-block">
+void init_timer2_ocr(void) {
+    ASSR=1&lt;&lt;AS2;            //使用异步时钟
+    TCCR2 |= (1&lt;&lt;WGM21)!(1&lt;&lt;CS22)!(1&lt;&lt;CS21)!(1&lt;&lt;CS20);  //输出匹配模式CTC，分频比1024
+    TIFR= 1&lt;&lt;OCF2;          //清除未执行中断
+    TIMSK=1&lt;&lt;OCIE2;         //允许输出匹配中断
+    OCR2=32;                //输出比较值为32
+    DDRB=0xff;              //PORTB输出
+    while(ASSR &amp; (1&lt;&lt;OCR2UB))   //等待寄存器更新
+        ;
+}
+</pre>
+<p>中断服务程序就是翻转PORTB:</p>
+<pre class="literal-block">
+SIGNAL(SIG_OUTPUT_COMPARE2) {
+    PORTB = ~PORTB;
+}
+</pre>
+<p>这里用了CTC，其他模式见数据手册。</p>
+</div>
+</div>
+<div class="section" id="pwm">
+<h3><a class="toc-backref" href="#id270">4.1.5&nbsp;&nbsp;&nbsp;使用计数器的PWM输出</a></h3>
+<p>&#64;page 177-179</p>
+</div>
+<div class="section" id="pwmdac">
+<h3><a class="toc-backref" href="#id271">4.1.6&nbsp;&nbsp;&nbsp;PWM输出实现两路DAC变换</a></h3>
+<p>&#64;page 179-181</p>
+</div>
+<div class="section" id="id95">
+<h3><a class="toc-backref" href="#id272">4.1.7&nbsp;&nbsp;&nbsp;PWM输出实现正弦波输出</a></h3>
+<p>&#64;page 182-183</p>
+</div>
+</div>
+<div class="section" id="a-d">
+<h2><a class="toc-backref" href="#id273">4.2&nbsp;&nbsp;&nbsp;A/D转换器</a></h2>
+<p>&#64;page 184-193</p>
+</div>
+<div class="section" id="uart">
+<h2><a class="toc-backref" href="#id274">4.3&nbsp;&nbsp;&nbsp;通用串行接口UART</a></h2>
+<p>很常用的接口，几乎所有单片机都有支持。应用包括RS-232实现短距离通信和RS-485进行长距离通信。</p>
+<div class="section" id="id96">
+<h3><a class="toc-backref" href="#id275">4.3.1&nbsp;&nbsp;&nbsp;传输模式的选择</a></h3>
+<p>可选同步或异步模式，通过UCSRC寄存器的UMSEL位，0为异步，1为同步。异步模式时不需要外部时钟，收发双方使用同样的波特率，与帧格式相连接TXD和RXD就能实现数据传输。同步模式需要一个同步时钟XCK，在时钟的上升沿或下降沿取样数据，双方使用同一个时钟信号，XCK的频率不能超过CPU频率的1/4。同步模式速度更高，不过需要多一根线，实际使用很少。</p>
+</div>
+<div class="section" id="id97">
+<h3><a class="toc-backref" href="#id276">4.3.2&nbsp;&nbsp;&nbsp;波特率的设置</a></h3>
+<p>异步模式无需同步时钟，不过双方必须有相同的波特率。另外UCSRA的UX2为1时，波特率加倍。</p>
+<p>波特率计算公式：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="37%" />
+<col width="37%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>使用模式</td>
+<td>波特率方程</td>
+<td>UBBR值方程</td>
+</tr>
+<tr><td>异步(U2X=0)</td>
+<td>BAUD=fosc/(16*(UBRR+1))</td>
+<td>UBRR=fosc/(16*BAUD)-1</td>
+</tr>
+<tr><td>异步(U2X=1)</td>
+<td>BAUD=fosc/(8*(UBRR+1))</td>
+<td>UBRR=fosc/(8*BAUD)-1</td>
+</tr>
+<tr><td>同步模式</td>
+<td>BAUD=fosc/(2*(UBRR+1))</td>
+<td>UBRR=fosc/(2*BAUD)-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id98">
+<h3><a class="toc-backref" href="#id277">4.3.3&nbsp;&nbsp;&nbsp;传输帧格式的设置</a></h3>
+<p>串行传输的帧格式包含4个字段：</p>
+<ol class="arabic simple">
+<li>起始位：必须有</li>
+<li>数据位：至少5bit，可以扩展到8bit</li>
+<li>奇偶校验位：可以没有</li>
+<li>停止位：至少1bit</li>
+</ol>
+<p>AVR的内置UART都支持这些配置。通信双方的帧格式必须一致才行。</p>
+</div>
+<div class="section" id="usart">
+<h3><a class="toc-backref" href="#id278">4.3.4&nbsp;&nbsp;&nbsp;USART的初始化</a></h3>
+<p>一个初始化设置的例子。让串口同时允许接收和发送，接收中断允许，时钟频率为1MHz下的2400，8bit数据位，没有奇偶校验，1位停止位。</p>
+<pre class="literal-block">
+void uart_init(void) {
+    UCSRB |= (1&lt;&lt;RXEN)|(1&lt;&lt;TXEN)|(1&lt;&lt;RXCIE);    //允许发送和接收
+    UBRRL=0x19;                                 //[fosc/16/(BAUD+1)%256
+    UBRRH=0x00;                                 //[fosc/16/(BAUD+1)/256
+    UCSRC |= (1&lt;&lt;URSEL)|(1&lt;&lt;UCSZ1)|(1&lt;&lt;UCSZ0);  //8bit数据位+1bit停止位
+}
+</pre>
+</div>
+<div class="section" id="id99">
+<h3><a class="toc-backref" href="#id279">4.3.5&nbsp;&nbsp;&nbsp;发送和接收的处理方法</a></h3>
+<p>收发可以选择查询或中断方式，不过一般来说，发送是查询方式，接收用中断方式。</p>
+<p>发送1字节的函数，使用UDRE标志位确定可以写入下一个字节:</p>
+<pre class="literal-block">
+int uart_putchar(char c) {
+    if(c=='\n')
+        uart_putchar('\r');
+    UDR=c;
+    loop_until_bit_is_set(UCSRA,UDRE);
+    sbi(UCSRA,UDRE);
+    return 0;
+}
+</pre>
+<p>数据的接收则使用中断方式，确保RXCIE是1，同时开启总的中断允许。如下就是接收数据并写入缓冲:</p>
+<pre class="literal-block">
+SIGNAL(SIG_UART_RECV) {
+    RS_buf[RSend]=UDR;
+    RSend++;
+    if(RSend&gt;=10)
+        RSend=0;
+}
+</pre>
+</div>
+<div class="section" id="id100">
+<h3><a class="toc-backref" href="#id280">4.3.6&nbsp;&nbsp;&nbsp;使用实例</a></h3>
+<p>&#64;page 195-197</p>
+</div>
+</div>
+<div class="section" id="spispieeprom">
+<h2><a class="toc-backref" href="#id281">4.4&nbsp;&nbsp;&nbsp;SPI接口和使用SPI接口的EEPROM</a></h2>
+<p>提供单片机外围器件短距离高速通信，主模式下最高速度可以达到1/2系统时钟。也有很多器件使用SPI接口。同时SPI也可以作为CPU之间的通信接口。</p>
+<div class="section" id="spi">
+<h3><a class="toc-backref" href="#id282">4.4.1&nbsp;&nbsp;&nbsp;SPI接口介绍</a></h3>
+<p>Serial Peripheral Interface-串行外围设备接口。属于同步串行通信，简称同步串口。</p>
+</div>
+<div class="section" id="id101">
+<h3><a class="toc-backref" href="#id283">4.4.2&nbsp;&nbsp;&nbsp;SPI的传输原理</a></h3>
+<p>相当于两个8bit移位寄存器首尾相连，每个时钟周期，数据从一个设备的移位寄存器移动到另外一个设备的移位寄存器，发送和接受同时进行，以字节为单位，无需关心顺序。</p>
+</div>
+<div class="section" id="id102">
+<h3><a class="toc-backref" href="#id284">4.4.3&nbsp;&nbsp;&nbsp;SPI器件的主/从模式和设置</a></h3>
+<p>SPI接口器件分为主设备(Master)和从设备(Slave)。主设备产生时钟信号，主设备可以主动发起数据传输。SPI控制寄存器SPCR中的MSTR位就是用于控制的，1时为主设备，0为从设备。单片机的/SS的电平也会影响SPI的工作模式。主模式下如果/SS是输入且为低电平，则MSTR会变成0，设备进入从模式。</p>
+</div>
+<div class="section" id="id103">
+<h3><a class="toc-backref" href="#id285">4.4.4&nbsp;&nbsp;&nbsp;SPI的传输模式和设置</a></h3>
+<p>&#64;page 198-199</p>
+</div>
+<div class="section" id="spi-i-o">
+<h3><a class="toc-backref" href="#id286">4.4.5&nbsp;&nbsp;&nbsp;SPI主/从模式和I/O的设置</a></h3>
+<p>&#64;page 199-199</p>
+</div>
+<div class="section" id="id104">
+<h3><a class="toc-backref" href="#id287">4.4.6&nbsp;&nbsp;&nbsp;SPI接口的时钟频率设置</a></h3>
+<p>&#64;page 199-200</p>
+</div>
+<div class="section" id="id105">
+<h3><a class="toc-backref" href="#id288">4.4.7&nbsp;&nbsp;&nbsp;SPI接口与中断</a></h3>
+<p>&#64;page 200-200</p>
+</div>
+<div class="section" id="id106">
+<h3><a class="toc-backref" href="#id289">4.4.8&nbsp;&nbsp;&nbsp;SPI接口的状态</a></h3>
+<p>&#64;page 200-200</p>
+</div>
+<div class="section" id="id107">
+<h3><a class="toc-backref" href="#id290">4.4.9&nbsp;&nbsp;&nbsp;SPI传输的位顺序</a></h3>
+<p>&#64;page 200-200</p>
+</div>
+<div class="section" id="id108">
+<h3><a class="toc-backref" href="#id291">4.4.10&nbsp;&nbsp;&nbsp;SPI接口基本发送和接收程序</a></h3>
+<p>&#64;page 200-201</p>
+</div>
+<div class="section" id="spieeprom">
+<h3><a class="toc-backref" href="#id292">4.4.11&nbsp;&nbsp;&nbsp;使用SPI接口的EEPROM</a></h3>
+<p>&#64;page 201-206</p>
+</div>
+</div>
+<div class="section" id="id109">
+<h2><a class="toc-backref" href="#id293">4.5&nbsp;&nbsp;&nbsp;I/O和中断的使用</a></h2>
+<p>&#64;page 206-210</p>
+</div>
+<div class="section" id="twi">
+<h2><a class="toc-backref" href="#id294">4.6&nbsp;&nbsp;&nbsp;TWI接口</a></h2>
+<p>两线制接口TWI，与I2C完全兼容。</p>
+<div class="section" id="i2c">
+<h3><a class="toc-backref" href="#id295">4.6.1&nbsp;&nbsp;&nbsp;I2C总线的基本知识</a></h3>
+<p>两条信号线SCL和SDA。都需要上拉电阻，器件内部信号引脚是集电极开路/漏极开路的。这样总线上只要有低电平输出就会被拉低(线与逻辑)，用于总线仲裁。</p>
+<div class="section" id="id110">
+<h4><a class="toc-backref" href="#id296">4.6.1.1&nbsp;&nbsp;&nbsp;在I2C总线信号</a></h4>
+<p>SCL高电平，SDA的下降沿会产生开始信号，SDA上升沿产生停止信号。</p>
+<img alt="_images/book_avrgcc_c_dev_4.6.1_00.png" src="_images/book_avrgcc_c_dev_4.6.1_00.png" />
+<p>传输数据时，SCL高电平，SDA上数据不能变。SCL的低电平时改变SDA电平。</p>
+<img alt="_images/book_avrgcc_c_dev_4.6.1_01.png" src="_images/book_avrgcc_c_dev_4.6.1_01.png" />
+</div>
+<div class="section" id="id111">
+<h4><a class="toc-backref" href="#id297">4.6.1.2&nbsp;&nbsp;&nbsp;主器件和从器件</a></h4>
+<p>总线上可以有多个主设备，但同时只能有一个主设备发送，从设备都有设备地址。主设备产生SCL信号。当总线上有多个主设备试图传输不同数据时，就会产生总线仲裁问题。</p>
+</div>
+<div class="section" id="id112">
+<h4><a class="toc-backref" href="#id298">4.6.1.3&nbsp;&nbsp;&nbsp;I2C的寻址过程</a></h4>
+<p>&#64;page 211-212</p>
+</div>
+</div>
+<div class="section" id="avrtwi">
+<h3><a class="toc-backref" href="#id299">4.6.2&nbsp;&nbsp;&nbsp;AVR单片机的TWI接口</a></h3>
+<div class="section" id="sclsda">
+<h4><a class="toc-backref" href="#id300">4.6.2.1&nbsp;&nbsp;&nbsp;SCL和SDA引脚</a></h4>
+<p>与GPIO复用，开启TWI后会自动覆盖原来的设置。内部有上拉电阻，也有毛刺去除电路，输出有斜率限制。</p>
+</div>
+<div class="section" id="id113">
+<h4><a class="toc-backref" href="#id301">4.6.2.2&nbsp;&nbsp;&nbsp;波特率设置</a></h4>
+<p>主模式，时钟周期由TWSR的预分频位和TWBR决定。从模式不需要设置时钟。不过系统时钟必须大于SCL的16倍。</p>
+<p>SCL频率和TWBR的关系:</p>
+<pre class="literal-block">
+f_SCL=f_CLK/(16+2*TWBR*4_TWPS)
+</pre>
+<p>f_SCL时SCL频率。f_CLK是系统时钟。TWPS是TWI接口预分频。主模式时TWPS应该大于10，否则可能有不正确的输出。</p>
+</div>
+<div class="section" id="id114">
+<h4><a class="toc-backref" href="#id302">4.6.2.3&nbsp;&nbsp;&nbsp;单片机的从设备地址</a></h4>
+<p>写入寄存器TWAR。其最低位TWGCE选择是否是通用寻址地址，=1则收到通用寻址地址时会响应。</p>
+</div>
+<div class="section" id="id115">
+<h4><a class="toc-backref" href="#id303">4.6.2.4&nbsp;&nbsp;&nbsp;TWI接口相关中断</a></h4>
+<p>TWI完成当前任务，需要软件响应时会置位TWINT。如果允许中断，且TWCR.TWIE=1，则会产生中断。</p>
+<p>注意中断服务例程不会自动清零TWINT，需要手动写1清零。每次清零TWINT都表示一次新的总线操作开始。所以要在清零前访问TWAR和TWSR、TWDR。</p>
+</div>
+</div>
+<div class="section" id="id116">
+<h3><a class="toc-backref" href="#id304">4.6.3&nbsp;&nbsp;&nbsp;AVR单片机TWI接口的使用</a></h3>
+<div class="section" id="id117">
+<h4><a class="toc-backref" href="#id305">4.6.3.1&nbsp;&nbsp;&nbsp;发送开始信号</a></h4>
+<p>主设备要先发送开始信号:</p>
+<pre class="literal-block">
+TWCR=_BV(TWINT)|_BV(TWSTA)|_BV(TWEN);
+while((TWCR &amp; _BV(TWINT))==0);          //等待传送完成
+</pre>
+</div>
+<div class="section" id="id118">
+<h4><a class="toc-backref" href="#id306">4.6.3.2&nbsp;&nbsp;&nbsp;发送停止信号</a></h4>
+<p>停止信号语句:</p>
+<pre class="literal-block">
+TWCR=_BV(TWINT)|_BV(TWSTO)|_BV(TWEN);
+</pre>
+<p>主模式下TWSTO=1会产生停止信号。从模式下TWSTO=1会让总线从错误状态恢复。</p>
+</div>
+<div class="section" id="id119">
+<h4><a class="toc-backref" href="#id307">4.6.3.3&nbsp;&nbsp;&nbsp;发送数据</a></h4>
+<p>寻址命令和要发送的数据都算，发送一个字节:</p>
+<pre class="literal-block">
+TWDR=data;
+TWCR=_BV(TWINT)|_BV(TWEN);
+while((TWCR &amp; _BV(TWINT))==0);  //等待发送完成
+</pre>
+</div>
+<div class="section" id="id120">
+<h4><a class="toc-backref" href="#id308">4.6.3.4&nbsp;&nbsp;&nbsp;检查传输状态</a></h4>
+<p>对TWI操作后，可以返回此次操作状态，以检查是否成功。TWSR的高5bit就是状态。twi.h中有定义。一个状态检查的程序:</p>
+<pre class="literal-block">
+begin:
+    TWCR=_BV(TWINT)|_BV(TWSTA)|_BV(TWEN);   //开始信号
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst=TW_STATUS)) {
+        case TW_START:
+            break;
+        case TW_MT_ARB_LOST:    //总线仲裁失败
+            goto begin;
+        default:
+            return -1;
+    }
+    //下一步操作
+</pre>
+</div>
+</div>
+<div class="section" id="avrtwi-eeprom">
+<h3><a class="toc-backref" href="#id309">4.6.4&nbsp;&nbsp;&nbsp;用AVR单片机的TWI接口读/写EEPROM</a></h3>
+<p>&#64;page 214-216</p>
+</div>
+<div class="section" id="id121">
+<h3><a class="toc-backref" href="#id310">4.6.5&nbsp;&nbsp;&nbsp;示例程序</a></h3>
+<div class="section" id="id122">
+<h4><a class="toc-backref" href="#id311">4.6.5.1&nbsp;&nbsp;&nbsp;从EEPROM中读取数据</a></h4>
+<p>从地址eeaddr读取len字节到buf缓冲区，完成后返回实际读出的字节数:</p>
+<pre class="literal-block">
+int ee2464_read_bytes(uint16_t eeaddr, int len, uint8_t *buf) {
+    uint8_t sla, twcr, n=0;
+    int rc=0;
+    //假设设备地址为000
+    sla=TWI_SLA_24C64;
+restart:
+    if (n++&gt;=MAX_ITER)  //最多重试次数
+        return -1;
+begin:
+    TWCR=_BV(TWINT)|_BV(TWSTA)|_BV(TWEN);   //开始信号
+    while((TWCR &amp; _BV(TWINT))==0);          //等待发送完成
+    switch((twst=TW_STATUS)) {
+        case TW_REP_START:
+        case TW_START:
+            break;
+        case TW_MT_ARB_LOST:
+            goto begin:
+        default:
+            return -1;
+    }
+    //发送SLA+W
+    TWDR=sla|TW_WRITE;
+    TWCR=_BV(TWINT)|_BV(TWEN);              //清零TWINT，开始传输
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst==TW_STATUS)) {
+        case TW_MT_SLA_ACK:
+            break;
+        case TW_MT_SLA_NACK:                //器件忙
+            goto restart:
+        case TW_MT_ARB_LOST:
+            goto begin:
+        default:
+            goto error:
+    }
+    TWDR=eeaddr&gt;&gt;8;                         //传输地址高8bit
+    TWCR=_BV(TWINT)|_BV(TWEN);              //清零TWINT，开始传输
+    whiel((TWCR &amp; _BV(TWINT))==0);          //等待传输完毕
+    switch((twst=TW_STATUS)) {
+        case TW_MT_DATA_ACK:
+            break;
+        case TW_MT_DATA_NACK:
+            goto quit;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    TWDR=eeaddr;                            //传递地址低8bit
+    TWCR=_BV(TWINT)|_BV(TWEN);              //清零TWINT，开始传输
+    while((TWCR &amp; _BV(TWINT))==0);          //等待传输完成
+    switch((twst=TW_STATUS)) {
+        case TW_MT_DATA_ACK:
+            break;
+        case TW_MT_DATA_NACK:
+            goto quit;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    TWCR=_BV(TWINT)|_BV(TWSTA)|_BV(TWEN);   //发送/重新开始信号
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst=TW_STATUS)) {
+        case TW_START:
+        case TW_REP_START:
+            break;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    TWDR=sla|TW_READ;
+    TWCR=_BV(TWINT)|_BV(TWEN);              //清零中断，开始发送
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst=TW_STATUS)) {
+        case TW_MR_SLA_ACK:
+            break;
+        case TW_MR_SLA_NACK:
+            goto quit;
+        case TW_MR_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    //收到数据发送应答信号
+    for (twcr=_BV(TWINT)|_BV(TWEN)|_BV(TWEA));len&gt;0;len--) {
+        if (len==1)
+            twcr=_BV(TWINT)|_BV(TWEN);      //发送NAK
+        TWCR=twcr;
+        while((TWCR &amp; _BV(TWINT))==0);
+        switch((twst==TW_STATUS)) {
+            case TW_MR_DATA_NACK:
+                len=0;                      //结束循环
+            case TW_MR_DATA_ACK:
+                *buf++=TWDR;
+                rv++;
+                break;
+            default:
+                goto error;
+        }
+    }
+quit:
+    TWCR=_BV(TWINT)|_BV(TWSTO)|_BV(TWEN);   //发送停止信号
+    return rv;
+error:
+    rv=-1;
+    goto quit;
+}
+</pre>
+</div>
+<div class="section" id="id123">
+<h4><a class="toc-backref" href="#id312">4.6.5.2&nbsp;&nbsp;&nbsp;按页写多个字节到EEPROM</a></h4>
+<p>将buf指向的len字节写入到EEPROM的eeaddr地址，返回实际写入字节数。</p>
+<pre class="literal-block">
+int ee2464_write_page(uint16_t eeaddr, int len, uint8_t *buf) {
+    uint8_t sla,n=0;
+    int rv=0;
+    uint16_t endaddr;
+    if (eeaddr+len&lt;(eeaddr|(PAGE_SIZE-1)))
+        endaddr=eeaddr+len;
+    else
+        endaddr=(eeaddr|(PAGE_SIZE-1))+1;
+    len=endaddr-eeaddr;
+    //器件地址000
+    sla=TWI_SLA_24C64;
+restart:
+    if (n++&gt;=MAX_ITER)
+        return -1;
+begin:
+    TWCR=_BV(TWINT)|_BV(TWSTA)|_BV(TWEN);       //开始信号
+    while((twst=TW_STATUS)) {
+        case TW_REP_START:
+        case TW_START:
+            break;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            return -1;
+    }
+    TWDR=sla|TW_WRITE;                          //发送SLA+W
+    TWCR=_BV(TWINT)|_BV(TWEN);                  //清零中断传输
+    while((TWCR &amp; _BV(TWINT))==0);              //等待传输完成
+    switch((twst=TW_STATUS)) {
+        case TW_MT_SLA_ACK:
+            break;
+        case TW_MT_SLA_NACK:
+            goto restart;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    TWDR=eeaddr&gt;&gt;8;                             //发送地址高8bit
+    TWCR=_BV(TWINT)|_BV(TWEN);                  //清零中断传输
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst=TW_STATUS)) {
+        case TW_MT_DATA_ACK:
+            break;
+        case TW_MT_DATA_NACK:
+            goto quit;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        defautl:
+            goto error;
+    }
+    TWDR=eeaddr;                                //发送地址低8bit
+    TWCR=_BV(TWINT)|_BV(TWEN);
+    while((TWCR &amp; _BV(TWINT))==0);
+    switch((twst=TW_STATUS)) {
+        case TW_MT_DATA_ACK:
+            break;
+        case TW_MT_DATA_NACK:
+            goto quit;
+        case TW_MT_ARB_LOST:
+            goto begin;
+        default:
+            goto error;
+    }
+    for(;len&gt;0;len--) {
+        TWDR=*buf++;
+        TWCR=_BV(TWINT)|_BV(TWEN);
+        while((TWCR &amp; _BV(TWINT))==0);
+        switch((twst=TW_STATUS)) {
+            case TW_MT_DATA_NACK:
+                goto error;
+            case TW_MT_DATA_ACK:
+                rv++;
+                break;
+            default:
+                goto error;
+        }
+    }
+quit:
+    TWCR=_BV(TWINT)|_BV(TWSTO)|_BV(TWEN);
+    return rv;
+error:
+    rv=-1;
+    goto quit;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id124">
+<h1><a class="toc-backref" href="#id313">5&nbsp;&nbsp;&nbsp;用AVR单片机实现的测量仪表</a></h1>
+<div class="section" id="id125">
+<h2><a class="toc-backref" href="#id314">5.1&nbsp;&nbsp;&nbsp;总体设计思路</a></h2>
+<p>测量仪表的一般工作流程：</p>
+<ol class="arabic simple">
+<li>传感器采集信号</li>
+<li>放大</li>
+<li>A/D转换</li>
+<li>整理和识别信号</li>
+<li>显示结果</li>
+</ol>
+<p>AVR内部自带A/D转换器，所以比较方便。特殊场合可以用外部放大电路和A/D转换。</p>
+</div>
+<div class="section" id="id126">
+<h2><a class="toc-backref" href="#id315">5.2&nbsp;&nbsp;&nbsp;传感器特性曲线拟合</a></h2>
+<p>一般传感器都不是线性的，厂商会给出特性曲线，不过最好还是自己测量一下，因为有生产误差。</p>
+<div class="section" id="id127">
+<h3><a class="toc-backref" href="#id316">5.2.1&nbsp;&nbsp;&nbsp;采样数据的获得</a></h3>
+<p>需要两方面数据：输入参数真实值和传感器输出值。可以用单片机采集后得到输出值。</p>
+</div>
+<div class="section" id="id128">
+<h3><a class="toc-backref" href="#id317">5.2.2&nbsp;&nbsp;&nbsp;特性曲线拟合处理</a></h3>
+<p>可以用Matlab。</p>
+</div>
+</div>
+<div class="section" id="id129">
+<h2><a class="toc-backref" href="#id318">5.3&nbsp;&nbsp;&nbsp;单键开关电路</a></h2>
+<p>&#64;page 225-229</p>
+</div>
+<div class="section" id="lcd">
+<h2><a class="toc-backref" href="#id319">5.4&nbsp;&nbsp;&nbsp;LCD显示模块</a></h2>
+<p>&#64;page 229-231</p>
+</div>
+<div class="section" id="id130">
+<h2><a class="toc-backref" href="#id320">5.5&nbsp;&nbsp;&nbsp;自动量程选择算法</a></h2>
+<p>&#64;page 231-231</p>
+</div>
+</div>
+<div class="section" id="id131">
+<h1><a class="toc-backref" href="#id321">6&nbsp;&nbsp;&nbsp;用AVR单片机实现的测量仪表</a></h1>
+<div class="section" id="id132">
+<h2><a class="toc-backref" href="#id322">6.1&nbsp;&nbsp;&nbsp;总体设计思路</a></h2>
+<p>&#64;page 232-232</p>
+</div>
+<div class="section" id="id133">
+<h2><a class="toc-backref" href="#id323">6.2&nbsp;&nbsp;&nbsp;传感器特性曲线拟合</a></h2>
+<p>&#64;page 232-235</p>
+</div>
+<div class="section" id="id134">
+<h2><a class="toc-backref" href="#id324">6.3&nbsp;&nbsp;&nbsp;电池电量检测</a></h2>
+<p>一般便携式仪表用电池供电。定期检测电量并给出提示比较好。</p>
+<p>&#64;page 235-236</p>
+</div>
+</div>
+<div class="section" id="avrxrtos">
+<h1><a class="toc-backref" href="#id325">7&nbsp;&nbsp;&nbsp;AVRX实时操作系统RTOS</a></h1>
+<div class="section" id="rtos">
+<h2><a class="toc-backref" href="#id326">7.1&nbsp;&nbsp;&nbsp;RTOS的功能</a></h2>
+<p>较为复杂的程序，靠顺序式已经不够了，需要OS了。</p>
+<p>例如要引入TCP/IP支持就很复杂了。引入操作系统会更简洁和可移植。</p>
+<p>一般嵌入式系统3大功能：</p>
+<ol class="arabic simple">
+<li>内存管理：动态内存管理</li>
+<li>多任务处理：多个线程和进程，调度机制</li>
+<li>周边资源管理：按键、显示器、通信接口、外接器件等</li>
+</ol>
+<p>任务调度一般是用汇编写的，负责保存现场和上下文切换。</p>
+<p>几种状态：</p>
+<ol class="arabic simple">
+<li>就绪：任务准备就绪，等待CPU资源</li>
+<li>运行：正在使用CPU资源</li>
+<li>等待：执行或就绪正在等待某一时间发生时所处状态</li>
+<li>挂起：任务暂停，直到等待的时间结束</li>
+</ol>
+<p>一些系统会有个特殊任务，即 <strong>空闲任务(Idle Task)</strong> 。当所有任务都在等待或挂起时，就执行空闲任务。有利于进入省电模式。</p>
+<p>任务控制块TCB保存重要信息，包括上下文、任务标识ID、优先级、附加数据。</p>
+<p>多个任务之间的同步，可采用信号量(Semophore)或事件(Event)，还有消息队列。</p>
+</div>
+<div class="section" id="avrx">
+<h2><a class="toc-backref" href="#id327">7.2&nbsp;&nbsp;&nbsp;AVRX简介</a></h2>
+<p>特点：</p>
+<ol class="arabic simple">
+<li>完全支持占先式、优先级驱动的任务调度算法</li>
+<li>16个优先级，相同优先级使用Round-robin调度算法轮流执行</li>
+<li>信号量可以用于信号传递、同步和互斥信号量，支持阻塞和非阻塞语法</li>
+<li>任务之间可以用消息队列互相传递消息，接收和确认信息可以用阻塞和非阻塞调用</li>
+<li>在中断子程序中，大部分非阻塞的中断服务程序可以使用</li>
+<li>支持单个定时器的时间队列管理，任何进程都可以设置一个定时器，并且任何一个任务都可以等待定时器时间到</li>
+<li>支持单步调试运行着的进程</li>
+<li>程序空间小，包含所有功能的版本占用1000字节</li>
+<li>速度快，在10MHz时钟下，10KHz的系统时钟消耗20%的CPU资源，同时还可以跟踪一个定时器，中断进入和返回用211个时钟周期</li>
+<li>与定时器/计数器有关的事务可以用AVRX写成任务级的代码</li>
+</ol>
+<div class="section" id="id135">
+<h3><a class="toc-backref" href="#id328">7.2.1&nbsp;&nbsp;&nbsp;任务</a></h3>
+<p>AVRX2.6为了支持C语言，保存了所有32个寄存器。最小上下文是32个寄存器、SREG和PC，总计35字节。 <cite>AvrXInitTask()</cite> 函数给所有寄存器初始化为0x00。只有进程上下文保存在任务堆栈中。其他内容保存(内核和中断)在内核堆栈。降低了第一个中断的上下文切换和进入内核API的SRAM消耗。随后的中断(如果允许嵌套中断)嵌入内核堆栈，API不进行上下文切换。</p>
+<p>剩余任务信息在PID里，6字节SRAM，其余SRAM消耗就是任务队列、状态位、优先级位。任务控制块TCB在程序空间表格里，用于初始化进程。提供函数如下：</p>
+<ol class="arabic simple">
+<li><cite>AvrXInitTask()</cite></li>
+<li><cite>AvrXRunTask()</cite></li>
+<li><cite>AvrXSuspend()</cite></li>
+<li><cite>AvrXResume()</cite></li>
+<li><cite>AvrXTaskExit()</cite></li>
+<li><cite>AvrXHalt()</cite></li>
+</ol>
+</div>
+<div class="section" id="id136">
+<h3><a class="toc-backref" href="#id329">7.2.2&nbsp;&nbsp;&nbsp;信号量</a></h3>
+<p>&#64;page 239-239</p>
+</div>
+<div class="section" id="id137">
+<h3><a class="toc-backref" href="#id330">7.2.3&nbsp;&nbsp;&nbsp;定时器</a></h3>
+<p>&#64;page 239-239</p>
+</div>
+<div class="section" id="id138">
+<h3><a class="toc-backref" href="#id331">7.2.4&nbsp;&nbsp;&nbsp;消息队列</a></h3>
+<p>&#64;page 239-240</p>
+</div>
+<div class="section" id="id139">
+<h3><a class="toc-backref" href="#id332">7.2.5&nbsp;&nbsp;&nbsp;单步运行支持</a></h3>
+<p>&#64;page 240-240</p>
+</div>
+<div class="section" id="id140">
+<h3><a class="toc-backref" href="#id333">7.2.6&nbsp;&nbsp;&nbsp;系统对象</a></h3>
+<p>&#64;page 240-240</p>
+</div>
+<div class="section" id="id141">
+<h3><a class="toc-backref" href="#id334">7.2.7&nbsp;&nbsp;&nbsp;系统堆栈</a></h3>
+<p>&#64;page 241-241</p>
+</div>
+</div>
+<div class="section" id="id142">
+<h2><a class="toc-backref" href="#id335">7.3&nbsp;&nbsp;&nbsp;AVRX下的编程</a></h2>
+<p>&#64;page 241-251</p>
+</div>
+</div>
+<div class="section" id="avr-jtagavr">
+<h1><a class="toc-backref" href="#id336">8&nbsp;&nbsp;&nbsp;AVR-JTAG与AVR单片机仿真技术</a></h1>
+<div class="section" id="jtag">
+<h2><a class="toc-backref" href="#id337">8.1&nbsp;&nbsp;&nbsp;JTAG简介</a></h2>
+<p>随着集成电路规模的持续扩大，电子测试越来越难。为了解决这个问题，人们于1985年制定了JTAG(Join Test Action Group)协议。1990你JTAG正式称为IEEE标准，IEEE1149.1-1990。通过这个接口，可以对硬件电路进行边界扫描和故障检测。有JTAG接口的芯片通过TAP(Test Access Port)与测试主机相连，是一种4线或5线的串行通信接口。</p>
+<p>AVR在ATmega芯片中加入了对JTAG的支持(注ATmega8系列不支持)。通过Atmel公司的JTAGICE仿真适配器连接。</p>
+<p>使用JTAG仿真，就是直接使用硬件上的CPU，所以更靠谱。其缺点就是要占用CPU上4个I/O口。Atmel公司的JTAG控制协议是公开的，所以有第三方产品，甚至爱好者自制的。</p>
+</div>
+<div class="section" id="jtagice">
+<h2><a class="toc-backref" href="#id338">8.2&nbsp;&nbsp;&nbsp;制作简易的JTAGICE</a></h2>
+<p>书中给出的是RS232的版本。看来JTAGICE占用的也是SPI接口。有爱好者已经写好了BootLoader将ATmega16L变成JTAGICE仿真器。晶振用7.3728MHz的。</p>
+<p>电路图就算了，在page243。</p>
+</div>
+<div class="section" id="jtagiceavr">
+<h2><a class="toc-backref" href="#id339">8.3&nbsp;&nbsp;&nbsp;用JTAGICE调试AVR单片机</a></h2>
+<p>不过很可惜，还是AVR Studio。</p>
+<div class="section" id="id143">
+<h3><a class="toc-backref" href="#id340">8.3.1&nbsp;&nbsp;&nbsp;JTAGICE的调试接口</a></h3>
+<p>&#64;page 261-262</p>
+</div>
+<div class="section" id="id144">
+<h3><a class="toc-backref" href="#id341">8.3.2&nbsp;&nbsp;&nbsp;JTAGICE与用户板的连接</a></h3>
+<p>&#64;page 262-262</p>
+</div>
+<div class="section" id="avr-studiojtagice">
+<h3><a class="toc-backref" href="#id342">8.3.3&nbsp;&nbsp;&nbsp;在AVR Studio中使用JTAGICE调试程序</a></h3>
+<p>&#64;page 262-267</p>
+</div>
+</div>
+</div>
+<div class="section" id="a-avr-gccunix">
+<h1><a class="toc-backref" href="#id343">9&nbsp;&nbsp;&nbsp;附录A AVR-GCC和Unix类操作系统</a></h1>
+<p>&#64;page 268-269</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 41820, "title": "AVR-GCC\u4e0eAVR\u5355\u7247\u673aC\u8bed\u8a00\u5f00\u53d1", "src_size": 64596, "filehash": "2c441dc5eb685a6ade3c3066f56716fa", "dst_size": 125481} -->

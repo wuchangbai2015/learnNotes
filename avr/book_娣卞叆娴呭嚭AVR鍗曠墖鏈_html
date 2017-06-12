@@ -1,0 +1,2560 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>深入浅出AVR单片机</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr">
+<h1 class="title">深入浅出AVR单片机</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2008-07-26</td>
+</tr>
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">江海波，王卓然，狄根德著</td>
+</tr>
+<tr class="field"><th class="docinfo-name">出版社:</th><td class="field-body">北京：中国电力出版社，2008</td>
+</tr>
+<tr class="field"><th class="docinfo-name">书号:</th><td class="field-body">ISBN 978-7-5083-6903-7</td>
+</tr>
+</tbody>
+</table>
+<p>深入浅出AVR单片机-从ATmega48/88/168开始</p>
+<ol class="upperroman simple">
+<li>深...  II. 江，王，狄  III.单片微型计算机  IV.TP368.1</li>
+</ol>
+<p>中国版本图书馆CIP数据核字(2008)第040027号</p>
+<p>开本：185mm x 260mm  印张：33  字数：804千字</p>
+<p>书号：ISBN 978-7-5083-6903-7</p>
+<p>印次：2008年6月第1版  2008年6月第1次印刷  印数：1-4000册</p>
+<p>定价：49.80元(1CD)</p>
+<p>买了书，后来又买了电子书。页码标签已改为电子书页码了。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#datasheet" id="id164">1&nbsp;&nbsp;&nbsp;学会阅读DataSheet</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pdf-datasheet" id="id165">1.1&nbsp;&nbsp;&nbsp;如何阅读PDF文件，如何获得DataSheet文件</a></li>
+<li><a class="reference internal" href="#id2" id="id166">1.2&nbsp;&nbsp;&nbsp;DataSheet告诉我们些什么</a></li>
+<li><a class="reference internal" href="#avrdatasheet" id="id167">1.3&nbsp;&nbsp;&nbsp;如何看懂AVR的DataSheet</a></li>
+<li><a class="reference internal" href="#id3" id="id168">1.4&nbsp;&nbsp;&nbsp;如何得到帮助</a></li>
+<li><a class="reference internal" href="#id4" id="id169">1.5&nbsp;&nbsp;&nbsp;汇编语言执行时间的计算方法</a></li>
+<li><a class="reference internal" href="#atmega48-88-168" id="id170">1.6&nbsp;&nbsp;&nbsp;ATmega48/88/168常用熔丝的作用及其配置方法</a></li>
+<li><a class="reference internal" href="#id5" id="id171">1.7&nbsp;&nbsp;&nbsp;对误烧写为外部时钟模式的解锁方法</a></li>
+<li><a class="reference internal" href="#hc595-datasheet" id="id172">1.8&nbsp;&nbsp;&nbsp;实例1：阅读74HC595 DataSheet</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id173">2&nbsp;&nbsp;&nbsp;深入开发环境</a><ul class="auto-toc">
+<li><a class="reference internal" href="#icc" id="id174">2.1&nbsp;&nbsp;&nbsp;认识ICC编译环境</a></li>
+<li><a class="reference internal" href="#id7" id="id175">2.2&nbsp;&nbsp;&nbsp;事半功倍的代码生成器</a></li>
+<li><a class="reference internal" href="#id8" id="id176">2.3&nbsp;&nbsp;&nbsp;ICC之不得不说的故事</a></li>
+<li><a class="reference internal" href="#avrdiy" id="id177">2.4&nbsp;&nbsp;&nbsp;AVR最小系统和下载线DIY</a></li>
+<li><a class="reference internal" href="#id9" id="id178">2.5&nbsp;&nbsp;&nbsp;实例2：AVR最小系统DIY</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id179">3&nbsp;&nbsp;&nbsp;从跑马灯开始</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id11" id="id180">3.1&nbsp;&nbsp;&nbsp;输入输出界面</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id12" id="id181">3.1.1&nbsp;&nbsp;&nbsp;单片机的输入输出设备-引脚</a></li>
+<li><a class="reference internal" href="#id13" id="id182">3.1.2&nbsp;&nbsp;&nbsp;芯里有数-数码管显示</a></li>
+<li><a class="reference internal" href="#id14" id="id183">3.1.3&nbsp;&nbsp;&nbsp;单片机的输入输出设备-从按键到键盘</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id184">3.2&nbsp;&nbsp;&nbsp;用ATmega48/88/168单片机端口驱动数码管</a></li>
+<li><a class="reference internal" href="#id16" id="id185">3.3&nbsp;&nbsp;&nbsp;操纵ATmega48/88/168单片机端口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id17" id="id186">3.3.1&nbsp;&nbsp;&nbsp;特殊功能寄存器-单片的功能控制器</a></li>
+<li><a class="reference internal" href="#id18" id="id187">3.3.2&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机端口的控制寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id19" id="id188">3.4&nbsp;&nbsp;&nbsp;端口内建上拉电阻的使用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id20" id="id189">3.4.1&nbsp;&nbsp;&nbsp;使用内建上拉电阻的优点和局限性</a></li>
+<li><a class="reference internal" href="#id21" id="id190">3.4.2&nbsp;&nbsp;&nbsp;怎样打开内建上拉电阻功能</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id22" id="id191">3.5&nbsp;&nbsp;&nbsp;端口位操作</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id23" id="id192">3.5.1&nbsp;&nbsp;&nbsp;位操作的由来-不要动别人的奶酪</a></li>
+<li><a class="reference internal" href="#id24" id="id193">3.5.2&nbsp;&nbsp;&nbsp;基本的端口位操作方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id25" id="id194">3.6&nbsp;&nbsp;&nbsp;实例3：跑马灯</a></li>
+<li><a class="reference internal" href="#id26" id="id195">3.7&nbsp;&nbsp;&nbsp;实例4：数码管的显示(上)</a></li>
+<li><a class="reference internal" href="#id27" id="id196">3.8&nbsp;&nbsp;&nbsp;实例5：数码管的显示(下)</a></li>
+<li><a class="reference internal" href="#id28" id="id197">3.9&nbsp;&nbsp;&nbsp;实例6：矩阵键盘</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id29" id="id198">4&nbsp;&nbsp;&nbsp;对不起接个电话</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id30" id="id199">4.1&nbsp;&nbsp;&nbsp;十万火急-中断</a></li>
+<li><a class="reference internal" href="#id31" id="id200">4.2&nbsp;&nbsp;&nbsp;中断的特性</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id32" id="id201">4.2.1&nbsp;&nbsp;&nbsp;哪些事件会引发单片机中断</a></li>
+<li><a class="reference internal" href="#id33" id="id202">4.2.2&nbsp;&nbsp;&nbsp;中断运行方式，让单片机轻松起来</a></li>
+<li><a class="reference internal" href="#id34" id="id203">4.2.3&nbsp;&nbsp;&nbsp;如何响应中断</a></li>
+<li><a class="reference internal" href="#id35" id="id204">4.2.4&nbsp;&nbsp;&nbsp;如何区分由不同中断源引起的中断</a></li>
+<li><a class="reference internal" href="#id36" id="id205">4.2.5&nbsp;&nbsp;&nbsp;中断的开关</a></li>
+<li><a class="reference internal" href="#id37" id="id206">4.2.6&nbsp;&nbsp;&nbsp;中断等待的实现-中断的标志位</a></li>
+<li><a class="reference internal" href="#id38" id="id207">4.2.7&nbsp;&nbsp;&nbsp;轻重缓急-中断的优先级</a></li>
+<li><a class="reference internal" href="#id39" id="id208">4.2.8&nbsp;&nbsp;&nbsp;还有更紧急的事情-中断嵌套</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id40" id="id209">4.3&nbsp;&nbsp;&nbsp;使用中断时的注意事项</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id41" id="id210">4.3.1&nbsp;&nbsp;&nbsp;中断可能会增加某段软件的执行时间</a></li>
+<li><a class="reference internal" href="#id42" id="id211">4.3.2&nbsp;&nbsp;&nbsp;中断可能抢占正在使用的资源</a></li>
+<li><a class="reference internal" href="#id43" id="id212">4.3.3&nbsp;&nbsp;&nbsp;嵌套较深的中断可能要求更大的软硬件堆栈空间</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id44" id="id213">4.4&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机有哪些中断源</a></li>
+<li><a class="reference internal" href="#id45" id="id214">4.5&nbsp;&nbsp;&nbsp;如何编写一个中断的服务程序代码</a></li>
+<li><a class="reference internal" href="#id46" id="id215">4.6&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机中断的开关控制</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id47" id="id216">4.6.1&nbsp;&nbsp;&nbsp;全局中断使能</a></li>
+<li><a class="reference internal" href="#id48" id="id217">4.6.2&nbsp;&nbsp;&nbsp;中断源的中断允许标志控制</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id49" id="id218">4.7&nbsp;&nbsp;&nbsp;ATmega48/88/168中断标志位</a></li>
+<li><a class="reference internal" href="#id50" id="id219">4.8&nbsp;&nbsp;&nbsp;ATmega48/88/168中断优先级</a></li>
+<li><a class="reference internal" href="#id51" id="id220">4.9&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机中断向量</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id52" id="id221">4.9.1&nbsp;&nbsp;&nbsp;什么是中断向量</a></li>
+<li><a class="reference internal" href="#id53" id="id222">4.9.2&nbsp;&nbsp;&nbsp;中断向量的移动</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id54" id="id223">4.10&nbsp;&nbsp;&nbsp;中断与查询之争</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id55" id="id224">4.10.1&nbsp;&nbsp;&nbsp;中断与查询方法的各自特点</a></li>
+<li><a class="reference internal" href="#id56" id="id225">4.10.2&nbsp;&nbsp;&nbsp;只有一件事，且响应必须及时</a></li>
+<li><a class="reference internal" href="#id57" id="id226">4.10.3&nbsp;&nbsp;&nbsp;有多件事要做，轮流查询</a></li>
+<li><a class="reference internal" href="#id58" id="id227">4.10.4&nbsp;&nbsp;&nbsp;多件事要做，中断方式执行</a></li>
+<li><a class="reference internal" href="#id59" id="id228">4.10.5&nbsp;&nbsp;&nbsp;选中断还是选查询</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id60" id="id229">4.11&nbsp;&nbsp;&nbsp;用查询方式响应外设中断</a></li>
+<li><a class="reference internal" href="#id61" id="id230">4.12&nbsp;&nbsp;&nbsp;中断误触发</a></li>
+<li><a class="reference internal" href="#id62" id="id231">4.13&nbsp;&nbsp;&nbsp;前后台与原子操作</a></li>
+<li><a class="reference internal" href="#id63" id="id232">4.14&nbsp;&nbsp;&nbsp;实例7：中断唤醒的键盘扫描</a></li>
+<li><a class="reference internal" href="#id64" id="id233">4.15&nbsp;&nbsp;&nbsp;实例8：旋转编码器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id65" id="id234">5&nbsp;&nbsp;&nbsp;一秒究竟有多长</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id66" id="id235">5.1&nbsp;&nbsp;&nbsp;单片机与时间</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id67" id="id236">5.1.1&nbsp;&nbsp;&nbsp;程序必须在指定时间内执行完成</a></li>
+<li><a class="reference internal" href="#id68" id="id237">5.1.2&nbsp;&nbsp;&nbsp;单片机必须跟上时间节拍</a></li>
+<li><a class="reference internal" href="#id69" id="id238">5.1.3&nbsp;&nbsp;&nbsp;数数-获得时间的第一种方法</a></li>
+<li><a class="reference internal" href="#id70" id="id239">5.1.4&nbsp;&nbsp;&nbsp;时钟-单片机跳动的心脏</a></li>
+<li><a class="reference internal" href="#id71" id="id240">5.1.5&nbsp;&nbsp;&nbsp;找个人替自己数数-获得时间的第二种方法</a></li>
+<li><a class="reference internal" href="#id72" id="id241">5.1.6&nbsp;&nbsp;&nbsp;设定闹钟时间</a></li>
+<li><a class="reference internal" href="#id73" id="id242">5.1.7&nbsp;&nbsp;&nbsp;将定时器&quot;降级&quot;为真正的计数器</a></li>
+<li><a class="reference internal" href="#id74" id="id243">5.1.8&nbsp;&nbsp;&nbsp;驱动多个闹钟的定时器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id75" id="id244">5.2&nbsp;&nbsp;&nbsp;软件延时</a></li>
+<li><a class="reference internal" href="#id76" id="id245">5.3&nbsp;&nbsp;&nbsp;不需要加载的&quot;自由定时器&quot;</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id77" id="id246">5.3.1&nbsp;&nbsp;&nbsp;减速齿轮-预分频选择</a></li>
+<li><a class="reference internal" href="#t-c0" id="id247">5.3.2&nbsp;&nbsp;&nbsp;中断控制-T/C0中断设置</a></li>
+<li><a class="reference internal" href="#id78" id="id248">5.3.3&nbsp;&nbsp;&nbsp;编写第一个计时器程序</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id79" id="id249">5.4&nbsp;&nbsp;&nbsp;通过重加载控制定时中断周期</a></li>
+<li><a class="reference internal" href="#id80" id="id250">5.5&nbsp;&nbsp;&nbsp;使用代码生成器生成定时器1初始化代码</a></li>
+<li><a class="reference internal" href="#id81" id="id251">5.6&nbsp;&nbsp;&nbsp;定时器的其他工作模式</a></li>
+<li><a class="reference internal" href="#pwm" id="id252">5.7&nbsp;&nbsp;&nbsp;PWM波及其应用简介</a></li>
+<li><a class="reference internal" href="#id82" id="id253">5.8&nbsp;&nbsp;&nbsp;人类能看懂的电子时钟-实时时钟简介</a></li>
+<li><a class="reference internal" href="#id83" id="id254">5.9&nbsp;&nbsp;&nbsp;实例9：闪烁的灯</a></li>
+<li><a class="reference internal" href="#id84" id="id255">5.10&nbsp;&nbsp;&nbsp;实例10：渐明渐暗的灯</a></li>
+<li><a class="reference internal" href="#id85" id="id256">5.11&nbsp;&nbsp;&nbsp;实例11：复杂闪烁控制</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id86" id="id257">6&nbsp;&nbsp;&nbsp;电量低</a><ul class="auto-toc">
+<li><a class="reference internal" href="#a-d" id="id258">6.1&nbsp;&nbsp;&nbsp;从猜数游戏到A/D转换器</a></li>
+<li><a class="reference internal" href="#atmega48-88-168a-d" id="id259">6.2&nbsp;&nbsp;&nbsp;ATmega48/88/168的A/D转换器</a></li>
+<li><a class="reference internal" href="#id87" id="id260">6.3&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机与A/D相关的引脚</a></li>
+<li><a class="reference internal" href="#id88" id="id261">6.4&nbsp;&nbsp;&nbsp;相关寄存器</a></li>
+<li><a class="reference internal" href="#id89" id="id262">6.5&nbsp;&nbsp;&nbsp;使用A/D时需要注意些什么</a></li>
+<li><a class="reference internal" href="#id90" id="id263">6.6&nbsp;&nbsp;&nbsp;怎样知道A/D转换完成</a></li>
+<li><a class="reference internal" href="#id91" id="id264">6.7&nbsp;&nbsp;&nbsp;读取A/D转换结果</a></li>
+<li><a class="reference internal" href="#adc" id="id265">6.8&nbsp;&nbsp;&nbsp;使用代码生成器生成ADC初始化代码</a></li>
+<li><a class="reference internal" href="#id92" id="id266">6.9&nbsp;&nbsp;&nbsp;书写具有工程结构的初始化代码</a></li>
+<li><a class="reference internal" href="#id93" id="id267">6.10&nbsp;&nbsp;&nbsp;电量计原理概述</a></li>
+<li><a class="reference internal" href="#id94" id="id268">6.11&nbsp;&nbsp;&nbsp;转换结果读取方式的比较</a></li>
+<li><a class="reference internal" href="#id95" id="id269">6.12&nbsp;&nbsp;&nbsp;ADC噪声抑制模式</a></li>
+<li><a class="reference internal" href="#id96" id="id270">6.13&nbsp;&nbsp;&nbsp;A/D的软件滤波技术</a></li>
+<li><a class="reference internal" href="#id97" id="id271">6.14&nbsp;&nbsp;&nbsp;软件实现的施密特触发器</a></li>
+<li><a class="reference internal" href="#id98" id="id272">6.15&nbsp;&nbsp;&nbsp;实例12：电量计</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id99" id="id273">7&nbsp;&nbsp;&nbsp;正在过收费站</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id100" id="id274">7.1&nbsp;&nbsp;&nbsp;从并行通信到串行通信</a></li>
+<li><a class="reference internal" href="#id101" id="id275">7.2&nbsp;&nbsp;&nbsp;这个石阶上我们都被&quot;缓冲&quot;着</a></li>
+<li><a class="reference internal" href="#id102" id="id276">7.3&nbsp;&nbsp;&nbsp;将串行进行到底</a></li>
+<li><a class="reference internal" href="#spi" id="id277">7.4&nbsp;&nbsp;&nbsp;串行外设接口SPI</a></li>
+<li><a class="reference internal" href="#id103" id="id278">7.5&nbsp;&nbsp;&nbsp;都是环形队列惹得祸</a></li>
+<li><a class="reference internal" href="#id104" id="id279">7.6&nbsp;&nbsp;&nbsp;使用代码生成器生成SPI初始化代码</a></li>
+<li><a class="reference internal" href="#spic" id="id280">7.7&nbsp;&nbsp;&nbsp;SPI通信缓冲的C语言实现</a></li>
+<li><a class="reference internal" href="#id105" id="id281">7.8&nbsp;&nbsp;&nbsp;缓冲区的刷新算法</a></li>
+<li><a class="reference internal" href="#id106" id="id282">7.9&nbsp;&nbsp;&nbsp;中断的同步</a></li>
+<li><a class="reference internal" href="#id107" id="id283">7.10&nbsp;&nbsp;&nbsp;建立SPI总线</a></li>
+<li><a class="reference internal" href="#id108" id="id284">7.11&nbsp;&nbsp;&nbsp;SPI环路总线的优化</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id109" id="id285">7.11.1&nbsp;&nbsp;&nbsp;总线容量常数的自适应和总线断路的检测</a></li>
+<li><a class="reference internal" href="#busy" id="id286">7.11.2&nbsp;&nbsp;&nbsp;从机BUSY信号的引入</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id110" id="id287">7.12&nbsp;&nbsp;&nbsp;实例13：端口扩展</a></li>
+<li><a class="reference internal" href="#id111" id="id288">7.13&nbsp;&nbsp;&nbsp;实例14：键盘显示模块</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id112" id="id289">8&nbsp;&nbsp;&nbsp;包装的学问</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id113" id="id290">8.1&nbsp;&nbsp;&nbsp;从邮递员的包裹说起</a></li>
+<li><a class="reference internal" href="#id114" id="id291">8.2&nbsp;&nbsp;&nbsp;心有灵犀的异步通信</a></li>
+<li><a class="reference internal" href="#id115" id="id292">8.3&nbsp;&nbsp;&nbsp;数据的包裹-帧</a></li>
+<li><a class="reference internal" href="#id116" id="id293">8.4&nbsp;&nbsp;&nbsp;应用的包裹-数据包</a></li>
+<li><a class="reference internal" href="#id117" id="id294">8.5&nbsp;&nbsp;&nbsp;解剖串口模块</a></li>
+<li><a class="reference internal" href="#usart" id="id295">8.6&nbsp;&nbsp;&nbsp;使用代码生成器生成USART初始化代码</a></li>
+<li><a class="reference internal" href="#id118" id="id296">8.7&nbsp;&nbsp;&nbsp;9位数据帧的发送和接收</a></li>
+<li><a class="reference internal" href="#id119" id="id297">8.8&nbsp;&nbsp;&nbsp;建立串行通信缓冲区</a></li>
+<li><a class="reference internal" href="#id120" id="id298">8.9&nbsp;&nbsp;&nbsp;9数据位模式下的多机通信</a></li>
+<li><a class="reference internal" href="#c" id="id299">8.10&nbsp;&nbsp;&nbsp;多机通信的C语言实现</a></li>
+<li><a class="reference internal" href="#id121" id="id300">8.11&nbsp;&nbsp;&nbsp;初识状态机</a></li>
+<li><a class="reference internal" href="#id122" id="id301">8.12&nbsp;&nbsp;&nbsp;单字节一应一答式通信</a></li>
+<li><a class="reference internal" href="#id123" id="id302">8.13&nbsp;&nbsp;&nbsp;多字节通信协议</a></li>
+<li><a class="reference internal" href="#id124" id="id303">8.14&nbsp;&nbsp;&nbsp;简单定长数据包通信协议</a></li>
+<li><a class="reference internal" href="#id125" id="id304">8.15&nbsp;&nbsp;&nbsp;变长数据包通信协议</a></li>
+<li><a class="reference internal" href="#id126" id="id305">8.16&nbsp;&nbsp;&nbsp;实例15：数字电压表</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id127" id="id306">9&nbsp;&nbsp;&nbsp;傻孩子求职记</a><ul class="auto-toc">
+<li><a class="reference internal" href="#twi" id="id307">9.1&nbsp;&nbsp;&nbsp;TWI一根时钟线、一根信号线</a></li>
+<li><a class="reference internal" href="#id128" id="id308">9.2&nbsp;&nbsp;&nbsp;半双工通信</a></li>
+<li><a class="reference internal" href="#id129" id="id309">9.3&nbsp;&nbsp;&nbsp;求职者模型</a></li>
+<li><a class="reference internal" href="#id130" id="id310">9.4&nbsp;&nbsp;&nbsp;TWI的总线仲裁</a></li>
+<li><a class="reference internal" href="#id131" id="id311">9.5&nbsp;&nbsp;&nbsp;贼老大的计划</a></li>
+<li><a class="reference internal" href="#id132" id="id312">9.6&nbsp;&nbsp;&nbsp;TWI总线协议状态机</a></li>
+<li><a class="reference internal" href="#id133" id="id313">9.7&nbsp;&nbsp;&nbsp;TWI通信状态机带来的麻烦</a></li>
+<li><a class="reference internal" href="#id134" id="id314">9.8&nbsp;&nbsp;&nbsp;Datasheet寄存器查阅导读</a></li>
+<li><a class="reference internal" href="#id135" id="id315">9.9&nbsp;&nbsp;&nbsp;使用代码生成器生成TWI初始化代码</a></li>
+<li><a class="reference internal" href="#id136" id="id316">9.10&nbsp;&nbsp;&nbsp;书写具有工程结构的C语言代码</a></li>
+<li><a class="reference internal" href="#id137" id="id317">9.11&nbsp;&nbsp;&nbsp;TWI通信状态机的建立</a></li>
+<li><a class="reference internal" href="#id138" id="id318">9.12&nbsp;&nbsp;&nbsp;轻松设计TWI通信状态机</a></li>
+<li><a class="reference internal" href="#c01" id="id319">9.13&nbsp;&nbsp;&nbsp;实例16：存储器24C01的读写</a></li>
+<li><a class="reference internal" href="#i2c" id="id320">9.14&nbsp;&nbsp;&nbsp;实例17：I2C抢答器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#misson-update" id="id321">10&nbsp;&nbsp;&nbsp;MISSON UPDATE</a><ul class="auto-toc">
+<li><a class="reference internal" href="#update" id="id322">10.1&nbsp;&nbsp;&nbsp;展望UPDATE</a></li>
+<li><a class="reference internal" href="#ispiap" id="id323">10.2&nbsp;&nbsp;&nbsp;ISP和IAP</a></li>
+<li><a class="reference internal" href="#iap" id="id324">10.3&nbsp;&nbsp;&nbsp;IAP的要点、难点与风险</a></li>
+<li><a class="reference internal" href="#flash" id="id325">10.4&nbsp;&nbsp;&nbsp;Flash分区</a></li>
+<li><a class="reference internal" href="#id139" id="id326">10.5&nbsp;&nbsp;&nbsp;程序锁定熔丝的设置</a></li>
+<li><a class="reference internal" href="#id140" id="id327">10.6&nbsp;&nbsp;&nbsp;操纵程序存储器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id141" id="id328">11&nbsp;&nbsp;&nbsp;朝花夕拾</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id142" id="id329">11.1&nbsp;&nbsp;&nbsp;一个位运算的例子</a></li>
+<li><a class="reference internal" href="#id143" id="id330">11.2&nbsp;&nbsp;&nbsp;文如其形的移位运算</a></li>
+<li><a class="reference internal" href="#id144" id="id331">11.3&nbsp;&nbsp;&nbsp;颠倒黑白的&quot;取反&quot;运算</a></li>
+<li><a class="reference internal" href="#id145" id="id332">11.4&nbsp;&nbsp;&nbsp;为什么要使用宏定义</a></li>
+<li><a class="reference internal" href="#id146" id="id333">11.5&nbsp;&nbsp;&nbsp;宏定义的基本形式</a></li>
+<li><a class="reference internal" href="#id147" id="id334">11.6&nbsp;&nbsp;&nbsp;&quot;参数宏&quot;由便利带来的麻烦</a></li>
+<li><a class="reference internal" href="#id148" id="id335">11.7&nbsp;&nbsp;&nbsp;方便的条件编译</a></li>
+<li><a class="reference internal" href="#id149" id="id336">11.8&nbsp;&nbsp;&nbsp;从结构体到位段</a></li>
+<li><a class="reference internal" href="#id150" id="id337">11.9&nbsp;&nbsp;&nbsp;&quot;别动我的奶酪&quot;</a></li>
+<li><a class="reference internal" href="#volatile" id="id338">11.10&nbsp;&nbsp;&nbsp;居安思危的volatile</a></li>
+<li><a class="reference internal" href="#id151" id="id339">11.11&nbsp;&nbsp;&nbsp;&quot;你不知道我知道&quot;</a></li>
+<li><a class="reference internal" href="#id152" id="id340">11.12&nbsp;&nbsp;&nbsp;实例19:编写我们的第一个头文件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id153" id="id341">12&nbsp;&nbsp;&nbsp;指针都是纸老虎</a></li>
+<li><a class="reference internal" href="#id154" id="id342">13&nbsp;&nbsp;&nbsp;来自身边的启示</a></li>
+<li><a class="reference internal" href="#id155" id="id343">14&nbsp;&nbsp;&nbsp;初识嵌入式系统</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id156" id="id344">14.1&nbsp;&nbsp;&nbsp;初学者眼中的嵌入式</a></li>
+<li><a class="reference internal" href="#id157" id="id345">14.2&nbsp;&nbsp;&nbsp;从黑盒子谈起</a></li>
+<li><a class="reference internal" href="#id158" id="id346">14.3&nbsp;&nbsp;&nbsp;理想黑盒子</a></li>
+<li><a class="reference internal" href="#id159" id="id347">14.4&nbsp;&nbsp;&nbsp;使用黑盒子的好处、必然性和代价</a></li>
+<li><a class="reference internal" href="#id160" id="id348">14.5&nbsp;&nbsp;&nbsp;从黑盒子到模块化</a></li>
+<li><a class="reference internal" href="#id161" id="id349">14.6&nbsp;&nbsp;&nbsp;什么是黑盒子哲学</a></li>
+<li><a class="reference internal" href="#id162" id="id350">14.7&nbsp;&nbsp;&nbsp;源文件和头文件的分工</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id163" id="id351">15&nbsp;&nbsp;&nbsp;附录</a></li>
+</ul>
+</div>
+<div class="section" id="datasheet">
+<h1><a class="toc-backref" href="#id164">1&nbsp;&nbsp;&nbsp;学会阅读DataSheet</a></h1>
+<p>DataSheet也称为&quot;数据手册&quot;，描述了芯片的所有参数指标。</p>
+<div class="section" id="pdf-datasheet">
+<h2><a class="toc-backref" href="#id165">1.1&nbsp;&nbsp;&nbsp;如何阅读PDF文件，如何获得DataSheet文件</a></h2>
+<p>安装Adobe Reader。</p>
+<p>ATEML的官方中文主页 <a class="reference external" href="http://www.atmel.com/cn">http://www.atmel.com/cn</a> 。进入&quot;产品-微控制器和DSP-AVR 8bit Risc&quot;选择&quot;文档-芯片资料&quot;。</p>
+<p>英文资料有时会比中文的新。</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id166">1.2&nbsp;&nbsp;&nbsp;DataSheet告诉我们些什么</a></h2>
+<p>三百多页，有选择的看：</p>
+<ol class="arabic simple">
+<li>产品特性(Features)：选型指南，简介速度、存储器容量、外设、工作条件等。</li>
+<li>引脚配置(Pin Configurations)：引脚排布</li>
+<li>综述(Overview)：是产品特性的展开，内部组成框图、主要特点、应用特点，应仔细阅读</li>
+<li>AVR CPU内核(AVR CPU Core)：</li>
+<li>AVR Atmega48/88/168存储器(AVR ATmega48/88/168 Memory)：包括ROM、SRAM、通用IO寄存器。</li>
+<li>系统时钟及其选项(System Clock and Clock Option)：时钟是单片机所有时序的来源。</li>
+<li>电源管理及休眠模式(Power Management and Sleep Modes)：</li>
+<li>系统控制和复位(System Control and Reset)：</li>
+<li>中断(Interrupt)：</li>
+<li>IO端口(IO-ports)：</li>
+<li>外部中断(External Interrupt)：由一些引脚电平变化引起的CPU中断。较ATmega8而言，ATmega48/88/168增加了&quot;引脚电平变化中断&quot;。</li>
+<li>具有PWM功能的8位定时器/计数器0(8-bit Timer/Counter0 With PWM)：</li>
+<li>T/C0于T/C1的预分频器(Timer/Counter0 and Timer/Counter1 Prescalers)：</li>
+<li>具有PWM的16位定时器/计数器1(16-bit Timer/Counter1 With PWM)：</li>
+<li>具有PWM与异步操作功能的8位定时器/计数器2(8-bit Timer/Counter2 With PWM and Asynchronous Operation)：定时器2允许使用外部时钟(典型32KHz)作为时钟源，而且也有自己的预分频器。</li>
+<li>串行外设接口-SPI(SPI-Serial Peripheral Interface)：SPI作为重要的3线制告诉同步通信接口，广泛用于芯片间数据交换。</li>
+<li>USART0：通用同步和异步串行接收器和发送器，对单片机仍然是重要的接口。</li>
+<li>SPI模式下的USART(USART in SPI Mode)：</li>
+<li>两线串行接口(TWI)：与philips的I2C兼容。</li>
+<li>模拟比较器(Analog Comparator)：可以申请中断的模拟比较器</li>
+<li>A/D转换器(Analog-To-Digital Converter)：</li>
+<li>片上调试系统(debug WIRE On-Chip Debug System)：</li>
+<li>Flash自编程：</li>
+<li>Boot Loader支持RWW自编程，ATmega88/168</li>
+<li>存储器编程，可以用STK200/300并口下载线来做</li>
+<li>电器特性：</li>
+<li>典型特性与初始化值</li>
+<li>寄存器概述</li>
+<li>指令集概述</li>
+<li>产品信息，区别封装和电压范围之类的</li>
+<li>封装信息</li>
+<li>勘误表(errata)</li>
+</ol>
+<p>熔丝可以看作电子开关，编程的值为0，擦出的值为1。</p>
+</div>
+<div class="section" id="avrdatasheet">
+<h2><a class="toc-backref" href="#id167">1.3&nbsp;&nbsp;&nbsp;如何看懂AVR的DataSheet</a></h2>
+<p>主要讨论AVR的SPI接口。</p>
+<p>看资源组成方框图可以了解外部接口和寄存器。</p>
+<p>SPI有4根线，MISO、MOSI、SCK，另外的SS#用于片选。</p>
+<p>Datasheet中同时给出C和汇编的例子。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id168">1.4&nbsp;&nbsp;&nbsp;如何得到帮助</a></h2>
+<ol class="arabic simple">
+<li>数据手册Datasheet</li>
+<li>软件的帮助文件</li>
+<li>Atmel公司的资源</li>
+<li>网络论坛，如ouravr</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id169">1.5&nbsp;&nbsp;&nbsp;汇编语言执行时间的计算方法</a></h2>
+<p>分别计算时钟频率和指令周期。时钟源要小心。</p>
+</div>
+<div class="section" id="atmega48-88-168">
+<h2><a class="toc-backref" href="#id170">1.6&nbsp;&nbsp;&nbsp;ATmega48/88/168常用熔丝的作用及其配置方法</a></h2>
+<p>从打开振荡器电源，到稳定需要一定时间，称为稳定时间，在此之前，单片机并不确保可靠工作。对于需要休眠和唤醒的单片机要小心设置。</p>
+<p>书里使用双龙的编程器来修改熔丝设置。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id171">1.7&nbsp;&nbsp;&nbsp;对误烧写为外部时钟模式的解锁方法</a></h2>
+<p>将3个非门收尾相接，然后引出信号接到单片机的XTAL1引脚。ATmega48/88/168默认出厂时选择内部校准的RC振荡器，8分频后为1MHz。</p>
+</div>
+<div class="section" id="hc595-datasheet">
+<h2><a class="toc-backref" href="#id172">1.8&nbsp;&nbsp;&nbsp;实例1：阅读74HC595 DataSheet</a></h2>
+<p>8bit串入并出移位寄存器(8 bit Serial-In Parallel-Out Shift)。电压范围2V~6V，80uA工作电流，典型传输时延14nS，5V时可驱动6mA电流。移位寄存器可以直接清除。</p>
+<p>有5个信号输入端：</p>
+<ol class="arabic simple">
+<li><strong>OE#</strong> ：低电平时，Qa到Qh输出锁存器的数据；高电平时，Qa到Qh为高阻抗</li>
+<li><strong>RCLK</strong> ：锁存器锁存时钟，在RCLK上升沿，移位寄存器中锁存数据加载到输出锁存器</li>
+<li><strong>SRCLR#</strong> ：移位寄存器清零，低电平有效，将移位寄存器数据清为0x00</li>
+<li><strong>SRCLK</strong> ：移位寄存器时钟，上升沿时，移位寄存器数据向左(高位)移动1位</li>
+<li><strong>SER</strong> ：移位寄存器串行数据输入端，在SRCLK指导下依次进入移位寄存器</li>
+</ol>
+<p>Qh'是进位端，可以实现多个74HC595串联。</p>
+<p>逻辑真值表：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="51%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>SER</td>
+<td>SRCLK</td>
+<td>SRCLR#</td>
+<td>RCLK</td>
+<td>OE#</td>
+<td>功能</td>
+</tr>
+<tr><td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>H</td>
+<td>Qa到Qh输出禁止</td>
+</tr>
+<tr><td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>L</td>
+<td>Qa到Qh输出允许</td>
+</tr>
+<tr><td>X</td>
+<td>X</td>
+<td>L</td>
+<td>X</td>
+<td>X</td>
+<td>串行移位寄存器被清0</td>
+</tr>
+<tr><td>L</td>
+<td>上升沿</td>
+<td>H</td>
+<td>X</td>
+<td>X</td>
+<td>移位寄存器最低位变成0，向左移位</td>
+</tr>
+<tr><td>H</td>
+<td>上升沿</td>
+<td>H</td>
+<td>X</td>
+<td>X</td>
+<td>移位寄存器最低位变成1，向左移位</td>
+</tr>
+<tr><td>X</td>
+<td>X</td>
+<td>X</td>
+<td>上升沿</td>
+<td>X</td>
+<td>移位寄存器数据传输到输出锁存器</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id173">2&nbsp;&nbsp;&nbsp;深入开发环境</a></h1>
+<p>主要讲ICCAVR(Image Craft Creation)。</p>
+<div class="section" id="icc">
+<h2><a class="toc-backref" href="#id174">2.1&nbsp;&nbsp;&nbsp;认识ICC编译环境</a></h2>
+<p>ICCAVR全称是ImageCraft IDE for ICCAVR。 <a class="reference external" href="http://imagecraft.com/software">http://imagecraft.com/software</a> 。商业软件有45天试用期，试用期满会转为2k限制版。</p>
+<p>汇编器集成在AVR Studio中，是免费的。</p>
+<p>很多编程器、编译器、IDE对中文支持都不要，尽可能避免在路径、文件名等地方包含中文。</p>
+<p>对ICC-AVR没兴趣，略过 page 18</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id175">2.2&nbsp;&nbsp;&nbsp;事半功倍的代码生成器</a></h2>
+<p>对ICC-AVR没兴趣，略过 page 20</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id176">2.3&nbsp;&nbsp;&nbsp;ICC之不得不说的故事</a></h2>
+<p>对ICC-AVR没兴趣，略过 page 21</p>
+</div>
+<div class="section" id="avrdiy">
+<h2><a class="toc-backref" href="#id177">2.4&nbsp;&nbsp;&nbsp;AVR最小系统和下载线DIY</a></h2>
+<p>晶振旁边的两个小电容用来稳定振荡器。电容小时，起振迅速，但稳定性较差，电容大时，启动减缓，稳定性较高。一般选择20pF即可。</p>
+<p>下载线使用STK200/300兼容的并口下载线，制作容易，与单片机SPI口通信。</p>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id178">2.5&nbsp;&nbsp;&nbsp;实例2：AVR最小系统DIY</a></h2>
+<p>自知个开发板，价格不超过100元，而且与ATmega8的引脚兼容。</p>
+<p>功能包括电源、小系统、ISP、蜂鸣器、时钟发生器、RS232通信电平转换、I2C接口的EEPROM。</p>
+<p>电源的电路就免了。最小系统原理图也不提供了，其原理图只是接一堆的发光二极管。</p>
+<p>IC与电路板之间用的圆孔针座，这也是直接影响了我后来制造技术的办法。我后来买了好多，少说有100条。</p>
+<p>STK200/300兼容下载线配置：</p>
+<img alt="_images/book_deepinavr_2.5_00.png" src="_images/book_deepinavr_2.5_00.png" />
+<p>焊接完成后的针脚配置及功能：</p>
+<img alt="_images/book_deepinavr_2.5_01.png" src="_images/book_deepinavr_2.5_01.png" />
+<p>实测那些并口编程器不会点亮下载线指示灯，加之我后来都用5pin编程器了，就没必要了。</p>
+<p>蜂鸣器可以用于估算端口电位和粗略估算震荡频率。电路图如下：</p>
+<img alt="_images/book_deepinavr_2.5_02.png" src="_images/book_deepinavr_2.5_02.png" />
+<p>MAX232CPE和MAX232CPP分别是带和不带静电抑制的，价格差异较大，注意选择。</p>
+<p>STK200/300兼容的并口下载线：</p>
+<img alt="_images/book_deepinavr_2.5_03.png" src="_images/book_deepinavr_2.5_03.png" />
+<p>可以用自锁线将线排固定在电路板上。</p>
+<p>用双龙下载软件的就算了。</p>
+<p>ISP下载线插座，从电路板上面看，左侧缺口的话：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>MOSI(PB3)</td>
+<td>+5V电源</td>
+</tr>
+<tr><td>下载线工作指示灯</td>
+<td>GND</td>
+</tr>
+<tr><td>RESET复位</td>
+<td>GND</td>
+</tr>
+<tr><td>SCK(PB5)</td>
+<td>GND</td>
+</tr>
+<tr><td>MISO(PB4)</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id179">3&nbsp;&nbsp;&nbsp;从跑马灯开始</a></h1>
+<p>跑马灯是最简单的单片机例子。</p>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id180">3.1&nbsp;&nbsp;&nbsp;输入输出界面</a></h2>
+<p>单片机的对外接口仅仅是塑料外壳的金属引脚。</p>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id181">3.1.1&nbsp;&nbsp;&nbsp;单片机的输入输出设备-引脚</a></h3>
+<p>引脚是单片机感知和控制外部世界的途径。每个端口都可以作为输入或者输出，由单片机控制，不过同一时间只能用一种状态。</p>
+<p>每8个端口组成一组端口，例如PD0-PD7就组成了PD端口。访问时将端口作为一个字节来看，PD0是最低端，PD7是最高端。</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id182">3.1.2&nbsp;&nbsp;&nbsp;芯里有数-数码管显示</a></h3>
+<p>使用A-H这8个字母代表数字和小数点的各个笔画。其中A是最上面的横，然后顺时针的绕一圈，因此左上角的竖是F，中间的横杠是G，小数点是H。</p>
+<img alt="_images/book_deepinavr_3.1_00.jpg" src="_images/book_deepinavr_3.1_00.jpg" />
+<p>数码管又分为共阴型和共阳型。Comm端用于片选控制。</p>
+<p>为了显示多个数字，而又节省宝贵的端口，可以利用动画片的原理，轮流启动各个数码管的Comm端，显示一段很短时间后再去显示下一个，只要切换足够快就可以让人眼看不出闪耀。</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id183">3.1.3&nbsp;&nbsp;&nbsp;单片机的输入输出设备-从按键到键盘</a></h3>
+<p>矩阵键盘和键盘扫描。值得考虑的还有同时按下多个键和抖动。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id184">3.2&nbsp;&nbsp;&nbsp;用ATmega48/88/168单片机端口驱动数码管</a></h2>
+<p>数码管的comm口直接接地的话，单片机无法驱动起来。所以应该在comm口和地之间串接一个三极管构成的简单放大器，由单片机端口提供的信号控制其电流。</p>
+<p>见p60图3-15</p>
+<p>片选一端用的三极管是8050c，实际实验中发现这样导致如果数码管显示笔划较多时，亮度就降低了，显示笔划较少时亮度就高。</p>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id185">3.3&nbsp;&nbsp;&nbsp;操纵ATmega48/88/168单片机端口</a></h2>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id186">3.3.1&nbsp;&nbsp;&nbsp;特殊功能寄存器-单片的功能控制器</a></h3>
+<p>特殊功能控制器(SFR)也是寄存器的一种，但是与内部的R0-R31不同，不是用于数据或计算，而是作为控制开关，控制各个端口的输入、输出状态。数据方向寄存器DDRx为例。这个寄存器就像是三通阀门。外接引脚，内部经控制后接CPU的输入或输出单元。</p>
+<p>每个特殊功能寄存器都有一个固定的地址，访问他们与访问RAM里面变量一样方便。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id187">3.3.2&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机端口的控制寄存器</a></h3>
+<p>每个端口由3个控制寄存器操纵：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>控制引脚输入、输出方向的数据方向寄存器DDRx</li>
+<li>用于输出的数据寄存器PORTx</li>
+<li>用于输入的输入引脚地址PINx</li>
+</ol>
+</blockquote>
+<p>在用C语言编程时，直接使用他们的名字就可以控制。例如:</p>
+<pre class="literal-block">
+#include &lt;iom48v.h&gt;
+unsigned char PortValue;
+...
+DDRD=0xFF;              //设置PD0到PD7为输出端口
+PORTD=0x27;             //在PD端口输出0x27(0b00100111)
+DDRD=0x00;              //设置PD0到PD7位输入端口
+PortValue=PIND;         //读取端口状态到变量PortValue
+</pre>
+<p>从这里看寄存器与变量没什么区别。</p>
+<p>PORTx.n==0，输入状态，PINx.n寄存器反映输入端口上的电平状态。PORTx.n=1则内建上拉电阻打开；PORTx.n=0则内建上拉电阻关闭。</p>
+<p>PORTx.n==1，输出状态，PINX.n寄存器无效。PORTx.n=1则端口输出1；PORTx.n=0则端口输出0.</p>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id188">3.4&nbsp;&nbsp;&nbsp;端口内建上拉电阻的使用</a></h2>
+<p>连接端口与电源间的电阻。避免输入端口悬浮、改善信号边沿波形、对开楼输出提供电平转换等。</p>
+<p>ATmega48/88/168提供了内建上拉电阻。</p>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id189">3.4.1&nbsp;&nbsp;&nbsp;使用内建上拉电阻的优点和局限性</a></h3>
+<p>增加了硬件灵活性。</p>
+<p>内建上拉电阻阻值很大，在20-50K欧姆，并且可能数字不太严格。对信号处理很严格的场合不适应。使用IIC总线和1-W总线的最好自己另外选上拉电阻。而键盘扫描之类的用内建的就可以了。</p>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id190">3.4.2&nbsp;&nbsp;&nbsp;怎样打开内建上拉电阻功能</a></h3>
+<p>通过端口控制寄存器进行操作的，仅在端口为输入状态，且PORTx的对应位寄存器设置为1时才启用。另外MCUCR寄存器的PUD控制着所有内建上拉电阻的打开与否。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id191">3.5&nbsp;&nbsp;&nbsp;端口位操作</a></h2>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id192">3.5.1&nbsp;&nbsp;&nbsp;位操作的由来-不要动别人的奶酪</a></h3>
+<p>并非所有的操作都需要8根线，而且还常常共享，所以在进行位操作时不要碰不该设置的那些端口。</p>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id193">3.5.2&nbsp;&nbsp;&nbsp;基本的端口位操作方法</a></h3>
+<p>将某些端口从0变为1:</p>
+<pre class="literal-block">
+DDRD=0b11111111;    //设置为输出
+PORTD=0b00000000;   //输出为0
+...
+PORTD=PORTD | 0b00000001    //设置PD0输出&quot;1&quot;
+</pre>
+<p>只是将PD0设置为1，其他端口不变:</p>
+<pre class="literal-block">
+DDRD=0b00001111;
+PORTD=0b11110000;
+PORTD |= 0b00000001;
+</pre>
+<p>设置PD0为0，其他端口不变:</p>
+<pre class="literal-block">
+DDRD=0b11111111;
+PORTD=0b11111111;
+PORTD=PORTD &amp; 0b11111110;
+</pre>
+<p>将PD0状态取反 <tt class="docutils literal">PORTD ^= 0b00000001;</tt> 。</p>
+<p>设置PD0为输出状态 <tt class="docutils literal">DDRD |= 0b00000001;</tt> 。</p>
+<p>后面的例子主要都是取并和取交、取反的各种组合。</p>
+</div>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id194">3.6&nbsp;&nbsp;&nbsp;实例3：跑马灯</a></h2>
+<p>就是一排彩灯按照一定顺序轮换。</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>软件延时</p>
+<p class="last">通常使用循环的空操作实现微妙级的延时。毫秒级延时不推荐这种方法，因为不会交出CPU控制权，耗尽CPU资源。更长的延时却使用此方法常常是为了避免定时器、中断等。</p>
+</div>
+<p>ATmega48/88/168的PORTC端口是不完整的，只有PC0-PC6，而且PC6还与RESET复用，所以只有6个可用。对于PC6、PC7相关的寄存器，CPU会自动屏蔽其操作，免去了位操作之苦。例如向PORTC送出数据可以写 <tt class="docutils literal">PORTC=0bxx111111;</tt> 。</p>
+<p>主程序就是循环，每次改变端口设置，延时，再循环。</p>
+<pre class="literal-block">
+while(1) {
+    PORTC=0b11111110;
+    Delay_ms(200);
+    PORTC=0b11111101;
+    Delya_ms(200);
+    //......
+}
+</pre>
+<p>延时函数，用于ATmega8/48/88/168单片机，时钟为1MHz，产生毫秒级延时:</p>
+<pre class="literal-block">
+void Delay_ms(unsigned int Time) {
+    unsigned char n;
+    while(Time&gt;0) {
+        for (n=1;n&lt;187;n++) {
+            NOP();
+        }
+        Time--;
+    }
+}
+</pre>
+<p>想要计算这些循环的总计算时间需要看生成的汇编代码的。确定其中n的值更常用的方法是使用示波仪。</p>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id195">3.7&nbsp;&nbsp;&nbsp;实例4：数码管的显示(上)</a></h2>
+<p>AVR单片机端口驱动能力达到20mA，可以直接驱动数码管。E10501JK数码管排布如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="37%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>G</td>
+<td>F</td>
+<td>COMM</td>
+<td>A</td>
+<td>B</td>
+</tr>
+<tr><td>E</td>
+<td>D</td>
+<td>COMM</td>
+<td>C</td>
+<td>H</td>
+</tr>
+</tbody>
+</table>
+<p>大部分数码管排列与此相同，可以自己测试一下。</p>
+<p>该实验使用PD口直接连接数码管8个管脚，COMM接220欧姆电阻后接地。</p>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id196">3.8&nbsp;&nbsp;&nbsp;实例5：数码管的显示(下)</a></h2>
+<p>显示两个数码管时，还是用PD接各个字段，每个段用330欧姆限流电阻，片选端接到PC4和PC5，无限流电阻。</p>
+<p>因为有片选，所以不停的扫描，每次显示20mS左右。其中每个数字3mS，全部关闭14mS。</p>
+<p>应该让扫描保持足够的速度，否则人眼可以看到在闪。</p>
+</div>
+<div class="section" id="id28">
+<h2><a class="toc-backref" href="#id197">3.9&nbsp;&nbsp;&nbsp;实例6：矩阵键盘</a></h2>
+<p>键盘扫描也是用矩阵，比如2x3构成6个按键的矩阵，每次把某个列设置为高电平，然后就测试各个行，看哪个行为高电平，两者交点的按键就被按下了。然后就是整个矩阵的扫描而已。一旦发现某个按键被按下，不要立即动作，而是等待1mS延时以后再检查，如果仍然如此才算。这样可以过滤干扰。</p>
+</div>
+</div>
+<div class="section" id="id29">
+<h1><a class="toc-backref" href="#id198">4&nbsp;&nbsp;&nbsp;对不起接个电话</a></h1>
+<div class="section" id="id30">
+<h2><a class="toc-backref" href="#id199">4.1&nbsp;&nbsp;&nbsp;十万火急-中断</a></h2>
+<p>正在做一件事情时，如果突然收到了优先级更高的事情可以先停止当前事情而做那个紧急的事情，做完后还会回来继续刚才的工作。产生中断的事情叫&quot;中断源&quot;。</p>
+<p>中断可以被关闭，或者叫&quot;屏蔽&quot;。被屏蔽后的中断可以维持其状态，等待着中断被响应。</p>
+</div>
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id200">4.2&nbsp;&nbsp;&nbsp;中断的特性</a></h2>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id201">4.2.1&nbsp;&nbsp;&nbsp;哪些事件会引发单片机中断</a></h3>
+<p>引发单片机中断的事件称为&quot;中断源&quot;，一般与外设有关，如下为典型的中断源：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>中断名称</td>
+<td>相关外设</td>
+</tr>
+<tr><td>定时器溢出中断</td>
+<td>定时器/计数器</td>
+</tr>
+<tr><td>串口接收完成中断</td>
+<td>同步/异步串口</td>
+</tr>
+<tr><td>串口发送完成中断</td>
+<td>同步/异步串口</td>
+</tr>
+<tr><td>看门狗复位</td>
+<td>看门狗定时器溢出引发复位，常与单片机复位共同中断入口</td>
+</tr>
+<tr><td>单片机复位</td>
+<td>复位通常不是中断，但是处理方式与中断相同</td>
+</tr>
+</tbody>
+</table>
+<p>AVR单片机外设丰富，所以中断源也很多，后面在外设部分详细介绍。</p>
+</div>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id202">4.2.2&nbsp;&nbsp;&nbsp;中断运行方式，让单片机轻松起来</a></h3>
+<p>以前的顺序执行方式如果需要按照事件方式尽快处理最新的任务则需要定期轮训一下事件。另外就是利用中断的。显然，前一种的工作效率比较低。</p>
+</div>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id203">4.2.3&nbsp;&nbsp;&nbsp;如何响应中断</a></h3>
+<p>中断事件的处理一般称为&quot;中断响应&quot;。中断发生时需要打断正在处理的主程序，转去执行中断服务程序。记住当前执行环境的工作叫&quot;现场保护&quot;，再次回到主程序则称为&quot;现场恢复&quot;。</p>
+</div>
+<div class="section" id="id35">
+<h3><a class="toc-backref" href="#id204">4.2.4&nbsp;&nbsp;&nbsp;如何区分由不同中断源引起的中断</a></h3>
+<p>一种类似多条件判断的方式，每个中断源对应着独立的中断服务程序入口。</p>
+</div>
+<div class="section" id="id36">
+<h3><a class="toc-backref" href="#id205">4.2.5&nbsp;&nbsp;&nbsp;中断的开关</a></h3>
+<p>中断是允许被关闭的，这个功能在单片机里一般是用特殊功能寄存器的&quot;位&quot;来实现的，称为&quot;中断允许控制位&quot;。</p>
+</div>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id206">4.2.6&nbsp;&nbsp;&nbsp;中断等待的实现-中断的标志位</a></h3>
+<p>中断可以被屏蔽，但引发中断的事件可能会等待中断重新被允许而继续其中断申请过程。单片机中这种等待的过程称为&quot;中断标志位&quot;来实现。</p>
+<p>一个中断事件发生后能否被响应，需要由该中断自身的&quot;中断允许控制位&quot;和&quot;总中断允许控制标志位&quot;共同控制，这两个开关是串联的。中断被屏蔽时，中断标志位可用于查询模式。</p>
+</div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id207">4.2.7&nbsp;&nbsp;&nbsp;轻重缓急-中断的优先级</a></h3>
+<p>中断按照紧急程度由单片机排序，高级中断执行完后才会执行低级中断。如果低级中断正在执行，也会被高级中断所打断。</p>
+</div>
+<div class="section" id="id39">
+<h3><a class="toc-backref" href="#id208">4.2.8&nbsp;&nbsp;&nbsp;还有更紧急的事情-中断嵌套</a></h3>
+<p>低级中断被高级中断所打断称为&quot;中断嵌套&quot;。中断嵌套是有条件的：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>如果一个中断正在执行，则只有优先级高于他的中断才可以打断他。</li>
+<li>这个规则可以通过软件做一些不同的响应。</li>
+</ol>
+</blockquote>
+</div>
+</div>
+<div class="section" id="id40">
+<h2><a class="toc-backref" href="#id209">4.3&nbsp;&nbsp;&nbsp;使用中断时的注意事项</a></h2>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id210">4.3.1&nbsp;&nbsp;&nbsp;中断可能会增加某段软件的执行时间</a></h3>
+<p>执行时被插入中断，很无奈。</p>
+</div>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id211">4.3.2&nbsp;&nbsp;&nbsp;中断可能抢占正在使用的资源</a></h3>
+<p>如变量、端口状态、寄存器，要小心。</p>
+</div>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id212">4.3.3&nbsp;&nbsp;&nbsp;嵌套较深的中断可能要求更大的软硬件堆栈空间</a></h3>
+<p>现场保护过多，甚至可能造成堆栈溢出。</p>
+</div>
+</div>
+<div class="section" id="id44">
+<h2><a class="toc-backref" href="#id213">4.4&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机有哪些中断源</a></h2>
+<p>中断源可以参考DataSheet的中断(interrupts)部分的中断向量表。</p>
+<p>ATmega48/88/168比ATmega8相比加入了&quot;引脚电平变化中断请求(Pin change interrupt request)&quot;。这个中断为单片机的所有引脚都分配了一个&quot;引脚变化中断号&quot;，该编号从PCINT0开始到PCINT23为止。</p>
+<p>这些中断信号被分为3组。PCINT0-PCINT7一组；PCINT8-PCINT14一组；PCINT16-PCINT23一组。每组共享一个中断服务程序入口。注意，由于没有PC7引脚，所以也没有PCINT15。</p>
+</div>
+<div class="section" id="id45">
+<h2><a class="toc-backref" href="#id214">4.5&nbsp;&nbsp;&nbsp;如何编写一个中断的服务程序代码</a></h2>
+<p>好像是ICC专用的，暂时不管他了。</p>
+<p>中断处理函数无法像正常函数一样工作，所以必须无参数和返回值，定义形如 <tt class="docutils literal">void function(void);</tt> 。数据交换只能使用全局变量了。</p>
+</div>
+<div class="section" id="id46">
+<h2><a class="toc-backref" href="#id215">4.6&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机中断的开关控制</a></h2>
+<p>ATmega48/88/168单片机同样为每个中断分配了两级开关。</p>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id216">4.6.1&nbsp;&nbsp;&nbsp;全局中断使能</a></h3>
+<p>在状态寄存器(Status Register)中，有一个中断标志位 I ，这是单片机的总开关，如下所示。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>I</td>
+<td>T</td>
+<td>H</td>
+<td>S</td>
+<td>V</td>
+<td>N</td>
+<td>Z</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p>如上是SREG寄存器。当I标志位设为0时，单片机拒绝任何中断，设为1时才接受符合条件的中断。</p>
+<p>状态寄存器很重要，小心操作。ICC提供了两个宏来操作I标志:</p>
+<pre class="literal-block">
+CLI();          //清除I标志位到0，禁止全局中断
+SEI();          //设置I标志位到1，允许全局中断
+</pre>
+</div>
+<div class="section" id="id48">
+<h3><a class="toc-backref" href="#id217">4.6.2&nbsp;&nbsp;&nbsp;中断源的中断允许标志控制</a></h3>
+<p>各个中断源都有自己对应的中断允许标志，以EIMSK寄存器为例，其中INT0和INT1分别控制外部中断0和外部中断1是否被允许。如下为EIMSK寄存器:</p>
+<pre class="literal-block">
+7 6 5 4 3 2 1    0
+- - - - - - INT1 INT0
+</pre>
+<p>最终还是看两个两个开关必须全部打开时才可以接受中断。</p>
+</div>
+</div>
+<div class="section" id="id49">
+<h2><a class="toc-backref" href="#id218">4.7&nbsp;&nbsp;&nbsp;ATmega48/88/168中断标志位</a></h2>
+<p>ATmega48/88/168单片机各个中断源都有自己的对应中断标志位，当中断发生时无论是否允许，都会设置这个标志位。例如中断INT0和INT1的中断标志位在EIFR寄存器中如下:</p>
+<pre class="literal-block">
+7 6 5 4 3 2 1      0
+- - - - - - INTF1  INTF0    EIFR寄存器
+</pre>
+<p>部分中断标志位会在进入中断服务函数时由硬件负责清除。另外一些如TWI中断标志位TWINT就需要软件清除。</p>
+</div>
+<div class="section" id="id50">
+<h2><a class="toc-backref" href="#id219">4.8&nbsp;&nbsp;&nbsp;ATmega48/88/168中断优先级</a></h2>
+<p>对AVR不能修改中断优先级，就是按照他们排列的顺序决定了优先级。</p>
+<p>进入中断以后，可以手动选择是否打开全局中断。如果打开了就允许中断嵌套。优先级高的会抢占运行，同等优先级的会等在后面。</p>
+</div>
+<div class="section" id="id51">
+<h2><a class="toc-backref" href="#id220">4.9&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机中断向量</a></h2>
+<div class="section" id="id52">
+<h3><a class="toc-backref" href="#id221">4.9.1&nbsp;&nbsp;&nbsp;什么是中断向量</a></h3>
+<p>单片机上有个专门的硬件负责看管中断处理函数。依靠中断向量表。中断向量表一般放在程序存储器的首部，其他部分不可以占用。每个向量占用2字节，存放对应中断的处理函数地址。发生中断时这个硬件查询中断向量表，然后用绝对跳转指令rjmp(ATmega168用jmp)跳到真正的中断处理函数中。</p>
+</div>
+<div class="section" id="id53">
+<h3><a class="toc-backref" href="#id222">4.9.2&nbsp;&nbsp;&nbsp;中断向量的移动</a></h3>
+<p>中断向量表的位置可以移动，可以通过BOOTRST熔丝将其移到BOOT区首部，可以确保BOOT区运行时也可以使用中断。一般情况下不需要设置BOOTRST熔丝。</p>
+</div>
+</div>
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id223">4.10&nbsp;&nbsp;&nbsp;中断与查询之争</a></h2>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id224">4.10.1&nbsp;&nbsp;&nbsp;中断与查询方法的各自特点</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="31%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>特性</td>
+<td>中断</td>
+<td>查询</td>
+</tr>
+<tr><td>对时间的占用</td>
+<td>没有中断时不占用程序执行时间</td>
+<td>会占用一定程序执行时间，而且如果算法无超时则更惨</td>
+</tr>
+<tr><td>对事件的响应速度</td>
+<td>允许中断时，立即响应</td>
+<td>取决与查询频繁程度，某些情况下可能快于中断</td>
+</tr>
+<tr><td>对初学者难易程度</td>
+<td>比较抽象</td>
+<td>易于理解，且代码易读</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id56">
+<h3><a class="toc-backref" href="#id225">4.10.2&nbsp;&nbsp;&nbsp;只有一件事，且响应必须及时</a></h3>
+<p>适合查询。</p>
+</div>
+<div class="section" id="id57">
+<h3><a class="toc-backref" href="#id226">4.10.3&nbsp;&nbsp;&nbsp;有多件事要做，轮流查询</a></h3>
+<p>单片机比较忙。</p>
+</div>
+<div class="section" id="id58">
+<h3><a class="toc-backref" href="#id227">4.10.4&nbsp;&nbsp;&nbsp;多件事要做，中断方式执行</a></h3>
+<p>等待中断即可。</p>
+</div>
+<div class="section" id="id59">
+<h3><a class="toc-backref" href="#id228">4.10.5&nbsp;&nbsp;&nbsp;选中断还是选查询</a></h3>
+<p>多数时中断好些。</p>
+</div>
+</div>
+<div class="section" id="id60">
+<h2><a class="toc-backref" href="#id229">4.11&nbsp;&nbsp;&nbsp;用查询方式响应外设中断</a></h2>
+<p>查询中断标志位，如下例子查询检测定时器0的溢出中断:</p>
+<pre class="literal-block">
+void main(void) {
+    DDRC=0xff;      //端口初始化
+    PORTC=0xff;
+    TCCR0B=0x05;        //设置定时器0预分频器，1024分频
+    while(1) {
+        while(!(TIFR0&amp;(1&lt;&lt;TOV0)));  //等待中断标志位的设置
+        TIFR0=(1&lt;&lt;TOV0);            //清除中断标志
+        PORTC^=0xff;                //输出标志
+    }
+}
+</pre>
+<p>查询并无特殊之处，需要注意的只是 <tt class="docutils literal"><span class="pre">TIFR0=(1&lt;&lt;TOV0);</span></tt> 一句。</p>
+<p>清除中断标志位时是设置&quot;1&quot;而不是&quot;0&quot;。</p>
+</div>
+<div class="section" id="id61">
+<h2><a class="toc-backref" href="#id230">4.12&nbsp;&nbsp;&nbsp;中断误触发</a></h2>
+<p>大多是由于自己的不小心，比如某个端口捕获外部电平变化，却不小心使能了上拉电阻。</p>
+<p>另外就是定时器的处理函数执行时间超过了定时间隔。所以定时器中断处理函数应该尽可能的短。</p>
+</div>
+<div class="section" id="id62">
+<h2><a class="toc-backref" href="#id231">4.13&nbsp;&nbsp;&nbsp;前后台与原子操作</a></h2>
+<p>一个典型的使用中断获取信息并处理的流程：</p>
+<ol class="arabic simple">
+<li>发生中断时，中断处理函数捕捉数据并设置标志</li>
+<li>前台循环发现标志后就提取内存中数据并清除标志</li>
+</ol>
+<p>非原子操作会在多次中断嵌套中偶尔发生一些问题，比如标志的开启被延迟而导致没有及时捕捉数据。</p>
+<p>简单的实现原子操作的方法是在原子操作代码前关闭全局中断，在结束后再开启全局中断。</p>
+</div>
+<div class="section" id="id63">
+<h2><a class="toc-backref" href="#id232">4.14&nbsp;&nbsp;&nbsp;实例7：中断唤醒的键盘扫描</a></h2>
+<p>用按键唤醒单片机内核。</p>
+<p>休眠模式其实是内核休眠，而外设负责感知中断。本例是用掉电模式(power-down)，时钟停摆，退出此状态只能靠INT0、INT1中断(电平中断)、引脚电平变化中断PCINTx、TWI总线地址匹配、看门狗复位、外部复位这5种情况。</p>
+<p>让单片机进入掉电状态:</p>
+<pre class="literal-block">
+SMCR=0x05;      //设置掉电状态，并使能休眠功能
+asm(&quot;SLEEP&quot;);   //休眠单片机，进入掉电状态
+</pre>
+<p>为了避免意外进入休眠状态，在唤醒函数中应该清除SMCR寄存器的SE位，为了避免单片机工作时，引脚电平变化中断影响工作，应该关闭。</p>
+<p>ICC的引脚电平变化唤醒函数:</p>
+<pre class="literal-block">
+#pragma interrupt_handler pcint1_isr: iv_PCINT1
+void pcint1_isr(void) {
+    SMCR&amp;=0xfe;     //禁止休眠功能
+    PCMSK1&amp;=(-((1&lt;&lt;PCINT11) | (1&lt;&lt;PCINT10) | (1&lt;&lt;PCINT9))); //禁止引脚电平变化中断
+    PCICR&amp;=(~(1&lt;&lt;PCIE1));
+}
+</pre>
+<p>设置一个休眠计数器，每当有按键，就清零。如果计数器到达一个数值，就启动休眠并使得可以接受按键唤醒。如下是进入休眠的代码:</p>
+<pre class="literal-block">
+if (SleepTimer&gt;=1500) {
+    SleepTimer=0;
+    PORTC=0b11001111;   //键盘行设置为输出
+    PORTD=0x00;         //关闭数码管
+    PCMSK1 |= ((1&lt;&lt;PCINT11)|(1&lt;&lt;PCINT10)|(1&lt;&lt;PCINT9));  //使能PCINT9..11
+    PCICR |= (1&lt;&lt;PCIE1);    //使能第一组引脚电平变化中断
+    SMCR=0x05;          //掉电模式
+    asm(&quot;SLEEP&quot;);
+    PORTC=0xff;         //唤醒后重新初始化PORTC
+}
+</pre>
+<p>注意要先设置PORTC端口状态，再开启电平变化中断，否则会误触发。</p>
+<p>机械开关都会有抖动的问题，就是按下后会有多个无意义的电平变化。可能持续10~20mS。所以必须跳过抖动时间来检测按键状态的两次值。如果期间用软件延时还是比较闹心的。</p>
+<p>键盘实际上可以玩很多功能：</p>
+<ol class="arabic simple">
+<li>按键抬起时才读取值</li>
+<li>组合键Shift</li>
+<li>长时间按键自动重复</li>
+<li>单个按键的时间长度效果不同</li>
+</ol>
+</div>
+<div class="section" id="id64">
+<h2><a class="toc-backref" href="#id233">4.15&nbsp;&nbsp;&nbsp;实例8：旋转编码器</a></h2>
+<p>就是测量旋转角度。有接触式的，如电位器，也有非接触式的，如霍尔元件和光电的。</p>
+<p>除了输出旋转角度，有些还输出参考脉冲Z，就是每转一周就脉冲一次。可以用一个圆盘开凿很多小缝，然后一端放发光管，另外一端放光电管。光电管接到光信号就计数一次。如果放一对发光管和一对光电管，工作周期相差半个脉冲宽度，就可以测量出旋转的方向和转速。</p>
+<p>对这些东西没啥兴趣，主要就是INT0的处理和计算转速和方向。 page 109</p>
+</div>
+</div>
+<div class="section" id="id65">
+<h1><a class="toc-backref" href="#id234">5&nbsp;&nbsp;&nbsp;一秒究竟有多长</a></h1>
+<div class="section" id="id66">
+<h2><a class="toc-backref" href="#id235">5.1&nbsp;&nbsp;&nbsp;单片机与时间</a></h2>
+<div class="section" id="id67">
+<h3><a class="toc-backref" href="#id236">5.1.1&nbsp;&nbsp;&nbsp;程序必须在指定时间内执行完成</a></h3>
+<p>嵌入式设备上不能容忍一些等待。运行快了会耗电，慢了可能耽误事，取折中。</p>
+</div>
+<div class="section" id="id68">
+<h3><a class="toc-backref" href="#id237">5.1.2&nbsp;&nbsp;&nbsp;单片机必须跟上时间节拍</a></h3>
+<p>比如音乐播放器，必须按照正常的速度播放。</p>
+</div>
+<div class="section" id="id69">
+<h3><a class="toc-backref" href="#id238">5.1.3&nbsp;&nbsp;&nbsp;数数-获得时间的第一种方法</a></h3>
+<p>如果某个程序需要一秒，那么运行60次就是1分钟。</p>
+</div>
+<div class="section" id="id70">
+<h3><a class="toc-backref" href="#id239">5.1.4&nbsp;&nbsp;&nbsp;时钟-单片机跳动的心脏</a></h3>
+<ol class="arabic simple">
+<li>石英晶体：精度好、温度特性好，最常用的时钟。</li>
+<li>陶瓷振荡器：精度一般、温度特性一般，很少使用。</li>
+<li>内部RC振荡器：精度一般、温度特性差，最方便的时钟。</li>
+<li>外部RC振荡器：精度一般、温度特性差，可以提供任意频率，灵活性好。</li>
+<li>外部时钟：没准了。</li>
+</ol>
+<p>初学者来说，最常用的是石英晶体和内部RC振荡器。</p>
+</div>
+<div class="section" id="id71">
+<h3><a class="toc-backref" href="#id240">5.1.5&nbsp;&nbsp;&nbsp;找个人替自己数数-获得时间的第二种方法</a></h3>
+<p>单片机应该把时间用在工作上，而不是数数上，所以设置一个&quot;闹钟&quot;。单片机的时钟频率非常高，需要先分频再数数。&quot;闹钟&quot;的响铃方式就是中断。因为中断的实时性，会被单片机立刻知道。对于1字节的计数器，到达256时产生一个溢出，可以设置为中断。通知时间到了。</p>
+<p>把分频器、计数器、中断系统结合起来构成了单片机的定时器。</p>
+</div>
+<div class="section" id="id72">
+<h3><a class="toc-backref" href="#id241">5.1.6&nbsp;&nbsp;&nbsp;设定闹钟时间</a></h3>
+<p>可以分别设定计数器的计数上限和下限的。分频器本身其实也是一个计数器，且可以用软件控制。如果单片机频率为Fosc，分频比为N，计数器以M作为循环，那么定时器溢出中断的频率 <cite>Ft=Fosc/(NxM)</cite> 。</p>
+</div>
+<div class="section" id="id73">
+<h3><a class="toc-backref" href="#id242">5.1.7&nbsp;&nbsp;&nbsp;将定时器&quot;降级&quot;为真正的计数器</a></h3>
+<p>有些程序并不需要计时器，而仅仅需要一个计数器。要实现这个，只需要把驱动分频器的脉冲由时钟变成&quot;外部事件&quot;即可。这种场合下定时器被称为计数器，所以数据手册里一般合称为&quot;定时器/计数器&quot;，&quot;Timer/Counter&quot;。</p>
+</div>
+<div class="section" id="id74">
+<h3><a class="toc-backref" href="#id243">5.1.8&nbsp;&nbsp;&nbsp;驱动多个闹钟的定时器</a></h3>
+<p>为定时器加上比较器，可以得到多个闹钟。当定时器的值与比较器中的值相同时就会产生中断。</p>
+</div>
+</div>
+<div class="section" id="id75">
+<h2><a class="toc-backref" href="#id244">5.2&nbsp;&nbsp;&nbsp;软件延时</a></h2>
+<p>软件延时可以用跑无效语句的空时钟周期来计数，也可以用定时器。后者更好些，因为不需要占用CPU时间。</p>
+</div>
+<div class="section" id="id76">
+<h2><a class="toc-backref" href="#id245">5.3&nbsp;&nbsp;&nbsp;不需要加载的&quot;自由定时器&quot;</a></h2>
+<p>计数器从开始自加，当达到最大值时发生&quot;溢出&quot;，定时器模块申请中断并返回0值继续计时。当时钟频率固定时，定时器的时间间隔也固定。下面了解ATmega48/88/168的Timer/Counter0的相关组成。</p>
+<div class="section" id="id77">
+<h3><a class="toc-backref" href="#id246">5.3.1&nbsp;&nbsp;&nbsp;减速齿轮-预分频选择</a></h3>
+<p>预分频器配置：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>CS01</td>
+<td>CS02</td>
+<td>CS03</td>
+<td>时钟源</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>无计时时钟源，停止计时</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>1</td>
+<td>系统时钟，不分频</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>0</td>
+<td>系统时钟，8分频</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>1</td>
+<td>系统时钟，64分频</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>0</td>
+<td>系统时钟，256分频</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>1</td>
+<td>系统时钟，1024分频</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>0</td>
+<td>T0引脚下降沿作为计数脉冲</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>1</td>
+<td>T0引脚上升沿作为计数脉冲</td>
+</tr>
+</tbody>
+</table>
+<p>设置好分频后，T/C0就开始计时了，不过还需要配置中断。</p>
+</div>
+<div class="section" id="t-c0">
+<h3><a class="toc-backref" href="#id247">5.3.2&nbsp;&nbsp;&nbsp;中断控制-T/C0中断设置</a></h3>
+<p>ATmega48/88/168的各个中断源都有对自己的中断允许标志，要使用T/C0，就要把TOIE0设置为1。OCIE0B和OCIE0A位用于控制T/C0的比较匹配中断。</p>
+<p>TIFR0寄存器存放表征中断发生的标志位，这些标志位与TIMSK0中的中断允许控制位相对应。</p>
+<p>TIMSK0寄存器：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>OCIE0B</td>
+<td>OCIE0A</td>
+<td>TOIE0</td>
+</tr>
+</tbody>
+</table>
+<p>TIFR0寄存器：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>OCF0B</td>
+<td>OCF0A</td>
+<td>TOV0</td>
+</tr>
+</tbody>
+</table>
+<p>当T/C0发生中断时，这些标志位将同时被设置；即使某个中断被禁止(包括关闭总中断)，中断标志位仍然会被设置。</p>
+</div>
+<div class="section" id="id78">
+<h3><a class="toc-backref" href="#id248">5.3.3&nbsp;&nbsp;&nbsp;编写第一个计时器程序</a></h3>
+<p>过一段时间让PC端口上的发光管闪烁:</p>
+<pre class="literal-block">
+#include &quot;iom48v.h&quot;
+#include &quot;macros.h&quot;
+
+#pragma interrupt_handler Timer0_OVF_ISR:iv_TIMER0_OVF
+void Timer0_OVF_ISR(void) {
+    PORTC^=0xFF;    //取反PC口
+}
+
+void main(void) {
+    DDRC=0xFF;
+    PORTC=0xFF;
+    TCCR0B=0x05;        //设置T/C0预分频为1/1024系统时钟
+    TIMSK0=0x01;        //使能定时器0溢出中断
+    SEI();              //使能全局中断
+    while(1);           //死循环等待中断发生
+}
+</pre>
+</div>
+</div>
+<div class="section" id="id79">
+<h2><a class="toc-backref" href="#id249">5.4&nbsp;&nbsp;&nbsp;通过重加载控制定时中断周期</a></h2>
+<p>产生一些自定义时间间隔。就是设置计时器的初始值，预分频。并且在每次中断发生时再设置初始值，且必须在中断处理的第一行，避免引入额外的延时。重载16位定时器时，应该先重载计数器高半字节，以免影响计时精度。如:</p>
+<pre class="literal-block">
+TCNT1L=0xFF;        //重载T/C1低半字节
+TCNT1H=0x05;        //重载T/C1高半字节
+</pre>
+<p>如果时钟频率较高，TCNT1L的值在写入后可能立即改变，这种重载方式可能丢失计数器低半字节的设置信息，可以在进入溢出中断后，先关闭定时器，设置好以后再开启定时器，如:</p>
+<pre class="literal-block">
+TCCR0B=0x00;        //关闭定时器时钟
+TCNT1L=0xFF;        //重载T/C1计数低半字节
+TCNT1H=0x05;        //重载T/C1计数高半字节
+TCCR0B=0x05;        //重新打开计数器时钟
+</pre>
+</div>
+<div class="section" id="id80">
+<h2><a class="toc-backref" href="#id250">5.5&nbsp;&nbsp;&nbsp;使用代码生成器生成定时器1初始化代码</a></h2>
+<p>将ICC的，略过 page127</p>
+</div>
+<div class="section" id="id81">
+<h2><a class="toc-backref" href="#id251">5.6&nbsp;&nbsp;&nbsp;定时器的其他工作模式</a></h2>
+<p>前面介绍定时器只是用于两种模式，产生定时和对外部脉冲计数。其实还有多种模式的，包括：普通模式、相位修正PWM模式、相位与频率修正PWM模式、快速PWM模式、匹配清0模式等。这些模式的选择由TCCR0A寄存器中的WGM01、WGM00位选择控制。</p>
+</div>
+<div class="section" id="pwm">
+<h2><a class="toc-backref" href="#id252">5.7&nbsp;&nbsp;&nbsp;PWM波及其应用简介</a></h2>
+<p>PWM是脉宽调制(Pulse-Width Modulation)的缩写。其主要参数是占空比(Duty Cycle)。占空比Duty=t1/T*100%。高电平时间t1占周期T所占的比例。</p>
+<p>PWM波可以用于控制电流，因为改变了平均电流。</p>
+</div>
+<div class="section" id="id82">
+<h2><a class="toc-backref" href="#id253">5.8&nbsp;&nbsp;&nbsp;人类能看懂的电子时钟-实时时钟简介</a></h2>
+<p>让电子系统取得人类看得懂的时间数据的专用电路称为&quot;实时时钟&quot;(Real Time Clock,RTC)。单片机可以从RTC读取时间的各个字段信息，然后比对闹钟时间，和用于显示。</p>
+<p>专用的RTC电路可以单独提供供电，功耗极小，精度很高，且不会占用单片机的时间。例如PCF8563等。</p>
+<p>ATmega48/88/168中有个定时器2(Timer2)允许使用32KHz的钟振作为I/O的时钟源。不过由于驱动外部晶体的TSOC1/TSOC2与系统时钟XTAL1/XTAL2引脚复用，所以两种只能选择一种。所以，使用Timer2作RTC定时器使用时，系统时钟只能选择32768Hz或内部RC振荡器。</p>
+</div>
+<div class="section" id="id83">
+<h2><a class="toc-backref" href="#id254">5.9&nbsp;&nbsp;&nbsp;实例9：闪烁的灯</a></h2>
+<p>发光二极管一旦导通以后，随着电压升高，电流急剧增大，所以必须串联限流电阻，否则很容易烧毁。发光二极管的常用工作电流是10-20mA。</p>
+</div>
+<div class="section" id="id84">
+<h2><a class="toc-backref" href="#id255">5.10&nbsp;&nbsp;&nbsp;实例10：渐明渐暗的灯</a></h2>
+<p>用PWM控制发光二极管的亮度。控制的波特率要恰当，太慢时会让人看到闪烁，如果太快则发光二极管来不及反应。这个例子选用1KHz。ATmega48/88/168的3个定时器都支持PWM波发生功能，8位定时器比较方便。</p>
+<p>依靠电阻对发光二极管调光很不好，很耗电，而且因为发光二极管的伏安特性不是线性的，所以也没发均匀的调整。</p>
+<p>PWM就是控制发光二极管的导通时间来调整亮度。</p>
+<p>ATmega48/88/168的3个定时器都支持PWM，这一点比ATmega8系列要好。例子使用了TCNT1的快速PWM模式。</p>
+<p>一个 <strong>快速PWM</strong> 工作流程示例：</p>
+<ol class="arabic simple">
+<li>开启定时器0，TCNT0开始累加，设置OC0B为高电平</li>
+<li>TCNT0上升到与OCRB相等，硬件根据COM0B1和COM0B0的设置，操纵OC0B端口，比如变为低电平</li>
+<li>TCNT0上升到与OCRA相等，TCNT0清零，将OC0B改为高电平</li>
+<li>工作过程TCNT0一直上升，然后清零，并不断重复</li>
+</ol>
+<p>这样OCRA的设置决定了整个PWM的周期，而OCRB的设置决定了占空比。</p>
+<p>置位和清零OC0B端口完全由硬件完成，所以不需要软件参与，也不需要定时器0的中断处理函数。</p>
+<p>初始化代码:</p>
+<pre class="literal-block">
+TCCR0B=0x00;   //1kHz PWM模式
+TCCR0A=0x23;   //OC0B端口在比较匹配发生时清零，在计数器达到TOP时置位
+TCNT0=0x00;
+OCR0A=0x83;    //计数TOP值
+OCR0B=0x00;    //比较匹配初始值
+TCCR0B=0x0A;   //WGM02..00=111,8分频，快速PWM模式，OCR0A作为TOP值
+</pre>
+<p>后来还介绍了舵机，常用于航模。分为模拟舵机和数字舵机。模拟舵机比较便宜，根据输入的脉冲控制转动角度。其控制信号为20mS周期的PWM波。脉宽为0.5mS时左满舵，脉宽为1.5mS时回到中间位置，脉宽为2.5mS时右满舵。每个脉冲宽度对应一个唯一的舵机转动位置。</p>
+<p>在脉宽在1.5mS左右时，实际上会有一段区域是均匀变化的驱动。所以让脉宽变化步进量小一些可以实现精确控制。这比较适合使用相位修正PWM模式。</p>
+<p><strong>相位修正PWM</strong> 的工作流程：</p>
+<ol class="arabic simple">
+<li>开启定时器1，TCNT1开始累加，开始OC1A为高电平</li>
+<li>TCNT1上升到OC1RA时匹配，拉低OC1A电平</li>
+<li>TCNT1继续累加到达ICR1时，开始进入递减阶段</li>
+<li>TCNT1下降到OC1RA时匹配，拉高OC1A电平</li>
+<li>TCNT1递减到0，开始重新进入递增阶段</li>
+<li>修改OC1RA的值可以改变脉冲宽度，但周期不变</li>
+</ol>
+<p>相位修正PWM同样不需要软件参与。</p>
+<p>初始化代码为:</p>
+<pre class="literal-block">
+TCCR1B=0x00;    //停止定时器
+ICR1H=0x27;     //设定PWM波周期为20mS
+ICR1L=0x10;
+TCCR1A=0x80;    //OC1A引脚向上计数匹配时置低，向下计数时置高
+TCCR1C=0x00;    //不适用强制匹配
+TCCR1B=0x11;    //启动定时器1，不分频
+</pre>
+<p>相位修正PWM模式工作在双斜坡模式，这样频率就被降低到原来的一半，但可以在任何一个斜坡开始修改脉冲宽度，所以脉冲宽度控制精度提高了。为了提供更高精度的控制还可以降低分频比例，在更大的计数范围进行调节。16位定时器1在无需分频下即可实现20mS的控制周期，所以是控制舵机的首选资源。</p>
+</div>
+<div class="section" id="id85">
+<h2><a class="toc-backref" href="#id256">5.11&nbsp;&nbsp;&nbsp;实例11：复杂闪烁控制</a></h2>
+<p>就是复杂一些而已，没有功能差异，略过 page 145</p>
+</div>
+</div>
+<div class="section" id="id86">
+<h1><a class="toc-backref" href="#id257">6&nbsp;&nbsp;&nbsp;电量低</a></h1>
+<div class="section" id="a-d">
+<h2><a class="toc-backref" href="#id258">6.1&nbsp;&nbsp;&nbsp;从猜数游戏到A/D转换器</a></h2>
+<p>ATmega48/88/168就是逐次比较式A/D转换器。</p>
+</div>
+<div class="section" id="atmega48-88-168a-d">
+<h2><a class="toc-backref" href="#id259">6.2&nbsp;&nbsp;&nbsp;ATmega48/88/168的A/D转换器</a></h2>
+<p>ATmega48/88/168集成了6通道(TQFP与MLF为8通道)、10位精度、提供内部参考电压基准源的逐次比较型A/D转换器。</p>
+<p>10bit精度是指可选值范围就是0~1023(0x000~0x3ff)。数值上限就是参考电压，输入电压应该在参考电压范围内。在参考电压和精度确定后就知道了分辨率就是前两者相除。精度一般都是常数，但是参考电压可以选择。如上的步进量在A/D转换中称为1 <strong>LSB(最低有效位，Least Significant Bit)</strong> 所代表的电压。以5V参考电压、10bit精度的1LSB为 <cite>5V/(0x3ff+1) =4.88 mV</cite> 。</p>
+<p>对于小于1LSB的值，通常有两种处理办法，四舍五入和下取整。ATmega48系列是四舍五入的。介于1LSB之间的电压按照一定的规则进行入位或舍弃，这个过程导致的误差称为 <strong>量化误差</strong> 。量化误差是原理性误差，无法消除。</p>
+<p>在修正偏移误差和增益误差后，所有转换得到的数字信号值与实际输入电压间的误差，以1LSB的倍数来量度，就是0.5LSB。</p>
+<p>将所有误差因素计入后，所有转换得到的数字与实际输入电压间的误差，是+/- 2LSB。</p>
+<p>13~260uS的转换时间。</p>
+<p>最高分辨率时采样率高达15kSPS。</p>
+<p>6路/8路复用的单端输入通道。实际共享一个ADC，只是通过内部模拟电子开关来决定选择哪一路输入与ADC连接。同一时刻，ADC只为其中一路服务。</p>
+<p>ADC结果是10bit，用8bit寄存器存不下，实际使用了ADCH和ADCL两个寄存器保存转换结果。默认的右对齐种ADCH的bit7-2都是保留不用的。左对齐时则空出ADCL中的低位。将ADMUX寄存器的ADLAR设置为1即可切换为左对齐。</p>
+<p>之下是右对齐和左对齐的结果:</p>
+<pre class="literal-block">
+ADCH=0b 0000,0010   ADCL=0b 1010,1100
+ADCH=0b 1010,1011   ADCL=0b 1100,0000
+</pre>
+<p>相当于将ADCH和ADCL相接后，左移6位。若转换后只需要8bit的精度，则可以用左对齐，只取ADCH种的数据，即忽略了2bit的细节。</p>
+<p>ATmega48系列芯片内部参考电压是1.1V，其他型号有些是2.56V，要小心。</p>
+<p>ADC转换结束时可以触发中断。</p>
+<p>为了降低ADC的噪声，可以在AD转换时将CPU进入休眠模式。</p>
+</div>
+<div class="section" id="id87">
+<h2><a class="toc-backref" href="#id260">6.3&nbsp;&nbsp;&nbsp;ATmega48/88/168单片机与A/D相关的引脚</a></h2>
+<p>ADC0~ADC5分别与PC0~PC5复用。</p>
+<p>AVCC：模拟供电端，是一个电源输入，为ADC提供电源，在不适用ADC时，应将其接入Vcc，当使用ADC时，应通过低通滤波器将其与Vcc连接。</p>
+<p>AREF：参考电压，可选内部的1.1V电压基准或外部的AREF。</p>
+</div>
+<div class="section" id="id88">
+<h2><a class="toc-backref" href="#id261">6.4&nbsp;&nbsp;&nbsp;相关寄存器</a></h2>
+<p>ADMUX：选择参考电压、转换结果对齐方式、输入通道。</p>
+<p>ADCSRA/ADCSRB：设置启动条件、中断状态、转换速度等。</p>
+<p>ADCL/ADCH：数据寄存器，分别存储低字节和高字节。</p>
+<p>DIDR0：关闭模拟信号接口上的数字电路接口功能。</p>
+<p>PRR：功耗抑制寄存器，其PRADC位决定是否向ADC模块供电，默认为是。</p>
+</div>
+<div class="section" id="id89">
+<h2><a class="toc-backref" href="#id262">6.5&nbsp;&nbsp;&nbsp;使用A/D时需要注意些什么</a></h2>
+<p>AREF上有其他基准电压源时，不要选择内部1.1V电压基准，否则烧毁会烧毁。选择1.1V内部电压基准时，仅能在AREF端接一个高频特性好、漏电流小的电容器，来帮助稳定基准电压。</p>
+<p>为避免电平冲突，ADC的输入电压和引脚间应该串接一个电阻，该电阻的阻值会影响采样/保持电路的稳定时间，所以也不能太大。一般取1~10Kohm。</p>
+<p>原理上讲，CMOS数字电路是不能接模拟信号电平的，否则输入级过载。由于数字输入禁止寄存器DIDR0在上电后初始化为0x00，即所有ADC输入引脚都开启了数字输入缓冲器，因此需要禁止该功能。例如想要将ADC3作为模拟信号输入，则 <tt class="docutils literal">DIDR0 |= 0x08;</tt> 。</p>
+<p>ADC容易受到噪声干扰，设计PCB时要格外注意。使用1.1V内部电压基准时，AREF与地线间接入0.1~0.01uF的瓷片电容，改善基准电压噪声。若用AVCC和AREF端，则应做好其与单片机供电Vcc间的退耦，推荐用独立电源，或LC低通滤波，至少是用RC滤波将其与Vcc隔离。即Vcc串接一个10ohm电阻后再进入AREF，且AREF接入0.1uF电容到地。</p>
+<p>使用时如果需要改变输入通道和参考电压，应该先保存当前值。</p>
+</div>
+<div class="section" id="id90">
+<h2><a class="toc-backref" href="#id263">6.6&nbsp;&nbsp;&nbsp;怎样知道A/D转换完成</a></h2>
+<p>无非是查询和中断。ADC噪声抑制模式则是中断。</p>
+<p>查询方式的代码:</p>
+<pre class="literal-block">
+ADCSRA |= 1&lt;&lt;ADSC;      //置位ADSC位，启动一次转换
+while(!(ADCSRA&amp;(1&lt;&lt;ADIF))); //查询等待转换完成
+voltage=ADC;            //读入ADCH和ADCL的结果
+</pre>
+<p>就是持续的看ADCSRA寄存器的ADIF位，只要其为0就继续循环。</p>
+<p>中断模式可能的CPU效率更高。但是对实时系统则不一定。</p>
+<p>对于电压表，可以再加入一个定时中断，用以将当前的电压值显示出来。</p>
+<p>数字电路的时钟以及其他操作可能会影响模拟电路。ADC噪声抑制模式，使得AD转换时，CPU休眠，避免数字电路的干扰。</p>
+</div>
+<div class="section" id="id91">
+<h2><a class="toc-backref" href="#id264">6.7&nbsp;&nbsp;&nbsp;读取A/D转换结果</a></h2>
+<p>为了防止上一次结果尚未读取就被下一次转换给冲掉。ADC采取一个保护策略。当程序读取ADCL寄存器时，ADCH的值被锁定，直到程序读取了ADCH寄存器的值为止。ADC才会进入下一次的写入数据操作。所以读取ADC数据是，应该先读取ADCL的值，之后才读取ADCH的。</p>
+<p>仅需8bit精度时，用左对齐，仅读取ADCH，而不理会ADCL。</p>
+</div>
+<div class="section" id="adc">
+<h2><a class="toc-backref" href="#id265">6.8&nbsp;&nbsp;&nbsp;使用代码生成器生成ADC初始化代码</a></h2>
+<p>使用ICC的IDE，很无聊。page 183-185</p>
+</div>
+<div class="section" id="id92">
+<h2><a class="toc-backref" href="#id266">6.9&nbsp;&nbsp;&nbsp;书写具有工程结构的初始化代码</a></h2>
+<p>这里所说的就是将初始化代码和中断服务函数放在.c中，而需要被外部调用的函数和声明放在.h中。</p>
+<p>这里的代码都是ICC的，没有参考价值。</p>
+</div>
+<div class="section" id="id93">
+<h2><a class="toc-backref" href="#id267">6.10&nbsp;&nbsp;&nbsp;电量计原理概述</a></h2>
+<p>使用电池的设备需要监测电池剩余电量信息，称为电量计。</p>
+<p>电池容量单位是Ah，即安培小时。</p>
+<p>电池以不同电流放电的时间相差很大。小电流或断续放电的使用时间长。放电电流的大小一相对于容量的方式来计算。例如1Ah的电池1以1A电流放电，放电速率就是1C，以0.5A放电，放电速率就是0.5C。</p>
+<p>对充电电池，放电速率过大会损坏电池。</p>
+<p>电池剩余电量一定程度体现在电压上，但是不是线性对应的。例如对GP 15AU碱性电池以10ohm放电，电压早期迅速从1.6V下降到1.4V，随后大部分时间在1.4V~1.1V之间，在最后接近0.9V前又迅速加快。0.9V以下则算没电了。</p>
+<p>电池电压与剩余电量之间的非线性关系，可以用查表法。每个电量位置设置一个电压值。</p>
+</div>
+<div class="section" id="id94">
+<h2><a class="toc-backref" href="#id268">6.11&nbsp;&nbsp;&nbsp;转换结果读取方式的比较</a></h2>
+<p>先后读取ADCL和ADCH的事情。公用体(union)是一种办法。</p>
+<p>不同的编译器处理方法不同，ICC是由编译器一次性读取的。转化出的汇编会完成先后读取的任务。</p>
+</div>
+<div class="section" id="id95">
+<h2><a class="toc-backref" href="#id269">6.12&nbsp;&nbsp;&nbsp;ADC噪声抑制模式</a></h2>
+<p>先介绍休眠功能，AVR的SMCR寄存器控制休眠，设置好其值之后，只要执行SLEEP指令，就会进入休眠模式。</p>
+<p>SMCR寄存器中SM2-0的取值与休眠模式：</p>
+<ol class="arabic simple">
+<li>000=空闲模式</li>
+<li>001=ADC噪声抑制模式</li>
+<li>010=掉电模式</li>
+<li>011=省电模式</li>
+<li>100=保留</li>
+<li>101=保留</li>
+<li>110=Standby待机模式，仅用于外部晶体</li>
+<li>111=保留</li>
+</ol>
+<p>例如，单片机仅仅处理串口数据，则可以用空闲模式，没有数据来时省电，串口得到数据就唤醒，处理完数据继续休眠。</p>
+<p>ADC噪声抑制模式：ADC转换过程继续，CPU停止，其他继续的有：ADC、外部中断、TWI地址匹配、T/C2、看门狗。</p>
+<p>为了防止CPU意外进入休眠模式，SMCR寄存器还有SE位(休眠使能)，只有SE=1时，SLEEP指令才会进入休眠，多了一层保险。</p>
+<p>进入休眠(需要SE=1):</p>
+<pre class="literal-block">
+SMCR |= 0x01;       //使能休眠功能
+asm(&quot;SLEEP&quot;);       //休眠CPU，进入ADC噪声抑制模式
+</pre>
+<p>唤醒CPU后，立即清除SE位 <tt class="docutils literal">SMCR &amp;= 0xfe</tt> 。</p>
+<p>因为休眠依靠中断唤醒，所以休眠之前必须启用ADC完成中断(ADCSRA的ADIE)和总中断(SEI)，否则CPU无法再唤醒。</p>
+<p>在ADC噪声抑制模式下，并不需要ADSC=1就会自动启动转换。此时所需的ADCSRA设置：ADC使能、中断使能、预分频，而不需要ADSC:</p>
+<pre class="literal-block">
+ADCSRA |= 0x8f;
+</pre>
+<p>ADC的转换在由SLEEP进入休眠后立即开始。</p>
+</div>
+<div class="section" id="id96">
+<h2><a class="toc-backref" href="#id270">6.13&nbsp;&nbsp;&nbsp;A/D的软件滤波技术</a></h2>
+<p>如果实际看到数字，会发现前面几位稳定，后面的数字会快速跳动。这是因为有干扰。</p>
+<p>滤波分为两类：硬件滤波和软件滤波。其中软件滤波有些有趣特性：</p>
+<ol class="arabic simple">
+<li>通常不需要负载的外围电路，是对外围电路的模拟，如平均值滤波就是对电容滤波的模拟</li>
+<li>因为脱离了硬件束缚，所以很多算法很灵活，但随着滤波程度加深，性能需求剧增</li>
+<li>软件滤波通常建立在&quot;队列&quot;的基础上，所以要用好队列</li>
+</ol>
+<p>队列的介绍：</p>
+<ol class="arabic simple">
+<li>先进先出，FIFO</li>
+<li>只能从列尾进，列头出</li>
+</ol>
+<p>滤波算法的特点：</p>
+<ol class="arabic simple">
+<li>滤波算法只有&quot;读列类&quot;和&quot;过滤类&quot;两大基本类别</li>
+<li>以上类别组合得到新算法</li>
+<li>设计算法，依照如上两条</li>
+</ol>
+<p>&#64;page 193-204</p>
+</div>
+<div class="section" id="id97">
+<h2><a class="toc-backref" href="#id271">6.14&nbsp;&nbsp;&nbsp;软件实现的施密特触发器</a></h2>
+<p>智能充电器中，单片机要一直监控电池的电压，一旦超过某个值，就由恒流转为恒压充电。</p>
+<p>施密特触发器有两个门限，因为恒流充电的终止电压比刚进入恒压充电时的高，此时应该用施密特触发器，避免两种状态频繁切换。</p>
+<p>两态：数值正在变大还是变小。</p>
+<p>两限：变大大于上门限，变小小于下门限，都会触发动作。但在两个门限之间时不动做。</p>
+</div>
+<div class="section" id="id98">
+<h2><a class="toc-backref" href="#id272">6.15&nbsp;&nbsp;&nbsp;实例12：电量计</a></h2>
+<p>一个光带式电量计，通过电池的电压估算剩余电量。用电位器模拟输入来调试。</p>
+<p>Vcc通过RC低通滤波器接到AVCC，AREF通过电容接地。</p>
+</div>
+</div>
+<div class="section" id="id99">
+<h1><a class="toc-backref" href="#id273">7&nbsp;&nbsp;&nbsp;正在过收费站</a></h1>
+<div class="section" id="id100">
+<h2><a class="toc-backref" href="#id274">7.1&nbsp;&nbsp;&nbsp;从并行通信到串行通信</a></h2>
+<p>可以将两个单片机的端口相连，同时接受方要发送响应信号告知已经收到了，可以发送下一次。例如单片机A通过PORTD发送数据 <tt class="docutils literal">PORTD=x</tt> 。而单片机B则需要发送响应:</p>
+<pre class="literal-block">
+_PB0=1;     //将控制信号位拉高
+NOTP();     //插入一个周期等待电平建立，等待信号电平稳定
+_PB0=0;     //将控制信号拉低为低电平
+</pre>
+<p>最后将控制线连接到单片机B的外部中断上，利用下降沿触发中断程序读取通信端口的数据。这也是最基本的并行通信模型。</p>
+<p>实际使用并行通信的时候很少。通信线路的成本、端口成本等等、同步成本等等。</p>
+</div>
+<div class="section" id="id101">
+<h2><a class="toc-backref" href="#id275">7.2&nbsp;&nbsp;&nbsp;这个石阶上我们都被&quot;缓冲&quot;着</a></h2>
+<p>高速公路收费站就是个例子。</p>
+<p>利用时间计数器的奇偶性来选择性的发送高低字节(位)就是一种简单的串行通信了。不过必须接收到整个数据字才可以提交，所以串行通信是必须要使用缓冲区的。</p>
+</div>
+<div class="section" id="id102">
+<h2><a class="toc-backref" href="#id276">7.3&nbsp;&nbsp;&nbsp;将串行进行到底</a></h2>
+<p>无论使用何种通信标准或方案，无非解决3个问题：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>事件的同步问题</li>
+<li>数据的表示问题</li>
+<li>不同速率设备间通信的缓冲问题</li>
+</ol>
+</blockquote>
+<p>如果设计的方法同时解决了如上三个问题，就可以称为通信标准了。</p>
+<p>可以用一个端口来串行发送数据，为了节省一个控制端口，甚至还可以用&quot;等待固定时长&quot;方法实现通信同步，每次通信完成后插入额外的等待时间，达到同步所需的时间间隔。如果使用时间同步信号线，速率就会快很多，因为无需等待。</p>
+<p>一般来说，将使用专门的通信同步信号线的通信方式称为 <strong>同步通信方式</strong> 。省略该信号线并采用其他方式同步的方式称为 <strong>异步通信方式</strong> 。 <strong>串行外设接口SPI(Serial Peripheral Interface)</strong> 就是同步通信的。</p>
+<p>只能从A发送到B的，称为单工通信；双方都可以收发，但是时间必须错开的称为半双工通信；任意时间同时收发的称为全双工通信。SPI实现了全双工通信。</p>
+</div>
+<div class="section" id="spi">
+<h2><a class="toc-backref" href="#id277">7.4&nbsp;&nbsp;&nbsp;串行外设接口SPI</a></h2>
+<p>串行外设接口SPI是一种同步全双工串行接口。时钟脉冲引脚SCK负责同步。另外就是主机输出从机输入(Master Out Slave In)和主机输入从机输出(Master In Slave Out)接口两个数据通路。</p>
+<p>SPI通信4个引脚 <strong>MOSI</strong> 、 <strong>MISO</strong> 、 <strong>SCK</strong> 、 <strong>SS#</strong> 中，SS#负责提供额外的信号区别出各个字节。#表示低电平有效，在无数据传输时SS#为高电平(从机通信部分初始化)；开始传输数据时拉低电平表示一个字节的开始，也可以在一个字节传输完成时恢复高电平。也可以将SS#理解为一个开关，SS#为低电平时就打开了数据传输功能；高电平时就关闭数据传输。</p>
+<p>双方的通信由主机发起，主机发送一个字节，从机就也发送一个字节。</p>
+<ol class="arabic simple">
+<li>数据传输的主动权始终在主机那里，从机无法主动发送数据。</li>
+<li>如果用户启动了SPI中断功能，那么主从双方完成一次数据&quot;交易&quot;。即主机发送数据给从机，并且从机数据发送到主机后-系统会调用一次中断处理程序。</li>
+</ol>
+<p>SPI只有一个中断-数据传输完成中断。中断处理程序中，用户应该首先从寄存器SPDR读取接收到的数据，然后才能将用于下一次数据交换的内容放入寄存器SPDR中。</p>
+</div>
+<div class="section" id="id103">
+<h2><a class="toc-backref" href="#id278">7.5&nbsp;&nbsp;&nbsp;都是环形队列惹得祸</a></h2>
+<p>主机和从机的SPDR构成了一个环形的队列。一次数据交换的过程就是主机的SPDR的内容移到从机的SPDR，而从机的SPDR移到主机的SPDR。一个典型的数据传输过程如下：</p>
+<ol class="arabic simple">
+<li>从机将需要发送的数据放入SPDR寄存器，等待SS#信号，一旦SS#为低电平，从机就进入等待状态，等待主机产生SCK时钟信号。</li>
+<li>主机的程序将SS#拉低，告诉从机即将发送一个字节。一旦用户将数据放到SPDR寄存器，SPI硬件自动启动时钟信号SCK，开始一次数据传输。此时主机数据移位寄存器SPDR按照设定的顺序-先发送高位(MSB)还是先发送低位(LSB)-依次从MOSI引脚将数据移出；从机SPDR移出的数据由MISO引脚流到主机的SPDR。</li>
+<li>一次数据传输完成后，双方都发生&quot;数据传输完成中断&quot;(假如打开了中断功能)。中断处理程序从各自SPDR读取数据。主机程序应该将SS#恢复为高电平。</li>
+</ol>
+<img alt="_images/book_deepinavr_7.5_00.png" src="_images/book_deepinavr_7.5_00.png" />
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>引脚对应</p>
+<p class="last">MOSI对MOSI、MISO对MISO。</p>
+</div>
+<p>可能出现的错误：</p>
+<ol class="arabic simple">
+<li>数据线对应关系接错，变成了MOSI对应MISO。</li>
+<li>未在数据传输开始前及时将SS#拉低，从机没有开启数据通信状态。如果主机在向SPDR送入数据之后才拉低SS#信号，则数据传输会丢失部分二进制位。因为数据一旦写入就开始启动SCK了，而此时从机还没接受呢。</li>
+<li>数据通路MOSI和MISO中途出现短路，则主机只能接收到自己发送的数据，从机也是如此。</li>
+</ol>
+</div>
+<div class="section" id="id104">
+<h2><a class="toc-backref" href="#id279">7.6&nbsp;&nbsp;&nbsp;使用代码生成器生成SPI初始化代码</a></h2>
+<p>讲ICC的 page 197</p>
+</div>
+<div class="section" id="spic">
+<h2><a class="toc-backref" href="#id280">7.7&nbsp;&nbsp;&nbsp;SPI通信缓冲的C语言实现</a></h2>
+<p>关于SPI通信缓冲需要注意的：</p>
+<ol class="arabic simple">
+<li>使用两个队列。一个负责缓冲需要发送的数据，一个负责缓冲接收到的数据。</li>
+<li>通常使用定长数组作为队列的组织形式。</li>
+<li>队列的长度是相同的，一般来说接受和发送的数据量是相同的。也就是说SPI发送多少字节就接收多少字节。</li>
+<li>针对不同的硬件连接方式，缓冲区有自己的特点。</li>
+<li>该缓冲技术是基于SPI中断方式的。</li>
+</ol>
+<p>队列的工作方式：当一次SPI通信完成中断时，首先从数据寄存器SPDR读取一个字节存入接收队列，然后从发送队列取出一个字节准备下一次发送。一般来说从机通信使用 <strong>74HC595</strong> 和 <strong>74HC165</strong> ，他们都是移位锁存器，一个负责发送，一个负责接受。提供常用的端口扩展功能。</p>
+<p>端口扩展是很实用的技术，原理本质是将外部硬件寄存器通过一定的通信方式映射到我们的RAM地址空间中来。</p>
+<img alt="_images/book_deepinavr_7.7_00.png" src="_images/book_deepinavr_7.7_00.png" />
+</div>
+<div class="section" id="id105">
+<h2><a class="toc-backref" href="#id281">7.8&nbsp;&nbsp;&nbsp;缓冲区的刷新算法</a></h2>
+<p>建立数组，第一个元素对应外部第一端口PORTH，内部称为VPORTH，即虚拟的PORTH。同时接收端第一个数组元素名为VPINH，依此类推VPORTI对应PORTI，VPINI对应PINI。注意各个元素的输出顺序。这里讲的是SPI实现的对外的很多位(大于1字节)的串联输出。</p>
+<img alt="_images/book_deepinavr_7.8_00.png" src="_images/book_deepinavr_7.8_00.png" />
+<p>通信中断处理程序中需要知道当前已经发送和接收到什么地方了，所以可能的代码为:</p>
+<pre class="literal-block">
+//刷新&quot;发送缓冲数组&quot;的代码片段
+for (VP_cPortCounter=0;
+VP_cPortCounter&lt; VP_PORT_COUNT;
+VP_cPortCounter++) {
+    ...
+    SPDR=VP_cPORTx[VP_PortCounter];
+    ...
+}
+</pre>
+<p>与之对应:</p>
+<pre class="literal-block">
+//SPI通信完成中断处理程序中
+//处理&quot;接收缓冲数组&quot;的代码片段
+VP_cPINx[VP_PORT_COUNT-VP_cPortCounter-1]=SPDR;
+</pre>
+<p>其中VP_PORT_COUNT是一个宏，表示虚拟端口的数量。变量VP_cPortCounter是一个全局变量，表示正要访问的下标。这里提到的是硬件开环连接方式，还有一种硬件闭环连接方式更简单些，后面介绍。</p>
+</div>
+<div class="section" id="id106">
+<h2><a class="toc-backref" href="#id282">7.9&nbsp;&nbsp;&nbsp;中断的同步</a></h2>
+<p>中断处理程序之外的程序需要知道通信已经完成了。可以设置一个标志变量，在发送前设置为FALSE，发送成功后由SPI中断处理程序设置为TRUE。</p>
+</div>
+<div class="section" id="id107">
+<h2><a class="toc-backref" href="#id283">7.10&nbsp;&nbsp;&nbsp;建立SPI总线</a></h2>
+<p>前面都在讲双机通信，而事实上很多时候是多机通信，也就是网络中任意两点之间的通信，可以参考计算机网络的几种拓扑结构。</p>
+<p>双机通信只能称为&quot;SPI通信接口协议&quot;，而多机通信网络则可以叫&quot;SPI总线&quot;。在SPI总线系统中，必须有一个发生时钟和通信控制信号SS#的主机，称为&quot;通信调度模块&quot;。可以由连接到总线上的一个独立芯片来做，也可以用主机来做。只是主机未必是整个总线的通信调度模块。</p>
+<p>总线状网络的特点：</p>
+<ol class="arabic simple">
+<li>由一个公共控制器引出一条公共数据通路和若干条控制信号线(主从特征)。</li>
+<li>各种设备都是采用并联方式接入总线。</li>
+<li>设备之间没有直接的物理关联，独立存在(无关联性)。</li>
+</ol>
+<p>使用总线方式比较符合SPI总线的特征，且设备间影响小。步骤：</p>
+<ol class="arabic simple">
+<li>从机中引出MOSI和MISO两条公共数据线，并将此数据线连接到MOSI/MISO数据通路上。</li>
+<li>主机上引出总线时钟SCK，提供给从机作为时钟信号输入。</li>
+<li>从机上寻找一些可控的独立引脚，连接到主机的SS#引脚上。通信时，主机选择某个从机的SS#，拉低电位开始通信。</li>
+</ol>
+<img alt="_images/book_deepinavr_7.10_00.png" src="_images/book_deepinavr_7.10_00.png" />
+<p>不过对于从机很多的系统，片选SS#的引脚就会很多，所以不太可行。</p>
+<p>总线型比较简单，甚至可以实现广播。</p>
+<p>假设PORTC0-6对应从机0-6：SPI模块的SS#信号线对应7号从机，那么可能的主机通信代码为:</p>
+<pre class="literal-block">
+unsigned char g_cSlaveChoose=0;
+...
+//总线结构SPI通信数据发送函数(不支持广播模式)
+void SPIBusSendData(unsigned char cSlaveChoose,unsigned char cData) {
+    if (cSlaveChoose&lt;7) {
+        PORTC=~BIT(cSlaveChoose);       //将对应位拉低
+    }else if (cSlaveChoose==7 {
+        _PB2=LOW;                       //将SPI模块的SS#信号拉低
+    }else {
+        return;
+    }
+    g_cSlaveChoose=cSlaveChoose;        //更新从机信息
+    SPDR=cData;                         //启动一次SPI通信
+}
+</pre>
+<p>之后可以根据全局变量g_cSlaveChoose的值知道SPDR中的数据来自哪个从机。</p>
+<p>另一种常见的SPI总线类型是&quot;环形总线&quot;。由于SPI总线是&quot;移位寄存&quot;的，所以可以将所有具有依偎寄存特性的设备串联，形成一个首尾相接的环，数据可以在这个环里定向流动。很多期间都具备移位锁存的特性，所以可以接入环形总线。不过必须小心环中的每一个设备都理解哪些是需要让自己动作的。</p>
+<p>环形总线的特点：</p>
+<ol class="arabic simple">
+<li>根据移位寄存的特性，只要主机连续进行n次通信就可以遍历各个从机的数据，同时各个从机也可以读取主机的数据</li>
+<li>环形总线一旦中途断路，整个总线就无法工作了</li>
+<li>不需要额外的数据描述数据发送的目的地，通信效率与总线型网络平均通信效率相同</li>
+<li>采用统一的SS#信号线，整个总线的硬件开销是固定的，就是4根线</li>
+<li>每次移位实际上都被中继了一次，所以传输距离长，但SS#没有中继</li>
+</ol>
+<p>SPI环路长度一旦确定，就可以确定通信缓冲区的长度，只要连续通信N次就可以读取到所有数据，该数字称为总线容量常数。可以定义为VP_PORT_COUNT。事实上74HC595和74HC165一样可以串联构成环形总线，一起使用。</p>
+</div>
+<div class="section" id="id108">
+<h2><a class="toc-backref" href="#id284">7.11&nbsp;&nbsp;&nbsp;SPI环路总线的优化</a></h2>
+<p>SPI环形总线是很好的，当然了解其特点的情况下。</p>
+<div class="section" id="id109">
+<h3><a class="toc-backref" href="#id285">7.11.1&nbsp;&nbsp;&nbsp;总线容量常数的自适应和总线断路的检测</a></h3>
+<p>只要发送一个标志字节，并对循环次数计数，当大于总线容量常数而没有收到该标志字节，就是断路了。</p>
+<p>同理，对总线容量长度未知的系统，连续发送一定的标志字节，并记录发送次数，当再次收到时就可以确定总线容量常数了。同时设置一个最大测试上限，当超过这个数字还没收到，就报告总线断路了。</p>
+<p>有个探测具体断路位置的算法，没看懂page 210。</p>
+</div>
+<div class="section" id="busy">
+<h3><a class="toc-backref" href="#id286">7.11.2&nbsp;&nbsp;&nbsp;从机BUSY信号的引入</a></h3>
+<p>有时某些模块可能还没完成数据就被读取，可能引起混乱，不过595和165是不会有这个问题的。所以对于逻辑模块需要引入BUSY信号，各个模块级联在与门上，然后接到主机，当检测到低电平表示的忙时，就不能通信。</p>
+<p>可以省掉与门，而用&quot;线与&quot;，就是主机端口接上拉电阻，然后每个逻辑期间都接到这里，只要有一个拉低电平就表示忙。注意只有开漏(开集电极)结构的输出端才能做线与。</p>
+</div>
+</div>
+<div class="section" id="id110">
+<h2><a class="toc-backref" href="#id287">7.12&nbsp;&nbsp;&nbsp;实例13：端口扩展</a></h2>
+<p>单片机的端口其实很多时候还是不够用的。本例是使用 <strong>74HC595</strong> 与SPI共同扩展端口。</p>
+<p>先分析一下74HC595的操作方法。第一步是在时钟信号SRCLK驱动下，8个数据位从SER端依次进入寄存器；第二步实在时钟信号RCLK上升沿，寄存器中数据被锁存到端口。</p>
+<p>这样SER(引脚14)端和SRCLK(引脚11)端对应SPI的MOSI和CLK端。只是标准的SS#对应了RCLK(引脚12)，使用通信完成时的上升沿来完成端口锁存。</p>
+<p>而 <strong>74HC165</strong> 也是分两步。第一步是各个端口数据载入到移位寄存器，这个过程是异步的。只要PL端为低电平，数据端口就使用在更新移位寄存器。第二步是在时钟信号CP的驱动下，移位寄存器数据从Q7依次输出。</p>
+<p>74HC165的数据输出时PL为高电平，与SPI标准不符，所以用了一个晶体管做的非门，将SS#取反后使用。时序图如下：</p>
+<img alt="_images/book_deepinavr_7.12_00.png" src="_images/book_deepinavr_7.12_00.png" />
+<p>这种设计中，两个锁存器并不是关联的，一个作为SPI的从机输入，一个作为SPI的从机输出，这种连接方式称为&quot;开环&quot;。另一种有利于软件设计的&quot;闭环&quot;方式在本例后面介绍。</p>
+<p>电路图如下：</p>
+<img alt="_images/book_deepinavr_7.12_01.png" src="_images/book_deepinavr_7.12_01.png" />
+<p>搭建好电路之后用一个例子测试74HC595的工作是否正常，测试中使用PC端口模拟SPI总线时序:</p>
+<pre class="literal-block">
+#define CLK_High PORTC != (1&lt;&lt;4)
+#define CLK_Low PORTC &amp;= ~(1&lt;&lt;4)
+#define Load_High PORTC |= (1&lt;&lt;3)
+#define Load_Low PORTC &amp;= ~(1&lt;&lt;3)
+
+void main(void) {
+    unsigned char i;
+    DDRC=0xff;
+    PORTC=0xff;
+
+    while(1) {
+        Load_Low;           //模拟SS#信号的下降沿
+        for (i=0;i&lt;8;i++) { //发送8个数据位，数据由PC5端口
+            CLK_Low;
+            CLK_High;
+        }
+        Load_High;
+        Delay_ms(1000);     //每秒更新一次
+        PORTC ^= (1&lt;&lt;5);    //取反数据端，以实现闪烁
+    }
+}
+</pre>
+<p>通信需要选择静态时钟为高电平(CPOL=1)，数据在时钟下降沿送出，上升沿采样锁存(CPHA=1)。</p>
+<p>按键可以等到释放时才动作。</p>
+<p>在同时有输入输出的系统，可以将MOSI接到595上，而MISO接到165上。这样可以同时做输出和输入。不过这样也需要一个缓冲区，因为写入到输出时倒是无妨，但读取输入时也要把数据写入，这时从缓冲区拿之前一直需要发的同一数据发出。另外就是需要写入、需要读出，两个时机都需要通信。可以选择按照一定的时间间隔来执行通信。</p>
+<p>刷新函数:</p>
+<pre class="literal-block">
+void Port_Refresh() {
+    SS_Low;
+    SPDR=PORTA;
+    while(!(SPSR &amp; _BV(SPIF)));
+    SS_High;
+    PINE=SPDR;
+}
+</pre>
+<p>因为每次只发送1字节，所以并不影响系统速度。</p>
+<p>进阶设计中主要是让595和165进行级联。对于同时使用165和595，建议用闭环方式，就是最后一个595的QH'接到165的SER。</p>
+</div>
+<div class="section" id="id111">
+<h2><a class="toc-backref" href="#id288">7.13&nbsp;&nbsp;&nbsp;实例14：键盘显示模块</a></h2>
+<p>键盘和显示并不复杂，但是却要消耗大量的端口。还是使用165和595比较划算。就不提供电路图了，74hc595的输出端电流驱动能力只有6mA，驱动数码管的公共端是不够的，需要三极管驱动。</p>
+<p>没什么可看的。</p>
+</div>
+</div>
+<div class="section" id="id112">
+<h1><a class="toc-backref" href="#id289">8&nbsp;&nbsp;&nbsp;包装的学问</a></h1>
+<p>USART(The Universal Synchronous and Asynchronous serial Receiver and Transmitter)，通用同步/异步串行接收和发送器，简称串口。</p>
+<p>对系统时钟极为敏感。</p>
+<div class="section" id="id113">
+<h2><a class="toc-backref" href="#id290">8.1&nbsp;&nbsp;&nbsp;从邮递员的包裹说起</a></h2>
+<p>邮件的传递过程是：收集、分类、打包、运输、解包、分类、分发。</p>
+</div>
+<div class="section" id="id114">
+<h2><a class="toc-backref" href="#id291">8.2&nbsp;&nbsp;&nbsp;心有灵犀的异步通信</a></h2>
+<p>为了省去SPI通信中的时钟线，需要为通信双方配置高精度厄时钟，且同步的。每次通信前，由主机发送校准的指令，然后开始通信，直到误差大到无法忍受时结束。</p>
+</div>
+<div class="section" id="id115">
+<h2><a class="toc-backref" href="#id292">8.3&nbsp;&nbsp;&nbsp;数据的包裹-帧</a></h2>
+<p>平时是高电平，需要通信时先拉低，用于约定好对时信号，随后以字节为单位，逐位送出端口。发送完一个字节后再次恢复到高电平。</p>
+<p>数据帧的数据位可以有5、6、7、8、9个，其中9位的帧结构提供了选择从机的策略。最后一位设置为0时表示发送的是地址位；最后一位是1时，发送的数据。</p>
+</div>
+<div class="section" id="id116">
+<h2><a class="toc-backref" href="#id293">8.4&nbsp;&nbsp;&nbsp;应用的包裹-数据包</a></h2>
+<p>更高一层的结构。</p>
+</div>
+<div class="section" id="id117">
+<h2><a class="toc-backref" href="#id294">8.5&nbsp;&nbsp;&nbsp;解剖串口模块</a></h2>
+<p>有个同步模式的串口，多出一根时钟线，很少用。一般是指&quot;异步串口&quot;。收发引擎负责按照位、字节来识别数据。</p>
+</div>
+<div class="section" id="usart">
+<h2><a class="toc-backref" href="#id295">8.6&nbsp;&nbsp;&nbsp;使用代码生成器生成USART初始化代码</a></h2>
+<p>我不用这个编译器，略过。 page 239</p>
+<p>最常用的是9600bps。奇偶校验很少使用。</p>
+</div>
+<div class="section" id="id118">
+<h2><a class="toc-backref" href="#id296">8.7&nbsp;&nbsp;&nbsp;9位数据帧的发送和接收</a></h2>
+<p>8位的发送数据是放在寄存器UDR0中，而多出的一位放在UCSR0B寄存器中。</p>
+<p>&#64;page 258-259</p>
+</div>
+<div class="section" id="id119">
+<h2><a class="toc-backref" href="#id297">8.8&nbsp;&nbsp;&nbsp;建立串行通信缓冲区</a></h2>
+<p>&#64;page 259-264</p>
+</div>
+<div class="section" id="id120">
+<h2><a class="toc-backref" href="#id298">8.9&nbsp;&nbsp;&nbsp;9数据位模式下的多机通信</a></h2>
+<p>&#64;page 265-266</p>
+</div>
+<div class="section" id="c">
+<h2><a class="toc-backref" href="#id299">8.10&nbsp;&nbsp;&nbsp;多机通信的C语言实现</a></h2>
+<p>&#64;page 266-268</p>
+</div>
+<div class="section" id="id121">
+<h2><a class="toc-backref" href="#id300">8.11&nbsp;&nbsp;&nbsp;初识状态机</a></h2>
+<p>状态图由圆圈和箭头组成。其中圆圈表示状态，箭头表示状态的改变。状态的改变是有诱因的，有些诱因是可知的，而未知的诱因叫 <strong>空诱因</strong> 。状态图有一个起点和若干个表示最终结果的终止状态。终止状态用两个同心圆表示。</p>
+<p>状态可以用常量数字来表示。</p>
+<p>画状态图的步骤：</p>
+<ol class="arabic simple">
+<li>对于需要描述的事物，先划分各个状态，找到状态转移的诱因，划出状态图。</li>
+<li>根据状态图，为每隔状态编写函数或代码片段；并根据状态变迁的诱因写出状态转移的条件判断语句，最终得到状态机的代码。</li>
+<li>最后，保证状态机总是能被及时的执行。通常放在系统的主循环中，或者直接放在定时器中断处理程序中。</li>
+</ol>
+</div>
+<div class="section" id="id122">
+<h2><a class="toc-backref" href="#id301">8.12&nbsp;&nbsp;&nbsp;单字节一应一答式通信</a></h2>
+<p>&#64;page 271-276</p>
+</div>
+<div class="section" id="id123">
+<h2><a class="toc-backref" href="#id302">8.13&nbsp;&nbsp;&nbsp;多字节通信协议</a></h2>
+<p>&#64;page 276-277</p>
+</div>
+<div class="section" id="id124">
+<h2><a class="toc-backref" href="#id303">8.14&nbsp;&nbsp;&nbsp;简单定长数据包通信协议</a></h2>
+<p>&#64;page 277-281</p>
+</div>
+<div class="section" id="id125">
+<h2><a class="toc-backref" href="#id304">8.15&nbsp;&nbsp;&nbsp;变长数据包通信协议</a></h2>
+<p>&#64;page 281-83</p>
+</div>
+<div class="section" id="id126">
+<h2><a class="toc-backref" href="#id305">8.16&nbsp;&nbsp;&nbsp;实例15：数字电压表</a></h2>
+<p>&#64;page 283-290</p>
+</div>
+</div>
+<div class="section" id="id127">
+<h1><a class="toc-backref" href="#id306">9&nbsp;&nbsp;&nbsp;傻孩子求职记</a></h1>
+<p>TWI是一种优化了的I2C总线接口，硬件简单、支持多机通信、总线仲裁，应用十分广泛。但是其总线仲裁和协议状态机对初学者略有难度。</p>
+<div class="section" id="twi">
+<h2><a class="toc-backref" href="#id307">9.1&nbsp;&nbsp;&nbsp;TWI一根时钟线、一根信号线</a></h2>
+<p>TWI需要两根线：时钟线SCL、信号线SDA。</p>
+<p>在SPI中，字节之间用SS#来区分，USART中字节之间用额外的包装，帧来区分。TWI可以看成是USART中的一个单向通路。TWI是真正的总线，而不是简单的通信接口。</p>
+<p>只有当时钟信号为高电平时，信号线SDA上的电平信息才有意义。电平包括四种：高电平、低电平、上升沿、下降沿。TWI中，下降沿表示数据帧的开始，上升沿表示数据帧的结束，分别称为START信号和STOP信号。高低电平则负责传送数据。</p>
+</div>
+<div class="section" id="id128">
+<h2><a class="toc-backref" href="#id308">9.2&nbsp;&nbsp;&nbsp;半双工通信</a></h2>
+<p>TWI(Two-Wire serial Interface，两线串行接口)是工作于半双工模式下的通信协议。特点是：使用一套硬件通路，一段时间内主机发送、从机接收。主机产生时钟信号，以及决定通信方向。</p>
+<p>主机对于从机的约定：</p>
+<ol class="arabic simple">
+<li>主机给从机法号施令叫一次&quot;对话&quot;，从机需要&quot;回答&quot;，一次对话称为一个数据帧</li>
+<li>数据帧包含被叫从机的名字(地址)和一个下达给从机的命令</li>
+<li>数据帧不一定以STOP结尾，也可以是另一个数据帧的START来表示当前帧的结束，此时的START叫REPEAT START，一串连续的数据帧，最后一个一定以STOP结束</li>
+<li>数据帧不一定只有一个字节，可以有连续多个字节</li>
+</ol>
+<p>数据帧的组成：</p>
+<ol class="arabic simple">
+<li>第一部分：主机发送的部分含7bit的地址和1bit从机读写指令，从机应答只有1bit，低电平表示应答ACK，高电平表示无应答NACK(没有这个从机，从机不理睬)</li>
+<li>第二部分：如果NACK，则主机立即STOP或REPEAT START，结束会话，如果从机应答，则进入数据模式，由一方发送数据，每个字节都发送ACK应答，主机有权限在无应答时继续发送，也有权限发送NACK不允许从机继续发送</li>
+</ol>
+<p>主从通信的要点是：&quot;谁接收，谁应答&quot;，对于接收方保持沉没的情况，从机会立即结束发送，而主机则可以继续发送。数据发送完成时，主机可以发出STOP或REPEAT START，从机只能保持沉没，等主机意识到通信已经结束了。</p>
+<p>USART只是通信接口，无法处理应答，而TWI是总线。</p>
+</div>
+<div class="section" id="id129">
+<h2><a class="toc-backref" href="#id309">9.3&nbsp;&nbsp;&nbsp;求职者模型</a></h2>
+<p>当多个主机竞争总线的控制权时，有算法决定谁占有，称为总线仲裁。通过硬件的&quot;线与&quot;特定来实现。</p>
+<p>线与，就是连接在一条总线上的推挽电路，任何一个拉低电平都会使得整个总线被拉低，而只有所有都是高电平时，总线才是高电平。低电平具有优先级。</p>
+</div>
+<div class="section" id="id130">
+<h2><a class="toc-backref" href="#id310">9.4&nbsp;&nbsp;&nbsp;TWI的总线仲裁</a></h2>
+<ol class="arabic simple">
+<li>仅在通信时有主从的概念，空闲时并不区分</li>
+<li>SCL时钟信号的高电平由主机决定，SCL的低电平由从机决定，使得从机可以控制发送速率</li>
+<li>仲裁时，参与竞争的主机都会产生自己的SCL信号，但是从机会按照各时钟合成的&quot;低电平时间最长，高电平时间最短&quot;的总线时钟来工作</li>
+<li>仲裁过程中，各个主机发送数据，某一时刻主机发送的SDA电平信号与总线上实际出现的电平不符时，则该主机被淘汰(即被其他主机拉低了)</li>
+</ol>
+<p>对线与来说，寻址较低地址的从机，因为很早就出现了低电平，所以具有优先。对同一地址进行寻址时，写操作是低电平，所以也优先。对同一从机进行写操作时，所有数值较小者优先。对同一从机进行读操作的，最早发送NACK信号的容易丢失总线。</p>
+<p>当多个主机对同一从机进行寻址，相同的读写操作，且数据也完全相同时，无法进行仲裁，不过此时也不需要仲裁了。因为这些操作之间并不冲突。</p>
+<p>记住这些逻辑的核心就是SCL和SDA的线与逻辑。当任意主机发送高电平，但是总线却是低电平时，就要主动被淘汰，不再发送任何数据。</p>
+</div>
+<div class="section" id="id131">
+<h2><a class="toc-backref" href="#id311">9.5&nbsp;&nbsp;&nbsp;贼老大的计划</a></h2>
+<p>一种盗窃计划的描述。</p>
+</div>
+<div class="section" id="id132">
+<h2><a class="toc-backref" href="#id312">9.6&nbsp;&nbsp;&nbsp;TWI总线协议状态机</a></h2>
+<ol class="arabic simple">
+<li>整个通信过程中，可用的交流指令只有START(含REPEAT START)、STOP、ACK(含NACK)三种</li>
+<li>除去寻址从机以外，时钟是数据的接收方发送应答</li>
+<li>只有主机可以发送START、STOP信号</li>
+<li>只有主机可以安全的结束一次通信，因此主机接收模式中，从机无视ACK而主动结束通信会导致通信不正常</li>
+<li>主机的沉默NACK可以使从机明确一次通信的结束，从机的沉没却无效，主机的STOP一定可以结束通信，但是从机的结束却不需要信号</li>
+<li>从机可以通过NACK(从机接收模式)或直接离开(从机发送模式)来单方面结束一次通信</li>
+<li>主机为了继续占用主机权限，可以不发送STOP，而用REPEAT START，而如果希望给其他机器以通信的机会，可以STOP后立即START重新竞争主线控制权</li>
+<li>竞争的成功者并不知道谁参与了竞争，对失败者没有丢失要发送的数据</li>
+</ol>
+<p>有个状态是&quot;总线仲裁过程失败，成为从机&quot;，此时要保存发送缓冲区的数据。</p>
+</div>
+<div class="section" id="id133">
+<h2><a class="toc-backref" href="#id313">9.7&nbsp;&nbsp;&nbsp;TWI通信状态机带来的麻烦</a></h2>
+<p>AVR的TWI接口不同于其他外设，而是采用基于状态机的工作方式。通信过程被分为若干状态，硬件系统负责在状态之间自动切换，而&quot;如何切换&quot;、&quot;向哪个状态切换&quot;、则由我们决定。所有通信的关键环节都需要过问。通信的成败取决于对硬件的指导。</p>
+<p>Datasheet上讲的TWI通信状态机工作于中断方式下：当状态改变时，就会发生中断，当前的通信状态以数字代码(状态码)提出便于下一步决策。</p>
+<p>此时的中断并不代表某个功能完成，而是通知状态已经改变，下一步如何做。不应该让TWI工作于查询模式，因为这是冒险而武断的假设下一步的状态。如果状态发生问题，则TWI通信就会陷入瘫痪，不安全。</p>
+</div>
+<div class="section" id="id134">
+<h2><a class="toc-backref" href="#id314">9.8&nbsp;&nbsp;&nbsp;Datasheet寄存器查阅导读</a></h2>
+<p>TWAR-Two Wire interface Address Register，用于保存地址，最低的bit0用于表示接收广播帧，其余高7bit表示地址。0x00是系统保留的，高7bit必须至少有一个1。</p>
+<p>TWSR-Two Wire interface Status Register，用于保存当前状态。只有高5bit有效，读取时需用 <tt class="docutils literal">TWSR &amp; 0xf8</tt> 来屏蔽低3bit。</p>
+<p>TWDR-Two Wire Data Register，收发数据的寄存器。</p>
+<p>TWAMR-Two Wire Address Mask Register，不常用的地址掩码寄存器。</p>
+<p>TWBR- Two Wire Bitrate Register，设置SCL时钟的寄存器。</p>
+<p>TWCR-Two Wire Control Register，控制寄存器。其响应的位：</p>
+<ol class="arabic simple">
+<li>TWINT：中断标志，在TWI状态改变时变为1，对从机来说，其为1时，SCL时钟就会拉低，如果处理不当将其清零，则TWI总线就会瘫痪</li>
+<li>TWEN：启用TWI模块，清零会关闭TWI，保险的做法是统一置位 <tt class="docutils literal">TWCR |= <span class="pre">_BV(TWINT)|_BV(TWEN);</span></tt></li>
+<li>TWIE：中断使能</li>
+<li>TWWC：错误标志位，其中WC是Write Collision(写冲突)，当在TWINT=0(总线处于状态切换中)，就尝试写TWDR，就会发生写冲突，完全在中断中工作时无需考虑，因为中断模式TWINT总是1</li>
+</ol>
+</div>
+<div class="section" id="id135">
+<h2><a class="toc-backref" href="#id315">9.9&nbsp;&nbsp;&nbsp;使用代码生成器生成TWI初始化代码</a></h2>
+<p>使用ICCAVR的，302-304页，毫无意义。</p>
+</div>
+<div class="section" id="id136">
+<h2><a class="toc-backref" href="#id316">9.10&nbsp;&nbsp;&nbsp;书写具有工程结构的C语言代码</a></h2>
+<p>按照前面介绍的规范：将硬件初始化函数和中断处理放在.c文件中。外部函数和声明放在同名.h文件中。有利于模块化，但是我并不同意。</p>
+<p>然后介绍了一下ICCAVR生成的代码。</p>
+</div>
+<div class="section" id="id137">
+<h2><a class="toc-backref" href="#id317">9.11&nbsp;&nbsp;&nbsp;TWI通信状态机的建立</a></h2>
+<p>对于状态机，为简化操作，每次进入中断处理程序时，都自动对TWSTA、TWSTO、TWEA三个标志清零 <tt class="docutils literal">TWCR &amp;= <span class="pre">~(_BV(TWSTA)|_BV(TWSTO)|_BV(TWEA));</span></tt> 。表面上这句对TWINT位没有改变。但是中断模式下TWINT位处于置位状态(=1)，当我们读出其值再写入1时，就会成了&quot;向TWINT位写1来清零&quot;，误触发TWI状态机。因此需要改为 <tt class="docutils literal">TWCR &amp;= <span class="pre">~(_BV(TWINT)|_BV(TWSTA)|_BV(TWSTO)|_BV(TWEA));</span></tt> 。这样在之后的状态控制中，只需对对应标志位置位，忽略真值表中其他清零操作。</p>
+<p>读出当前状态并保存，注意用好屏蔽 <tt class="docutils literal">unsigned char cTWIStatus=TWSR &amp; xf8;</tt> 。</p>
+<p>中断处理程序末尾，对TWINT置位来清除中断标志，为防止对TWEN的误操作，每次也对其进行置位 <tt class="docutils literal">TWCR |= <span class="pre">_BV(TWINT)|_BV(TWEN);</span></tt> 。</p>
+<p>为实现连续数据收发，需要声明变量:</p>
+<pre class="literal-block">
+static unsigned char s_cSlaveAddress=0x00;
+static unsigned char *s_pData=NULL;
+static unsigned int s_wLength=0;
+static BOOL s_bIfTWIBusy=FALSE;
+static unsigned int s_wByteCounter=0;
+</pre>
+<p>其中 <cite>s_cSlaveAddress</cite> 时模块局部变量，用以保存从机地址。 <cite>s_pData</cite> 时指针，指向要发送的字符串首地址。 <cite>s_wLength</cite> 描述要发送的数据长度。 <cite>s_bIfTWIBusy</cite> 时总线忙的标志，当TWI处于工作状态时，改为TRUE。 <cite>s_wByteCounter</cite> 时用于对收发数据计数的计数器。</p>
+<p><strong>主机发送模式</strong></p>
+<p>所谓状态机，就是枚举状态变量所有可能状态，然后处理。主机发送模式有如下几种状态(可从datasheet获得):</p>
+<pre class="literal-block">
+switch(cTWIStatus) {
+    case 0x08:  //START已发送
+        ...
+        break;
+    case 0x10:  //REPEATED START已发送
+        ...
+        break;
+    //...
+    case 0x38:  //总线仲裁失败
+        ...
+        break;
+    case 0x00:  //省略break，以便与default共同处理
+    default:    //总线出错时的处理
+        TWCR=(TWCR&amp; _BV(TWINT))|_BV(TWSTO); //内部模块总线复位，没发送STOP
+        //...
+        break;
+}
+</pre>
+<p>状态0x00时系统总线错误的状态码。datasheet里可以找到应对方案，就是清零TWSTA标志、置位TWSTO、置位TWINT。因为中断入口做好了两件事了，所以只要另外置位TWSTO即可。</p>
+<p>各个状态码的代码：</p>
+<ol class="arabic">
+<li><p class="first">0x08：START信号已发送，当TWI空闲时，置位TWSTA信号，并置位TWINT来清零，则START信号就会发送到总线，此时发生中断就进入该状态。接下来要将要访问的从机地址送到TWDR的高7位，并清零TWDR的最后一位，告知从机进入数据接收模式:</p>
+<pre class="literal-block">
+TWDR=(s_cSlaveAddress&lt;&lt;1)   //发送SLA+W
+//TWCR所需的3个操作在开头完成了
+</pre>
+</li>
+<li><p class="first">0x10：REPEATED START信号已发送，通常操作与0x08相同</p>
+</li>
+<li><p class="first">0x18：SLA+W已发送，接收到ACK，表示START后地址帧发送正确，且收到了从机ACK。此时需要发送第一个数据，如果只是用于ping从机，则可以立即发送STOP了。如下时发送第一数据:</p>
+<pre class="literal-block">
+if (s_wByteCounter&lt;s_wLength) {
+    TWDR=s_pData(s_wByteCounter++);
+}else {
+    TWCR |= _BV(TWSTO); //没有要发送的数据，发送STOP
+    s_bIfTWIBusy=FALSE;
+}
+//其他的可选动作：
+TWCR=(TWCR &amp; _BV(TWINT)) | _BV(TWSTO);  //发送STOP，结束此次会话
+TWCR=(TWCR &amp; _BV(TWINT)) | _BV(TWSTA);  //发送REPEAT START信号
+TWCR=(TWCR &amp; _BV(TWINT)) | _BV(TWSTA) | _BV(STSTO); //在STOP后立即发送START，给其他设备机会
+</pre>
+</li>
+<li><p class="first">0x20：SLA+W已发送，收到NACK，从机没有应答，应直接发送STOP来结束会话，或发送REPEAT START继续呼叫从机，因为从机有可能只是太忙没响应</p>
+</li>
+<li><p class="first">0x28：数据已发送，接到ACK，可以发送下一数据了，或者发送STOP结束会话，这里处理代码应与0x18的相同</p>
+</li>
+<li><p class="first">0x30：数据已发送，收到NACK，从机受到了数据，但是从机无法继续接收数据，发送NACK通知主机，主机有权决定时忽略该信号继续发送数据，或发送STOP停止</p>
+</li>
+<li><p class="first">0x38：SLA+W或数据仲裁失败，此时已经发送出的那些数据已经失败了，则已经发送的那些数据如何处理是个问题，或完全重发，或重发1字节。应该每次参与总线竞争前都保存当前数据指针，仲裁失败就回退。在0x08和0x10时，保存当前s_wByteCounter，发生0x38时，恢复:</p>
+<pre class="literal-block">
+//声明备份
+static unsigned int s_wLastByteCounter=0;
+//在0x08和0x10时悲愤
+s_wLastByteCounter=s_wByteCounter;
+//在0x38时恢复
+s_wByteCounter=s_wLastByteCounter;
+TWCR=(TWCR &amp; ~_BV(TWINT))|_BV(TWSTA);   //在总线空闲时再发送START
+</pre>
+</li>
+</ol>
+<p>如上就是通信状态机。如下分析不同情况下状态机的工作。通信情况越恶劣，通信状态机就越复杂，最麻烦的就是如下：</p>
+<img alt="_images/book_deepinavr_9.11_00.png" src="_images/book_deepinavr_9.11_00.png" />
+<p>发送函数:</p>
+<pre class="literal-block">
+BOOL Send_Data_To_Slave(unsigned char cSlave, unsigned char *cData,
+        unsigned int wLength) {
+    if ((!cData) || (s_bIfTWIBusy)) {   //忙
+        return FALSE;               //任务添加失败
+    }
+    s_cSlaveAddress=cSlave &amp; 0x7f;  //取7bit的从机地址
+    s_pData=cData;                  //将要发送的数据送给发送缓冲指针
+    s_wLength=wLength;              //将要发送数据的长度
+    s_wByteCounter=0;               //复位数据计数器
+    s_bIfTWIBusy=TRUE;              //设置系统忙标志
+    TWCR |= _BV(TWSTA);             //发送START信号
+    return TRUE;                    //任务添加成功
+}
+</pre>
+<p><strong>主机接收</strong></p>
+<p>从DataSheet可知，主机接收模式下，有7种状态：</p>
+<ol class="arabic">
+<li><p class="first">0x08：START已发送，随后将从机地址写入TWDR的高7位，最低位置位，告知从机进入数据发送模式(即主机接收):</p>
+<pre class="literal-block">
+TWDR = (s_cSlaveAddress &lt;&lt; 1) | 0x01;   //发送SLA+R
+//3种操作都在之前做过了，不必对TWCR进行操作了
+</pre>
+</li>
+<li><p class="first">0x10：REPEATED START已发送，不放弃总线继续开始下一次会话，一般与0x08的操作相同</p>
+</li>
+<li><p class="first">0x38：SLA+R或者数据的仲裁失败。与主机发送模式比，主机接收模式造成数据丢失的损失不大，只需将s_wByteCounter清零，当做从机没有给我们发送过数据就是了，已经收到的数据全部丢弃，清零数据指针，重新接收数据:</p>
+<pre class="literal-block">
+TWCR = (TWCR &amp; ~_BV(TWINT)) | _BV(TWSTA);   //在总线闲时，再次发送START
+s_wByteCounter=0;                           //重新开始计数
+</pre>
+</li>
+<li><p class="first">0x40：SLA+R已发送，收到ACK，通常是在0x08后，从机响应则进入该状态，此时需要接收第一个数据:</p>
+<pre class="literal-block">
+if (!s_wLength) {
+    TWCR =(TWCR &amp; ~_BV(TWINT)) | _BV(TWSTO);    //没有要接收的数据，STOP
+    s_bIfTWIBusy=FALSE;
+}else if (s_wByteCounter+1&lt;s_wLength) {
+    //正常读取数据，返回ACK信号
+    TWCR=(TWCR &amp; ~_BV(TWINT)) | _BV(TWEA);
+}
+//否则读取最后一个书，TWEA清零
+</pre>
+</li>
+<li><p class="first">0x48：SLA+R已发送，收到NACK，通常是地址帧发送后，从机没有应答，需发送STOP结束会话</p>
+</li>
+<li><p class="first">0x50：接收到数据，ACK已返回，表示成功接到数据了，此时用TWDR读取接到数据即可。读取这一数据是，也应该判断所需数据个数。如果还差一个数据就到了所需量，则应进入接收模式，且TWEA清零，表明这是最后一个数据；否则应置位TWEA，告知从机继续发送:</p>
+<pre class="literal-block">
+s_pData[s_wByteCounter++]=TWDR;
+if (s_wByteCounter+1&lt;s_wLength) {
+    //正常读取数据，返回ACK信号
+    TWCR=(TWCR &amp; ~_BV(TWINT)) | _BV(TWEA);
+}
+//否则读取最后一个数据，清零TWEA
+</pre>
+</li>
+<li><p class="first">0x58：接收到数据，NACK返回，专用于读取最后一个数据，以STOP结束即可:</p>
+<pre class="literal-block">
+s_pData[s_wByteCounter++]=TWDR;
+TWCR=(TWCR &amp; ~_BV(TWINT)) | _BV(TWSTO); //发送STOP信号
+s_bIfTWIBusy=FALSE;
+</pre>
+</li>
+</ol>
+<p>需要一个状态机来封装所有这些函数。</p>
+</div>
+<div class="section" id="id138">
+<h2><a class="toc-backref" href="#id318">9.12&nbsp;&nbsp;&nbsp;轻松设计TWI通信状态机</a></h2>
+<p>I2C的出现是为了解决一大堆芯片互联的问题，如果芯片间两两互联则非常耗费端口，所以设计出一种公共数据通路。</p>
+<p>公共数据通路需要有办法解决谁能占有其使用权的问题。所以总线的使用无法用完全平等来解决，需要处于主从状态。主机控制总线的通信行为，非通信时总线上所有芯片是平等的。因此引入了总线仲裁机制。</p>
+<p>总线仲裁就需要状态机来实现。</p>
+<p>要应对通信模式下状态机的完整性，就不必担心TWI总线仲裁的实现和细节。</p>
+</div>
+<div class="section" id="c01">
+<h2><a class="toc-backref" href="#id319">9.13&nbsp;&nbsp;&nbsp;实例16：存储器24C01的读写</a></h2>
+<p>24Cxx系列是应用广泛的I2C接口EEPROM存储器，很多公司有兼容产品。本书以AT24C01为例展示。</p>
+<p>24C01表示存储器容量为1kb，24C256则为256kb。因为使用I2C接口，消耗端口资源少，速度快(400kb/s)，扩展容易。</p>
+<p>EEPROM有两大特点：有限次的擦写寿命和分页。反复擦写增加磨损，直到无法识别，现代工艺可以确保100万次擦写寿命。分页是EEPROM存储分为若干个区，每个区容量固定，限制了每次能够同时写入的数据个数。AT24C01的页为8Byte，共16页。</p>
+<p>每次写入不能够跨页。写入数据少于一页时，则后面的字节不变，超过8页时又在页内从头开始覆写。</p>
+<p>AT引脚图:</p>
+<pre class="literal-block">
+A0  [1  8]   Vcc
+A1  [2  7]   WP
+A2  [3  6]   SCL
+Gnd [4  5]   SDA
+</pre>
+<p>WP是硬件写保护控制端，高电平时忽略写入命令。A0~A2是地址选择输入，使得一个I2C总线最多可以连接8个AT24C01。实验板上全部接入低电平，表示地址为0b1010000x，其中x为读写方向控制位。</p>
+<p>一般应用的WP由单片机控制。I2C总线的硬件结构决定了SDA和SCL必须加上拉电阻。可以使用ATmega48内部的上拉电阻，但是建议选择较小的，比如10kOhm。</p>
+<p>这里ATmega48作为主机，因为没有其他设备，所以先不考虑仲裁。</p>
+<p>硬件连接见下图：</p>
+<img alt="_images/book_deepinavr_9.13_00.png" src="_images/book_deepinavr_9.13_00.png" />
+<p>关键就是芯片右上角分别是SCL(PC5)和SDA(PC4)，对应连接到AT24C01的6脚(SCL)和5脚(SDA)。对AT24C01芯片，WP(7脚)接地，3个地址线都接地(芯片1-4脚都接地)。SCL和SDA需要接10Kohm的上拉电阻。</p>
+<p>作者设计的UART命令就不看了，没啥意义，二进制协议。</p>
+<p>AT24C01的操作注记：</p>
+<ol class="arabic">
+<li><p class="first">上次操作结束时地址，作为下次通信的当前地址，例如发送WORD ADDRESS位0x00，读取2字节，则当前地址被AT24C01记录为0x02，下次的操作直接从0x02开始</p>
+<blockquote>
+<ol class="arabic simple">
+<li>写入数据时要传送word address</li>
+<li>传送word address时用&quot;写&quot;</li>
+<li>传送word address可以指明当前存储地址，否则从当前地址开始</li>
+<li>随即地址读取需传送word address，然后用REPEATED START(RS)来换成&quot;读&quot;</li>
+<li>写1字节或多字节的时序相同，多字节仅需循环DATA的发送过程，和ACK应答读取即可</li>
+<li>读取数据时，最后1字节数据读取后发送NACK而不是ACK，所以应该确保知道想要读取多少字节</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">随机地址读的时序相当复杂，而RS发送之前的时序与写入完全相同，而协议是允许写入0字节的，利用该方式传送读取地址，跨页问题交给PC机一端处理</p>
+</li>
+<li><p class="first">EEPROM的写入需要时间，且从I2C的STOP信号开始，之后到写入完成前AT24C01都无响应，可以通过0字节写入器件是否响应来判断是否写入完成，不过本例就不做了</p>
+</li>
+<li><p class="first">例子不考虑容错和仲裁</p>
+</li>
+<li><p class="first">对各种功能寄存器，经常有写入1来清零的动作，所以要小心，此时用常规的位操作可能会导致错误，此时对这种位写零就不会改变原值，例如在中断开始处应该用 <tt class="docutils literal">TWCR &amp;= <span class="pre">~(_BV(TWINT)|_BV(TWSTA)|_BV(TWSTO));</span></tt> ，同时SBI和CBI指令只能操作0x00~0x1f的寄存器，TWCR不在该区间</p>
+</li>
+<li><p class="first">在没有仿真器时，优先写IO通道来辅助调试</p>
+</li>
+<li><p class="first">后台软件用了&quot;串口数据包计算助手&quot;，Windows的，不管了</p>
+</li>
+</ol>
+<p>AT24C01的操作时序：</p>
+<img alt="_images/book_deepinavr_9.13_01.png" src="_images/book_deepinavr_9.13_01.png" />
+<p>任何操作都应保证在最后对TWCR的TWINT写1，否则可能导致TWI进入下一个状态。</p>
+</div>
+<div class="section" id="i2c">
+<h2><a class="toc-backref" href="#id320">9.14&nbsp;&nbsp;&nbsp;实例17：I2C抢答器</a></h2>
+<p>&#64;page 327-333</p>
+</div>
+</div>
+<div class="section" id="misson-update">
+<h1><a class="toc-backref" href="#id321">10&nbsp;&nbsp;&nbsp;MISSON UPDATE</a></h1>
+<div class="section" id="update">
+<h2><a class="toc-backref" href="#id322">10.1&nbsp;&nbsp;&nbsp;展望UPDATE</a></h2>
+<p>同一硬件改换界面，或者硬件已经发往客户需要修改东西。</p>
+</div>
+<div class="section" id="ispiap">
+<h2><a class="toc-backref" href="#id323">10.2&nbsp;&nbsp;&nbsp;ISP和IAP</a></h2>
+<p><strong>ISP(In-System-Programming)在系统编程</strong></p>
+<p>时不依赖于软件的程序下载方式，无需将单片机从电路板上取下，经常使用的串口。</p>
+<p><strong>IAP(In-Application-Programming)在应用编程</strong></p>
+<p>需单片机内部软件支持，从外接获取最新的程序，并写入程序存储器。甚至可以不停下当前工作就更新。</p>
+</div>
+<div class="section" id="iap">
+<h2><a class="toc-backref" href="#id324">10.3&nbsp;&nbsp;&nbsp;IAP的要点、难点与风险</a></h2>
+<p>要实现IAP，其程序存储器必须可修改，如Flash、EEPROM等。其次指导更新的程序与被更新的程序必须在空间上分开。</p>
+<p>PC指针是单片机硬件中的重要单元，任务是指向要运行的下一条指令，包括NOP在内。</p>
+<p>Flash存储器有个特点是分页(page)，一般来说要修改某个页面的内容，需要先读出该页面的内容，修改，然后再将整个页面写入。完成一个页面的写入往往需要数十毫秒。</p>
+<p>页面读写和PC指针决定了，单片机无法修改自己所在的页面。所以要实现IAP，需要将程序存储空间分开。</p>
+<p><strong>启动区(boot)</strong> 与 <strong>应用区(Application)</strong> 在结构上分开。IAP始终在启动区内，改写应用区不会影响IAP的正常运行。如果IAP需要使用中断，则可将中断向量表放在启动区内，确保中断向量总是可以读取。</p>
+<p>IAP是存在风险的，一旦中途出错需要办法补救：</p>
+<ol class="arabic simple">
+<li>保留ISP接口</li>
+<li>程序从应用区启动，需要IAP时才进入启动区，AVR的默认方式，中途出错则无法再进入IAP</li>
+<li>程序从启动区启动，通过标志保护IAP过程，只要开始IAP就标记更新失败，指直到完成时改为成功，如果中途断电失败，则再次启动时就进入IAP模式，直到写入成功</li>
+</ol>
+<p>一般情况下IAP不应作为唯一更新方法。程序跑飞时也可能进入启动区并破坏应用区代码。</p>
+</div>
+<div class="section" id="flash">
+<h2><a class="toc-backref" href="#id325">10.4&nbsp;&nbsp;&nbsp;Flash分区</a></h2>
+<p>Flash分区是IAP的重要条件。</p>
+<p>ATmega88/168将Flash存储器分为同时读写区(RWW)和非同时读写区(NRWW)，分界线固定。</p>
+<p>当程序在NRWW时，修改可同时RWW的代码，不会影响程序正常执行。但是NRWW运行时修改NRWW代码，CPU会暂停读取代码指令，进入挂起状态，直到修改完成。在RWW内运行的程序不能修改NRWW。</p>
+<p>在已有RWW和NRWW的基础上，还可以通过BOOTSZ熔丝将Flash划分为启动区(BOOT区)和应用区(APPLICATION区)。</p>
+<p>对ATmega88/168，BOOTSZ的设置决定的BOOT分区大小(剩余部分为Application分区)：</p>
+<ol class="arabic simple">
+<li>11=256byte</li>
+<li>10=512byte</li>
+<li>01=1024byte</li>
+<li>00=2048byte</li>
+</ol>
+<p>Application区是从RWW区的首部开始的，大小受到BOOTSZ熔丝的影响，可能会越过RWW二包括NRWW的一部分。BOOT区在RWW区的尾部，但可能不会占满RWW区。</p>
+<p>向Flash存储区写入数据的SPM指令只在NRWW区才能生效。所以RWW区的程序无法修改NRWW区的代码。通过BOOTSZ熔丝设置分配BOOT区的大小，仅仅为了设置代码加密熔丝的作用范围和放在BOOT引导启动的起始地址，并不影响IAP的行为。</p>
+<p>NRWW区在Flash存储区的末尾，对ATmega88来说是0xc00~0xfff，即最后的1024字节。而ATmega168的NRWW是0x1c00~0x1fff，也是最后的1024字节。</p>
+<p>ATmega48整个Flash都是NRWW区，没有RWW区，也不存在BOOT区，但是仍然可以做IAP应用。因为NRWW区实际上也是可写的，只是对NRWW写入期间CPU挂起，这就避免了Flash的读写矛盾。对ATmega48的IAP，唯一要小心的就是不要改写到程序自己的代码。</p>
+<p>IAP实际上可以修改除了自己之外的所有程序代码。甚至，如果不需要在此时对外部做出响应，读写RWW和NRWW都是看不出区别的。</p>
+</div>
+<div class="section" id="id139">
+<h2><a class="toc-backref" href="#id326">10.5&nbsp;&nbsp;&nbsp;程序锁定熔丝的设置</a></h2>
+<p>避免自己的程序被人拿走，或防止程序跑飞后被错误修改。使用锁定位Lock Bit Byte。LB2和LB1用于控制IAP程序访问启动区、应用区、外部编程器访问程序存储器。</p>
+<p>LB2-1：</p>
+<ol class="arabic simple">
+<li>11=不启用存储器锁定</li>
+<li>10=并行和串行编程模式中，禁止对Flash和EEPROM再次编程</li>
+<li>00=并行和串行编程模式中，禁止对Flash和EEPROM再次编程和校验</li>
+</ol>
+<p>BLB12-11：</p>
+<ol class="arabic simple">
+<li>11=允许SPM、LPM指令访问BOOT区</li>
+<li>10=禁止SPM指令修改BOOT区(只读)</li>
+<li>00=禁止SPM修改BOOT区，禁止Application区执行LPM指令访问BOOT区(BOOT区不能写，只能被BOOT区的LPM指令都，若中断向量表在BOOT区，CPU在执行BOOT区中程序时会禁止中断的发生)</li>
+<li>01=禁止从Application区执行LPM指令访问BOOT区(BOOT区只能写，若中断向量表在BOOT区，CPU在执行BOOT区中程序时会禁止中断发生)</li>
+</ol>
+<p>BLB02-01：</p>
+<ol class="arabic simple">
+<li>11=允许SPM、LPM指令访问Application区</li>
+<li>10=禁止SPM指令修改Application区(只读)</li>
+<li>00=禁止SPM指令修改Application区，禁止BOOT区执行LPM指令访问Application区(Application区不允许读写，只能被Application区的LPM指令读，若中断向量表在BOOT区，CPU在执行Application区中程序时会禁止中断发生)</li>
+<li>01=禁止从BOOT区执行LPM指令访问Application区(Application区只能写，若中断向量表在BOOT区，CPU在执行Application区程序时会禁止中断发生)</li>
+</ol>
+<p>ATmega48没有专门的BOOT区，所以仅有SPMEN熔丝位与LB熔丝位。</p>
+<p>如果希望使能ATmega88/168的IAP，应该设置BLB熔丝，允许SPM指令修改Application区(不一定是RWW区)。如果希望使能ATmega48的IAP，应该编程SPMEN熔丝。</p>
+<p>在不需要IAP时，建议用BLB熔丝将Application区和BOOT区都设置位只读来保证代码安全性。</p>
+<p>对BL熔丝，只闲置并行和串行方式编程单片机，可用于对代码加密。</p>
+</div>
+<div class="section" id="id140">
+<h2><a class="toc-backref" href="#id327">10.6&nbsp;&nbsp;&nbsp;操纵程序存储器</a></h2>
+<p>&#64;page 345-363</p>
+</div>
+</div>
+<div class="section" id="id141">
+<h1><a class="toc-backref" href="#id328">11&nbsp;&nbsp;&nbsp;朝花夕拾</a></h1>
+<div class="section" id="id142">
+<h2><a class="toc-backref" href="#id329">11.1&nbsp;&nbsp;&nbsp;一个位运算的例子</a></h2>
+<p>以前学C的时候，大多对位运算一笔带过，而做嵌入式开发则非常重要。</p>
+<p>将一个字节中的一个位设置为 <tt class="docutils literal">PRR |= 1&lt;&lt; BIT</tt> 。</p>
+</div>
+<div class="section" id="id143">
+<h2><a class="toc-backref" href="#id330">11.2&nbsp;&nbsp;&nbsp;文如其形的移位运算</a></h2>
+<p>就是 &quot;&lt;&lt;&quot; 和 &quot;&gt;&gt;&quot; 。左移是乘以2的n次幂。右移是除以2的n次幂。</p>
+<p>这种方式实现的乘法速度奇快。</p>
+<p>移位运算肯定会有溢出，另一方向就是补齐0，可以用于取数字的16进制的位。比如右移一定位数后，对高位做位与屏蔽掉高位。</p>
+</div>
+<div class="section" id="id144">
+<h2><a class="toc-backref" href="#id331">11.3&nbsp;&nbsp;&nbsp;颠倒黑白的&quot;取反&quot;运算</a></h2>
+<p>&#64;page 369-373 与、或、异或、位运算和逻辑运算的区别</p>
+</div>
+<div class="section" id="id145">
+<h2><a class="toc-backref" href="#id332">11.4&nbsp;&nbsp;&nbsp;为什么要使用宏定义</a></h2>
+<p>可以先写个宏的名字，占着位置，供之后定义。</p>
+</div>
+<div class="section" id="id146">
+<h2><a class="toc-backref" href="#id333">11.5&nbsp;&nbsp;&nbsp;宏定义的基本形式</a></h2>
+<p>就是 <cite>#define</cite> ，在编译的第一阶段预处理时进行替换。</p>
+<p><cite>#define NAME</cite> 会将NAME定义为空。</p>
+<p><cite>#define NAME VALUE</cite> 会将NAME定义位VALUE。</p>
+<p>宏定义可以嵌套，不过用起来很麻烦。</p>
+</div>
+<div class="section" id="id147">
+<h2><a class="toc-backref" href="#id334">11.6&nbsp;&nbsp;&nbsp;&quot;参数宏&quot;由便利带来的麻烦</a></h2>
+<p>&#64;page 376-378</p>
+</div>
+<div class="section" id="id148">
+<h2><a class="toc-backref" href="#id335">11.7&nbsp;&nbsp;&nbsp;方便的条件编译</a></h2>
+<p>&#64;page 378-380</p>
+</div>
+<div class="section" id="id149">
+<h2><a class="toc-backref" href="#id336">11.8&nbsp;&nbsp;&nbsp;从结构体到位段</a></h2>
+<p>&#64;page 380-382</p>
+</div>
+<div class="section" id="id150">
+<h2><a class="toc-backref" href="#id337">11.9&nbsp;&nbsp;&nbsp;&quot;别动我的奶酪&quot;</a></h2>
+<p>&#64;page 383-387</p>
+</div>
+<div class="section" id="volatile">
+<h2><a class="toc-backref" href="#id338">11.10&nbsp;&nbsp;&nbsp;居安思危的volatile</a></h2>
+<p>volatile只有嵌入式程序员才会用到。很多C语言的书甚至都不提。</p>
+<p>C编译器的一项优化，就是当一个变量经常被访问就将其放入寄存器中。这就导致如果该变量的内存如果改变了，那么寄存器读取的就是过时的值。中断，甚至硬件本身都会改变一块内存的值。</p>
+<p>volatile(易失的)，告知编译器这个变量很容易改变，不要将其进行读取优化，每次都到内存中读取。</p>
+<p>例如秒表程序，中断修改变量值，而另一个循环做显示，则当前时间变量就应该声明位volatile。例如 <tt class="docutils literal">volatile unsigned int tick=0;</tt> 。</p>
+<p>每个系统寄存器都声明为volatile。</p>
+<p>需要使用volatile的情况：</p>
+<ol class="arabic simple">
+<li>主函数循环中使用的全局变量，其值可能在某中断中被修改</li>
+<li>映射到内存单元地址的寄存器</li>
+<li>多线程系统中，被多个线程共享的变量</li>
+</ol>
+</div>
+<div class="section" id="id151">
+<h2><a class="toc-backref" href="#id339">11.11&nbsp;&nbsp;&nbsp;&quot;你不知道我知道&quot;</a></h2>
+<p>&#64;page 390-393</p>
+</div>
+<div class="section" id="id152">
+<h2><a class="toc-backref" href="#id340">11.12&nbsp;&nbsp;&nbsp;实例19:编写我们的第一个头文件</a></h2>
+<p>&#64;page 393-395</p>
+</div>
+</div>
+<div class="section" id="id153">
+<h1><a class="toc-backref" href="#id341">12&nbsp;&nbsp;&nbsp;指针都是纸老虎</a></h1>
+<p>&#64;page 396-430</p>
+</div>
+<div class="section" id="id154">
+<h1><a class="toc-backref" href="#id342">13&nbsp;&nbsp;&nbsp;来自身边的启示</a></h1>
+<p>&#64;page 431-467</p>
+</div>
+<div class="section" id="id155">
+<h1><a class="toc-backref" href="#id343">14&nbsp;&nbsp;&nbsp;初识嵌入式系统</a></h1>
+<div class="section" id="id156">
+<h2><a class="toc-backref" href="#id344">14.1&nbsp;&nbsp;&nbsp;初学者眼中的嵌入式</a></h2>
+<ol class="arabic simple">
+<li>嵌入式是一种专用计算机</li>
+<li>嵌入式由软件和硬件构成，少了一个都不算</li>
+<li>嵌入式即&quot;什么东西都可以放进去&quot;</li>
+</ol>
+</div>
+<div class="section" id="id157">
+<h2><a class="toc-backref" href="#id345">14.2&nbsp;&nbsp;&nbsp;从黑盒子谈起</a></h2>
+<p>不了解其制造过程的叫黑盒子，了解其制造过程的叫白盒子。</p>
+</div>
+<div class="section" id="id158">
+<h2><a class="toc-backref" href="#id346">14.3&nbsp;&nbsp;&nbsp;理想黑盒子</a></h2>
+<p>完成特定功能时，需要用户输入的信息量最小，输出也恰到好处。</p>
+<p>这明显是命令式编程，其实带来了很多灾难。</p>
+</div>
+<div class="section" id="id159">
+<h2><a class="toc-backref" href="#id347">14.4&nbsp;&nbsp;&nbsp;使用黑盒子的好处、必然性和代价</a></h2>
+<p>黑盒子的接口简单，但是其内部细节不可见。</p>
+</div>
+<div class="section" id="id160">
+<h2><a class="toc-backref" href="#id348">14.5&nbsp;&nbsp;&nbsp;从黑盒子到模块化</a></h2>
+<p>可复用的函数。</p>
+<p>模块化的第一个门槛是，解决硬件相关性问题。第二个门槛是硬件部分彻底隔离出来，建立跨平台的体系结构。</p>
+</div>
+<div class="section" id="id161">
+<h2><a class="toc-backref" href="#id349">14.6&nbsp;&nbsp;&nbsp;什么是黑盒子哲学</a></h2>
+<p>将项目划分位三个层次：</p>
+<ol class="arabic simple">
+<li>负责硬件初始化和功能API的硬件驱动层(硬件抽象层)</li>
+<li>负责文件存储管理、人机界面的系统驱动层</li>
+<li>最顶级应用功能的系统应用层</li>
+</ol>
+<p>层次化是模块化的纵向发展体现。</p>
+</div>
+<div class="section" id="id162">
+<h2><a class="toc-backref" href="#id350">14.7&nbsp;&nbsp;&nbsp;源文件和头文件的分工</a></h2>
+<p>&#64;page 476-494</p>
+</div>
+</div>
+<div class="section" id="id163">
+<h1><a class="toc-backref" href="#id351">15&nbsp;&nbsp;&nbsp;附录</a></h1>
+<p>&#64;page 495-532</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 49457, "title": "\u6df1\u5165\u6d45\u51faAVR\u5355\u7247\u673a", "src_size": 98491, "filehash": "a3040aae8cb425eab9941b5ed2dfa34c", "dst_size": 156288} -->

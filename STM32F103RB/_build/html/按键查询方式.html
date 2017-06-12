@@ -1,0 +1,150 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>按键查询方式示例-按钮点亮LED &#8212; STM32F103RB v0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="led">
+<h1>按键查询方式示例-按钮点亮LED<a class="headerlink" href="#led" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>配置流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>1.开启GPIO时钟（在STM32中，所有的外设固件，都需要开启相应的时钟）</p>
+<p>2.选择需要配置的引脚</p>
+<p>3.选择引脚工作速度</p>
+<p>4.配置GPI0模式（八种模式之一）</p>
+<p>5.初始化GPIO 口</p>
+<blockquote>
+<div><ul class="simple">
+<li>5.1开启 GPI0 时钟。”RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE)”</li>
+<li><dl class="first docutils">
+<dt>5.2选择需要配置的引脚。</dt>
+<dd>首先，我们需要定义一个”GPIO_InitTypeDef”的结构体”GPIO_InitStructure”。
+由于我们需要检测的引脚是PB11,因此我们选择的引脚是 “GPIO_Pin_7”，
+即“GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7”</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>5.3选择引脚速度（频率）。</dt>
+<dd>一般来说，我们定义成最快的速度。
+“GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz”</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>5.4配置GPIO模式。</dt>
+<dd>由于我们检测按键的实质，就是检测GPIO的电平状态，
+因此需要将端口设置成输入模式，而仔细观察我们的电路，
+每颗按键都用电阻上拉，因 此我们只需要使用浮空输入即可。
+“GPIO_InitStructure.GPIO_Mode = GPIO_Mode_m_FLOATmG;”</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>5.5初始化GPIOATM32固件库里面提供了一个GPIO的初始化函数GPIO_Init,</dt>
+<dd>因此我们只需要使用此函数，就可以完成端口的初始化，
+这个函数的传递参数有两个个，
+第一个是我们需要初始化的端口名，
+第二个即是我们上文里面定义的GPIO_InitTypeDef 类型的结构体。
+“GPIO_Init(GPIOB，&amp;GPIO_InitStructure);”</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">按键查询方式示例-按钮点亮LED</a><ul>
+<li><a class="reference internal" href="#id1">配置流程</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/按键查询方式.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 伍长柏.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/按键查询方式.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

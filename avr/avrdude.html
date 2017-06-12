@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR编程器avrdude</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avravrdude">
+<h1 class="title">AVR编程器avrdude</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2009-02-22</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id8">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#avrdude" id="id9">2&nbsp;&nbsp;&nbsp;avrdude</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id3" id="id10">2.1&nbsp;&nbsp;&nbsp;下载</a></li>
+<li><a class="reference internal" href="#id4" id="id11">2.2&nbsp;&nbsp;&nbsp;上传</a></li>
+<li><a class="reference internal" href="#id5" id="id12">2.3&nbsp;&nbsp;&nbsp;交互模式</a></li>
+<li><a class="reference internal" href="#id6" id="id13">2.4&nbsp;&nbsp;&nbsp;关于熔丝位</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id14">3&nbsp;&nbsp;&nbsp;基本使用与配置</a><ul class="auto-toc">
+<li><a class="reference internal" href="#linuxroot" id="id15">3.1&nbsp;&nbsp;&nbsp;配置在Linux下不用root权限</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id8">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>我需要在家就可以做单片机的实验，而笔记本上的并口并不能用，而我 又有一台FreeBSD的服务器，于是研究了Unix下的AVR编程技术。实验小有收获。</p>
+<p>另一个选择：UISP。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[r] 关于AVR的熔丝的使用和设置： <a class="reference external" href="http://www.laogu.com/wz_1698.htm">http://www.laogu.com/wz_1698.htm</a></li>
+<li>[u] 正确配置AVR熔丝位的建议： <a class="reference external" href="http://blog.chinaunix.net/u3/93766/showart_1979093.html">http://blog.chinaunix.net/u3/93766/showart_1979093.html</a></li>
+<li>[u] AVRDUDE主页： <a class="reference external" href="http://www.nongnu.org/avrdude/">http://www.nongnu.org/avrdude/</a></li>
+<li>[u] AVRDUDE Manual： <a class="reference external" href="http://www.nongnu.org/avrdude/user-manual/avrdude.html">http://www.nongnu.org/avrdude/user-manual/avrdude.html</a></li>
+<li>[u] 一些例子： <a class="reference external" href="http://blog.louic.nl/?p=161">http://blog.louic.nl/?p=161</a></li>
+<li>[u] Linux下ATmel AVR入门： <a class="reference external" href="http://paul.graysonfamily.org/thoughts/avrlinux/">http://paul.graysonfamily.org/thoughts/avrlinux/</a></li>
+<li>[u] 在Linux下开发AVR单片的工具： <a class="reference external" href="http://www.dz863.com/Microprocessors/AVR-microcontrollers/Linux-AVR-GCC.htm">http://www.dz863.com/Microprocessors/AVR-microcontrollers/Linux-AVR-GCC.htm</a></li>
+<li>[r] Run avrdude on Ubuntu without root： <a class="reference external" href="http://mightyohm.com/blog/2010/03/run-avrdude-without-root-privs-in-ubuntu/">http://mightyohm.com/blog/2010/03/run-avrdude-without-root-privs-in-ubuntu/</a></li>
+</ol>
+</div>
+<div class="section" id="avrdude">
+<h1><a class="toc-backref" href="#id9">2&nbsp;&nbsp;&nbsp;avrdude</a></h1>
+<p>FreeBSD下的安装:</p>
+<pre class="literal-block">
+pkg_add -r avr-binutils avr-gcc avr-libc avrdude
+</pre>
+<p>安装后就有了从开发的整套工具链了。而我使用的下载线是 <strong>usbasp</strong> 。</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">2.1&nbsp;&nbsp;&nbsp;下载</a></h2>
+<p>将文件 <tt class="docutils literal">demo.hex</tt> 通过USBASP下载线写入ATmega48:</p>
+<pre class="literal-block">
+sudo avrdude -p atmega48 -c usbasp -e -E noreset,novcc -U flash:w:&quot;demo.hex&quot;
+</pre>
+<p>其中-p指定目标芯片型号，-c指定数据线型号，-e指定写入前先擦除，-U后面的指定操作的文件。-E后面的两个参数表示离开下载模式时将并口的两路信号置为非reset和非vcc。这样可以不拔掉下载线而让开发板立即进入执行运行模式。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">2.2&nbsp;&nbsp;&nbsp;上传</a></h2>
+<p>将芯片中的数据写入到文件 <tt class="docutils literal">internel.bin</tt></p>
+<pre class="literal-block">
+sudo avrdude -p atmega48 -c usbasp -U flash:r:&quot;internal.bin&quot;:r
+</pre>
+<p>估计读取芯片EEPROM数据的方法:</p>
+<pre class="literal-block">
+avrdude -p atmega48 -c usbasp -U eeprom:r:eeprom.bin:r
+</pre>
+<p>其他可用参数有hfuse和lfuse。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id12">2.3&nbsp;&nbsp;&nbsp;交互模式</a></h2>
+<p>开启进入交互模式:</p>
+<pre class="literal-block">
+sudo avrdude -p atmega48 -c usbasp -t
+&gt;&gt;&gt; part
+AVR Part            : ATmega48
+......
+&gt;&gt;&gt; dump lfuse
+&gt;&gt;&gt; dump hfuse
+&gt;&gt;&gt; dump efuse
+&gt;&gt;&gt; dump lock
+&gt;&gt;&gt; write hfuse 0 0x89
+&gt;&gt;&gt; write lfuse 0 0x2f
+</pre>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id13">2.4&nbsp;&nbsp;&nbsp;关于熔丝位</a></h2>
+<p>AVR系列有四个熔丝组，hfuse、lfuse、efuse、lock。其中前两个为满的8bit字节，efuse有些甚至没有。这些位的定义和组合可以去常用的另外一个Windows下的软件那里查询。</p>
+<p>熔丝位定义：</p>
+<ol class="arabic simple">
+<li>已编程=Programmed=0=允许</li>
+<li>未编程=Unprogrammed=1=禁止</li>
+</ol>
+<p>不同的软件定义0和1可能有区别，要注意。</p>
+<p>AVR芯片加密后不能读取Flash和EEPROM，芯片擦除可以清空两者的数据，同时将两者的锁定位配置为11，即无锁定。所以被锁定的芯片仍然可以恢复使用，只不过内部数据确实无法读取了，只能擦除后再写。</p>
+<p>JTAG和ISP都可以通过熔丝来启用和禁止。RESET引脚禁用最好不要使用，因为这会使得ISP失败，进入ISP之前必须先将RESET拉低。</p>
+<p>不用BOOTLOADER时，就不要把BOOTRST设置为0，否则启动时不是从0x0000开始的，出厂默认为1。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id14">3&nbsp;&nbsp;&nbsp;基本使用与配置</a></h1>
+<div class="section" id="linuxroot">
+<h2><a class="toc-backref" href="#id15">3.1&nbsp;&nbsp;&nbsp;配置在Linux下不用root权限</a></h2>
+<p>基本思路就是使用udev。</p>
+<p>编写文件 <tt class="docutils literal"><span class="pre">/etc/udev/rules.d/10-usbtinyisp.rules</span></tt></p>
+<pre class="literal-block">
+SUBSYSTEM==&quot;usb&quot;, SYSFS{idVendor}==&quot;1781&quot;, SYSFS{idProduct}==&quot;0c9f&quot;, GROUP=&quot;adm&quot;, MODE=&quot;0666&quot;
+</pre>
+<p>然后重启udev <tt class="docutils literal">sudo restart udev</tt> ，据说是ubuntu系统。随后重新插入usbasp编程器。</p>
+<p>对于只有自己用的机器，还可以修改如上文件里的GROUP值为自己的组。对于多个人的机器，别人就没法用了。</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 2453, "title": "AVR\u7f16\u7a0b\u5668avrdude", "src_size": 3783, "filehash": "ad7aee4289a26f4ccbf61c880bb36275", "dst_size": 13675} -->

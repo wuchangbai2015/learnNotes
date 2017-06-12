@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>通用同步和异步串行通信</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="id1">
+<h1 class="title">通用同步和异步串行通信</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2010-07-09</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id3" id="id15">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#usartuart" id="id16">2&nbsp;&nbsp;&nbsp;串行通信与USART、UART</a></li>
+<li><a class="reference internal" href="#usart" id="id17">3&nbsp;&nbsp;&nbsp;USART基本配置</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id18">3.1&nbsp;&nbsp;&nbsp;同步模式</a></li>
+<li><a class="reference internal" href="#id5" id="id19">3.2&nbsp;&nbsp;&nbsp;异步模式</a></li>
+<li><a class="reference internal" href="#id6" id="id20">3.3&nbsp;&nbsp;&nbsp;帧格式</a></li>
+<li><a class="reference internal" href="#id7" id="id21">3.4&nbsp;&nbsp;&nbsp;一些常用设置值</a></li>
+<li><a class="reference internal" href="#id8" id="id22">3.5&nbsp;&nbsp;&nbsp;相关寄存器定义</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id23">4&nbsp;&nbsp;&nbsp;通信过程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id10" id="id24">4.1&nbsp;&nbsp;&nbsp;数据发送</a></li>
+<li><a class="reference internal" href="#id11" id="id25">4.2&nbsp;&nbsp;&nbsp;数据接收</a></li>
+<li><a class="reference internal" href="#id12" id="id26">4.3&nbsp;&nbsp;&nbsp;异步数据接收</a></li>
+<li><a class="reference internal" href="#id13" id="id27">4.4&nbsp;&nbsp;&nbsp;多机通信模式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id28">5&nbsp;&nbsp;&nbsp;利用串行口调试程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#printf" id="id29">5.1&nbsp;&nbsp;&nbsp;使用 <cite>printf()</cite> 的方式</a></li>
+<li><a class="reference internal" href="#putchar" id="id30">5.2&nbsp;&nbsp;&nbsp;使用 <cite>putchar()</cite> 方式</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id15">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>同时在看好几本AVR编程的书，感觉都是浅尝辄止，而且与datasheet基本没太大区别，所以不如尝试直接看datasheet来学。最近几个月的AVR芯片特别的贵，看来短期内不要再买了，先自己玩好再说吧。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[r] ATmega8(L).pdf 2486N-AVR-07/04： 下载的中文版pdf文件，总计page123-149</li>
+</ol>
+</div>
+<div class="section" id="usartuart">
+<h1><a class="toc-backref" href="#id16">2&nbsp;&nbsp;&nbsp;串行通信与USART、UART</a></h1>
+<p>USART是UART的改进，支持错误标志。EF为错误，DOR为数据过速。</p>
+<p>新版本的avr-libc不让使用旧的中断向量名了。改用新的：</p>
+<ol class="arabic simple">
+<li>USART_RXC_vect：原SIG_USART_RECV，接收完成，ATmega16/32/323/8</li>
+<li>USART_RX_vect：原SIG_USART_RECV，接收完成，ATmega48/88/168</li>
+<li>USART_TXC_vect：原SIG_USART_TRANS，发送完成，ATmega16/32/323/8</li>
+<li>USART_TX_vect：原SIG_USART_TRANS，发送完成，ATmega48/88/168</li>
+<li>USART_UDRE_vect：原SIG_USART_DATA，USART数据寄存器空，所有芯片</li>
+</ol>
+<p>对于更高级的AVR芯片，有多个USART模块或UART模块的不在此列。</p>
+</div>
+<div class="section" id="usart">
+<h1><a class="toc-backref" href="#id17">3&nbsp;&nbsp;&nbsp;USART基本配置</a></h1>
+<p>USART控制位UMSEL和状态寄存器C UCSRC用于选择异步或同步模式。UCSRA寄存器的U2X位控制倍速。UBRR用于控制分频和波特率，由UBRRH和UBRRL组成，取值0 ~ 4095。倍速模式只对异步有效，同步时应该设置为0。</p>
+<p>波特率计算公式：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="39%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>使用模式</td>
+<td>波特率方程</td>
+<td>UBBR值方程</td>
+</tr>
+<tr><td>异步(U2X=0)</td>
+<td>BAUD=fosc/(16*(UBRR+1))</td>
+<td>UBRR=fosc/(16*BAUD)-1</td>
+</tr>
+<tr><td>异步(U2X=1)</td>
+<td>BAUD=fosc/(8*(UBRR+1))</td>
+<td>UBRR=fosc/(8*BAUD)-1</td>
+</tr>
+<tr><td>同步模式</td>
+<td>BAUD=fosc/(2*(UBRR+1))</td>
+<td>UBRR=fosc/(2*BAUD)-1</td>
+</tr>
+</tbody>
+</table>
+<p>同步从机由外部时钟驱动，输入到XCK引脚的频率不能大于CPU时钟的1/4。</p>
+<p>TXC标志位用来检验是否有数据尚未发送完成，RXC标志位用来检验是否还有数据未读出。</p>
+<p>一个设置示例，查询异步方式，波特率由参数给出:</p>
+<pre class="literal-block">
+void USART_init(unsigned int baud) {
+    //设置波特率
+    UBRRH=(unsigned char)(baud&gt;&gt;8);
+    UBRRL=(unsigned char)baud;
+    //接收器与发送器使能
+    UCSRB=(1&lt;&lt;RXEN)|(1&lt;&lt;TXEN);
+    //帧格式：8bit数据位，2bit停止位
+    UCSRC=(1&lt;&lt;URSEL)|(1&lt;&lt;USBS)|(3&lt;&lt;UCSZ0);
+}
+</pre>
+<p>可选的波特率范围：2400、4800、9600、14.4k、19.2k、28.8k、38.4k、57.6k、76.8k、115.2k、230.4k、250k。</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id18">3.1&nbsp;&nbsp;&nbsp;同步模式</a></h2>
+<p>同步模式时，XCK作为主机的时钟输出，从机的时钟输入。UCRSC寄存器的UCPOL位确定使用哪个边沿对输入采样。UCPOL=0时，在XCK上升沿改变输出数据，下降沿对数据采样；当UCPOL=1时，XCK下降沿改变输出数据，上升沿对数据采样。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id19">3.2&nbsp;&nbsp;&nbsp;异步模式</a></h2>
+<p>就是不提供时钟，而是由双方约定好码率。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id20">3.3&nbsp;&nbsp;&nbsp;帧格式</a></h2>
+<p>USART支持30中组合的帧格式：</p>
+<ol class="arabic simple">
+<li>1个起始位，总是低电平</li>
+<li>5、6、7、8、9个数据位</li>
+<li>无校验位、奇校验、偶校验</li>
+<li>1或2个停止位</li>
+</ol>
+<p>数据位是先发送低位。page127有帧格式图解。空闲时高电平，停止位是高电平。</p>
+<p>帧格式由UCSRB、UCSRC寄存器的UCSZ2:0、UPM1:0、USBS设定，双方必须相同。</p>
+<ol class="arabic simple">
+<li>UCSZ2:0确定数据帧的数据位数</li>
+<li>UPM1:0使能与决定校验类型</li>
+<li>USBS决定停止位是1还是2</li>
+</ol>
+<p>校验位对数据各个位进行异或运算，如果是奇校验，结果还要取反。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id21">3.4&nbsp;&nbsp;&nbsp;一些常用设置值</a></h2>
+<ol class="arabic simple">
+<li>12MHz下，9600bps时，UBRR=77.125，四舍五入为77，实际为9615.385bps，误差为0.16%</li>
+<li>12MHz下，14.4Kbps时，UBRR=52.083，四舍五入为51，实际为14423.077bps，误差为0.16%。测试19.2Kbps时，也是一样的误差，UBRR取38。是否使用倍增模式和改换不同的波特率都是这个误差</li>
+<li>12MHz下，115200bps时，UBRR=12.021，四舍五入为12，实际为115384bps，误差为0.16%，注意，需用U2X倍速模式</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="27%" />
+<col width="27%" />
+<col width="27%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>晶振/bps</td>
+<td>8MHz</td>
+<td>12MHz</td>
+<td>16MHz</td>
+</tr>
+<tr><td>9600</td>
+<td>H=0,L=51</td>
+<td>H=0,L=77</td>
+<td>H=0,L=103</td>
+</tr>
+<tr><td>14400</td>
+<td>H=0,L=34</td>
+<td>H=0,L=51</td>
+<td>H=0,L=68</td>
+</tr>
+<tr><td>115200</td>
+<td>H=0,L=8,U2X</td>
+<td>H=0,L=12,U2X</td>
+<td>H=0,L=16,U2X</td>
+</tr>
+</tbody>
+</table>
+<p>不过很幸运的是，使用8MHz晶振时，误差也都是0.16%，而且误差方向与12MHz时相同。8MHz，9600bps的UBRR=51。</p>
+<p>一些计算好的结果参见datasheet page146-149。</p>
+<p>取全部默认值，则是异步，1bit停止位，8bit数据位的方式。初始化代码如下:</p>
+<pre class="literal-block">
+UBRRH=0;
+UBRRL=77;
+UCSRB=_BV(RXEN)|_BV(TXEN);
+</pre>
+<p>该条件是在12MHz下，9600bps的，如果单独设置了UCSRC的USBS，会导致Mac上PL2303读取数据被加上了0xc0。</p>
+<p>对ATmega48等芯片其名字定义并不同，如下为设置12MHz时，9600bps的情况。全默认，异步，1bit停止位，8bit数据位。允许收发。</p>
+<pre class="literal-block">
+UBRR0H=0;
+UBRR0L=77;  //实际为77.125
+UCSR0B=_BV(RXEN0)|_BV(TXEN0);       //查询方式
+UCSR0B=_BV(RXEN0)|_BV(TXEN0)|_BV(RXCIE0)|_BV(UDRIE0);   //中断方式
+</pre>
+<p>如果要开启中断方式，则要设置 UCSR0B ，加入RXCIE0和UDRIE0这两个位。</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id22">3.5&nbsp;&nbsp;&nbsp;相关寄存器定义</a></h2>
+<p><strong>UDR(USART I/O数据寄存器)</strong> 实际上是RXB和TXB两个寄存器，只不过读写时分别调用不同的寄存器。只有UCSRA:UDRE为1时才可以写，否则写入数据被忽略。接收缓冲器包括两级FIFO，一旦被寻址就会改变状态，所以没事不要随便读。</p>
+<p><strong>UCSRA(USART控制和状态寄存器A)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:RXC][6:TXC][5:UDRE][4:FE][3:DOR][2:PE][1:U2X][0:MPCM]</span></tt> 。各个位定义如下：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>[7:RXC]{R/0} ：接收结束，可以用来产生接收结束中断</li>
+<li>[6:TXC]{RW/0} ：发送结束，可以用来产生发送结束中断</li>
+<li>[5:UDRE]{R/1} ：发送寄存器空，可以产生数据寄存器空中断</li>
+<li>[4:FE]{R/0} ：帧错误，对UCSRA写入时此位一定要写0</li>
+<li>[3:DOR]{R/0} ：数据溢出，接收缓冲器满(包含两个数据)，而接收移位寄存器有数据，检测到新的起始位就会溢出，直到UDR被读取都有效，对UCSRA写入时此位要写0</li>
+<li>[2:PE]{R/0} ：奇偶校验错误，对UCSRA写入时此位要写0</li>
+<li>[1:U2X]{RW/0} ：异步倍速发送</li>
+<li>[0:MPCM]{RW/0} ：多处理器通信模式，置位后接收器对无地址信息的包都忽略</li>
+</ol>
+</blockquote>
+<p><strong>UCSRB(USART控制和状态寄存器B)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:RXCIE][6:TXCIE][5:UDRIE][4:RXEN][3:TXEN][2:UCSZ2][1:RXB8][0:TXB8]</span></tt> 。各个位定义如下：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>[7:RXCIE]{RW/0} ：接收结束中断使能</li>
+<li>[6:TXCIE]{RW/0} ：发送结束中断使能</li>
+<li>[5:UDRIE]{RW/0} ：发送数据寄存器空中断使能</li>
+<li>[4:RXEN]{RW/0} ：接收使能</li>
+<li>[3:TXEN]{RW/0} ：发送使能</li>
+<li>[2:UCSZ2]{RW/0} ：与UCSRC的UCSZ1:0结合设置数据位长度</li>
+<li>[1:RXB8]{R/0} ：第9位数据位，应该先于UDR读取</li>
+<li>[0:TXB8]{RW/0} ：第9位数据位，应该先于UDR写入</li>
+</ol>
+</blockquote>
+<p><strong>UCSRC(USART控制和状态寄存器C)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:URSEL][6:UMSEL][5:UPM1][4:UMP0][3:USBS][2:UCSZ1][1:UCSZ0][0:UCPOL]</span></tt> 。UCSRC与UBRRH共用相同的I/O地址。各个位定义如下：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>[7:URSEL]{RW/1} ：通过该位选择UCSRC寄存器或UBRRH寄存器，为1时读写UCSRC，为0时读写UBRRH</li>
+<li>[6:UMSEL]{RW/0} ：模式选择，0:异步，1:同步</li>
+<li>[5,4:UPM1..0]{RW/00} ：奇偶校验模式，00:禁止，01:保留，10:偶校验，11:奇校验</li>
+<li>[3:USBS]{RW/0} ：停止位选择，0:1位，1:2位</li>
+<li>[2:UCSZ1]{RW/1} ：字符长度，见下表</li>
+<li>[1:UCSZ0]{RW/1} ：字符长度，见下表</li>
+<li>[0:UCPOL]{RW/0} ：时钟极性，0:XCK上升沿发送XCK下降沿读取，1:XCK下降沿发送XCK上升沿读取</li>
+</ol>
+</blockquote>
+<p>UCSZ2..0需要从UCSRB:UCSZ2和UCSRC:UCSZ1/0设置，取值如下，未列出的保留： 000:5位，001:6位，010:7位，011:8位，111:9位。</p>
+<p><strong>UBRRL和UBRRH(USART波特率寄存器)</strong> ，定义 <tt class="docutils literal"><span class="pre">[15:URSEL][14:-][13:-][12:-][11:UBRR11][10:UBRR10][9:UBRR9][8:UBRR8]</span></tt> 和 <tt class="docutils literal"><span class="pre">[7:UBRR7][6:UBRR6][5:UBRR5][4:UBRR4][3:UBRR3][2:UBRR2][1:UBRR1][0:UBRR0]</span></tt> 。其中主要是 [15:URSEL]设置为0时才能正确访问，然后UBRR11..0放置在UBRR的低位，占据12bit。14:12是保留的。UBRR11:0的取值自己参考波特率设置。</p>
+<p><strong>UBRRH和UCSRC的共用读写</strong> ，因为两者公用I/O地址，使用最高位选择。0为UBRRH、1为UCSRC。</p>
+<p>写入的例子:</p>
+<pre class="literal-block">
+UBRRH=0x02;
+UCSRC=(1&lt;&lt;URSEL)|(1&lt;&lt;USBS)|(1&lt;&lt;UCSZ1);
+</pre>
+<p>平时基本不需要读取UBRRH和UCSRC，因为都是设置项。读取是根据时序自动选择的，人没法控制。具体参阅datasheet page141。</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id23">4&nbsp;&nbsp;&nbsp;通信过程</a></h1>
+<p>对USART的数据寄存器是UDR，无论发送还是接收。其实内部是分开的。</p>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id24">4.1&nbsp;&nbsp;&nbsp;数据发送</a></h2>
+<p>将UCSRB寄存器TXEN使能后，TxD引脚的通用IO就变成USART了。将要发送的数据写入UDR寄存器即可。当发送的数据位少于8bit时，数据高位被忽略。</p>
+<p>轮询UDRE标志发送数据:</p>
+<pre class="literal-block">
+void USART_Transmit(unsigned char data) {
+    //等待发送缓冲器为空
+    while(!(UCSRA&amp;(1&lt;&lt;UDRE)));
+    UDR=data;
+}
+</pre>
+<p>如果是中断方式，则写入UDR的操作可以在中断中进行。中断发送:</p>
+<pre class="literal-block">
+SIGNAL(USART_UDRE_vect) {
+    UDR=data;
+}
+</pre>
+<p>发送9bit数据时，第9位写入UCSRB的TXB8位，低8位写入UDR。第9位数据在多机通信中通常标示地址帧，在同步通信中用于协议处理。</p>
+<p>发送9bit数据:</p>
+<pre class="literal-block">
+void USART_Transmit(unsigned char data) {
+    //等待发送缓冲器为空
+    while(!(UCSRA&amp;(1&lt;&lt;UDRE)));
+    //将第9位复制到TXB8
+    UCSRB &amp;= ~(1&lt;&lt;TXB8);
+    if(data &amp; 0x0100)
+        UCSRB |= (1&lt;&lt; TXB8);
+    UDR=data;
+}
+</pre>
+<p>UDRE标志位表示数据寄存器空，TXC标示发送完成，都可以产生中断。UDRE标示发送缓冲器可以接受新数据了，当有效时为1。当有数据要发送时为0。写UCSRA寄存器UDRE时，应该写0。UCSRB寄存器UDREIE位为1时，只要UDRE为1就产生中断。对UDR写数据可以清零UDRE，所以&quot;发送数据寄存器空&quot;中断处理程序中必须写数据到UDR，才能清除UDRE。否则此次中断程序结束会立即再产生一次。</p>
+<p>当前数据帧发送完成，且发送缓冲器没有新数据时，发送结束标志TXC置位。该位在中断执行时自动清零，也可以在该位写1来清零。对RS-485标准的半双工通信十分有用，因为发送完成应该立即释放总线并进入接收状态。当UCSRB的TXCIE为1时，TXC的置位会触发USART发送结束中断。进入中断程序后该位自动清零。</p>
+<p>TXEN清零时，如果还有数据没发完，就继续发完。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id25">4.2&nbsp;&nbsp;&nbsp;数据接收</a></h2>
+<p>UCSRB寄存器的RXEN位使能接收器，使能后RxD引脚功能被USART代替。禁止接收器是立即有效的，当前没完成的数据直接丢弃。</p>
+<p>接收器检测到起始位后就开始接收，接收到的数据送入接收移位寄存器。第一个停止位有效，第二个停止位会被忽略。读取到完整数据帧以后，读取UDR就可以拿到接收缓冲器的内容了。</p>
+<p>当UCSRA寄存器RXC位置位时，说明可以读取数据。当数据帧少于8位时，从UDR读取的对应的高位为0。</p>
+<p>查询方式接收数据:</p>
+<pre class="literal-block">
+unsigned char USART_Receive(void) {
+    //等待接收数据
+    while(!(UCSRA &amp; (1&lt;&lt;RXC)));
+    //从缓冲器读取数据
+    return UDR;
+}
+</pre>
+<p>中断方式接收数据:</p>
+<pre class="literal-block">
+SIGNAL(USART_RXC_vect) {    //此为ATmega8，要换为ATmega48则是USART_RX_vect
+    c=UDR;
+}
+</pre>
+<p>如果数据位是9bit则必须在读取UDR <strong>之前</strong> 读取UCSRB的RXB8位得到第9位。对于其他状态标志位FE、DOR、UPE，也需要在UDR之前读取。因为读取UDR会改变接收缓冲器FIFO的状态，进而改变FIFO中TXB8、FE、DOR、UPE位的值。</p>
+<p>查询方式读取第9位:</p>
+<pre class="literal-block">
+unsigned int USART_Receive(void) {
+    unsigned char status, resh, resl;
+    while(!(UCSRA &amp; (1&lt;&lt;RXC)));
+    //读取状态和第9位
+    status=UCSRA;
+    resh=UCSRB;
+    resl=UDR;
+    //出错就返回-1
+    if(status &amp; (1&lt;&lt;FE)|(1&lt;&lt;DOR)|(1&lt;&lt;PE))
+        return -1;
+    resh=(resh&gt;&gt;1) &amp; 0x01;
+    return ((resh &lt;&lt; 8) | resl);
+}
+</pre>
+<p>如上方法先将状态读出到变量，然后才做计算，这样尽早释放缓冲区以便接收新的数据。</p>
+<p>当接收缓冲区有未读出的数据时，UCSRA的RXC位为1。</p>
+<p>使能UCSRB的RXCIE位后，只要RXC置位就会产生接收结束中断。注意中断处理程序应该读取UDR以清除RXC位。否则会持续产生中断。</p>
+<p>接收时有3个错误标志，位于UCSRA中：</p>
+<ol class="arabic simple">
+<li>帧错误(FE)，到停止位时才能发现错误</li>
+<li>数据溢出(DOR)，移位寄存器满，却还有数据过来</li>
+<li>奇偶校验错(UPE)</li>
+</ol>
+<p>如果由于出错，必须在正常状态刷新缓冲器(而不是直接禁用而丢数据)，则需要一直读取到UDR到RXC清零。示例代码:</p>
+<pre class="literal-block">
+void USART_Flush(void) {
+    unsigned char dummy;
+    while(UCSRA &amp; (1&lt;&lt;RXC))
+        dummy=UDR;
+}
+</pre>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id26">4.3&nbsp;&nbsp;&nbsp;异步数据接收</a></h2>
+<p>USART内部用时钟恢复单元、数据恢复但愿来处理异步数据接收。普通工作模式下采样率是波特率的16倍，倍速模式则是8倍。</p>
+<p>检测到线路从高电平空闲到下降沿时，开始位检测序列就启动了。如果开始位中包含2-3个高电平，就会被认为是噪声而忽略。具体的数据位电平检测是在位中心取样的多数表决。对停止位也是多数表决，比如停止位被发现是0，就置位FE位。如果停止位(高电平)随即接着的是0(低电平)，就表示下一个数据帧接着来了。</p>
+<p>因为各个位的采样是一个序列，所以也要注意累计误差。5bit数据位时最大允许3%误差，9bit时最大1.5%误差。具体参考page138。</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id27">4.4&nbsp;&nbsp;&nbsp;多机通信模式</a></h2>
+<p>通过对UCSRA的MPCM置位，可以对收到的数据帧进行过滤，忽略没有地址信息的帧。MPCM的设置不影响发送器。</p>
+<p>如果接收器得到的数据帧长度为5-8bit，那么第一个停止位表示这一帧包含的还是地址信息。如果接收器所接收数据帧长度为9bit，则第9位(RXB8)用以确定是否是地址帧。</p>
+<p>多机通信模式下，多个处理器都可以从主处理器接收数据。首先通过解码地址帧得知寻址的处理器。如果寻址到一个处理器，它将正常接收后续数据，其他处理器忽略这些帧，直到另一个地址帧。</p>
+<p>作为主机的处理器，使用9bit数据帧时TXB8=1表示地址帧，数据帧TXB8=0。数据交换步骤：</p>
+<ol class="arabic simple">
+<li>所有从处理器都工作于多机通信模式</li>
+<li>主处理器发送地址帧后，所有从处理器都接收并读取，从处理器UCSRA:RXC置位</li>
+<li>从处理器读取UDR内容，看看自己是否被选中，如果是就清除UCSRA的MPCM位；否则就等待下一个地址帧的到来，并保持MPCM=1</li>
+<li>被寻址的从处理器接收所有数据帧，直到收到新的地址帧，而保持MPCM=1的从处理器忽略这些数据</li>
+<li>被寻址处理器接收到最后一个数据帧和区，置位MPCM，并等待主处理器发送下一个地址帧</li>
+</ol>
+<p>最好不要使用5-8bit作为多机通信的数据长，否则很难判断地址帧。发送器设置两个停止位(USBS=1)，其中第一个停止位用于判断帧类型。</p>
+<p>不要用SBI/CBI指令操作MPCM位，因为它与TXC标志使用相同I/O单元，使用SBI或CBI可能会不小心清零。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h1><a class="toc-backref" href="#id28">5&nbsp;&nbsp;&nbsp;利用串行口调试程序</a></h1>
+<div class="section" id="printf">
+<h2><a class="toc-backref" href="#id29">5.1&nbsp;&nbsp;&nbsp;使用 <cite>printf()</cite> 的方式</a></h2>
+<p>应该先定义两个函数，分别用于输入和输出字符。注意接口规则与以前树上描述的已经不一样了。这里是是使用USART接口，包括初始化函数:</p>
+<pre class="literal-block">
+int UART_putchar(char c, FILE *f) {
+    while(!(UCSRA&amp;_BV(UDRE)));
+    UDR=c;
+    return 0;
+}
+
+int UART_getchar(FILE *f) {
+    while(!(UCSRA&amp;_BV(RXC)));
+    return UDR;
+}
+
+void UART_init() {
+    UBRRH=0;
+    UBRRL=77;       //12MHz下9600bps
+    UCSRB=_BV(RXEN)|_BV(TXEN);
+    fdevopen(UART_putchar,UART_getchar);
+}
+</pre>
+<p>然后就可以使用各种printf()系列函数了，如下两个例子，分别是格式化字符串在内存中和在Flash中:</p>
+<pre class="literal-block">
+printf(&quot;hello%d\n&quot;,100);
+printf_P(PSTR(&quot;hello world.\n&quot;));
+</pre>
+<p>程序链接到elf文件时也有选项，默认是除了浮点数都支持。可以通过 <cite>-Wl,-u,vfprintf -lprintf_min</cite> 来使用最小模式，只支持整数和字符串。通过 <cite>-Wl,u,vfprintf, -lprintf_flt -lm</cite> 来开启最大模式，就是带有浮点数支持。</p>
+<p>必要的头文件:</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+#include &lt;avr/pgmspace.h&gt;
+#include &lt;stdio.h&gt;
+</pre>
+<p>与电脑的控制台进行调试时，需要确保单片机输出的换行为&quot;\r\n&quot;，否则在电脑上真的按照最原始的方式显示。不过至少在Mac OS X上，回车键被单片机一方的读取数值只有&quot;\r&quot;，即只有换行没有回车。如下是一些常见按键的ASCII码：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>按键</td>
+<td>ASCII</td>
+</tr>
+<tr><td>回车</td>
+<td>0x0a</td>
+</tr>
+<tr><td>退格</td>
+<td>0x7f</td>
+</tr>
+<tr><td>ESC</td>
+<td>0x1b</td>
+</tr>
+</tbody>
+</table>
+<p>对于读取到的数值，可以通过如下方式将其转换为2位十六进制来输出，方便调试:</p>
+<pre class="literal-block">
+uint8_t i;
+i=UDR0;
+high=i&gt;&gt;4;
+if (high&gt;9) {
+    high+=87;   //a-f
+}else {
+    high+=48;   //0-9
+}
+low=i&amp;0x0f;
+if (low&gt;9) {
+    low+=87;    //a-f
+}else {
+    low+=48;
+}
+</pre>
+</div>
+<div class="section" id="putchar">
+<h2><a class="toc-backref" href="#id30">5.2&nbsp;&nbsp;&nbsp;使用 <cite>putchar()</cite> 方式</a></h2>
+<p>主要是 <cite>printf()</cite> 太占用代码空间了。</p>
+<p>ATmega8版:</p>
+<pre class="literal-block">
+void usart_putchar(uint8_t c) {
+    while(!(UCSRA &amp; _BV(UDRE)));
+    UDR=c;
+}
+
+uint8_t usart_getchar() {
+    while(!(UCSRA &amp; _BV(RXC)));
+    return UDR;
+}
+
+void usart_init() {
+    UBRRH=0;
+    UBRRL=77;       //12MHz下的9600bps
+    UCSRB=_BV(RXEN)|_BV(TXEN);
+}
+</pre>
+<p>ATmega48版:</p>
+<pre class="literal-block">
+void usart_putchar(uint8_t c) {
+    while(!(UCSR0A &amp; _BV(UDRE0)));
+    UDR0=c;
+}
+
+uint8_t usart_getchar() {
+    while(!(UCSR0A &amp; _BV(RXC0)));
+    return UDR0;
+}
+
+void usart_init() {
+    UBRR0H=0;
+    UBRR0L=77;      //12MHz下的9600bps
+    UBRR0L=12; UCSR0A|=_BV(U2X0);   //12MHz下115200bps
+    UBRR0L=17;  UCSRA0A|=_BV(U2X0); //16MHz下115200bps
+    UCSR0B=_BV(RXEN0)|_BV(TXEN0);
+}
+</pre>
+<p>将数字以十六进制发送，调用如上函数:</p>
+<pre class="literal-block">
+void usart_puthex(uint8_t c) {
+    uint8_t high,low;
+    high= (c &gt;&gt; 4);
+    low= (c &amp; 0x0f);
+    high=   (high&gt;9) ? high+87 : high+48;
+    low=    (low&gt;9)  ? low+87  : low+48;
+    usart_putchar(high);
+    usart_putchar(low);
+}
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 11358, "title": "\u901a\u7528\u540c\u6b65\u548c\u5f02\u6b65\u4e32\u884c\u901a\u4fe1", "src_size": 18964, "filehash": "05b96727bc924e132b5fd53251542fee", "dst_size": 31309} -->

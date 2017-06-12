@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Simulavr</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="simulavr">
+<h1 class="title">Simulavr</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2010-03-05</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id5">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id6">2&nbsp;&nbsp;&nbsp;Simulavr简介</a></li>
+<li><a class="reference internal" href="#id4" id="id7">3&nbsp;&nbsp;&nbsp;simulavr的基本使用</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id5">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>玩单片机，一直焊板子效率太低了，即便是面包板也没好到哪里去。还是研究一下电脑上的模拟器吧。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[r] Simulavr主页： <a class="reference external" href="http://www.nongnu.org/simulavr/">http://www.nongnu.org/simulavr/</a> 最后更新于2004-12-22</li>
+<li>[r] Simulavr新主页： <a class="reference external" href="http://savannah.gnu.org/projects/simulavr/">http://savannah.gnu.org/projects/simulavr/</a></li>
+<li>[u] 用户文档： <a class="reference external" href="http://freesoftware.fsf.org/download/simulavr/doc/html/">http://freesoftware.fsf.org/download/simulavr/doc/html/</a> 已经无法访问</li>
+<li>[u] 内部文档： <a class="reference external" href="http://freesoftware.fsf.org/download/simulavr/doc/internals_html/">http://freesoftware.fsf.org/download/simulavr/doc/internals_html/</a> 已经无法访问</li>
+<li>[r] 下载页： <a class="reference external" href="http://mirrors.igsobe.com/nongnu/simulavr/">http://mirrors.igsobe.com/nongnu/simulavr/</a></li>
+<li>[r] 下载页： <a class="reference external" href="http://nongnu.askapache.com/simulavr/">http://nongnu.askapache.com/simulavr/</a></li>
+<li>[r] Using gdb,ddd,and simulavr with the 2006-03-05 AVR Toolchain： <a class="reference external" href="http://chromiteblue.com/archive/projects/gnu-avr-toolchain/using-gdb-ddd-and-simulavr/">http://chromiteblue.com/archive/projects/gnu-avr-toolchain/using-gdb-ddd-and-simulavr/</a></li>
+<li>[r] Simulating and Debugging AVR programs： <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/6/SimulatingandDebuggingAVRprograms.php">http://electrons.psychogenic.com/modules/arms/art/6/SimulatingandDebuggingAVRprograms.php</a></li>
+<li>[u] Robot Programming in &quot;C&quot;： <a class="reference external" href="http://www.drtak.org/teaches/ARC/cisp299_bot/book/book/book.html">http://www.drtak.org/teaches/ARC/cisp299_bot/book/book/book.html</a> 一本书</li>
+<li>[r] Simulavr + Insight： <a class="reference external" href="http://www.drtak.org/teaches/ARC/cisp299_bot/book/book/node13.html">http://www.drtak.org/teaches/ARC/cisp299_bot/book/book/node13.html</a></li>
+<li>[u] 貌似是软件包的文档： <a class="reference external" href="http://www2.cddc.vt.edu/gnu/ftp/pub/pub/savannah/files/simulavr/doc/html/">http://www2.cddc.vt.edu/gnu/ftp/pub/pub/savannah/files/simulavr/doc/html/</a></li>
+<li>[u] HowTo run the gcc testsuite using simulavr： <a class="reference external" href="http://osdir.com/ml/hardware.avr.libc.devel/2004-12/msg00202.html">http://osdir.com/ml/hardware.avr.libc.devel/2004-12/msg00202.html</a></li>
+<li>[u] Debugging AVR code in Linux with simavr： <a class="reference external" href="http://www.instructables.com/id/Debugging-AVR-code-in-Linux-with-simavr/?ALLSTEPS">http://www.instructables.com/id/Debugging-AVR-code-in-Linux-with-simavr/?ALLSTEPS</a></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id6">2&nbsp;&nbsp;&nbsp;Simulavr简介</a></h1>
+<p>这个项目处于过度时期，现在已经开始了向C++移植的Simulavrxx项目了。不过Simulavrxx还在开发中，而且与Simulavr有明显不同，现在已经是两个独立的项目了。</p>
+<p>现在项目的状态是不再开发了，但是偶尔还会打补丁。</p>
+<p>支持的芯片:</p>
+<pre class="literal-block">
+$ simulavr -L
+at90s1200
+at90s2313
+at90s4414
+at90s8515
+atmega8
+atmega16
+atmega103
+atmega128
+at43usb351
+at43usb353
+at43usb355
+at43usb320
+at43usb325
+at43usb326
+</pre>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id7">3&nbsp;&nbsp;&nbsp;simulavr的基本使用</a></h1>
+<p><strong>编译安装SimulAVR</strong></p>
+<pre class="literal-block">
+$ ./configure --with-avr-includes=/usr/local/AVR/avr/include --prefix=/usr/local/AVR
+$ make
+# make install
+</pre>
+<p><strong>编译安装AVR-GDB</strong> (6.x的版本源码):</p>
+<pre class="literal-block">
+$ ./configure --target=avr --prefix=/usr/local/AVR
+$ make
+# make install
+</pre>
+<p><strong>编译选项</strong> ：需要在编译时提供调试符号 avr-gcc 使用-Wa 和-gstabs 。</p>
+<p><strong>启动模拟器服务器</strong></p>
+<pre class="literal-block">
+$ simulavr --device atmega8 --gdbserver
+</pre>
+<p>然后模拟器就已经准备好了，等待客户端连接到TCP:1212。</p>
+<p>然后的avr-ddd调用avr-gdb指令(我的Debian上没有这个玩意):</p>
+<pre class="literal-block">
+$ avr-ddd --debugger $AVRROOT/bin/avr-gdb
+(gdb) file stdiodemo/stdiodemo.elf
+(gdb) target remote localhost:1212
+(gdb) load
+(gdb) break stdiodemo.c:53
+(gdb) step
+(gdb) continue
+</pre>
+<p>剩下的事情就是看寄存器。</p>
+<p>有个工具叫 AVR Insight(WinAVR)，也可以用于连接提模拟器服务器。</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 2492, "title": "Simulavr", "src_size": 3142, "filehash": "bc94663dbdeefe4a14ca43330e5daca9", "dst_size": 12213} -->

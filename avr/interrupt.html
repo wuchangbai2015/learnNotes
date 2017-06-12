@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>中断</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="id1">
+<h1 class="title">中断</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-01-30</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id3" id="id7">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id4" id="id8">2&nbsp;&nbsp;&nbsp;应用注记</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id5" id="id9">2.1&nbsp;&nbsp;&nbsp;小心中断向量表</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id10">3&nbsp;&nbsp;&nbsp;各个芯片中断简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#atmega8a" id="id11">3.1&nbsp;&nbsp;&nbsp;ATmega8A</a></li>
+<li><a class="reference internal" href="#atmega48pa" id="id12">3.2&nbsp;&nbsp;&nbsp;ATmega48PA</a></li>
+<li><a class="reference internal" href="#attiny13a" id="id13">3.3&nbsp;&nbsp;&nbsp;ATtiny13A</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id7">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>中断是单片机里的重要部分，重要的没话说。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[i] <tt class="docutils literal">avr/iom8.h</tt> ：ATmega8的avr-gcc头文件，只看了其中中断有关的部分</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id8">2&nbsp;&nbsp;&nbsp;应用注记</a></h1>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id9">2.1&nbsp;&nbsp;&nbsp;小心中断向量表</a></h2>
+<p>如果启用了某个中断，务必要写对应的中断处理函数，否则就不停的复位。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id10">3&nbsp;&nbsp;&nbsp;各个芯片中断简介</a></h1>
+<div class="section" id="atmega8a">
+<h2><a class="toc-backref" href="#id11">3.1&nbsp;&nbsp;&nbsp;ATmega8A</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>地址</td>
+<td>中断源</td>
+<td>中断描述</td>
+</tr>
+<tr><td>0x0000</td>
+<td>RESET</td>
+<td>复位</td>
+</tr>
+<tr><td>0x0001</td>
+<td>INT0_vect</td>
+<td>外部中断0</td>
+</tr>
+<tr><td>0x0002</td>
+<td>INT1_vect</td>
+<td>外部中断1</td>
+</tr>
+<tr><td>0x0003</td>
+<td>TIMER2_COMP_vect</td>
+<td>Timer2比较匹配</td>
+</tr>
+<tr><td>0x0004</td>
+<td>TIMER2_OVF_vect</td>
+<td>Timer2溢出</td>
+</tr>
+<tr><td>0x0005</td>
+<td>TIMER1_CAPT_vect</td>
+<td>Timer1捕获事件</td>
+</tr>
+<tr><td>0x0006</td>
+<td>TIMER1_COMPA_vect</td>
+<td>Timer1比较匹配A</td>
+</tr>
+<tr><td>0x0007</td>
+<td>TIMER1_COMPB_vect</td>
+<td>Timer1比较匹配B</td>
+</tr>
+<tr><td>0x0008</td>
+<td>TIMER1_OVF_vect</td>
+<td>Timer1溢出</td>
+</tr>
+<tr><td>0x0009</td>
+<td>TIMER0_OVF_vect</td>
+<td>Timer0溢出</td>
+</tr>
+<tr><td>0x000a</td>
+<td>SPI_STC_vect</td>
+<td>SPI传输完成</td>
+</tr>
+<tr><td>0x000b</td>
+<td>USART_RXC_vect</td>
+<td>USART接收完成</td>
+</tr>
+<tr><td>0x000c</td>
+<td>USART_UDRE_vect</td>
+<td>USART数据寄存器空</td>
+</tr>
+<tr><td>0x000d</td>
+<td>USART_TXC_vect</td>
+<td>USART发送完成</td>
+</tr>
+<tr><td>0x000e</td>
+<td>ADC_vect</td>
+<td>ADC转换完成</td>
+</tr>
+<tr><td>0x000f</td>
+<td>EE_RDY_vect</td>
+<td>EEPROM就绪</td>
+</tr>
+<tr><td>0x0010</td>
+<td>ANA_COMP_vect</td>
+<td>模拟比较器</td>
+</tr>
+<tr><td>0x0011</td>
+<td>TWI_vect</td>
+<td>TWI中断</td>
+</tr>
+<tr><td>0x0012</td>
+<td>SPM_RDY_vect</td>
+<td>存储程序存储器就绪</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="atmega48pa">
+<h2><a class="toc-backref" href="#id12">3.2&nbsp;&nbsp;&nbsp;ATmega48PA</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>地址</td>
+<td>中断源</td>
+<td>中断描述</td>
+</tr>
+<tr><td>0x0000</td>
+<td>RESET</td>
+<td>复位</td>
+</tr>
+<tr><td>0x0001</td>
+<td>INT0_vect</td>
+<td>外部中断请求0</td>
+</tr>
+<tr><td>0x0002</td>
+<td>INT1_vect</td>
+<td>外部中断请求1</td>
+</tr>
+<tr><td>0x0003</td>
+<td>PCINT0_vect</td>
+<td>引脚电平变化中断请求0</td>
+</tr>
+<tr><td>0x0004</td>
+<td>PCINT1_vect</td>
+<td>引脚电平变化中断请求1</td>
+</tr>
+<tr><td>0x0005</td>
+<td>PCINT2_vect</td>
+<td>引脚电平变化中断请求2</td>
+</tr>
+<tr><td>0x0006</td>
+<td>WDT_vect</td>
+<td>看门狗超时中断</td>
+</tr>
+<tr><td>0x0007</td>
+<td>TIMER2_COMPA_vect</td>
+<td>T/C2比较匹配A</td>
+</tr>
+<tr><td>0x0008</td>
+<td>TIMER2_COMPB_vect</td>
+<td>T/C2比较匹配B</td>
+</tr>
+<tr><td>0x0009</td>
+<td>TIMER2_OVF_vect</td>
+<td>T/C2溢出</td>
+</tr>
+<tr><td>0x000a</td>
+<td>TIMER1_CAPT_vect</td>
+<td>T/C1事件捕捉</td>
+</tr>
+<tr><td>0x000b</td>
+<td>TIMER1_COMPA_vect</td>
+<td>T/C1比较匹配A</td>
+</tr>
+<tr><td>0x000c</td>
+<td>TIMER1_COMPB_vect</td>
+<td>T/C1比较匹配B</td>
+</tr>
+<tr><td>0x000d</td>
+<td>TIMER1_OVF_vect</td>
+<td>T/C1溢出</td>
+</tr>
+<tr><td>0x000e</td>
+<td>TIMER0_COMPA_vect</td>
+<td>T/C0比较匹配A</td>
+</tr>
+<tr><td>0x000f</td>
+<td>TIMER0_COMPB_vect</td>
+<td>T/C0比较匹配B</td>
+</tr>
+<tr><td>0x0010</td>
+<td>TIMER0_OVF_vect</td>
+<td>T/C0溢出</td>
+</tr>
+<tr><td>0x0011</td>
+<td>SPI_STC_vect</td>
+<td>SPI串行传输结束</td>
+</tr>
+<tr><td>0x0012</td>
+<td>USART_RX_vect</td>
+<td>USART，Rx结束</td>
+</tr>
+<tr><td>0x0013</td>
+<td>USART_UDRE_vect</td>
+<td>USART，数据寄存器空</td>
+</tr>
+<tr><td>0x0014</td>
+<td>USART_TX_vect</td>
+<td>USART，Tx结束</td>
+</tr>
+<tr><td>0x0015</td>
+<td>ADC_vect</td>
+<td>ADC转换结束</td>
+</tr>
+<tr><td>0x0016</td>
+<td>EE_READY_vect</td>
+<td>EEPROM准备好</td>
+</tr>
+<tr><td>0x0017</td>
+<td>ANALOG_COMP_vect</td>
+<td>模拟比较器</td>
+</tr>
+<tr><td>0x0018</td>
+<td>TWI_vect</td>
+<td>两线串行接口</td>
+</tr>
+<tr><td>0x0019</td>
+<td>SPM_READY_vect</td>
+<td>保存程序存储器内容就绪</td>
+</tr>
+</tbody>
+</table>
+<p>向量号是从1开始，地址从0x000开始，每个向量占2个字节(16bit字)。我直接列出avr-libc的中断向量名，按照顺序。</p>
+<p>对ATmega88/168/328，复位地址有区别，中断无区别。</p>
+</div>
+<div class="section" id="attiny13a">
+<h2><a class="toc-backref" href="#id13">3.3&nbsp;&nbsp;&nbsp;ATtiny13A</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="25%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>地址</td>
+<td>中断源</td>
+<td>中断描述</td>
+</tr>
+<tr><td>0x0000</td>
+<td>RESET</td>
+<td>复位</td>
+</tr>
+<tr><td>0x0001</td>
+<td>INT0_vect</td>
+<td>外部中断0</td>
+</tr>
+<tr><td>0x0002</td>
+<td>PCINT0_vect</td>
+<td>引脚改变中断0</td>
+</tr>
+<tr><td>0x0003</td>
+<td>TIM0_OVF_vect</td>
+<td>定时器0溢出</td>
+</tr>
+<tr><td>0x0004</td>
+<td>EE_RDY_vect</td>
+<td>EEPROM就绪</td>
+</tr>
+<tr><td>0x0005</td>
+<td>ANA_COMP_vect</td>
+<td>模拟比较器</td>
+</tr>
+<tr><td>0x0006</td>
+<td>TIM0_COMPA_vect</td>
+<td>定时器0比较匹配A</td>
+</tr>
+<tr><td>0x0007</td>
+<td>TIM0_COMPB_vect</td>
+<td>定时器0比较匹配B</td>
+</tr>
+<tr><td>0x0008</td>
+<td>WDT_vect</td>
+<td>看门狗超时</td>
+</tr>
+<tr><td>0x0009</td>
+<td>ADC_vect</td>
+<td>ADC转换完成</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 3145, "title": "\u4e2d\u65ad", "src_size": 4027, "filehash": "e8ced794e486a048aa8bb969e787849b", "dst_size": 13997} -->

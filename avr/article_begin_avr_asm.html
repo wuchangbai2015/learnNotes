@@ -1,0 +1,1311 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR汇编入门</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr">
+<h1 class="title">AVR汇编入门</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">Gerhard Schmidt</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-10-07</td>
+</tr>
+<tr class="field"><th class="docinfo-name">原作日期:</th><td class="field-body">2011-02</td>
+</tr>
+</tbody>
+</table>
+<p>网上下载的PDF文件，81页，3324750字节。文件名为 &quot;begin-avr-asm.pdf&quot; 。参考网络地址为 <a class="reference external" href="http://www.avr-asm-tutorial.net/">http://www.avr-asm-tutorial.net/</a> 。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id28">1&nbsp;&nbsp;&nbsp;为什么学汇编</a></li>
+<li><a class="reference internal" href="#id3" id="id29">2&nbsp;&nbsp;&nbsp;微控制器背后的汇编概念</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id30">2.1&nbsp;&nbsp;&nbsp;微控制器的硬件</a></li>
+<li><a class="reference internal" href="#cpu" id="id31">2.2&nbsp;&nbsp;&nbsp;CPU如何工作</a></li>
+<li><a class="reference internal" href="#id5" id="id32">2.3&nbsp;&nbsp;&nbsp;汇编中的指令</a></li>
+<li><a class="reference internal" href="#id6" id="id33">2.4&nbsp;&nbsp;&nbsp;与高层语言的区别</a></li>
+<li><a class="reference internal" href="#id7" id="id34">2.5&nbsp;&nbsp;&nbsp;汇编不是机器语言</a></li>
+<li><a class="reference internal" href="#id8" id="id35">2.6&nbsp;&nbsp;&nbsp;解释与汇编</a></li>
+<li><a class="reference internal" href="#id9" id="id36">2.7&nbsp;&nbsp;&nbsp;高层语言和汇编</a></li>
+<li><a class="reference internal" href="#id10" id="id37">2.8&nbsp;&nbsp;&nbsp;汇编真的简单？</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11" id="id38">3&nbsp;&nbsp;&nbsp;AVR汇编的硬件</a><ul class="auto-toc">
+<li><a class="reference internal" href="#avrisp" id="id39">3.1&nbsp;&nbsp;&nbsp;AVR处理器家族的ISP接口</a></li>
+<li><a class="reference internal" href="#pc" id="id40">3.2&nbsp;&nbsp;&nbsp;PC并口编程器</a></li>
+<li><a class="reference internal" href="#id12" id="id41">3.3&nbsp;&nbsp;&nbsp;实验板</a></li>
+<li><a class="reference internal" href="#id13" id="id42">3.4&nbsp;&nbsp;&nbsp;收到即用的商业开发板</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id43">4&nbsp;&nbsp;&nbsp;汇编工具</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id15" id="id44">4.1&nbsp;&nbsp;&nbsp;编辑器</a></li>
+<li><a class="reference internal" href="#id16" id="id45">4.2&nbsp;&nbsp;&nbsp;汇编器</a></li>
+<li><a class="reference internal" href="#id17" id="id46">4.3&nbsp;&nbsp;&nbsp;烧写芯片</a></li>
+<li><a class="reference internal" href="#studio" id="id47">4.4&nbsp;&nbsp;&nbsp;在Studio中仿真</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18" id="id48">5&nbsp;&nbsp;&nbsp;什么是寄存器</a></li>
+<li><a class="reference internal" href="#id19" id="id49">6&nbsp;&nbsp;&nbsp;端口</a></li>
+<li><a class="reference internal" href="#sram" id="id50">7&nbsp;&nbsp;&nbsp;SRAM</a></li>
+<li><a class="reference internal" href="#id20" id="id51">8&nbsp;&nbsp;&nbsp;跳转和分支</a></li>
+<li><a class="reference internal" href="#id21" id="id52">9&nbsp;&nbsp;&nbsp;计算</a></li>
+<li><a class="reference internal" href="#id22" id="id53">10&nbsp;&nbsp;&nbsp;项目计划</a></li>
+<li><a class="reference internal" href="#id23" id="id54">11&nbsp;&nbsp;&nbsp;附录</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id24" id="id55">11.1&nbsp;&nbsp;&nbsp;以功能列出指令</a></li>
+<li><a class="reference internal" href="#directive" id="id56">11.2&nbsp;&nbsp;&nbsp;以字符序列出指令和directive</a></li>
+<li><a class="reference internal" href="#id25" id="id57">11.3&nbsp;&nbsp;&nbsp;端口细节</a></li>
+<li><a class="reference internal" href="#id26" id="id58">11.4&nbsp;&nbsp;&nbsp;端口，字符序</a></li>
+<li><a class="reference internal" href="#id27" id="id59">11.5&nbsp;&nbsp;&nbsp;缩写</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id28">1&nbsp;&nbsp;&nbsp;为什么学汇编</a></h1>
+<p>汇编还是其他语言，这是个问题。你可以在法国里用英语，但是在家里却没关系，不过当你想游历欧洲，那么还是当地语言更重要。(云里雾里)</p>
+<p>很多AVR高手都推荐从汇编入门。理由如下：</p>
+<ol class="arabic simple">
+<li>需要分析bug</li>
+<li>程序运行的与设计预期不同</li>
+<li>高层语言无法支持的硬件功能</li>
+<li>关键算法的时间要求极高</li>
+</ol>
+<p>理解汇编对理解高层语言的编译过程也有用，不通过汇编，你没有机会接触到这些。</p>
+<p><strong>短而简单</strong></p>
+<p>汇编指令一对一的翻译到机器指令。出理智只执行你希望他做的。生成的代码中没有附加的循环和不必要的功能。如果你的程序需要限制存储在很小的空间内，汇编是第一选择。更短的程序也易于调试，每一步都有意义(make sense)。</p>
+<p><strong>快阿快</strong></p>
+<p>因为只执行必要的代码，汇编程序非常快。每一步的耗时也是确定的。时间严格的应用，如不用计时器的时间测量，需要很高的性能，必须以汇编编写。如果你有足够的时间，且不在乎芯片99%的时间都在等待，你可以选择其他语言。</p>
+<p><strong>汇编很容易学</strong></p>
+<p>汇编并不难于学习和理解。学习汇编也更容易在硬件之间过渡。添加其他的方言也很容易。有些功能是硬件相关的，必需了解硬件概念和方言。让汇编看起来较难是因为有些时候需要理解硬件功能。可以把这看作优点：通过学习汇编，你会更了解硬件。高层语言通常不允许你使用特定硬件功能，所以隐藏了这些功能。</p>
+<p>开始的汇编代码并不好看，而100多行的则好些。好的程序通常要上千行，并做很多优化工作。任何语言的第一步都很难，但是在走通这一步以后就容易了。一些汇编指令需要几个月的经验。</p>
+<p><strong>AVR适合学习汇编</strong></p>
+<p>汇编程序比较白痴：芯片会执行你告诉他的任何指令，并且在覆盖时也不提醒。所有保护功能必须自己编写。什么提醒和警告都没有。</p>
+<p>输入错误很容易发现。而简单的设计错误则对任何语言都很难调试。不过在ATMEL芯片上的调试很简单。如果没有按照预期运行，你可以添加诊断(diagnostic)行到程序，重新编程和测试。以前的方式是EEPROM、UV灯(紫外线灯)之类的，耗费很多时间。</p>
+<p>现在编程很快，编译几乎不耗时，还可以仿真和在板检查。不再需要调试引脚和紫外线灯了。</p>
+<p><strong>测试</strong></p>
+<p>低调入门，忘记你在其他高层语言的知识。每种汇编语言背后都是硬件概念。大部分高层语言的功能在汇编中都无法使用。</p>
+<p>最开始的5个指令不太容易，之后就快了。不过以后，你可以直接拿指令集列表，并高兴于大部分指令都是相似的。</p>
+<p>严肃的警告：不要从大型机(mega-machine)开始，这对任何语言都是很难的。要从简单的&quot;Hello World&quot;开始，例如开关LED灯，然后开始探索硬件功能。</p>
+<p>建议：把你的子例程好好注释，并存储起来，你以后会再次用到。</p>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id29">2&nbsp;&nbsp;&nbsp;微控制器背后的汇编概念</a></h1>
+<p>针对微控制器的，不是PC。</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id30">2.1&nbsp;&nbsp;&nbsp;微控制器的硬件</a></h2>
+<p>硬件如何对待汇编？</p>
+<p>汇编之后的概念使得处理器可以访问硬件资源。资源包括所有硬件组件，例如：</p>
+<ol class="arabic simple">
+<li>CPU和他的数学资源，算术和逻辑单元(ALU)</li>
+<li>多种存储单元(内置和外置RAM，EEPROM)</li>
+<li>端口、计时器、ADC和其他设备</li>
+</ol>
+<p>这里的访问是直接访问，而不是通过驱动或其他接口。直接控制串口或ADC，而不是通过其他层。硬件直接响应你的命令，而不是编译器设计者或操作系统程序员提供给你的。</p>
+</div>
+<div class="section" id="cpu">
+<h2><a class="toc-backref" href="#id31">2.2&nbsp;&nbsp;&nbsp;CPU如何工作</a></h2>
+<p>理解汇编最重要的是理解CPU如何工作。CPU从程序存储器(Flash)读取指令(指令获取-instruction fetch)，翻译到可执行步骤，并执行。在AVR中，这些指令以16bit数字编写到Flash存储器，并从Flash读出(第一步)。读出的数字随后进行翻译(第二步)，例如传输两个寄存器R0和R1到ALU(第三步)，然后相加(第四步)，并将结果写入寄存器R0(第五步)。寄存器是8bit宽度的，可以直接被ALU读写。</p>
+<p>如下是一些指令的例子：</p>
+<ol class="arabic simple">
+<li>让CPU进入休眠，&quot;1001.0101.1000.1000&quot;，0x9588</li>
+<li>将R1的值加入R0，&quot;0000.1100.0000.0001&quot;，0x0c01</li>
+<li>从R0减去R1，&quot;0001.1000.0000.0001&quot;，0x1801</li>
+<li>写常量170到寄存器R16，&quot;1110.1010.0000.1010&quot;，0xea0a</li>
+<li>让R2和R3相乘并把结果写入R1(MSB)和R0(LSB)，&quot;1001.1100.0011.0010&quot;，0x9c32</li>
+</ol>
+<p>所以，如果CPU从Flash读出0x9588，就会停止其操作，不再获取指令。不过有其他方式让CPU重新开始执行，也就是唤醒CPU的方法。</p>
+<p><strong>执行指令</strong></p>
+<p>如果CPU读取到0x0c01，R0和R1会相加，并将结果写入R0。分为三个步骤：</p>
+<ol class="arabic simple">
+<li>读取指令字(16bit)，并传输到可执行步骤</li>
+<li>连接寄存器R0和R1到ALU的输入</li>
+</ol>
+<p>对于0x9c23乘法，R3和R2会相乘，并把高8bit结果写入R1，低8bit结果写入R0。如果ALU没有集成硬件乘法器，如ATtiny13，则0x9c23不做任何事，不会提示错误。所以要自己小心。</p>
+<p>原则上CPU可以执行65536(2^16)种指令。不过因为不只有170种写入寄存器，R16到R31的值在0~255之间也要加入，这些load指令需要256*16=4096个指令可能。从常量 &quot;直接载入&quot;(direct load)，就是这样实现的，一条指令直接包含这个常量和目标寄存器。</p>
+<p>加和减需要32*32=1024种组合，因为源寄存器和目标寄存器的选择范围都是32。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id32">2.3&nbsp;&nbsp;&nbsp;汇编中的指令</a></h2>
+<p>没必要自己学16bit的指令数字和位置，因为你所用的汇编器都搞定这些了，叫做 <strong>助记符(mnemonic)</strong> 。汇编表示的0x9588是&quot;SLEEP&quot;。因为人类记忆单词总比数字方便。</p>
+<p>相加就是&quot;ADD&quot;。对于所需的参数寄存器，就是写在后面，而不是在括号中。就是&quot;ADD R0,R1&quot;。翻译出来就是一个16bit的指令字，翻译过程由汇编器完成。</p>
+<p>CPU只理解0x0c01，汇编器翻译这一行到16bit指令字，用于写入Flash存储器，并供CPU读取和执行。每个CPU可以理解的指令都有助记符。反之亦然(vice versa)，每个助记符都有确定的CPU指令与之对应。CPU会检测汇编器的指令支持。CPU的语言是基础，助记符只是其表现形式。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id33">2.4&nbsp;&nbsp;&nbsp;与高层语言的区别</a></h2>
+<p>这是给高层语言程序员的提示。高层语言的结构不依赖于硬件和CPU的能力。这些结构可以在多种不同的处理器上运行，只要有针对该硬件的编译器即可。编译器翻译高层语言结构到处理器的二进制语言。Baisc中的GOTO会变为汇编的JMP，不过两者之间有个概念上的区别。</p>
+<p>在不同处理器之间移植代码的工作方式是不同的。如果一个处理器没有16bit计数器，高层语言编译器就要模拟一个，使用8bit计数器或其他消耗时间的代码。如果有3个计数器可用，而编译器只针对2个或单一计数器，剩余可用到硬件就会被浪费。所以你完全依赖于编译器的能力，而不是CPU的能力。</p>
+<p>另一个例子是上面的&quot;MUL&quot;指令。在汇编，目标处理器会检测如果你可以使用该指令还是需要编写乘法例程。在高层语言，你只是使用数学库的乘法，无论你使用8bit的数字还是单独的MUL指令。库提供了整数、长整数和其他例程的乘法，哪怕是你不需要的，或者MUL可以实现的。所以很容易耗尽AVR ATtiny的Flash资源，而你换到ATmega却又浪费35个无用的端口。甚至xmega，只是被你的库所浪费了。这只是来自于你简单的&quot;*&quot;，而没有被要求。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id34">2.5&nbsp;&nbsp;&nbsp;汇编不是机器语言</a></h2>
+<p>汇编接近于硬件，但是不是机器语言。因为CPU只接受二进制形式的指令字。&quot;ADD R0,R1&quot;这类助记符行是由汇编器翻译为机器语言的。</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id35">2.6&nbsp;&nbsp;&nbsp;解释与汇编</a></h2>
+<p>CPU的翻译器先翻译人类可读的代码到二进制指令字，步骤：</p>
+<ol class="arabic simple">
+<li>读取文本流如&quot;A = A + B&quot;(9个字节的字符)</li>
+<li>切掉4个空格</li>
+<li>定位变量A和B，使用寄存器或SRAM，按照精度和长度</li>
+<li>定位加号作为操作符</li>
+<li>准备机器执行序列，等效于上面的语句</li>
+</ol>
+<p>上面所做的事情，有可能会变为&quot;ADD R0,R1&quot;(汇编)，不过大多数的结果是有很多个指令字(从SRAM读写变量，16bit整数相加，在栈上的寄存器保存/恢复，等等)。</p>
+<p>解释器与汇编的区别，是汇编只执行他熟悉的工作。而解释器在大部分CPU在执行翻译工作，而翻译可能就会占用20~200个CPU步数，随后才是执行有用的几条指令。执行速度自然变得很蹩脚(lame)。如果在时钟很快时不算啥，不过在不幸运的情况下会很惨，尤其在急需快速响应时。没人知道CPU正在做什么，和需要多久。</p>
+<p>浪费掉的时间，有时可能使得根本没时间做正事。</p>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id36">2.7&nbsp;&nbsp;&nbsp;高层语言和汇编</a></h2>
+<p>高级语言总是在源码与CPU之间插入一些不透明的层级。一个不透明层级的例子是变量。变量可以存储数字、字符串、布尔值。在源码中，变量名表现为一个变量存储的位置和类型，通过声明。</p>
+<p>对于汇编，只需要忘记变量的概念。汇编只知道比特、字节、寄存器、SRAM字节。术语&quot;变量&quot;没有意义了。当然，相关的&quot;类型&quot;也是无用的。</p>
+<p>高级语言需要你在使用变量之前先声明，例如字节(8bit)，双精度，字(16bit)，整数(15bit+1bit符号)。编译器根据变量声明来分配空间，包括寄存器。这些位置的选择是盲目的，而没有优先级，具体分配的如何，依赖于编译器的价格。程序员只能尝试去理解编译器是如何思考的。决定权还是在编译器手里。这缓解了程序员面对的麻烦，但是使他变成了编译器的奴隶。</p>
+<p>&#64;page 8-8</p>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id37">2.8&nbsp;&nbsp;&nbsp;汇编真的简单？</a></h2>
+<p>&#64;page 9-9</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id38">3&nbsp;&nbsp;&nbsp;AVR汇编的硬件</a></h1>
+<p>学习汇编需要一些简单的硬件供测试，和实践。</p>
+<p>本节展示两个简单的电路，使得你可以简单的制作出来，却不需要太多背景知识。这个硬件足够简单，以至于比你所需的程序无法再简单了。如果你想做更多实验，就给你的实验板预留一些空间。</p>
+<p>如果你不喜欢闻焊接的味道，你也可以买，有太多可选的。</p>
+<div class="section" id="avrisp">
+<h2><a class="toc-backref" href="#id39">3.1&nbsp;&nbsp;&nbsp;AVR处理器家族的ISP接口</a></h2>
+<p>在实践之前，我们需要了解一些基本的AVR家族穿行编程。对AVR，你并不需要三个电压来编程。你也不需要另一个已经预编程的AVR处理器。你也不需要10个GPIO来高速芯片该怎么做。甚至你不需要从板子上拿下来AVR芯片。</p>
+<p>所有这些都是通过AVR内置的接口实现的，允许你读写Flash和EEPROM的内容。这个接口用串行方式工作，只需要3个信号线：</p>
+<ol class="arabic simple">
+<li>SCK：移位时钟，供内部移位寄存器移出，和外部移位寄存器移入</li>
+<li>MOSI：要写入AVR的信号</li>
+<li>MISO：要读出AVR的信号</li>
+</ol>
+<p>在RESET引脚拉低时(复位)，这三个信号线接入编程的机器。否则遵循正常的操作，只是普通的GPIO。</p>
+<p>如果你希望使用这些GPIO做其他用途，你需要小心不要产生冲突。比如不要这些信号线不要接上拉和下拉电阻。</p>
+<p>不太重要的建议是，给编程硬件提供电压。这很简单，只需要另外两根线。GND接负电源，VTG(目标电压)接正电源(通常5V)。这就形成了六根线。有如下面的定义。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>MISO</td>
+<td>VTG</td>
+</tr>
+<tr><td>SCK</td>
+<td>MOSI</td>
+</tr>
+<tr><td>RST</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+<p>标准不只一个，这是工业发展的路程。还有STK200板所用的ISP10标准，也叫CANDA接口，也被广泛使用的。有另外的信号线来驱动LED，表明正在编程。只需要将LED接电阻后接入正电源。定义如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>MOSI</td>
+<td>VTG</td>
+</tr>
+<tr><td>LED</td>
+<td>GND</td>
+</tr>
+<tr><td>RST</td>
+<td>GND</td>
+</tr>
+<tr><td>SCK</td>
+<td>GND</td>
+</tr>
+<tr><td>MISO</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pc">
+<h2><a class="toc-backref" href="#id40">3.2&nbsp;&nbsp;&nbsp;PC并口编程器</a></h2>
+<p>&#64;page 10-11</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id41">3.3&nbsp;&nbsp;&nbsp;实验板</a></h2>
+<p>建议自己的第一次编程用自己做的AVR板子。如下是两种版本：</p>
+<ol class="arabic simple">
+<li>一个很小的ATtiny13</li>
+<li>一个复杂点的AT90S2313或ATmega2313，包含RS232接口</li>
+</ol>
+<p>&#64;page 11-13</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id42">3.4&nbsp;&nbsp;&nbsp;收到即用的商业开发板</a></h2>
+<p>&#64;page 13-14</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h1><a class="toc-backref" href="#id43">4&nbsp;&nbsp;&nbsp;汇编工具</a></h1>
+<p>简单的汇编程序所需的工具：</p>
+<ol class="arabic simple">
+<li>编辑器</li>
+<li>汇编器</li>
+<li>芯片编程接口</li>
+<li>模拟器</li>
+</ol>
+<p>两个不同的思路：</p>
+<ol class="arabic simple">
+<li>所有事情都放一个包里</li>
+<li>每件事都用一个独立的程序</li>
+</ol>
+<p>入门时常用第一种思路。不过作为教程，还是用第二种思路较好，从文本文件到Flash存储器的各个步骤。</p>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id44">4.1&nbsp;&nbsp;&nbsp;编辑器</a></h2>
+<p>&#64;page 15-19</p>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id45">4.2&nbsp;&nbsp;&nbsp;汇编器</a></h2>
+<p>&#64;page 19-20 用的Atmel的汇编器</p>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id46">4.3&nbsp;&nbsp;&nbsp;烧写芯片</a></h2>
+<p>&#64;page 20-20 用的Atmel的工具</p>
+</div>
+<div class="section" id="studio">
+<h2><a class="toc-backref" href="#id47">4.4&nbsp;&nbsp;&nbsp;在Studio中仿真</a></h2>
+<p>&#64;page 20-24</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h1><a class="toc-backref" href="#id48">5&nbsp;&nbsp;&nbsp;什么是寄存器</a></h1>
+<p>寄存器(register)就是特殊目的的8bit存储器。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>bit7</td>
+<td>bit6</td>
+<td>bit5</td>
+<td>bit4</td>
+<td>bit3</td>
+<td>bit2</td>
+<td>bit1</td>
+<td>bit0</td>
+</tr>
+</tbody>
+</table>
+<p>寄存器可以存储0~255，也可以存储-128~127，看最高位是否是符号位了。或者是ASCII值，也可以只是8位的布尔值。</p>
+<p>寄存器的特殊角色，区别于一般的存储站：</p>
+<ol class="arabic simple">
+<li>直接连接到CPU的运算器</li>
+<li>可以直接在汇编指令中使用，作为目标或源，供计算和传输</li>
+<li>操作其内容只需要一个指令字</li>
+</ol>
+<p>AVR中有32个寄存器，名字叫做 <cite>R0</cite> 到 <cite>R31</cite> ，可以给他们定义一些名字。如:</p>
+<pre class="literal-block">
+.DEF MyPreferredRegister = R16
+</pre>
+<p>汇编指令(directive)总是以&quot;.&quot;开始，而指令(instruction)和标签(label)则不能以&quot;.&quot;开始。注意directive仅仅对汇编器有效，而不产生AVR代码。这里也是仅仅供编程方便，实际不会进入芯片。</p>
+<p>这样的命名尽管多写几个字，但是有助于对程序的理解。</p>
+<p>指令行:</p>
+<pre class="literal-block">
+LDI MyPreferredRegister 150
+</pre>
+<p>表示将数字150立即装入R16。LDI=LoaD Immediate。只能载入固定值或常量。这一行实际对应的AVR机器码是 0xe906 。</p>
+<p>&#64;page 25-28</p>
+</div>
+<div class="section" id="id19">
+<h1><a class="toc-backref" href="#id49">6&nbsp;&nbsp;&nbsp;端口</a></h1>
+<p>&#64;page 29-32</p>
+</div>
+<div class="section" id="sram">
+<h1><a class="toc-backref" href="#id50">7&nbsp;&nbsp;&nbsp;SRAM</a></h1>
+<p>&#64;page 33-36</p>
+</div>
+<div class="section" id="id20">
+<h1><a class="toc-backref" href="#id51">8&nbsp;&nbsp;&nbsp;跳转和分支</a></h1>
+<p>&#64;page 37-42</p>
+</div>
+<div class="section" id="id21">
+<h1><a class="toc-backref" href="#id52">9&nbsp;&nbsp;&nbsp;计算</a></h1>
+<p>&#64;page 43-63</p>
+</div>
+<div class="section" id="id22">
+<h1><a class="toc-backref" href="#id53">10&nbsp;&nbsp;&nbsp;项目计划</a></h1>
+<p>&#64;page 64-67</p>
+</div>
+<div class="section" id="id23">
+<h1><a class="toc-backref" href="#id54">11&nbsp;&nbsp;&nbsp;附录</a></h1>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id55">11.1&nbsp;&nbsp;&nbsp;以功能列出指令</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="40%" />
+<col width="22%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>功能</td>
+<td>子功能</td>
+<td>指令</td>
+<td>标识位</td>
+<td>周期</td>
+</tr>
+<tr><td>寄存器设置</td>
+<td>清零=0</td>
+<td>CLR r1</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>置位=255</td>
+<td>SER rh</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>常量</td>
+<td>LDR rh,c255</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>拷贝</td>
+<td>寄存器=&gt;寄存器</td>
+<td>MOV r1, r2</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>SRAM=&gt;寄存器，直接</td>
+<td>LDS r1,c65535</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>SRAM=&gt;寄存器</td>
+<td>LD r1,rp</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>SRAM=&gt;寄存器，INC</td>
+<td>LD r1,rp+</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>DEC,SRAM=&gt;寄存器</td>
+<td>LD r1,-rp</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>SRAM,替换=&gt;寄存器</td>
+<td>LDD r1,ry+k63</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>端口=&gt;寄存器</td>
+<td>IN r1,p1</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>Stack=&gt;寄存器</td>
+<td>POP r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>程序存储器Z=&gt;R0</td>
+<td>LPM</td>
+<td>&nbsp;</td>
+<td>3</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;SRAM，直接</td>
+<td>STS c65535,r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;SRAM</td>
+<td>ST rp,r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;SRAM，INC</td>
+<td>ST rp+,r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>DEC，寄存器=&gt;SRAM</td>
+<td>ST -rp,r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;SRAM，替换</td>
+<td>STD ry+k63,r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;端口</td>
+<td>OUT p1,r1</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器=&gt;Stack</td>
+<td>PUSH r1</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>加法</td>
+<td>8bit，+1</td>
+<td>INC r1</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit</td>
+<td>ADD r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit +carry</td>
+<td>ADC r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>16bit，常量</td>
+<td>ADIW rd,k63</td>
+<td>ZCNVS</td>
+<td>2</td>
+</tr>
+<tr><td>减法</td>
+<td>8bit，-1</td>
+<td>DEC r1</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit</td>
+<td>SUB r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit，常量</td>
+<td>SUBI rh,c255</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit，-carry</td>
+<td>SBC r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>8bit，-carry，常量</td>
+<td>SBCI rh,c255</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>16bit</td>
+<td>SBIW rd,k63</td>
+<td>ZCNVS</td>
+<td>2</td>
+</tr>
+<tr><td>移位shift</td>
+<td>逻辑，左</td>
+<td>LSL r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>逻辑，右</td>
+<td>LSR r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>循环左，over carry</td>
+<td>ROL r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>循环右，over carry</td>
+<td>ROR r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>算术，右</td>
+<td>ASR r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>nibble exchange</td>
+<td>SWAP r1</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>二进制</td>
+<td>与</td>
+<td>AND r1,r2</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>与，常量</td>
+<td>ANDI rh,c255</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>或</td>
+<td>OR r1,r2</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>或，常量</td>
+<td>ORI rh,c255</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>异或</td>
+<td>EOR r1,r2</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>ones-complement</td>
+<td>COM r1</td>
+<td>ZCNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>twos-complement</td>
+<td>NEG r1</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>位改变</td>
+<td>寄存器，置位</td>
+<td>SBR rh,c255</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，清除</td>
+<td>CBR rh,c255</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，拷贝到T-flag</td>
+<td>BST r1,bZ</td>
+<td>T</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，从T-flag拷贝</td>
+<td>BLD r1,bZ</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>端口，置位</td>
+<td>SBI pl,bZ</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>端口，清除</td>
+<td>CBI pl,bZ</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>状态位设置</td>
+<td>zero标识</td>
+<td>SEZ</td>
+<td>Z</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>carry标识</td>
+<td>SEC</td>
+<td>C</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>negative标识</td>
+<td>SEN</td>
+<td>N</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>two complement carry标识</td>
+<td>SEV</td>
+<td>V</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>half carry标识</td>
+<td>SEH</td>
+<td>H</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>signed标识</td>
+<td>SES</td>
+<td>S</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>transfer标识</td>
+<td>SET</td>
+<td>T</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>interrupt enable标识</td>
+<td>SEI</td>
+<td>I</td>
+<td>1</td>
+</tr>
+<tr><td>状态位清除</td>
+<td>zero标识</td>
+<td>CLZ</td>
+<td>Z</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>carry标识</td>
+<td>CLC</td>
+<td>C</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>negative标识</td>
+<td>CLN</td>
+<td>N</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>two complement carry标识</td>
+<td>CLV</td>
+<td>V</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>half carry标识</td>
+<td>CLH</td>
+<td>H</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>signed标识</td>
+<td>CLS</td>
+<td>S</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>transfer标识</td>
+<td>CLT</td>
+<td>T</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>interrupt enable标识</td>
+<td>CLI</td>
+<td>I</td>
+<td>1</td>
+</tr>
+<tr><td>比较</td>
+<td>寄存器，寄存器</td>
+<td>CP r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，寄存器 +carry</td>
+<td>CPC r1,r2</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，常量</td>
+<td>CPI rh,c255</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器，&lt;=0</td>
+<td>TST r1</td>
+<td>ZNV</td>
+<td>1</td>
+</tr>
+<tr><td>立即跳转</td>
+<td>相对</td>
+<td>RJMP c4096</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>直接，地址在Z</td>
+<td>IJMP</td>
+<td>&nbsp;</td>
+<td>2</td>
+</tr>
+<tr><td>o</td>
+<td>子程序，相对</td>
+<td>RCALL c4096</td>
+<td>&nbsp;</td>
+<td>3</td>
+</tr>
+<tr><td>o</td>
+<td>子程序，地址在Z</td>
+<td>ICALL</td>
+<td>&nbsp;</td>
+<td>3</td>
+</tr>
+<tr><td>o</td>
+<td>从子程序返回</td>
+<td>RET</td>
+<td>&nbsp;</td>
+<td>4</td>
+</tr>
+<tr><td>o</td>
+<td>从中断返回</td>
+<td>RETI</td>
+<td>I</td>
+<td>4</td>
+</tr>
+<tr><td>条件跳转</td>
+<td>状态位设置</td>
+<td>BRBS b7,c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>状态位清除</td>
+<td>BRBC b7,c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>相等，则跳转</td>
+<td>BREQ c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>不想等，则跳转</td>
+<td>BRNE c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>carry置位，则跳转</td>
+<td>BRCS c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>carry清除，则跳转</td>
+<td>BRCC c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>大于等于，则跳转</td>
+<td>BRSH c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>小于，则跳转</td>
+<td>BRLO c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>负数，则跳转</td>
+<td>BRMI c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>正数，则跳转</td>
+<td>BRPL c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>有符号大于等于，则跳转</td>
+<td>BRGE c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>有符号小于0，则跳转</td>
+<td>BRLT c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>half carry置位，则跳转</td>
+<td>BRHS c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>half carry清除，则跳转</td>
+<td>BRHC c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>T-flag设置，则跳转</td>
+<td>BRTS c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>T-flag清除，则跳转</td>
+<td>BRTC c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>二进制补码carry置位则跳转</td>
+<td>BRVS c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>二进制补码carry清除则跳转</td>
+<td>BRVC c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>中断有效，则跳转</td>
+<td>BRIE c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>o</td>
+<td>中断禁用，则跳转</td>
+<td>BRID c127</td>
+<td>&nbsp;</td>
+<td>1/2</td>
+</tr>
+<tr><td>已条件跳转</td>
+<td>寄存器bit=0</td>
+<td>SBRC r1,b7</td>
+<td>&nbsp;</td>
+<td>1/2/3</td>
+</tr>
+<tr><td>o</td>
+<td>寄存器bit=1</td>
+<td>SBRS r1,b7</td>
+<td>&nbsp;</td>
+<td>1/2/3</td>
+</tr>
+<tr><td>o</td>
+<td>端口bit=0</td>
+<td>SBIC p1,b7</td>
+<td>&nbsp;</td>
+<td>1/2/3</td>
+</tr>
+<tr><td>o</td>
+<td>端口bit=1</td>
+<td>SBIS p1,b7</td>
+<td>&nbsp;</td>
+<td>1/2/3</td>
+</tr>
+<tr><td>o</td>
+<td>比较，相等则跳转</td>
+<td>CPSE r1,r2</td>
+<td>&nbsp;</td>
+<td>1/2/3</td>
+</tr>
+<tr><td>其他</td>
+<td>无操作</td>
+<td>NOP</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>休眠</td>
+<td>SLEEP</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr><td>o</td>
+<td>看门狗复位</td>
+<td>WDR</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>二进制补码=twos complement。</p>
+<p>条件跳转=conditional jump。</p>
+<p>已条件跳转=conditioned jump。</p>
+</div>
+<div class="section" id="directive">
+<h2><a class="toc-backref" href="#id56">11.2&nbsp;&nbsp;&nbsp;以字符序列出指令和directive</a></h2>
+<p>&#64;page 70-72</p>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id57">11.3&nbsp;&nbsp;&nbsp;端口细节</a></h2>
+<p>&#64;page 73-80</p>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id58">11.4&nbsp;&nbsp;&nbsp;端口，字符序</a></h2>
+<p>&#64;page 80-80</p>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id59">11.5&nbsp;&nbsp;&nbsp;缩写</a></h2>
+<p>&#64;page 81-81</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 13471, "title": "AVR\u6c47\u7f16\u5165\u95e8", "src_size": 22565, "filehash": "26f936ca16cd66ab66cd6567be24ead7", "dst_size": 40460} -->

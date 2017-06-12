@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>定时器-计数器</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="id1">
+<h1 class="title">定时器-计数器</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2008-09-19</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id3" id="id13">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id4" id="id14">2&nbsp;&nbsp;&nbsp;定时器/计数器简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id5" id="id15">2.1&nbsp;&nbsp;&nbsp;基础知识</a></li>
+<li><a class="reference internal" href="#id6" id="id16">2.2&nbsp;&nbsp;&nbsp;几种型号的区别</a></li>
+<li><a class="reference internal" href="#id7" id="id17">2.3&nbsp;&nbsp;&nbsp;比较匹配输出</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id18">3&nbsp;&nbsp;&nbsp;工作模式</a></li>
+<li><a class="reference internal" href="#id9" id="id19">4&nbsp;&nbsp;&nbsp;应用实例</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id10" id="id20">4.1&nbsp;&nbsp;&nbsp;默认时钟</a></li>
+<li><a class="reference internal" href="#rtc" id="id21">4.2&nbsp;&nbsp;&nbsp;RTC时钟</a></li>
+<li><a class="reference internal" href="#id11" id="id22">4.3&nbsp;&nbsp;&nbsp;定时器溢出与中断</a></li>
+<li><a class="reference internal" href="#pwm" id="id23">4.4&nbsp;&nbsp;&nbsp;PWM、舵机、电调</a></li>
+<li><a class="reference internal" href="#id12" id="id24">4.5&nbsp;&nbsp;&nbsp;快速PWM产生功率控制</a></li>
+<li><a class="reference internal" href="#ctc" id="id25">4.6&nbsp;&nbsp;&nbsp;CTC模式作为定期中断源</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avr-gcc" id="id26">5&nbsp;&nbsp;&nbsp;延时AVR-GCC</a></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id13">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>第一次完全从datasheet研究一个功能是USART，感觉相当不错，很清晰而完善。所以打算重新用datasheet研究一下定时器/计数器。</p>
+<p>参考文献：</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id14">2&nbsp;&nbsp;&nbsp;定时器/计数器简介</a></h1>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id15">2.1&nbsp;&nbsp;&nbsp;基础知识</a></h2>
+<p>BOTTOM表示计数器最小值，一般指0x00，程序可以在溢出时修改来选择溢出周期。MAX为计数器上限，对8bit计数器为0xff，对16bit计数器为0xffff。</p>
+<p>TCNT0与TCNT1共用一个10bit的分频器。无论选择什么时钟，都要进分频器，就是与时钟源单独选择。预分频器可以复位？</p>
+<p>定时器的中断屏蔽寄存器TIMSK，中断标志寄存器TIFR。部分计数器，如ATmega8的T/C0和T/C1允许接受外部时钟输入，对应引脚T0和T1。T/C2不能接受外部时钟输入，但是作为RTC可以接受钟振。</p>
+<p>输出比较寄存器OCRxn部分情况下是双缓冲的。双缓冲寄存器是设置的TOP值在当前周期内无效，在TCNTn重置后才开始奇效。这样设置TOP值比TCNTn小也没关系，反正下次过程才开始有效。双缓冲在PWM模式支持，在正常和CTC模式禁止。使用双缓冲时CPU访问缓冲寄存器，禁止双缓冲时直接访问寄存器本身。</p>
+<p>设置输出比较时先设置COMnx，然后设置对应的DDR_COMnx。非双缓冲，立即生效。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id16">2.2&nbsp;&nbsp;&nbsp;几种型号的区别</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>功能</td>
+<td>ATmega48</td>
+<td>ATmega8</td>
+</tr>
+<tr><td>输出比较Timer0</td>
+<td>2</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id17">2.3&nbsp;&nbsp;&nbsp;比较匹配输出</a></h2>
+<p>应该先设置OC1x，然后才设置GPIO的方向寄存器DDRx。</p>
+<p>16bit的计数器Timer2的WGM是4bit的，而不是像其他8bit计数器那样的3bit。设置时也可以设置PWM的位数。所以应用时要注意。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id18">3&nbsp;&nbsp;&nbsp;工作模式</a></h1>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id19">4&nbsp;&nbsp;&nbsp;应用实例</a></h1>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id20">4.1&nbsp;&nbsp;&nbsp;默认时钟</a></h2>
+<p>对ATmega8和ATmega48，出厂默认使用内部RC振荡器，8MHz，系统默认8分频。也就是能进入定时器的时钟是1MHz。</p>
+</div>
+<div class="section" id="rtc">
+<h2><a class="toc-backref" href="#id21">4.2&nbsp;&nbsp;&nbsp;RTC时钟</a></h2>
+<p>将32768Hz的钟振接到XTAL1,STAL2上，然后使用Timer2。注意将熔丝位hfuse中CKOPT由1改为0，对应ATmega8的熔丝是hfuse=0xc9，lfuse=0xe1。内部使用8MHz的RC振荡器。</p>
+<p>计时器初始化:</p>
+<pre class="literal-block">
+TCCR2=0x00;
+ASSR=1&lt;&lt;AS2;    //使用异步时钟
+TCNT2=0xe0;     //定时1秒
+TCCR2=(1&lt;&lt;CS22)|(1&lt;&lt;CS21)|(1&lt;&lt;CS20);    //预分频1024
+TIMSK=1&lt;&lt;TOIE2;
+sei();
+</pre>
+<p>Timer2的定时器溢出中断:</p>
+<pre class="literal-block">
+TCNT2=0xe0;
+second++;
+</pre>
+<p>然后可以在main()函数中执行循环显示。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id22">4.3&nbsp;&nbsp;&nbsp;定时器溢出与中断</a></h2>
+<p>ATmega48的初始化与中断:</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+#include &lt;avr/interrupt.h&gt;
+
+ISR(TIMER0_OVF_vect) {
+}
+
+void tc0_init() {
+    TCNT0=0;
+    TCCR0B=5;   //1024分频
+    TIMSK0=_BV(TOIE0);
+}
+</pre>
+<p>ATmega8的初始化与中断:</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+#include &lt;avr/interrupt.h&gt;
+
+ISR(TIMER0_OVF_vect) {
+}
+
+void tc0_init() {
+    //TODO:continue
+}
+</pre>
+</div>
+<div class="section" id="pwm">
+<h2><a class="toc-backref" href="#id23">4.4&nbsp;&nbsp;&nbsp;PWM、舵机、电调</a></h2>
+<p>在12MHz时，以3000个时钟周期高电平就可以让SG90舵机处于近乎平衡的状态。</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id24">4.5&nbsp;&nbsp;&nbsp;快速PWM产生功率控制</a></h2>
+<p>一些速度足够快，不经过MCU软件处理的PWM方式。输出极高的频率。基于ATmega328p。</p>
+<p>以T/C0为例，PWM模式有8种，用WGM2:0(Waveform Generation Mode)来设置取值如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="35%" />
+<col width="13%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>WGM2:0</td>
+<td>操作模式</td>
+<td>TOP</td>
+<td>更新OCRx</td>
+<td>TOV标识置位</td>
+</tr>
+<tr><td>0</td>
+<td>一般</td>
+<td>0xff</td>
+<td>立即</td>
+<td>MAX</td>
+</tr>
+<tr><td>1</td>
+<td>PWM相位修正</td>
+<td>0xff</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>2</td>
+<td>CTC</td>
+<td>OCRA</td>
+<td>立即</td>
+<td>MAX</td>
+</tr>
+<tr><td>3</td>
+<td>快速PWM</td>
+<td>0xff</td>
+<td>BOTTOM</td>
+<td>MAX</td>
+</tr>
+<tr><td>4</td>
+<td>保留</td>
+<td>保留</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+<tr><td>5</td>
+<td>PWM相位修正</td>
+<td>OCRA</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>6</td>
+<td>保留</td>
+<td>保留</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+<tr><td>7</td>
+<td>快速PWM</td>
+<td>OCRA</td>
+<td>BOTTOM</td>
+<td>TOP</td>
+</tr>
+</tbody>
+</table>
+<p>OC0A对应PD6/DIO6，OC0B对应PD5/DIO5。后面分别是AVR名字和Arduino名字。</p>
+<p>快速PWM模式就是设置WGM=3或7，其中靠谱的是3，因为这样可以使用两个OC0x引脚做分别的输出。设置步骤：</p>
+<ol class="arabic simple">
+<li>TCCR0A=COM0A1|WGM01|WGM00：TCNT0复位时，OC0x置位，TCNT0==OCR0x时OC0x清零，正相快速PWM</li>
+<li>OCR0A=比较匹配值：当TCNT0=OCR0A时，发生比较匹配，行为由COM0xx决定</li>
+<li>DDRx|=_BV(PORT)：设置OC0x引脚为输出</li>
+<li>TCCR0B=N：设置分频因子，启动定时器</li>
+</ol>
+</div>
+<div class="section" id="ctc">
+<h2><a class="toc-backref" href="#id25">4.6&nbsp;&nbsp;&nbsp;CTC模式作为定期中断源</a></h2>
+<p>以ATmega48芯片为例。</p>
+<p>初始化和中断:</p>
+<pre class="literal-block">
+void init_adc() {
+    TCNT0=0;
+    TCCR0A=_BV(WGM01);      //即WGM02:0=2，CTC模式
+    TCCR0B=5;               //1024分频
+    OCR0A=250;              //TOP=250
+    TIMSK0=_BV(OCIE0A);
+}
+
+ISR(TIMER0_COMPA_vect) {
+    if (PORTB &amp; _BV(PB5)) {
+        LED_OFF;
+    } else {
+        LED_ON;
+    }
+}
+</pre>
+<p>这个过程中，晶振为16MHz，经过1024分频，TOP=250后，实际为每16mS发生一次中断。用示波器实测也是这个结果。</p>
+<p>如果要将结果输出为波形(D6/PD6/OC0A)，而不是触发中断，可以去掉 <tt class="docutils literal">TIMSK0=_BV(OCIE0A);</tt> ，因为不必要。然后加上:</p>
+<pre class="literal-block">
+DDRD |= _BV(PD6);       //设置端口PD6为输出
+TCCR0A |= _BV(COM0A0);  //比较匹配发生时翻转
+</pre>
+</div>
+</div>
+<div class="section" id="avr-gcc">
+<h1><a class="toc-backref" href="#id26">5&nbsp;&nbsp;&nbsp;延时AVR-GCC</a></h1>
+<p>使用延时之前，必须先定义两个宏，要在导入之前:</p>
+<pre class="literal-block">
+#define __OPTIMIZE__
+#define F_CPU 8000000
+#include &lt;util/delay.h&gt;
+</pre>
+<p>两个函数可用：</p>
+<p><tt class="docutils literal">void _delay_us(double __us);</tt> ：按照微秒延时。</p>
+<p><tt class="docutils literal">void _delay_ms(double __ms);</tt> ：按照毫秒延时。</p>
+<p>这两个函数会使得代码提及增大约3300字节，非常不划算的。估计主要问题来自double类型的引入。</p>
+<p>另外 <tt class="docutils literal">#include &lt;util/delay_basic.h&gt;</tt> 提供了比较简单的延时，只能指定循环次数。引入后替代之前的循环还能使代码提及略微减小几个字节。因为是汇编实现的。</p>
+<p>两个可用函数：</p>
+<p><tt class="docutils literal">void _delay_loop_1(uint8_t __count);</tt> ：使用计数器完成延时，实际延时时间是__count*3个CPU时钟周期。</p>
+<p><tt class="docutils literal">void _delay_loop_2(uint16_t __count);</tt> ：使用16bit计数器完成延时，实际延时时间为__count*4个CPU时钟周期。</p>
+<p>引入的int32_t类型增加了程序260个字节，太可惜了。</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 4177, "title": "\u5b9a\u65f6\u5668-\u8ba1\u6570\u5668", "src_size": 6603, "filehash": "b2813ee1c0a434441ee690bc6875f2fc", "dst_size": 17272} -->

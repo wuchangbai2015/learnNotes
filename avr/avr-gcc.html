@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>avr-gcc编译器</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-gcc">
+<h1 class="title">avr-gcc编译器</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2010-03-05</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id9">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id10">2&nbsp;&nbsp;&nbsp;avr-gcc简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id11">2.1&nbsp;&nbsp;&nbsp;编译安装</a></li>
+<li><a class="reference internal" href="#id5" id="id12">2.2&nbsp;&nbsp;&nbsp;简单示例程序</a></li>
+<li><a class="reference internal" href="#id6" id="id13">2.3&nbsp;&nbsp;&nbsp;一些其他工具</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id14">3&nbsp;&nbsp;&nbsp;存储器操作</a><ul class="auto-toc">
+<li><a class="reference internal" href="#flash" id="id15">3.1&nbsp;&nbsp;&nbsp;访问Flash存储器</a></li>
+<li><a class="reference internal" href="#eeprom" id="id16">3.2&nbsp;&nbsp;&nbsp;EEPROM存储器操作</a></li>
+<li><a class="reference internal" href="#id8" id="id17">3.3&nbsp;&nbsp;&nbsp;段与重定位</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id9">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>比较喜欢的AVR编译器，因为是开源的，而且是命令行的。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[u] avr32 gnu toolchain： <a class="reference external" href="http://www.avrfreaks.net/index.php?module=FreaksTools&amp;func=viewItem&amp;item_id=145">http://www.avrfreaks.net/index.php?module=FreaksTools&amp;func=viewItem&amp;item_id=145</a></li>
+<li>[r] AVR-GCC的简单说明和个人的一些使用经验： <a class="reference external" href="http://hocooling.com/AVR_GCCshiyongjingyan.htm">http://hocooling.com/AVR_GCCshiyongjingyan.htm</a></li>
+<li>[u] WinAVR AVR-GCC Tutorial： <a class="reference external" href="http://winavr.scienceprog.com/">http://winavr.scienceprog.com/</a> 一大堆英文文章</li>
+<li>[r] AVR单片机GCC编程： <a class="reference external" href="http://www.avrw.com/article/art_105_706.htm">http://www.avrw.com/article/art_105_706.htm</a> <strong>很著名的文章</strong></li>
+<li>[u] AVR GCC中文手册： <a class="reference external" href="http://www.mcu123.com/news/Article/uc/AVR/200608/242.html">http://www.mcu123.com/news/Article/uc/AVR/200608/242.html</a></li>
+<li>[r] Atmel AVR-GCC安装方法简介： <a class="reference external" href="http://www.eepw.com.cn/article/53381.htm">http://www.eepw.com.cn/article/53381.htm</a> 很老的文章，没有可提取的知识</li>
+<li>[u] Developing for the Atmel AVR Microcontroller on Linux： <a class="reference external" href="http://www.linuxjournal.com/article/7289">http://www.linuxjournal.com/article/7289</a></li>
+<li>[u] AVR单片机与GCC编程V1.1版： <a class="reference external" href="http://www.mcu123.com/product/avr/ebook/doc_winavr_data_pdf_1.pdf">http://www.mcu123.com/product/avr/ebook/doc_winavr_data_pdf_1.pdf</a> 1389794字节 2004-10-06版本</li>
+<li>[r] 关于gcc编译器对for空循环的优化： <a class="reference external" href="http://blog.csdn.net/shengnan_wu/article/details/8190325">http://blog.csdn.net/shengnan_wu/article/details/8190325</a></li>
+<li>[u] &quot;AVR-GCC的简单说明和个人的一些使用经验&quot; DEF 21ICBBS <a class="reference external" href="http://www.hocooling.com/AVR_GCCshiyongjingyan.htm">http://www.hocooling.com/AVR_GCCshiyongjingyan.htm</a></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id10">2&nbsp;&nbsp;&nbsp;avr-gcc简介</a></h1>
+<p>生成代码效率高。不支持4byte的float，只支持8byte的double。</p>
+<p>编译过程：</p>
+<ol class="arabic simple">
+<li>生成目标文件：只编译，不链接</li>
+<li>生成ELF文件：会包含不同存储器的二进制格式内容，还有调试信息</li>
+<li>提取程序存储器内容：用avr-objcopy提取出来后存入.hex文件</li>
+<li>下载到单片机，使用.hex文件</li>
+</ol>
+<p>特点介绍：</p>
+<ol class="arabic simple">
+<li>AVR-GCC的代码效率高。比CVAVR短20%-50%，部分小型应用的效率甚至不输于汇编。不过GCC不支持4字节单精度浮点数。</li>
+<li>AVR-GCC的代码可读性最高。事实的工业标准。</li>
+<li>自由软件。其中 www.avrfreaks.net 还对各个组件整合成了IDE。</li>
+</ol>
+<p>技巧：</p>
+<ol class="arabic">
+<li><p class="first">AVR-GCC不能像CVAVR或ICCAVR那样把IO口当便两用：</p>
+<blockquote>
+<p>默认的函数也比较好用，另外也可以用宏:</p>
+<pre class="literal-block">
+#define dPORTA (*(unsigned char*)(PORTA+0x20))
+</pre>
+<p>这样就定义了dPORTA伪变量</p>
+</blockquote>
+</li>
+<li><p class="first">AVR-GCC无法编译含有浮点函数的程序。在makefile中的LDFLAGS=后加上 -lm 即可。</p>
+</li>
+<li><p class="first">无法编译AT90S1200、ATtiny系列的程序。可以把MCU改为avr2，然后程序中 <tt class="docutils literal">#include &lt;io.h&gt;</tt> 改成 <tt class="docutils literal">#include &lt;iotn15.h&gt;</tt> 、 <tt class="docutils literal">#include &lt;iomacros.h&gt;</tt> 。</p>
+<blockquote>
+<p>另外，这两类MCU没有软件堆栈和RAM，所以不可以使用全局变量、局部静态变量和中断处理以外的函数。</p>
+</blockquote>
+</li>
+</ol>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">2.1&nbsp;&nbsp;&nbsp;编译安装</a></h2>
+<p><strong>binutils</strong> ：可以下载通用的，自己再编译，包含汇编器、连接器等:</p>
+<pre class="literal-block">
+$ tar xjvf binutils-2.11.2.tar.bz2
+$ cd binutils-2.11.2
+$ ./configure --target=avr --prefix=/usr/local/atmel
+$ make
+# make install
+# echo &quot;/usr/local/atmel/lib&quot; &gt;&gt; /etc/ld.so.conf
+# /sbin/ldconfig
+</pre>
+<p><strong>avr-gcc</strong></p>
+<pre class="literal-block">
+$ tar xzvf gcc-core-3.0.3.tar.gz
+$ cd gcc-core-3.0.3
+$ ./configure --target=avr --prefix=/usr/local/atmel --disable-nls --enable-language=c
+$ make
+# make install
+</pre>
+<p><strong>avr-libc</strong></p>
+<pre class="literal-block">
+$ ./configure --prefix=/usr/local/atmel/avr --target=avr --enable-language=c --host=avr
+$ make
+# make install
+</pre>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id12">2.2&nbsp;&nbsp;&nbsp;简单示例程序</a></h2>
+<p>让PD5的LED闪耀，PD5接上LED管的负极，输出低电平时点亮。</p>
+<p>代码。:</p>
+<pre class="literal-block">
+void main(void) {
+    sbi(DDRD,PD5);  //设置PD5为输出
+    while (1) {
+        cbi(PORTD,PD5); //开启
+        delay_ms(500);
+        sbi(PORTD,PD5); //关闭
+        delay_ms(500);
+    }
+}
+</pre>
+<p>编译的例子:</p>
+<pre class="literal-block">
+avr-gcc -mmcu=at90s2313 -c avrledtest.c
+avr-gcc -mmcu=at90s2313 -O avrledtest.elf avrledtest.o
+avr-objcopy -j .text -j .data -O ihex avrledtest.elf avrledtest.hex
+</pre>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id13">2.3&nbsp;&nbsp;&nbsp;一些其他工具</a></h2>
+<p>生成段列表:</p>
+<pre class="literal-block">
+avr-objdump -h avrledtest.out
+</pre>
+<p>一个更精简的段列表:</p>
+<pre class="literal-block">
+avr-size avrledtest.out
+</pre>
+<p>生成汇编列表:</p>
+<pre class="literal-block">
+avr-objdump -S avrledtest.out
+</pre>
+<p>WinAVR自带了mfile，用于以菜单方式定制Makefile。通常只要指定 &quot;Main file name&quot;、&quot;Output format&quot;、&quot;Optimization leave&quot;、&quot;C/C++ source files&quot;几项就可以了。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id14">3&nbsp;&nbsp;&nbsp;存储器操作</a></h1>
+<p>AVR单片机有三种类型的存储器：Flash、SRAM、EEPROM。</p>
+<p>寄存器R0-R31编址与SRAM的$0000-$001f，32字节。I/O寄存器编址于SRAM的$0020-$005f。后面的才是内部SRAM，64字节。外部SRAM编址到内部SRAM之后。</p>
+<p>AVR的各个型号的同名寄存器可能不同地址。所以应该在包含 <tt class="docutils literal">io.h</tt> 以后用寄存器的名字来访问，编译时按照所用MCU型号生成正确的地址。</p>
+<div class="section" id="flash">
+<h2><a class="toc-backref" href="#id15">3.1&nbsp;&nbsp;&nbsp;访问Flash存储器</a></h2>
+<p><strong>定义</strong></p>
+<p>包含头文件 <tt class="docutils literal">avr/pgmspace.h</tt> 。</p>
+<p>定义格式:</p>
+<pre class="literal-block">
+数据类型 常量名 PROGMEM = 值;
+</pre>
+<p>对于不同类型，有函数负责读取:</p>
+<pre class="literal-block">
+pgm_read_byte(prog_void *addr)
+pgm_read_word(prog_void *addr)
+pgm_read_dword(prog_void *addr)
+</pre>
+<p>Flash区专用的char类型， <cite>prog_char</cite> 和 <cite>prog_uchar</cite> ，应用例子:</p>
+<pre class="literal-block">
+char ram_val;               //SRAM中变量
+const prog_char flash_val=1;    //flash内变量
+ram_val=pgm_read_byte(&amp;flash_val);  //读取值
+</pre>
+<p>Flash存储区的值通常是不变的，所以加个const是好习惯。</p>
+<p><strong>数组的声明与访问</strong></p>
+<p>定义:</p>
+<pre class="literal-block">
+const prog_uchar flash_array[]={0,1,2,3,4,5,6,7,8,9};       //定义方式1
+const unsigned char flash_array[] PROGMEM={0,1,2,3,4,5,6,7,8,9};//定义方式2
+</pre>
+<p>访问:</p>
+<pre class="literal-block">
+unsigned char I,ram_val;
+for(I=0; I&lt;10; I++) {
+    ram_val=pgm_read_byte(flash_array+I);
+    //处理
+}
+</pre>
+<p><strong>Flash区的字符串</strong></p>
+<p>全局定义:</p>
+<pre class="literal-block">
+const char flash_str[] PROGMEM=&quot;Hello, world!&quot;;
+</pre>
+<p>函数内定义:</p>
+<pre class="literal-block">
+const char *flash_str=PSTR(&quot;Hello, world!&quot;);
+</pre>
+<p>avr-gcc芯艺.Page18底部例子没看懂。</p>
+</div>
+<div class="section" id="eeprom">
+<h2><a class="toc-backref" href="#id16">3.2&nbsp;&nbsp;&nbsp;EEPROM存储器操作</a></h2>
+<p>&#64;avr-gcc芯艺Page19-Page20</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id17">3.3&nbsp;&nbsp;&nbsp;段与重定位</a></h2>
+<p>一个段代表无缝隙的数据块，段内性质相同。</p>
+<p>汇编(as)时假设从地址0开始，并生成目标文件。链接(ld)时将多个目标文件时统一地址并将数据块放到正确的运行时地址。</p>
+<p>目标文件至少包含4个段：.text、.data、.bss、.eeprom。他们决定了各个存储器的使用量，关系:</p>
+<pre class="literal-block">
+Flash使用量=.text+.data
+SRAM使用量=.data+.bss[+.noinit]+stack[+heap]
+EEPROM使用量=.eeprom
+</pre>
+<p>avr-gcc芯艺&#64;page21-page24等待</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 4595, "title": "avr-gcc\u7f16\u8bd1\u5668", "src_size": 6511, "filehash": "e04c560009c8ef04d885420e010fb571", "dst_size": 17454} -->

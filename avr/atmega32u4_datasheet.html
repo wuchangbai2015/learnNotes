@@ -1,0 +1,1520 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>ATmega32u4</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="atmega32u4">
+<h1 class="title">ATmega32u4</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">译者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2013-10-02</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id68">1&nbsp;&nbsp;&nbsp;引脚配置</a></li>
+<li><a class="reference internal" href="#id3" id="id69">2&nbsp;&nbsp;&nbsp;概览</a></li>
+<li><a class="reference internal" href="#id4" id="id70">3&nbsp;&nbsp;&nbsp;关于</a></li>
+<li><a class="reference internal" href="#avr-cpu" id="id71">4&nbsp;&nbsp;&nbsp;AVR CPU 核心</a></li>
+<li><a class="reference internal" href="#id5" id="id72">5&nbsp;&nbsp;&nbsp;存储器</a></li>
+<li><a class="reference internal" href="#id6" id="id73">6&nbsp;&nbsp;&nbsp;系统时钟和时钟选项</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id7" id="id74">6.1&nbsp;&nbsp;&nbsp;时钟系统及其分配</a></li>
+<li><a class="reference internal" href="#id8" id="id75">6.2&nbsp;&nbsp;&nbsp;时钟源</a><ul class="auto-toc">
+<li><a class="reference internal" href="#atmega16u4-atmega32u4" id="id76">6.2.1&nbsp;&nbsp;&nbsp;缺省时钟源(ATmega16U4 &amp; ATmega32U4)</a></li>
+<li><a class="reference internal" href="#atmega16u4rc-atmega32u4rc" id="id77">6.2.2&nbsp;&nbsp;&nbsp;缺省时钟源(ATmega16U4RC &amp; ATmega32U4RC)</a></li>
+<li><a class="reference internal" href="#id9" id="id78">6.2.3&nbsp;&nbsp;&nbsp;时钟启动序列</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id79">6.3&nbsp;&nbsp;&nbsp;低功耗晶振</a></li>
+<li><a class="reference internal" href="#id11" id="id80">6.4&nbsp;&nbsp;&nbsp;低频晶振</a></li>
+<li><a class="reference internal" href="#rc" id="id81">6.5&nbsp;&nbsp;&nbsp;标定的内部RC振荡器</a></li>
+<li><a class="reference internal" href="#id12" id="id82">6.6&nbsp;&nbsp;&nbsp;外部时钟</a></li>
+<li><a class="reference internal" href="#id13" id="id83">6.7&nbsp;&nbsp;&nbsp;时钟选择</a></li>
+<li><a class="reference internal" href="#id14" id="id84">6.8&nbsp;&nbsp;&nbsp;时钟选择算法</a></li>
+<li><a class="reference internal" href="#id15" id="id85">6.9&nbsp;&nbsp;&nbsp;时钟输出缓冲</a></li>
+<li><a class="reference internal" href="#pll" id="id86">6.10&nbsp;&nbsp;&nbsp;PLL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16" id="id87">7&nbsp;&nbsp;&nbsp;电源管理与睡眠模式</a></li>
+<li><a class="reference internal" href="#id17" id="id88">8&nbsp;&nbsp;&nbsp;系统控制与复位</a></li>
+<li><a class="reference internal" href="#id18" id="id89">9&nbsp;&nbsp;&nbsp;中断</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id19" id="id90">9.1&nbsp;&nbsp;&nbsp;中断向量</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#i-o" id="id91">10&nbsp;&nbsp;&nbsp;I/O端口</a></li>
+<li><a class="reference internal" href="#id20" id="id92">11&nbsp;&nbsp;&nbsp;外部中断</a></li>
+<li><a class="reference internal" href="#id21" id="id93">12&nbsp;&nbsp;&nbsp;定时器0、定时器1、定时器3预分频器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id22" id="id94">12.1&nbsp;&nbsp;&nbsp;内部时钟源</a></li>
+<li><a class="reference internal" href="#id23" id="id95">12.2&nbsp;&nbsp;&nbsp;预分频复位</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bit0" id="id96">13&nbsp;&nbsp;&nbsp;8bit定时器0</a></li>
+<li><a class="reference internal" href="#bit13" id="id97">14&nbsp;&nbsp;&nbsp;16bit定时器1和3</a></li>
+<li><a class="reference internal" href="#bit4" id="id98">15&nbsp;&nbsp;&nbsp;10bit高速定时器4</a></li>
+<li><a class="reference internal" href="#id24" id="id99">16&nbsp;&nbsp;&nbsp;输出比较模块</a></li>
+<li><a class="reference internal" href="#spi" id="id100">17&nbsp;&nbsp;&nbsp;SPI</a></li>
+<li><a class="reference internal" href="#usart" id="id101">18&nbsp;&nbsp;&nbsp;USART</a></li>
+<li><a class="reference internal" href="#usartspi" id="id102">19&nbsp;&nbsp;&nbsp;USART在SPI模式</a></li>
+<li><a class="reference internal" href="#twi" id="id103">20&nbsp;&nbsp;&nbsp;TWI</a></li>
+<li><a class="reference internal" href="#usb" id="id104">21&nbsp;&nbsp;&nbsp;USB控制器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id25" id="id105">21.1&nbsp;&nbsp;&nbsp;功能</a></li>
+<li><a class="reference internal" href="#id26" id="id106">21.2&nbsp;&nbsp;&nbsp;框图</a></li>
+<li><a class="reference internal" href="#id27" id="id107">21.3&nbsp;&nbsp;&nbsp;典型应用实现</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id28" id="id108">21.3.1&nbsp;&nbsp;&nbsp;总线供电设备</a></li>
+<li><a class="reference internal" href="#id29" id="id109">21.3.2&nbsp;&nbsp;&nbsp;自供电设备</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30" id="id110">21.4&nbsp;&nbsp;&nbsp;无晶振操作</a></li>
+<li><a class="reference internal" href="#id31" id="id111">21.5&nbsp;&nbsp;&nbsp;设计指导</a></li>
+<li><a class="reference internal" href="#id32" id="id112">21.6&nbsp;&nbsp;&nbsp;通用操作模式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id33" id="id113">21.6.1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id34" id="id114">21.6.2&nbsp;&nbsp;&nbsp;上电复位</a></li>
+<li><a class="reference internal" href="#id35" id="id115">21.6.3&nbsp;&nbsp;&nbsp;中断</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id36" id="id116">21.7&nbsp;&nbsp;&nbsp;电源模式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#idle" id="id117">21.7.1&nbsp;&nbsp;&nbsp;Idle模式</a></li>
+<li><a class="reference internal" href="#id37" id="id118">21.7.2&nbsp;&nbsp;&nbsp;掉电</a></li>
+<li><a class="reference internal" href="#id38" id="id119">21.7.3&nbsp;&nbsp;&nbsp;冻结时钟</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id39" id="id120">21.8&nbsp;&nbsp;&nbsp;速度控制</a></li>
+<li><a class="reference internal" href="#id40" id="id121">21.9&nbsp;&nbsp;&nbsp;内存管理</a></li>
+<li><a class="reference internal" href="#pad" id="id122">21.10&nbsp;&nbsp;&nbsp;PAD挂起</a></li>
+<li><a class="reference internal" href="#id41" id="id123">21.11&nbsp;&nbsp;&nbsp;插入检测</a></li>
+<li><a class="reference internal" href="#id42" id="id124">21.12&nbsp;&nbsp;&nbsp;寄存器描述</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id43" id="id125">21.12.1&nbsp;&nbsp;&nbsp;USB通用寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id44" id="id126">21.13&nbsp;&nbsp;&nbsp;USB软件操作模式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id45" id="id127">22&nbsp;&nbsp;&nbsp;USB设备操作模式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id46" id="id128">22.1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id47" id="id129">22.2&nbsp;&nbsp;&nbsp;上电和复位</a></li>
+<li><a class="reference internal" href="#id48" id="id130">22.3&nbsp;&nbsp;&nbsp;端点复位</a></li>
+<li><a class="reference internal" href="#id49" id="id131">22.4&nbsp;&nbsp;&nbsp;USB复位</a></li>
+<li><a class="reference internal" href="#id50" id="id132">22.5&nbsp;&nbsp;&nbsp;端点选择</a></li>
+<li><a class="reference internal" href="#id51" id="id133">22.6&nbsp;&nbsp;&nbsp;端点激活</a></li>
+<li><a class="reference internal" href="#id52" id="id134">22.7&nbsp;&nbsp;&nbsp;地址设置</a></li>
+<li><a class="reference internal" href="#id53" id="id135">22.8&nbsp;&nbsp;&nbsp;挂起、唤醒和恢复</a></li>
+<li><a class="reference internal" href="#detach" id="id136">22.9&nbsp;&nbsp;&nbsp;Detach</a></li>
+<li><a class="reference internal" href="#id54" id="id137">22.10&nbsp;&nbsp;&nbsp;远程唤醒</a></li>
+<li><a class="reference internal" href="#stall" id="id138">22.11&nbsp;&nbsp;&nbsp;STALL请求</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id55" id="id139">22.11.1&nbsp;&nbsp;&nbsp;控制端点的特别考虑</a></li>
+<li><a class="reference internal" href="#id56" id="id140">22.11.2&nbsp;&nbsp;&nbsp;STALL握手和重试机制</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#control" id="id141">22.12&nbsp;&nbsp;&nbsp;CONTROL端点管理</a></li>
+<li><a class="reference internal" href="#out" id="id142">22.13&nbsp;&nbsp;&nbsp;OUT端点管理</a></li>
+<li><a class="reference internal" href="#in" id="id143">22.14&nbsp;&nbsp;&nbsp;IN端点管理</a></li>
+<li><a class="reference internal" href="#id57" id="id144">22.15&nbsp;&nbsp;&nbsp;同步模式</a></li>
+<li><a class="reference internal" href="#id58" id="id145">22.16&nbsp;&nbsp;&nbsp;概览</a></li>
+<li><a class="reference internal" href="#id59" id="id146">22.17&nbsp;&nbsp;&nbsp;中断</a></li>
+<li><a class="reference internal" href="#id60" id="id147">22.18&nbsp;&nbsp;&nbsp;寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id61" id="id148">23&nbsp;&nbsp;&nbsp;模拟比较器</a></li>
+<li><a class="reference internal" href="#adc" id="id149">24&nbsp;&nbsp;&nbsp;ADC</a></li>
+<li><a class="reference internal" href="#jtag" id="id150">25&nbsp;&nbsp;&nbsp;JTAG与片内调试</a></li>
+<li><a class="reference internal" href="#ieee-1149-1-jtag" id="id151">26&nbsp;&nbsp;&nbsp;IEEE 1149.1 JTAG边界扫描</a></li>
+<li><a class="reference internal" href="#bootloader-read-while-write" id="id152">27&nbsp;&nbsp;&nbsp;BootLoader支持 Read-While-Write自编程</a></li>
+<li><a class="reference internal" href="#id62" id="id153">28&nbsp;&nbsp;&nbsp;存储器编程</a></li>
+<li><a class="reference internal" href="#id63" id="id154">29&nbsp;&nbsp;&nbsp;电气参数</a></li>
+<li><a class="reference internal" href="#id64" id="id155">30&nbsp;&nbsp;&nbsp;典型参数</a></li>
+<li><a class="reference internal" href="#id65" id="id156">31&nbsp;&nbsp;&nbsp;寄存器总结</a></li>
+<li><a class="reference internal" href="#id66" id="id157">32&nbsp;&nbsp;&nbsp;指令集总结</a></li>
+<li><a class="reference internal" href="#id67" id="id158">33&nbsp;&nbsp;&nbsp;附录</a></li>
+</ul>
+</div>
+<ol class="arabic">
+<li><p class="first">最高16Mhz</p>
+</li>
+<li><p class="first">片内2周期乘法器</p>
+</li>
+<li><p class="first">16/32KB Flash</p>
+</li>
+<li><p class="first">1.25/2.5KB SRAM</p>
+</li>
+<li><p class="first">512B/1KB EEPROM</p>
+</li>
+<li><p class="first">JTAG接口</p>
+</li>
+<li><p class="first">USB2.0 全速/低速，包含中断和传输完成</p>
+<blockquote>
+<ol class="arabic simple">
+<li>完整支持USB2.0</li>
+<li>支持数据传输速率12Mbit/s和1.5Mbit/s</li>
+<li>端点0用于控制传输：最高64Byte</li>
+<li>6个可编程端点，IN/OUT，模式批量、中断、同步</li>
+<li>配置端点大小最高到256Byte，在双行模式(double bank mode)</li>
+<li>完全独立的832Byte USB DPRAM，用于端点内存分配</li>
+<li>挂起/恢复中断</li>
+<li>可在USB总线复位时，复位CPU</li>
+<li>48MHz PLL全速总线操作</li>
+<li>可编程的USB总线连接/断开</li>
+<li>低速模式无需晶振</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">外设功能</p>
+<blockquote>
+<ol class="arabic simple">
+<li>片内PLL供USB和高速定时器，32~96MHz</li>
+<li>一个8bit定时器，独立分频器</li>
+<li>二个16bit定时器，独立分频器</li>
+<li>一个10bit高速定时器，包含PLL(64MHz)</li>
+<li>4个8bit PWM通道</li>
+<li>4个PWM通道，可编程分辨率2~16bit</li>
+<li>6个PWM通道供高速操作，可编程分辨率2~11bit</li>
+<li>输出比较模块</li>
+<li>12通道10bit ADC，每个通道独立可编程增益</li>
+<li>可编程的USART，包含硬件流控</li>
+<li>主/从SPI</li>
+<li>TWI/I2C</li>
+<li>可编程看门狗</li>
+<li>片内模拟比较器</li>
+<li>中断和唤醒引脚</li>
+<li>片内温度传感器</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">特殊的MCU功能</p>
+<blockquote>
+<ol class="arabic simple">
+<li>上电复位和可编程的低电压检测</li>
+<li>内置8MHz标定振荡器</li>
+<li>内部时钟分频器，运行时时钟切换(内部RC/外部晶振)</li>
+<li>外部和内部中断源</li>
+<li>6个睡眠模式：IDLE、ADC降噪、省电、掉电、待机、扩展待机</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">IO与封装</p>
+<blockquote>
+<ol class="arabic simple">
+<li>所有IO兼容CMOS输出和LVTTL输入</li>
+<li>26个可编程IO线</li>
+<li>TQFP-44 10x10mm</li>
+<li>QFN-44，7x7mm</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">操作电压2.7~5.5V</p>
+</li>
+<li><p class="first"><a class="reference external" href="mailto:8MHz&#64;2.7V">8MHz&#64;2.7V</a>，<a class="reference external" href="mailto:16MHz&#64;4.5V">16MHz&#64;4.5V</a></p>
+</li>
+</ol>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id68">1&nbsp;&nbsp;&nbsp;引脚配置</a></h1>
+<img alt="_images/atmega32u4_datasheet_01_00.png" src="_images/atmega32u4_datasheet_01_00.png" />
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id69">2&nbsp;&nbsp;&nbsp;概览</a></h1>
+<p>ATmega16u4/ATmega32u4时低功耗CMOS 8bit微控制器，基于AVR增强RISC架构。通过强大的单周期指令集，可以达到1MIPS/MHz的速度，允许优化耗电量和计算速度。</p>
+<p>&#64;page 4-7 系统框图</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id70">3&nbsp;&nbsp;&nbsp;关于</a></h1>
+<p>&#64;page 8-8</p>
+</div>
+<div class="section" id="avr-cpu">
+<h1><a class="toc-backref" href="#id71">4&nbsp;&nbsp;&nbsp;AVR CPU 核心</a></h1>
+<p>&#64;page 9-17</p>
+</div>
+<div class="section" id="id5">
+<h1><a class="toc-backref" href="#id72">5&nbsp;&nbsp;&nbsp;存储器</a></h1>
+<p>&#64;page 18-26</p>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id73">6&nbsp;&nbsp;&nbsp;系统时钟和时钟选项</a></h1>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id74">6.1&nbsp;&nbsp;&nbsp;时钟系统及其分配</a></h2>
+<p>&#64;page 27-28</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id75">6.2&nbsp;&nbsp;&nbsp;时钟源</a></h2>
+<p>有如下时钟源可选，通过Flash熔丝位。所选时钟源进入AVR时钟生成器，并分配到各个模块。</p>
+<p>对于熔丝的&quot;1&quot;就是未编程，而&quot;0&quot;表示已编程。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="46%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>设备时钟选项</td>
+<td>CKSEL[3:0]/EXCKSEL[3:0]</td>
+</tr>
+<tr><td>低功耗晶振</td>
+<td>1111-1000</td>
+</tr>
+<tr><td>保留</td>
+<td>0111-0110</td>
+</tr>
+<tr><td>低频晶振</td>
+<td>0101-0100</td>
+</tr>
+<tr><td>保留</td>
+<td>0011</td>
+</tr>
+<tr><td>标定的内部RC振荡器</td>
+<td>0010</td>
+</tr>
+<tr><td>外部时钟</td>
+<td>0000</td>
+</tr>
+<tr><td>保留</td>
+<td>0001</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="atmega16u4-atmega32u4">
+<h3><a class="toc-backref" href="#id76">6.2.1&nbsp;&nbsp;&nbsp;缺省时钟源(ATmega16U4 &amp; ATmega32U4)</a></h3>
+<p>默认使用低功耗晶振(8MHz~16MHz)，并被8分频(CKDIV8)。结果是1MHz的系统时钟。</p>
+</div>
+<div class="section" id="atmega16u4rc-atmega32u4rc">
+<h3><a class="toc-backref" href="#id77">6.2.2&nbsp;&nbsp;&nbsp;缺省时钟源(ATmega16U4RC &amp; ATmega32U4RC)</a></h3>
+<p>默认使用标定的内部RC振荡器(8MHz)，并被8分频(CKDIV8)。结果是1MHz的系统时钟。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id78">6.2.3&nbsp;&nbsp;&nbsp;时钟启动序列</a></h3>
+<p>&#64;page 29-29</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id79">6.3&nbsp;&nbsp;&nbsp;低功耗晶振</a></h2>
+<p>&#64;page 29-31</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id80">6.4&nbsp;&nbsp;&nbsp;低频晶振</a></h2>
+<p>&#64;page 31-31</p>
+</div>
+<div class="section" id="rc">
+<h2><a class="toc-backref" href="#id81">6.5&nbsp;&nbsp;&nbsp;标定的内部RC振荡器</a></h2>
+<p>&#64;page 32-33</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id82">6.6&nbsp;&nbsp;&nbsp;外部时钟</a></h2>
+<p>&#64;page 33-34</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id83">6.7&nbsp;&nbsp;&nbsp;时钟选择</a></h2>
+<p>&#64;page 34-35</p>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id84">6.8&nbsp;&nbsp;&nbsp;时钟选择算法</a></h2>
+<p>&#64;page 35-37</p>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id85">6.9&nbsp;&nbsp;&nbsp;时钟输出缓冲</a></h2>
+<p>&#64;page 37-39</p>
+</div>
+<div class="section" id="pll">
+<h2><a class="toc-backref" href="#id86">6.10&nbsp;&nbsp;&nbsp;PLL</a></h2>
+<p>&#64;page 39-42</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h1><a class="toc-backref" href="#id87">7&nbsp;&nbsp;&nbsp;电源管理与睡眠模式</a></h1>
+<p>&#64;page 43-48</p>
+</div>
+<div class="section" id="id17">
+<h1><a class="toc-backref" href="#id88">8&nbsp;&nbsp;&nbsp;系统控制与复位</a></h1>
+<p>&#64;page 49-60</p>
+</div>
+<div class="section" id="id18">
+<h1><a class="toc-backref" href="#id89">9&nbsp;&nbsp;&nbsp;中断</a></h1>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id90">9.1&nbsp;&nbsp;&nbsp;中断向量</a></h2>
+<ol class="arabic simple">
+<li>0x0000=RESET：扩展引脚、上电复位、低电压复位、看门狗复位、JTAG复位</li>
+<li>0x0002=INT0：外部中断请求0</li>
+<li>0x0004=INT1：外部中断请求1</li>
+<li>0x0006=INT2：外部中断请求2</li>
+<li>0x0008=INT3：外部中断请求3</li>
+<li>0x000a：保留</li>
+<li>0x000c：保留</li>
+<li>0x000e=INT6：外部中断请求6</li>
+<li>0x0010：保留</li>
+<li>0x0012=PCINT0：引脚改变中断请求0</li>
+<li>0x0014=USB General：USB通用中断请求</li>
+<li>0x0016=USB Endpoint：USB端点中断请求</li>
+<li>0x0018=WDT：看门狗超时中断</li>
+<li>0x001a：保留</li>
+<li>0x001c：保留</li>
+<li>0x001e：保留</li>
+<li>0x0020=TIMER1 CAPT：Timer1捕获事件</li>
+<li>0x0022=TIMER1 COMPA：Timer1比较匹配A</li>
+<li>0x0024=TIMER1 COMPB：Timer1比较匹配B</li>
+<li>0x0026=TIMER1 COMPC：Timer1比较匹配C</li>
+<li>0x0028=TIMER1 OVF：Timer1溢出</li>
+<li>0x002a=TIMER0 COMPA：Timer0比较匹配A</li>
+<li>0x002c=TIMER0 COMPB：Timer0比较匹配B</li>
+<li>0x002e=TIMER0 OVF：Timer0溢出</li>
+<li>0x0030=SPI(STC)：SPI传输完成</li>
+<li>0x0032=USART1 RX：USART1接收完成</li>
+<li>0x0034=USART1 UDRE：USART1数据寄存器空</li>
+<li>0x0036=USART1 TX：USART1发送完成</li>
+<li>0x0038=ANALOG COMP：模拟比较器</li>
+<li>0x003a=ADC：ADC转换完成</li>
+<li>0x003c=EE READY：EEPROM就绪</li>
+<li>0x003e=TIMER3 CAPT：Timer3捕获事件</li>
+<li>0x0040=TIMER3 COMPA：Timer3比较匹配A</li>
+<li>0x0042=TIMER3 COMPB：Timer3比较匹配B</li>
+<li>0x0044=TIMER3 COMPC：Timer3比较匹配C</li>
+<li>0x0046=TIMER3 OVF：Timer3溢出</li>
+<li>0x0048=TWI：TWI事件</li>
+<li>0x004a=SPM READY：存储程序存储器就绪</li>
+<li>0x004c=TIMER4 COMPA：Timer4比较匹配A</li>
+<li>0x004e=TIMER4 COMPB：Timer4比较匹配B</li>
+<li>0x0050=TIMER4 COMPD：Timer4比较匹配D</li>
+<li>0x0052=TIMER4 OVF：Timer4溢出</li>
+<li>0x0054=TIMER4 FPF：Timer4失败保护中断</li>
+</ol>
+<p>如果BOOTRST熔丝被编程，则复位时跳转到BootLoader地址。当设置了MCUCR寄存器的IVSEL，向量表可以移动到Boot Flash段。每个中断向量地址是次地址加上Boot Flash段的首地址。</p>
+<p>&#64;page 62-64</p>
+</div>
+</div>
+<div class="section" id="i-o">
+<h1><a class="toc-backref" href="#id91">10&nbsp;&nbsp;&nbsp;I/O端口</a></h1>
+<p>&#64;page 65-84</p>
+</div>
+<div class="section" id="id20">
+<h1><a class="toc-backref" href="#id92">11&nbsp;&nbsp;&nbsp;外部中断</a></h1>
+<p>&#64;page 85-88</p>
+</div>
+<div class="section" id="id21">
+<h1><a class="toc-backref" href="#id93">12&nbsp;&nbsp;&nbsp;定时器0、定时器1、定时器3预分频器</a></h1>
+<p>Timer0/1/3共享相同的预分频模块，但是可以有不同的分频设置。以下的Tn中的n取0/1/3，表示三个定时器。</p>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id94">12.1&nbsp;&nbsp;&nbsp;内部时钟源</a></h2>
+<p>定时器都可以用系统时钟直接驱动，这样速度最快。也可以用四种分频比例。分别是系统时钟的8、64、256、1024分频。</p>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id95">12.2&nbsp;&nbsp;&nbsp;预分频复位</a></h2>
+<p>&#64;page 89-90</p>
+</div>
+</div>
+<div class="section" id="bit0">
+<h1><a class="toc-backref" href="#id96">13&nbsp;&nbsp;&nbsp;8bit定时器0</a></h1>
+<p>&#64;page 91-107</p>
+</div>
+<div class="section" id="bit13">
+<h1><a class="toc-backref" href="#id97">14&nbsp;&nbsp;&nbsp;16bit定时器1和3</a></h1>
+<p>&#64;page 108-137</p>
+</div>
+<div class="section" id="bit4">
+<h1><a class="toc-backref" href="#id98">15&nbsp;&nbsp;&nbsp;10bit高速定时器4</a></h1>
+<p>&#64;page 138-174</p>
+</div>
+<div class="section" id="id24">
+<h1><a class="toc-backref" href="#id99">16&nbsp;&nbsp;&nbsp;输出比较模块</a></h1>
+<p>&#64;page 175-176</p>
+</div>
+<div class="section" id="spi">
+<h1><a class="toc-backref" href="#id100">17&nbsp;&nbsp;&nbsp;SPI</a></h1>
+<p>高速同步通信，包括如下功能：</p>
+<ol class="arabic simple">
+<li>全双工，三线同步数据传输</li>
+<li>主从操作</li>
+<li>LSB优先或MSB优先数据传输</li>
+<li>7种可编程比特率</li>
+<li>传输结束中断</li>
+<li>写碰撞标识保护</li>
+<li>从IDLE模式唤醒</li>
+<li>倍速主SPI模式(CK/2)</li>
+</ol>
+<p>USART也可以用于主模式SPI。PRSPI位必须写0来启用SPI模块。</p>
+<img alt="_images/atmega32u4_datasheet_17_00.png" src="_images/atmega32u4_datasheet_17_00.png" />
+<p>&#64;page 177-185</p>
+</div>
+<div class="section" id="usart">
+<h1><a class="toc-backref" href="#id101">18&nbsp;&nbsp;&nbsp;USART</a></h1>
+<p>&#64;page 186-213</p>
+</div>
+<div class="section" id="usartspi">
+<h1><a class="toc-backref" href="#id102">19&nbsp;&nbsp;&nbsp;USART在SPI模式</a></h1>
+<p>&#64;page 214-222</p>
+</div>
+<div class="section" id="twi">
+<h1><a class="toc-backref" href="#id103">20&nbsp;&nbsp;&nbsp;TWI</a></h1>
+<p>&#64;page 223-252</p>
+</div>
+<div class="section" id="usb">
+<h1><a class="toc-backref" href="#id104">21&nbsp;&nbsp;&nbsp;USB控制器</a></h1>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id105">21.1&nbsp;&nbsp;&nbsp;功能</a></h2>
+<ol class="arabic">
+<li><p class="first">支持全速和低速设备</p>
+</li>
+<li><p class="first">符合USB2.0规范</p>
+</li>
+<li><p class="first">支持ping-pong模式(dual bank)</p>
+</li>
+<li><p class="first">832字节的DPRAM：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>1个最大64字节端点(缺省控制端点)</li>
+<li>1个最大256字节端点(1或2个bank)</li>
+<li>5个最大64字节端点(1或2个bank)</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">低速模式无需晶振</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id106">21.2&nbsp;&nbsp;&nbsp;框图</a></h2>
+<img alt="_images/atmega32u4_datasheet_21_00.png" src="_images/atmega32u4_datasheet_21_00.png" />
+<p>USB控制器提供了USB连接到双端口存储器(DPRAM, Double Port Memory)的数据流控制。</p>
+<p>USB控制器需要48MHz +/- 0.25%的参考时钟(全速)，从内部PLL输出。片内PLL生成器提供内部高频(48MHz)时钟。PLL时钟输入可以配置为使用外部低功耗晶振，外部时钟源或内部RC。</p>
+<p>48MHz时钟用于生成USB差分数据收发的12MHz位时钟。时钟恢复通过DPLL(Digital Phase Locked Loop, 数字锁相环)，以符合USB规范的抖动指标。</p>
+<p>为执行(comply)USB电气规范，USB缓冲(D+或D-)应该以3.0~3.6V驱动。而ATmega16U4/ATmega32U4最高可以到5.5V，所以需要内部的调节器来提供USB缓冲电压。</p>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id107">21.3&nbsp;&nbsp;&nbsp;典型应用实现</a></h2>
+<p>依赖于应用的供电方式，需要不同的硬件实现方式。</p>
+<p>3.0V以下USB无法工作。3.0~4.5V可以工作在8MHz，4.5~5.5V可以工作在16MHz。3.4~5.5V之间都需要内部调节器。</p>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id108">21.3.1&nbsp;&nbsp;&nbsp;总线供电设备</a></h3>
+<p>UID=&gt;UID、UVSS=&gt;UGND，直接连接到芯片。D+和D-通过22Ohm电阻连接到芯片。VBUS直接连接到Vcc电源。VCAP通过1uF电容接地。UGND不接地。</p>
+</div>
+<div class="section" id="id29">
+<h3><a class="toc-backref" href="#id109">21.3.2&nbsp;&nbsp;&nbsp;自供电设备</a></h3>
+<p>VBUS=&gt;VBUS、UVSS=&gt;UGND、UID=&gt;UID。D+和D-通过22Ohm电阻连接到芯片。UCAP通过1uF电容接地。UGND接地。</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h2><a class="toc-backref" href="#id110">21.4&nbsp;&nbsp;&nbsp;无晶振操作</a></h2>
+<p>为减少外部组件数量和成本，可以配置为使用标定的内部RC振荡器作为PLL输入时钟，此时只能工作在USB低速。可以确保0~40摄氏度范围内的频率稳定。</p>
+<p>对USB低速，只能使用外部晶振或内部时钟源。</p>
+</div>
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id111">21.5&nbsp;&nbsp;&nbsp;设计指导</a></h2>
+<ol class="arabic simple">
+<li>USB数据线的电阻必须是22Ohm(+/- 5%)</li>
+<li>从USB接口到单片机的线路越短越好，并遵守差分走线路由规则(相同长度，尽可能靠近，避免积累)</li>
+<li>电压瞬变/静电抑制器也可以用于防止USB焊盘损坏的外部干扰</li>
+<li>U_cap电容应该是1uF(+/- 10%)</li>
+<li>建议在VBUS线上连接10uF电容</li>
+</ol>
+</div>
+<div class="section" id="id32">
+<h2><a class="toc-backref" href="#id112">21.6&nbsp;&nbsp;&nbsp;通用操作模式</a></h2>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id113">21.6.1&nbsp;&nbsp;&nbsp;简介</a></h3>
+<p>USB控制器在如下硬件复位中被禁用：</p>
+<ol class="arabic simple">
+<li>上电复位</li>
+<li>外部复位</li>
+<li>看门狗复位</li>
+<li>低电压复位</li>
+<li>JTAG复位</li>
+</ol>
+<p>特殊情况，USB End of Reset。此时USB控制器复位，但是没有被禁用。</p>
+</div>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id114">21.6.2&nbsp;&nbsp;&nbsp;上电复位</a></h3>
+<img alt="_images/atmega32u4_datasheet_21_01.png" src="_images/atmega32u4_datasheet_21_01.png" />
+<p>USB控制器在硬件复位后的状态是&quot;复位(Reset)&quot;：</p>
+<ol class="arabic simple">
+<li>USBE=0</li>
+<li>USB控制器时钟停止FRZCLK=1</li>
+<li>USB控制器被禁用</li>
+<li>USB pad被挂起</li>
+<li>设备USB控制器内部状态是复位</li>
+</ol>
+<p>在设置USBE后，USB控制器进入设备状态，控制器是&quot;Idle&quot;。</p>
+<p>USB控制器可以在任何时候通过清零USBE来停止。实际上清零USBE执行的是硬件复位。</p>
+</div>
+<div class="section" id="id35">
+<h3><a class="toc-backref" href="#id115">21.6.3&nbsp;&nbsp;&nbsp;中断</a></h3>
+<p>USB接口分配到两个中断向量。USB通用中断、端点中断。</p>
+<p>USB通用中断源：</p>
+<img alt="_images/atmega32u4_datasheet_21_02.png" src="_images/atmega32u4_datasheet_21_02.png" />
+<p>几乎所有这些中断都是时间相关的，可以通过USB时钟是否开启来检测，除了：</p>
+<ol class="arabic simple">
+<li>VBUS插入检测(插入、拔出)</li>
+<li>WAKEUP中断在每次数据线状态改变时</li>
+</ol>
+<p>异步中断允许从掉电模式唤醒设备，通常用于在USB进入挂起模式时。</p>
+<p>端点中断源：</p>
+<img alt="_images/atmega32u4_datasheet_21_03.png" src="_images/atmega32u4_datasheet_21_03.png" />
+<p>每个端点根据中断源有8个标识，每个中断源都可以启用或设置为不触发端点中断。一个端点如果开启了至少一个中断源，且中断发生，则对应事件进入端点中断处理向量。用户读取UEINT寄存器，得以检测中断源，然后根据标识处理对应的操作。</p>
+</div>
+</div>
+<div class="section" id="id36">
+<h2><a class="toc-backref" href="#id116">21.7&nbsp;&nbsp;&nbsp;电源模式</a></h2>
+<div class="section" id="idle">
+<h3><a class="toc-backref" href="#id117">21.7.1&nbsp;&nbsp;&nbsp;Idle模式</a></h3>
+<p>此时CPU核心挂起(CPU时钟停摆)。不管USB控制器是否运行都可以进入Idle模式。USB中断会唤醒CPU。</p>
+</div>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id118">21.7.2&nbsp;&nbsp;&nbsp;掉电</a></h3>
+<p>振荡器停止，并关闭所有时钟(CPU和外设)。USB控制器在如下事件中被唤醒：</p>
+<ol class="arabic simple">
+<li>WAKEUPI中断被触发</li>
+<li>VBUSTI中断被触发</li>
+</ol>
+</div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id119">21.7.3&nbsp;&nbsp;&nbsp;冻结时钟</a></h3>
+<p>程序可以通过设置FRZCLK位来降低功耗，这会冻结USB控制器的时钟。此时仍然可以访问如下寄存器：</p>
+<ol class="arabic simple">
+<li>USBCON、USBSTA、USBINT</li>
+<li>UDCON(拔出,...)</li>
+<li>UDINT</li>
+<li>UDIEN</li>
+</ol>
+<p>设置FRZCLK后，只有如下中断会触发：</p>
+<ol class="arabic simple">
+<li>WAKEUPI</li>
+<li>VBUSTI</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id39">
+<h2><a class="toc-backref" href="#id120">21.8&nbsp;&nbsp;&nbsp;速度控制</a></h2>
+<img alt="_images/atmega32u4_datasheet_21_04.png" src="_images/atmega32u4_datasheet_21_04.png" />
+<p>速度选择(全速/低速)基于D+/D-的上拉。UDCON寄存器的LSM位可以选择内部上拉。D-上拉表示低速，D+上拉表示全速。</p>
+</div>
+<div class="section" id="id40">
+<h2><a class="toc-backref" href="#id121">21.9&nbsp;&nbsp;&nbsp;内存管理</a></h2>
+<p>控制器仅支持如下内存分配管理。</p>
+<p>对管道或端点的预约只能是增量的(Pipe/Endpoint 0到最后的Pipe/Endpoint)。固件应该按照这个顺序来进行配置。</p>
+<p>对管道或端点&quot;k&quot;的预约完成，以他的ALLOC位被设置。然后硬件分配内存，并插入Pipe/Endpoint &quot;k^{i-1}&quot; 和 &quot;k^{i+1}&quot; 之间。 &quot;k^{i+1}&quot; 管道/端点的内存则向上滑动，且数据丢失。注意&quot;k^{i+2}&quot;以及更之上的管道/端点的内存是不滑动的。</p>
+<p>清零一个管道启用(PEN)或一个端点启用(EPEN)并不会清零其ALLOC位，以及其配置(EPSIZE/PSIZE、EPBK/PBK)。要释放这个内存，固件应该清零ALLOC位。然后&quot;k^{i+1}&quot;管道/端点的内存会自动下滑。注意&quot;k^{i+2}&quot;以及更向上的管道/端点内存并不会滑动。</p>
+<p>下图是USB内存分配和识别的典型例子：</p>
+<img alt="_images/atmega32u4_datasheet_21_05.png" src="_images/atmega32u4_datasheet_21_05.png" />
+<ol class="arabic simple">
+<li>端点0到端点5已经配置好了，按照升序，每个内存段都在DPRAM中被保留</li>
+<li>端点3被禁用(EPEN=0)，但是其内存会被保留</li>
+<li>ALLOC位被清零，端点4向下滑动，但是端点5并不滑动</li>
+<li>如果固件选择重新配置端点3，到更大，控制器会保留端点2之后的内存并滑动到端点4，而端点5并不会移动，并发生内存冲突，在端点4和端点5使用普通区域，其数据就丢失了</li>
+</ol>
+<p>注意：</p>
+<ol class="arabic simple">
+<li>端点0的数据不会丢失，无论激活或禁用其上面端点，其数据仅在被禁用时丢掉</li>
+<li>以相同参数禁用和重新启用相同端点，不会导致向高滑动的端点，对这些端点，数据会保留</li>
+<li>CFGOK在内存分配冲突时被硬件置位</li>
+</ol>
+</div>
+<div class="section" id="pad">
+<h2><a class="toc-backref" href="#id122">21.10&nbsp;&nbsp;&nbsp;PAD挂起</a></h2>
+<img alt="_images/atmega32u4_datasheet_21_06.png" src="_images/atmega32u4_datasheet_21_06.png" />
+<p>pad行为：</p>
+<ol class="arabic simple">
+<li>在&quot;idle&quot;模式，pad进入低耗电模式</li>
+<li>在&quot;active&quot;模式，pad工作</li>
+</ol>
+<p>SUSPI标识表示检测到USB总线处于挂起状态。这个标识会自动将pad变为idle状态。检测到非idle事件会设置WAKEUPI标识，并唤醒USB pad。</p>
+<img alt="_images/atmega32u4_datasheet_21_07.png" src="_images/atmega32u4_datasheet_21_07.png" />
+<p>当DETACH=1时，pad也会自动进入idle模式。且DETACH=0时会自动进入active模式。</p>
+</div>
+<div class="section" id="id41">
+<h2><a class="toc-backref" href="#id123">21.11&nbsp;&nbsp;&nbsp;插入检测</a></h2>
+<p>USB连接通过VBUS pad检测，依赖如下架构：</p>
+<img alt="_images/atmega32u4_datasheet_21_08.png" src="_images/atmega32u4_datasheet_21_08.png" />
+<p>VBUS pad的控制逻辑会输出一个信号表示VBUS电压级别：</p>
+<ol class="arabic simple">
+<li>当UVBUS pad大于等于1.4V时进入&quot;session_valid&quot;信号，低于1.4V时，信号非活跃</li>
+<li>当&quot;Session_valid&quot;为活跃时，VBUS状态位置位</li>
+<li>VBUS状态改变时，置位VBUSTI标识</li>
+<li>当VBUS位没有置位时，USB外设不能接入总线</li>
+</ol>
+</div>
+<div class="section" id="id42">
+<h2><a class="toc-backref" href="#id124">21.12&nbsp;&nbsp;&nbsp;寄存器描述</a></h2>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id125">21.12.1&nbsp;&nbsp;&nbsp;USB通用寄存器</a></h3>
+<p><strong>UHWCON</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>用途</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>UVREGE</td>
+</tr>
+<tr><td>读写</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+<td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>bit[7-1]：保留，不要尝试修改</li>
+<li>bit0:UVREGE：USB pad调节器启用，=1时启用，=0时禁用</li>
+</ol>
+<p><strong>USBCON</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>用途</td>
+<td>USBE</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>FRZCLK</td>
+<td>OTGPADE</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>VBUSTE</td>
+</tr>
+<tr><td>读写</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>bit7:USBE：USB宏启用，设置启用USB控制器，清零来禁用和复位USB控制器，禁用USB发射器和禁用USB控制器时钟输入</li>
+<li>bit6：保留，不要修改</li>
+<li>bit5:FRZCLK：冻结USB时钟，禁用时钟输入，降低功耗，清零来启用时钟输入</li>
+<li>bit4:OTGPADE：VBUS Pad启用，可以被USBE=0与否自动设置和清零，着允许VBUS检测USB宏是否被禁用</li>
+<li>bit[3-1]：保留，不要修改</li>
+<li>bit0:VBUSTE：VBUS发送中断启用位</li>
+</ol>
+<p><strong>USBSTA</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>用途</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>ID</td>
+<td>VBUS</td>
+</tr>
+<tr><td>读写</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>bit[7-2]：保留</li>
+<li>bit1:ID：ID状态，读取总是1，仅用于兼容AT90USB64/128(用于标识OTG ID引脚)</li>
+<li>bit0:VBUS：VBUS标识，表示VBUS引脚的状态，可用于在设备模式种监控USB总线连接状态</li>
+</ol>
+<p><strong>USBINT</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>用途</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>VBUSTI</td>
+</tr>
+<tr><td>读写</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>bit[7-1]：保留</li>
+<li>bit0:VBUSTI：IVBUS事件中断标识，由硬件设置，当一个事物开始时，也由硬件清零</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id44">
+<h2><a class="toc-backref" href="#id126">21.13&nbsp;&nbsp;&nbsp;USB软件操作模式</a></h2>
+<p>依赖于USB操作模式，软件应该执行如下命令序列。</p>
+<p>USB接口上电：</p>
+<ol class="arabic simple">
+<li>USB pad调节器上电</li>
+<li>配置PLL接口</li>
+<li>启用PLL</li>
+<li>检查PLL时钟</li>
+<li>启用USB接口</li>
+<li>配置USB接口(USB速度、端点配置等)</li>
+<li>等待USB VBUS信息连接</li>
+<li>连接(attach)USB设备</li>
+</ol>
+<p>关闭USB接口：</p>
+<ol class="arabic simple">
+<li>Detach USB接口</li>
+<li>禁用USB接口</li>
+<li>禁用PLL</li>
+<li>禁用USB pad调节器</li>
+</ol>
+<p>挂起USB接口：</p>
+<ol class="arabic simple">
+<li>清零挂起位</li>
+<li>冻结USB时钟</li>
+<li>禁用PLL</li>
+<li>确保有中断启用来退出休眠模式</li>
+<li>让MCU进入休眠模式</li>
+</ol>
+<p>恢复USB接口：</p>
+<ol class="arabic simple">
+<li>启用PLL</li>
+<li>等待PLL锁</li>
+<li>解冻USB时钟</li>
+<li>清零恢复信息</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id45">
+<h1><a class="toc-backref" href="#id127">22&nbsp;&nbsp;&nbsp;USB设备操作模式</a></h1>
+<div class="section" id="id46">
+<h2><a class="toc-backref" href="#id128">22.1&nbsp;&nbsp;&nbsp;简介</a></h2>
+<p>USB设备控制器支持全速和低速数据传输。除了缺省控制端点，还支持6个端点。可以配置位control、bulk、interrupt、isochronous模式。</p>
+<ol class="arabic simple">
+<li>端点0：可编程FIFO最大到64字节，缺省控制端点</li>
+<li>端点1：可编程FIFO最大到256字节，在ping-pong模式</li>
+<li>端点2~6：可编程FIFO最大到64字节，在ping-pong模式</li>
+</ol>
+<p>控制器从&quot;Idle&quot;模式开始。次模式，pad功耗最小。</p>
+</div>
+<div class="section" id="id47">
+<h2><a class="toc-backref" href="#id129">22.2&nbsp;&nbsp;&nbsp;上电和复位</a></h2>
+<img alt="_images/atmega32u4_datasheet_22_00.png" src="_images/atmega32u4_datasheet_22_00.png" />
+<p>上电复位后的状态转换。</p>
+<p>设备控制器的复位状态：</p>
+<ol class="arabic simple">
+<li>宏时钟停止来最小化功耗(FRZCLK设置)</li>
+<li>USB设备控制器内部状态是复位(所有寄存器都是复位到缺省值，DETACH置位)</li>
+<li>端点bank复位</li>
+<li>D+和D-上拉电阻不活跃(DETACH模式)</li>
+</ol>
+<p>一旦DETACH位被清零且VBUS有效，则D+或D-的上拉电阻就会激活。</p>
+<p>最低功耗后的复位的IDLE状态，并不需要激活PLL。</p>
+<p>USB设备控制器参可以在任何时候通过清零USBE来复位(禁用USB接口)。</p>
+</div>
+<div class="section" id="id48">
+<h2><a class="toc-backref" href="#id130">22.3&nbsp;&nbsp;&nbsp;端点复位</a></h2>
+<p>端点可以在任何时候复位，通过UERST的EPRSTx对应位。会复位：</p>
+<ol class="arabic simple">
+<li>端点的内部状态机</li>
+<li>Rx和Tx bank会清零，内部指针恢复</li>
+<li>UEINTX、UESTA0X、UESTA1X会恢复到默认值</li>
+</ol>
+<p>数据翻转字段保持不变。</p>
+<p>其他寄存器保持不变。</p>
+<p>端点配置保持活跃，端点仍然有效。</p>
+<p>端点复位应该加上对数据翻转命令(RSTDT位)的清零，来作为CLEAR_FEATURE USB命令的应答。</p>
+</div>
+<div class="section" id="id49">
+<h2><a class="toc-backref" href="#id131">22.4&nbsp;&nbsp;&nbsp;USB复位</a></h2>
+<p>当USB线上检测到USB复位(SE0状态至少持续2.5uS)，下列操作会执行：</p>
+<ol class="arabic simple">
+<li>所有端点被禁用</li>
+<li>缺省控制端点保持配置</li>
+</ol>
+<p>如果CPU硬件复位(UDCON寄存器的RSTCPU位置位)，就会通知CPU复位，而不禁用USB控制器(这允许保持USB连接，在USB复位后的相同行为)。这可以用于增强设备可用性。</p>
+</div>
+<div class="section" id="id50">
+<h2><a class="toc-backref" href="#id132">22.5&nbsp;&nbsp;&nbsp;端点选择</a></h2>
+<p>在任何CPU操作之前，必须选中端点。这通过设置UENUM寄存器的EPNUM[2:0]位来实现，写入端点号。</p>
+<p>CPU可以存取各个端点的寄存器和数据。</p>
+</div>
+<div class="section" id="id51">
+<h2><a class="toc-backref" href="#id133">22.6&nbsp;&nbsp;&nbsp;端点激活</a></h2>
+<p>只要EPEN位保持清零，端点就保持复位状态。</p>
+<p>如下流程图展示了激活端点：</p>
+<img alt="_images/atmega32u4_datasheet_22_01.png" src="_images/atmega32u4_datasheet_22_01.png" />
+<p>在端点正确配置完之前(CFGOK清零)，硬件不会响应主机发来的包。</p>
+<p>如果端点大小参数大于DPRAM值，则CFGOK不应该被设置。</p>
+<p>清零EPEN来执行端点复位，同时也会触发如下动作：</p>
+<ol class="arabic simple">
+<li>端点配置被保留(EPSIZE、EPBK、ALLOC保留)</li>
+<li>复位数据翻转字段</li>
+<li>指派给端点的DPRAM存储器会保留</li>
+</ol>
+</div>
+<div class="section" id="id52">
+<h2><a class="toc-backref" href="#id134">22.7&nbsp;&nbsp;&nbsp;地址设置</a></h2>
+<p>USB设备地址是USB协议要求的：</p>
+<ol class="arabic simple">
+<li>USB设备上电后，地址为0</li>
+<li>主机发送SETUP命令 <cite>(SET_ADDRESS(addr))</cite></li>
+<li>固件处理该请求，记录地址到UADD，但是保持ADDEN为零</li>
+<li>USB设备发送IN指令，0字节</li>
+<li>USB设备启用USB设备地址，通过置位ADDEN，唯一可接受地址就是存储在UADD中的那个</li>
+</ol>
+<p>ADDEN和UADD不应该在同时写入。</p>
+<p>UADD在上电后，包含缺省地址0x00。</p>
+<p>ADDEN在如下情况时被硬件清零：</p>
+<ol class="arabic simple">
+<li>上电复位</li>
+<li>收到USB复位</li>
+<li>宏被禁用(USBE清零)</li>
+</ol>
+<p>当这个位被清零，就使用缺省设备地址0x00。</p>
+</div>
+<div class="section" id="id53">
+<h2><a class="toc-backref" href="#id135">22.8&nbsp;&nbsp;&nbsp;挂起、唤醒和恢复</a></h2>
+<p>在USB线非活跃的3mS期间，控制器切换到全速状态，并触发(如果启用了) SUSPI(挂起)中断。固件应该设置FRZCLK位。</p>
+<p>CPU也可以进入idle模式来降低功耗(依赖于软件架构)。</p>
+<p>由两种方法从挂起模式恢复：</p>
+<ol class="arabic simple">
+<li>第一是清零FRZCLK位，CPU不在idle模式时可以</li>
+<li>第二是如果CPU在idle模式，就启用WAKEUPI中断(WAKEUPE置位)，控制器会尽快查看非idle信号，触发WAKEUPI中断，固件应该随后清零FRZCLK位来重启传输</li>
+</ol>
+<p>SUSPI和WAKEUPI中断之间没有关系：WAKEUPI中断由数据线的非idle模式触发。因此，WAKEUPI中断可以在控制器不在挂起时随时触发。</p>
+<p>当WAKEUPI中断被触发，如果SUSPI中断位已经置位，就由硬件清零。</p>
+<p>当SUSPI中断被触发，如果WAKEUPI中断位已经置位，就由硬件清零。</p>
+</div>
+<div class="section" id="detach">
+<h2><a class="toc-backref" href="#id136">22.9&nbsp;&nbsp;&nbsp;Detach</a></h2>
+<p>DETACH位的复位值是1。</p>
+<p>因为有可能重新枚举设备，所以简单的置位和清零DETACH位即可(固件需要在此之间延时几个毫秒)。</p>
+<p>置位DETACH会断开D+或D-的上拉电阻。然后清零DETACH会重新连接上拉电阻。</p>
+</div>
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id137">22.10&nbsp;&nbsp;&nbsp;远程唤醒</a></h2>
+<p>Remote Wake-up或Upstream Resume功能，是仅有的设备发起的(initiative)。不过要这么做，也要先从主机获取一个DEVICE_REMOTE_WAKEUP请求。</p>
+<ol class="arabic simple">
+<li>首先USB控制器必须检测suspend状态，远程唤醒只能在SUSPI=1时发送</li>
+<li>固件随后由能力设置RMWKUP，发送&quot;Upstream Resume&quot;流，这是由控制器自动完成的，但需要USB线有5mS的无效间隔</li>
+<li>当控制器开始发送&quot;Upstream Resume&quot;，UPRSMI中断会被触发(如果启用了)，SUSPI会被硬件清零</li>
+<li>RMWKUP在&quot;Upstream Resume&quot;之后由硬件清零</li>
+<li>如果控制器检测到&quot;End Of Resume&quot;信号，会触发EORSMI中断(如果启用了)</li>
+</ol>
+</div>
+<div class="section" id="stall">
+<h2><a class="toc-backref" href="#id138">22.11&nbsp;&nbsp;&nbsp;STALL请求</a></h2>
+<p>对每个端点，STALL管理使用2个位：</p>
+<ol class="arabic simple">
+<li>STALLRQ：启用stall请求</li>
+<li>STALLRQC：禁用stall请求</li>
+<li>STALLEDI：stall已发送中断</li>
+</ol>
+<p>要在下次请求发送STALL握手，需要置位STALLRQ请求位。所有随后的请求都会带有STALL握手，直到STALLRQC置位。</p>
+<p>置位STALLRQC会自动清零STALLRQ位。也会立刻被硬件清零。因此，固件永远不需要在对其置位后进行读取。</p>
+<p>每次发送STALL握手，STALLEDI标识会被USB控制器置位，EPINTx中断会被触发(如果启用了)。</p>
+<p>输入的包会被丢弃(没有设置RXOUTI和RWAL位)。</p>
+<p>主机随后发送一个命令来复位STALL：固件应该立即设置STALLRQC位来复位端点。</p>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id139">22.11.1&nbsp;&nbsp;&nbsp;控制端点的特别考虑</a></h3>
+<p>一个SETUP请求总是需要ACK。</p>
+<p>如果一个STALL请求设置到控制端点，且发生了SETUP请求，SETUP请求必须被ACK回复，而STALLRQ请求后STALLEDI标识被自动复位(RXSETUPI置位、TXIN清零、STALLED清零、TXINI清零、...)。</p>
+<p>这个过程会简化自举流程。如果一个命令不被支持，或包含错误，固件可以设置STALL请求标识并返回到主任务，等待下次SETUP请求。</p>
+<p>这个功能兼容第8章的测试，会发送扩展状态GET_DESCRIPTOR。固件仅在收到状态后设置STALL请求。所有扩展状态会自动被STALL，直到下次SETUP请求。</p>
+</div>
+<div class="section" id="id56">
+<h3><a class="toc-backref" href="#id140">22.11.2&nbsp;&nbsp;&nbsp;STALL握手和重试机制</a></h3>
+<p>重试机制的优先级高于STALL握手。一个STALL握手仅在STALLRQ置位，且无需重试时才发送。</p>
+</div>
+</div>
+<div class="section" id="control">
+<h2><a class="toc-backref" href="#id141">22.12&nbsp;&nbsp;&nbsp;CONTROL端点管理</a></h2>
+<p>&#64;page 271-272</p>
+</div>
+<div class="section" id="out">
+<h2><a class="toc-backref" href="#id142">22.13&nbsp;&nbsp;&nbsp;OUT端点管理</a></h2>
+<p>&#64;page 272-273</p>
+</div>
+<div class="section" id="in">
+<h2><a class="toc-backref" href="#id143">22.14&nbsp;&nbsp;&nbsp;IN端点管理</a></h2>
+<p>&#64;page 274-275</p>
+</div>
+<div class="section" id="id57">
+<h2><a class="toc-backref" href="#id144">22.15&nbsp;&nbsp;&nbsp;同步模式</a></h2>
+<p>&#64;page 275-276</p>
+</div>
+<div class="section" id="id58">
+<h2><a class="toc-backref" href="#id145">22.16&nbsp;&nbsp;&nbsp;概览</a></h2>
+<p>&#64;page 276-276</p>
+</div>
+<div class="section" id="id59">
+<h2><a class="toc-backref" href="#id146">22.17&nbsp;&nbsp;&nbsp;中断</a></h2>
+<p>&#64;page 276-277</p>
+</div>
+<div class="section" id="id60">
+<h2><a class="toc-backref" href="#id147">22.18&nbsp;&nbsp;&nbsp;寄存器</a></h2>
+<p>&#64;page 277-288</p>
+</div>
+</div>
+<div class="section" id="id61">
+<h1><a class="toc-backref" href="#id148">23&nbsp;&nbsp;&nbsp;模拟比较器</a></h1>
+<p>&#64;page 289-291</p>
+</div>
+<div class="section" id="adc">
+<h1><a class="toc-backref" href="#id149">24&nbsp;&nbsp;&nbsp;ADC</a></h1>
+<p>&#64;page 292-313</p>
+</div>
+<div class="section" id="jtag">
+<h1><a class="toc-backref" href="#id150">25&nbsp;&nbsp;&nbsp;JTAG与片内调试</a></h1>
+<p>&#64;page 314-319</p>
+</div>
+<div class="section" id="ieee-1149-1-jtag">
+<h1><a class="toc-backref" href="#id151">26&nbsp;&nbsp;&nbsp;IEEE 1149.1 JTAG边界扫描</a></h1>
+<p>&#64;page 320-329</p>
+</div>
+<div class="section" id="bootloader-read-while-write">
+<h1><a class="toc-backref" href="#id152">27&nbsp;&nbsp;&nbsp;BootLoader支持 Read-While-Write自编程</a></h1>
+<p>&#64;page 330-345</p>
+</div>
+<div class="section" id="id62">
+<h1><a class="toc-backref" href="#id153">28&nbsp;&nbsp;&nbsp;存储器编程</a></h1>
+<p>&#64;page 346-377</p>
+</div>
+<div class="section" id="id63">
+<h1><a class="toc-backref" href="#id154">29&nbsp;&nbsp;&nbsp;电气参数</a></h1>
+<p>&#64;page 378-385</p>
+</div>
+<div class="section" id="id64">
+<h1><a class="toc-backref" href="#id155">30&nbsp;&nbsp;&nbsp;典型参数</a></h1>
+<p>&#64;page 386-407</p>
+</div>
+<div class="section" id="id65">
+<h1><a class="toc-backref" href="#id156">31&nbsp;&nbsp;&nbsp;寄存器总结</a></h1>
+<p>&#64;page 408-411</p>
+</div>
+<div class="section" id="id66">
+<h1><a class="toc-backref" href="#id157">32&nbsp;&nbsp;&nbsp;指令集总结</a></h1>
+<p>&#64;page 412-414</p>
+</div>
+<div class="section" id="id67">
+<h1><a class="toc-backref" href="#id158">33&nbsp;&nbsp;&nbsp;附录</a></h1>
+<p>&#64;page 415-433 订购信息、封装信息、修订历史</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 15201, "title": "ATmega32u4", "src_size": 25507, "filehash": "4b3f2dfae0460a18ffb6b442fb83b98c", "dst_size": 58429} -->

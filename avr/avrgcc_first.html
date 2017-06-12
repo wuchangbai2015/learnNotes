@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>使用AVR-GCC的第一个程序</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-gcc">
+<h1 class="title">使用AVR-GCC的第一个程序</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2008-09-09</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id5">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id6">2&nbsp;&nbsp;&nbsp;第一个例子</a></li>
+<li><a class="reference internal" href="#id4" id="id7">3&nbsp;&nbsp;&nbsp;另一个延时函数</a></li>
+<li><a class="reference internal" href="#linuxavr" id="id8">4&nbsp;&nbsp;&nbsp;Linux下的AVR开发环境</a></li>
+<li><a class="reference internal" href="#avrmakefile" id="id9">5&nbsp;&nbsp;&nbsp;一个较为通用的AVR的Makefile模板</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id5">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>我喜欢开源的工作环境，而玩单片机时，AVR就是这样一个近乎完美的例子。所以仔细研究其GCC编译器也很必要。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[r] Linux操作系统下的avr开发环境： <a class="reference external" href="http://www.ourdev.cn/bbs/bbs_content.jsp?xcfrom=302&amp;bbs_sn=514645&amp;bbs_page_no=1&amp;sub_kind_id=2065&amp;bbs_id=1000">http://www.ourdev.cn/bbs/bbs_content.jsp?xcfrom=302&amp;bbs_sn=514645&amp;bbs_page_no=1&amp;sub_kind_id=2065&amp;bbs_id=1000</a></li>
+<li>[i] AVR Project Organization: Standardized AVR Makefile Template： <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php">http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php</a></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id6">2&nbsp;&nbsp;&nbsp;第一个例子</a></h1>
+<p>第一个例子，居然一次性成功，给我很大的鼓励。先看代码:</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+
+int main(void) {
+    unsigned char i,j,k,l,led=0;
+    DDRB=0xff;
+    while(1) {
+        if(led) {
+            //PORTA=0xff;
+            //PORTD=0x00;
+            PORTA=0xff;
+            PORTB=0x00;
+        }else {
+            //PORTA=0x00;
+            //PORTD=0xff;
+            PORTA=0x00;
+            PORTB=0xff;
+        }
+        led=!led;
+        //time
+        for (i=0;i&lt;255;i++)
+            for (j=0;j&lt;255;j++)
+                for (k=0;k&lt;7;k++)
+                    l++;
+    }
+}
+</pre>
+<p>再看Makefile:</p>
+<pre class="literal-block">
+MCU=atmega16
+
+.PHONY: demo.hex
+
+demo.hex: demo.elf
+    avr-objcopy -j .text -j .data -O ihex demo.elf demo.hex
+
+demo.elf: demo.o
+    avr-gcc -mmcu=$(MCU) -o demo.elf demo.o
+
+demo.o: demo.c
+    avr-gcc -mmcu=$(MCU) -c demo.c
+
+clean:
+    rm -f *.o *.elf *.hex
+
+wflash:
+    sudo avrdude -p $(MCU) -c stk200 -e -U flash:w:&quot;demo.hex&quot;
+
+rflash:
+    sudo avrdude -p $(MCU) -c stk200 -U flash:r:&quot;rflash.hex&quot;
+</pre>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id7">3&nbsp;&nbsp;&nbsp;另一个延时函数</a></h1>
+<p>经测试无法在ATmega48上工作。</p>
+<pre class="literal-block">
+#include &lt;util/delay.h&gt;
+void delayms(unit16_t millis) {
+    unit16_t loop;
+    while(millis) {
+        _delay_ms(1);
+        millis--;
+    }
+}
+</pre>
+</div>
+<div class="section" id="linuxavr">
+<h1><a class="toc-backref" href="#id8">4&nbsp;&nbsp;&nbsp;Linux下的AVR开发环境</a></h1>
+<p>发行版Debian Sarge，桌面Gnome 2.10.2。</p>
+<p>Gcc环境：binutils-avr_2.15-3、gcc-avr_3.4.3-2、avr-libc_1.2.3-3。</p>
+<p>avrdude是源码编译的，不过现在Debian源里面也有了。</p>
+<p>EDA环境使用geda_20050313-2版，主要使用gschem画草图，也可以生成PCB layout。</p>
+<p>编程器用的AVRISP线，可以在线编程，而且可选发送reset，直接运行起来。</p>
+</div>
+<div class="section" id="avrmakefile">
+<h1><a class="toc-backref" href="#id9">5&nbsp;&nbsp;&nbsp;一个较为通用的AVR的Makefile模板</a></h1>
+<p>已经下载到现在的目录下的 <tt class="docutils literal">Makefile.tpl</tt> 了。其中按照你的项目需要修改的只有三处:</p>
+<pre class="literal-block">
+MCU=at90s8515       #修改目标控制器型号
+PROJECTNAME=myproject   #项目名字
+PRJSRC=main.c myclass.cpp lowlevel.S    #项目源代码
+</pre>
+<p>其他附加参数设置各种路径，编程器(avrdude)等等。默认编程线是STK500，需要修改。</p>
+<p><tt class="docutils literal">make</tt> ：构建你的项目，编译、汇编和连接到ELF格式的 <tt class="docutils literal">myproject.out</tt> 。</p>
+<p><tt class="docutils literal">make hex</tt> ：生成用于上传到芯片的程序，会生成 <tt class="docutils literal">myproject.hex</tt> 和 <tt class="docutils literal">myproject.ee.hex</tt> ，基于ELF .out文件。两个文件都是Intel HEX格式的，分别用于写入到flash和eeprom。</p>
+<p>有这两个文件以后可以用 <tt class="docutils literal">make writeflash</tt> 来写入到芯片，或者手动执行，比如STK500的编程器:</p>
+<pre class="literal-block">
+$ avrdude -p 8515 -c stk500 -e -U flash:w:myproject.hex
+</pre>
+<p><tt class="docutils literal">make disasm</tt> 查看编译过程，了解编译出的代码，提供代码段信息。会生成 <tt class="docutils literal">myproject.s</tt> 文件。</p>
+<p><tt class="docutils literal">make *.s</tt> 用于检查汇编输出。自动生成的汇编文件用小写的&quot;.s&quot;，会在 <tt class="docutils literal">make clean</tt> 时清掉，所以你自己的汇编文件记得用&quot;.S&quot;。</p>
+<p><tt class="docutils literal">make writeflash</tt> 使用avrdude将程序写入芯片。</p>
+<p><tt class="docutils literal">make gdbinit</tt> 带调试标志的编译，用于之后的模拟和调试。生成 <tt class="docutils literal"><span class="pre">gdbinit-target</span></tt> 。调试:</p>
+<pre class="literal-block">
+$ avr-gdb -x gdbinit-myproject
+</pre>
+<p><tt class="docutils literal">make clean</tt> 清除编译中间结果。</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 3026, "title": "\u4f7f\u7528AVR-GCC\u7684\u7b2c\u4e00\u4e2a\u7a0b\u5e8f", "src_size": 4060, "filehash": "aa96a59f9e4692f25313b288fe716d94", "dst_size": 12927} -->

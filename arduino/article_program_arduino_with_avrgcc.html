@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>使用AVR-GCC编程Arduino</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-gccarduino">
+<h1 class="title">使用AVR-GCC编程Arduino</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">原文标题:</th><td class="field-body">Program Arduino with AVR-GCC</td>
+</tr>
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">Javier Valcarce</td>
+</tr>
+<tr class="field"><th class="docinfo-name">译者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2013-09-16</td>
+</tr>
+<tr class="field"><th class="docinfo-name">地址:</th><td class="field-body"><a class="reference external" href="http://www.javiervalcarce.eu/wiki/Program_Arduino_with_AVR-GCC">http://www.javiervalcarce.eu/wiki/Program_Arduino_with_AVR-GCC</a></td>
+</tr>
+</tbody>
+</table>
+<p>本文展示如何在Arduino IDE以外使用AVR-GCC给Arduino写程序，包括烧写引导器和设置熔丝。</p>
+<p>译者注：Arduino给新手提供了很大便利，但是稍微深入的应用，如定时器和详细硬件控制就很麻烦了。可同时Arduino的硬件做的是很不错的。所以本文以使用Arduino的硬件，但不使用Arduino的软件为主要目的。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#led" id="id9">1&nbsp;&nbsp;&nbsp;闪耀LED例子</a></li>
+<li><a class="reference internal" href="#id2" id="id10">2&nbsp;&nbsp;&nbsp;编译和上传</a><ul class="auto-toc">
+<li><a class="reference internal" href="#bootloader" id="id11">2.1&nbsp;&nbsp;&nbsp;通过Bootloader上传</a></li>
+<li><a class="reference internal" href="#id3" id="id12">2.2&nbsp;&nbsp;&nbsp;不通过Bootloader，而是用并口编程器</a></li>
+<li><a class="reference internal" href="#bootloader-avr-isp-mk-ii" id="id13">2.3&nbsp;&nbsp;&nbsp;不通过Bootloader，而是用AVR ISP MK-II编程器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4" id="id14">3&nbsp;&nbsp;&nbsp;注意</a></li>
+<li><a class="reference internal" href="#icspbootloader" id="id15">4&nbsp;&nbsp;&nbsp;使用ICSP烧写Bootloader</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id5" id="id16">4.1&nbsp;&nbsp;&nbsp;什么是Bootloader</a></li>
+<li><a class="reference internal" href="#id6" id="id17">4.2&nbsp;&nbsp;&nbsp;读取熔丝位</a></li>
+<li><a class="reference internal" href="#id7" id="id18">4.3&nbsp;&nbsp;&nbsp;写入熔丝位</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id19">5&nbsp;&nbsp;&nbsp;译者补充</a></li>
+</ul>
+</div>
+<p>Arduino是IDE和硬件平台，IDE以Java编写，并使用Processing语言。</p>
+<p>这对新手是个好主意，因为简化了开发，但是也比C要弱：</p>
+<ol class="arabic simple">
+<li>C有准确的执行时间，没有隐藏代码，写什么就执行什么</li>
+<li>C更容易访问硬件和中断</li>
+<li>便于在多种MCU之间移植</li>
+</ol>
+<p>本文编译和上传一个简单的纯C程序(使用avr-libc)，而不用Arduino IDE。只需要终端、文本编辑器、AVR-GCC工具链。</p>
+<div class="section" id="led">
+<h1><a class="toc-backref" href="#id9">1&nbsp;&nbsp;&nbsp;闪耀LED例子</a></h1>
+<p>从让Arduino引脚13的LED闪耀开始(实际是闪耀PORTB的所有位)。创建个文件夹来存放项目，并创建文件 <tt class="docutils literal">blink.c</tt></p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+#include &lt;util/delay.h&gt;
+
+int main(void) {
+    unsigned char counter;
+    DDRB=0xff;      //设置PORTB输出
+    while(1) {
+        PORTB=0xff; //设置PORTB为高
+        counter=0;
+        while(counter!=50) {
+            _delay_loop_2(30000);
+            counter++;
+        }
+        PORTB=0x00;
+        counter=0;
+        while(counter!=50) {
+            _delay_loop_2(30000);
+            counter++;
+        }
+    }
+    return 1;
+}
+</pre>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id10">2&nbsp;&nbsp;&nbsp;编译和上传</a></h1>
+<p>将Arduino连接到USB口之后，Linux-2.6会自动载入FTDI驱动 <tt class="docutils literal">ftdi_sio.ko</tt></p>
+<pre class="literal-block">
+$ dmesg
+...
+usb 3-2: FTDI USB Serial Device converter now attached to ttyUSB0
+usbcore: registered new interface driver ftdi_sio
+drivers/usb/serial/ftdi_sio.c: v1.4.3:USB FTDI Serial Converters Driver
+</pre>
+<p>工具链(编译器/连接器/汇编器、标准C库和编程工具)包含在三个包中:</p>
+<pre class="literal-block">
+$ apt-get install gcc-avr avr-libc avrdude
+</pre>
+<p>C库的手册在 <tt class="docutils literal"><span class="pre">/usr/share/doc/avr-libc/avr-libc-user-manual/index.html</span></tt> 。</p>
+<p>建议仔细看看 <tt class="docutils literal"><span class="pre">file:///usr/share/doc/avr-libc/avr-libc-user-manual/group__demo__project.html</span></tt> 。其末尾有个Makefile，可供定制到自己所需。改变程序名到 blink 并编译:</p>
+<pre class="literal-block">
+$ make
+</pre>
+<p>这会生成 <tt class="docutils literal">blink.hex</tt> ，也就是要上传的镜像。有两种凡是可供上传到Arduino：</p>
+<ol class="arabic simple">
+<li>ICSP(In-Circuit Serial Programming)</li>
+<li>使用Bootloader，消耗2KB的程序存储器</li>
+</ol>
+<p>第二个选项并不严格要求。实际上，第一个选项也并没有绝对优势。除非你只需要一个USB线，而不是两个。</p>
+<div class="section" id="bootloader">
+<h2><a class="toc-backref" href="#id11">2.1&nbsp;&nbsp;&nbsp;通过Bootloader上传</a></h2>
+<p>此时AVR程序存储器已经包含了Bootloader，烧写 <tt class="docutils literal">blink.hex</tt> 。确保熔丝的BOOTRST=0，如果不是，Bootloader在复位后不会启动。</p>
+<pre class="literal-block">
+$ avrdude -p m168 -P /dev/ttyUSB0 -c stk500v1 -b 19200 -F -u -U flash:w:blink.hex
+</pre>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id12">2.2&nbsp;&nbsp;&nbsp;不通过Bootloader，而是用并口编程器</a></h2>
+<p>如果不用Bootloader，直接烧写blink.hex，通过并口编程器。要确保熔丝的BOOTRST=1，如果不是，程序在复位后不会执行(后面章节会解释如何设置熔丝):</p>
+<pre class="literal-block">
+$ avrdude -p m168 -P /dev/parport0 -c dapa -b 115000 -F -u -U flash:w:blink.hex
+</pre>
+<p>如果你使用ATmega8则用 <tt class="docutils literal"><span class="pre">-p</span> m8</tt> 。</p>
+</div>
+<div class="section" id="bootloader-avr-isp-mk-ii">
+<h2><a class="toc-backref" href="#id13">2.3&nbsp;&nbsp;&nbsp;不通过Bootloader，而是用AVR ISP MK-II编程器</a></h2>
+<p>要使用这种方法，你需要一个mkII编程器(约30欧元)，并连接到Arduino，通过ICSP连接器。在AVR Studio IDE，通过 [Tool]=&gt;[Program AVR]=&gt;[Connect ...] 来选择AVR ISP mkII编程器，USB连接，并选择Flash镜像，最后点击 [Program] 按钮。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id14">3&nbsp;&nbsp;&nbsp;注意</a></h1>
+<ol class="arabic">
+<li><p class="first">使用的引脚号与Arduino的定义不同</p>
+</li>
+<li><p class="first">要使用AVR-GCC的术语访问端口和其他硬件，参考datasheet的SFR(特殊功能寄存器)，一些ATmega8的不同于ATmega168/328p</p>
+</li>
+<li><p class="first">如果你使用其他零件(ATmega8、ATmega168、ATmega328等)，注意修改Makefile的MCU变量</p>
+</li>
+<li><p class="first">最近Arduino转到ATmega328了，兼容ATmega168，但有更多程序空间，而avr-<a class="reference external" href="mailto:libc&#64;2009-01">libc&#64;2009-01</a>-01并不支持ATmeag328，编程工具的串口也不工作:</p>
+<pre class="literal-block">
+#define BAUD 19200
+#include &lt;util/setbaud.h&gt;
+    UBRR0H = UBRRH_VALUE;
+    UBRR0L = UBRRL_VALUE;
+#if USE_2X
+    UCSR0A |= (1&lt;&lt;U2X0);
+#else
+    UCSR0A &amp;= ~(1&lt;&lt;U2X0);
+#endif
+</pre>
+</li>
+</ol>
+<p>你应该替换为:</p>
+<pre class="literal-block">
+#define BAUD_RATE 19200
+UBRR0L = (uint8_t)(F_CPU/(BAUD_RATE*16L)-1);
+UBRR0H = (F_CPU/(BAUD_RATE*16L)-1)&gt;&gt;8;
+UCSR0B = (1&lt;&lt;RXEN0) | (1&lt;&lt;TXEN0);
+UCSR0C = (1&lt;&lt;UCSZ00) | (1&lt;&lt;UCSZ01);
+</pre>
+<p>启用内部上拉电阻，在D0(RX)，来降低线路噪声:</p>
+<pre class="literal-block">
+DDRD &amp;= ~_BV(PIND0);
+PORTD |= _BV(PIND0);
+</pre>
+</div>
+<div class="section" id="icspbootloader">
+<h1><a class="toc-backref" href="#id15">4&nbsp;&nbsp;&nbsp;使用ICSP烧写Bootloader</a></h1>
+<p>本节针对你的设备是空的，没有Bootloader。已经有Arduino Bootloader的可以直接跳过不看。一个简单的检查是否有Bootloader的方法是复位后PIN13的等会闪3次。</p>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id16">4.1&nbsp;&nbsp;&nbsp;什么是Bootloader</a></h2>
+<p>Bootloader是一种在特定存储区域的程序(bootloader区)，其基本任务是接收新的固件，并存储到AVR的Flash存储器(程序存储器)。每个Bootloader都是针对特定设备的，使用特殊的协议。所有这些配置参数必须与主机编程器匹配(avrdude)。avrdude可以用多种类型的协议，支持多种连接(串口、并口、USB、...)。</p>
+<p>一个例子是ATmega168在16MHz，stk500v1协议，19200-8N1串口的Bootloader： <a class="reference external" href="http://www.javiervalcarce.eu/pub/avr/ATmegaBOOT_168_ng.hex">http://www.javiervalcarce.eu/pub/avr/ATmegaBOOT_168_ng.hex</a> 。</p>
+<p>按照如下步骤来烧写到AVR设备。更换其他操作系统，如Windows就是将 <tt class="docutils literal">/dev/parport0</tt> 替换为LPT1，并安装giveio.sys即可。</p>
+<ol class="arabic">
+<li><p class="first">(解释如何编译Bootloader，而不是提供预编译的)</p>
+</li>
+<li><p class="first">连接到并口编程器dapa和ICSP，然后供电:</p>
+<pre class="literal-block">
+$ # write the following fuse bits: efuse=0x00, hfuse=0xdd, lfuse=0xff
+$ # write the following fuse bits: lock=0x3f (unlock boot section)
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U flash:w:ATmegaBOOT_168_ng.hex
+$ # write the following fuse bits: lock=0x0f (lock boot section)
+</pre>
+</li>
+</ol>
+<p>在烧写镜像之前，先把熔丝设置成：使用外部晶振、禁用时钟分频、最大化Bootloader段等。然后烧写ATmegaBOOT_168_ng.hex到AVR。对于熔丝位，参考手册。</p>
+<p>要访问并口，必须在 lp 组，修改 <tt class="docutils literal">/etc/group</tt> 并退出会话来让改变生效。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id17">4.2&nbsp;&nbsp;&nbsp;读取熔丝位</a></h2>
+<pre class="literal-block">
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U efuse:r:-:h #read efuse
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U hfuse:r:-:h #read hfuse
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U lfuse:r:-:h #read lfuse
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U signature:r:-:h #读取设备签名
+</pre>
+<p>最后一个命令仅用于确认数据线正确连接。ATmega168的签名是0x1e, 0x94, 0x06。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id18">4.3&nbsp;&nbsp;&nbsp;写入熔丝位</a></h2>
+<pre class="literal-block">
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U efuse:w:0xff:m #写0xff到efuse
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U hfuse:w:0xff:m #写0xff到hfuse
+$ avrdude -c dapa -p m168 -P /dev/parport0 115000 -U lfuse:w:0xff:m #写0xff到lfuse
+</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id19">5&nbsp;&nbsp;&nbsp;译者补充</a></h1>
+<ol class="arabic">
+<li><p class="first">对于较新的Arduino，常用的芯片ATmega328P对应的器件名字叫&quot;atmega328p&quot;</p>
+</li>
+<li><p class="first">avrdude烧写时的编程器为&quot;arduino&quot;，波特率为57600，即完整命令:</p>
+<pre class="literal-block">
+avrdude -c arduino -p atmega328p -P /dev/tty.SLAB_USBtoUART -b 57600 -F -u -U flash:xxx.hex
+</pre>
+</li>
+</ol>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 5440, "title": "\u4f7f\u7528AVR-GCC\u7f16\u7a0bArduino", "src_size": 7810, "filehash": "43d4b7ad49cb7e4f61db705ce25ac38c", "dst_size": 18626} -->

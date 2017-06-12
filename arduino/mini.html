@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Mini</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="mini">
+<h1 class="title">Mini</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2013-10-13</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id4">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id5">2&nbsp;&nbsp;&nbsp;布局与引脚</a><ul class="auto-toc">
+<li><a class="reference internal" href="#cjmcupromini3-0" id="id6">2.1&nbsp;&nbsp;&nbsp;CJMCU的ProMini3.0</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id4">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>是一系列的，以插针为主要对外接口的板子，本身不带USB接口，需要使用外部编程器，价格非常便宜，甚至可以做到15元，基本上也就是PCB+芯片了。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[u] ArduinoBoardProMini： <a class="reference external" href="http://arduino.cc/en/Main/ArduinoBoardProMini">http://arduino.cc/en/Main/ArduinoBoardProMini</a></li>
+<li>[u] ArduinoMini： <a class="reference external" href="http://arduino.cc/en/Main/ArduinoBoardMini">http://arduino.cc/en/Main/ArduinoBoardMini</a></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id5">2&nbsp;&nbsp;&nbsp;布局与引脚</a></h1>
+<div class="section" id="cjmcupromini3-0">
+<h2><a class="toc-backref" href="#id6">2.1&nbsp;&nbsp;&nbsp;CJMCU的ProMini3.0</a></h2>
+<p>17元一个，有扩展的A6和A7。我手里有3-4个。5V/16MHz，ATmega328P-AU。</p>
+<p>提供6个PWM端口：D3、D5、D6、D9、D10、D11。8个模拟输入：A0~A7。</p>
+<p>外部电源超过5.5V时，从VIN输入。外部电源3.3V~5.5V时从5V脚输入。</p>
+<p>板子上没有标注A4、A5，却有SCL和SDA。事实上A4=SDA，A5=SCL。</p>
+<p>LED都是PB5/SCK。</p>
+<img alt="_images/mini_00.jpg" src="_images/mini_00.jpg" />
+<p>可见其引脚排列。而各个Arduino定义的引脚与MCU的映射(ATmega328P-AU)：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>AD</td>
+<td>PIN</td>
+<td>MCU</td>
+</tr>
+<tr><td>D0</td>
+<td>39</td>
+<td>PD0/RXD</td>
+</tr>
+<tr><td>D1</td>
+<td>31</td>
+<td>PD1/TXD</td>
+</tr>
+<tr><td>D2</td>
+<td>32</td>
+<td>PD2/INT0</td>
+</tr>
+<tr><td>D3</td>
+<td>1</td>
+<td>PD3/INT1/OC2B</td>
+</tr>
+<tr><td>D4</td>
+<td>2</td>
+<td>PD4/T0/XCK</td>
+</tr>
+<tr><td>D5</td>
+<td>9</td>
+<td>PD5/T1/OC0B</td>
+</tr>
+<tr><td>D6</td>
+<td>10</td>
+<td>PD6/AIN0/OC0A</td>
+</tr>
+<tr><td>D7</td>
+<td>11</td>
+<td>PD7/AIN1/</td>
+</tr>
+<tr><td>D8</td>
+<td>12</td>
+<td>PB0/ICP1/CLKO</td>
+</tr>
+<tr><td>D9</td>
+<td>13</td>
+<td>PB1/OC1A</td>
+</tr>
+<tr><td>D10</td>
+<td>14</td>
+<td>PB2/SS/OC1B</td>
+</tr>
+<tr><td>D11</td>
+<td>15</td>
+<td>PB3/MOSI/OC2A</td>
+</tr>
+<tr><td>D12</td>
+<td>16</td>
+<td>PB4/MISO</td>
+</tr>
+<tr><td>D13</td>
+<td>17</td>
+<td>PB5/SCK</td>
+</tr>
+<tr><td>A0</td>
+<td>23</td>
+<td>PC0/ADC0</td>
+</tr>
+<tr><td>A1</td>
+<td>24</td>
+<td>PC1/ADC1</td>
+</tr>
+<tr><td>A2</td>
+<td>25</td>
+<td>PC2/ADC2</td>
+</tr>
+<tr><td>A3</td>
+<td>26</td>
+<td>PC3/ADC3</td>
+</tr>
+<tr><td>A4</td>
+<td>27</td>
+<td>PC4/ADC4/SDA</td>
+</tr>
+<tr><td>A5</td>
+<td>28</td>
+<td>PC5/ADC5/SCL</td>
+</tr>
+<tr><td>A6</td>
+<td>19</td>
+<td>ADC6</td>
+</tr>
+<tr><td>A7</td>
+<td>22</td>
+<td>ADC7</td>
+</tr>
+</tbody>
+</table>
+<p>事实上Arduino的这些板子，确实是把所有有用的引脚都引出了。所以作为自己玩也是很靠谱的。毕竟板子上做好了贴片的有源晶振，编程口也相对靠谱。</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 1191, "title": "Mini", "src_size": 1687, "filehash": "6bc9dc7f693728a7bd53c477904b7265", "dst_size": 10373} -->

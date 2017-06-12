@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>ATtiny13a 数据手册</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="attiny13a">
+<h1 class="title">ATtiny13a 数据手册</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">译者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-02-17</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id34">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id35">2&nbsp;&nbsp;&nbsp;引脚配置、概览、关于</a></li>
+<li><a class="reference internal" href="#cpu" id="id36">3&nbsp;&nbsp;&nbsp;CPU核</a></li>
+<li><a class="reference internal" href="#id4" id="id37">4&nbsp;&nbsp;&nbsp;存储器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#flash" id="id38">4.1&nbsp;&nbsp;&nbsp;片内Flash程序存储器</a></li>
+<li><a class="reference internal" href="#sram" id="id39">4.2&nbsp;&nbsp;&nbsp;SRAM数据存储器</a></li>
+<li><a class="reference internal" href="#id5" id="id40">4.3&nbsp;&nbsp;&nbsp;数据存储器存取时间</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id41">5&nbsp;&nbsp;&nbsp;系统时钟和时钟选项</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id7" id="id42">5.1&nbsp;&nbsp;&nbsp;系统时钟及其分布</a></li>
+<li><a class="reference internal" href="#id8" id="id43">5.2&nbsp;&nbsp;&nbsp;时钟源</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id44">6&nbsp;&nbsp;&nbsp;电源管理和休眠模式</a></li>
+<li><a class="reference internal" href="#id10" id="id45">7&nbsp;&nbsp;&nbsp;系统控制和复位</a><ul class="auto-toc">
+<li><a class="reference internal" href="#avr" id="id46">7.1&nbsp;&nbsp;&nbsp;AVR复位</a></li>
+<li><a class="reference internal" href="#id11" id="id47">7.2&nbsp;&nbsp;&nbsp;复位源</a></li>
+<li><a class="reference internal" href="#id12" id="id48">7.3&nbsp;&nbsp;&nbsp;内部参考电压</a></li>
+<li><a class="reference internal" href="#id13" id="id49">7.4&nbsp;&nbsp;&nbsp;看门狗定时器</a></li>
+<li><a class="reference internal" href="#id14" id="id50">7.5&nbsp;&nbsp;&nbsp;寄存器描述</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id51">8&nbsp;&nbsp;&nbsp;中断</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id16" id="id52">8.1&nbsp;&nbsp;&nbsp;外部中断</a></li>
+<li><a class="reference internal" href="#id17" id="id53">8.2&nbsp;&nbsp;&nbsp;寄存器描述</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#i-o" id="id54">9&nbsp;&nbsp;&nbsp;I/O端口</a></li>
+<li><a class="reference internal" href="#id18" id="id55">10&nbsp;&nbsp;&nbsp;定时器/计数器0，及其分频</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id19" id="id56">10.1&nbsp;&nbsp;&nbsp;寄存器描述</a></li>
+<li><a class="reference internal" href="#id20" id="id57">10.2&nbsp;&nbsp;&nbsp;预分频器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id21" id="id58">11&nbsp;&nbsp;&nbsp;模拟比较器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id22" id="id59">11.1&nbsp;&nbsp;&nbsp;多路输入</a></li>
+<li><a class="reference internal" href="#id23" id="id60">11.2&nbsp;&nbsp;&nbsp;寄存器描述</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ad" id="id61">12&nbsp;&nbsp;&nbsp;AD转换</a></li>
+<li><a class="reference internal" href="#debugwire" id="id62">13&nbsp;&nbsp;&nbsp;单线调试(debugWIRE)</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id24" id="id63">13.1&nbsp;&nbsp;&nbsp;物理接口</a></li>
+<li><a class="reference internal" href="#id25" id="id64">13.2&nbsp;&nbsp;&nbsp;软件断点</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26" id="id65">14&nbsp;&nbsp;&nbsp;Flash自编程</a></li>
+<li><a class="reference internal" href="#id27" id="id66">15&nbsp;&nbsp;&nbsp;存储器编程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id28" id="id67">15.1&nbsp;&nbsp;&nbsp;编程和数据锁定位</a></li>
+<li><a class="reference internal" href="#id29" id="id68">15.2&nbsp;&nbsp;&nbsp;熔丝字节</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30" id="id69">16&nbsp;&nbsp;&nbsp;电器特性和典型特性</a></li>
+<li><a class="reference internal" href="#id31" id="id70">17&nbsp;&nbsp;&nbsp;寄存器概览</a></li>
+<li><a class="reference internal" href="#id32" id="id71">18&nbsp;&nbsp;&nbsp;指令集概览</a></li>
+<li><a class="reference internal" href="#id33" id="id72">19&nbsp;&nbsp;&nbsp;订购、封装</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id34">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>非常便宜的一款芯片，争取更多玩法。</p>
+<p>参考文献：ATtiny13a Datasheet PDF(4386936Byte) Rev:8216E-AVR-07/10</p>
+<ol class="arabic simple">
+<li>120条指令，32x8通用寄存器，全静态操作，最高到20MIPS &#64; 20MHz</li>
+<li>1KB Flash、64B EEPROM、64B SRAM，Falsh 10,000次、EEPROM 100,000次，85摄氏度20年，25摄氏度100年，有针对EEPROM和Flash的编程锁</li>
+<li>1个8bit定时器，2路PWM，4通道10bit ADC，片内模拟比较器</li>
+<li>可编程的看门狗，使用片内时钟</li>
+<li>单线调试系统、SPI编程、内外中断源</li>
+<li>低功耗IDLE、ADC降噪、掉电模式</li>
+<li>增强的上电复位周期</li>
+<li>可编程的低电压检测，且可被软件禁用</li>
+<li>内部振荡器</li>
+<li>I/O和封装：8-pin，6个可编程</li>
+<li>操作电压：1.8-5.5V</li>
+<li>速度等级：<a class="reference external" href="mailto:0-4MHz&#64;1.8-5.5V">0-4MHz&#64;1.8-5.5V</a>，<a class="reference external" href="mailto:0-10MHz&#64;2.7-5.5V">0-10MHz&#64;2.7-5.5V</a>，<a class="reference external" href="mailto:0-20MHz&#64;4.5-5.5V">0-20MHz&#64;4.5-5.5V</a></li>
+<li>低功耗：活跃模式190uA&#64;1.8V 1MHz，空闲模式24uA&#64;1.8V 1MHz</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id35">2&nbsp;&nbsp;&nbsp;引脚配置、概览、关于</a></h1>
+<p>引脚配置 8-PDIP/SOIC:</p>
+<pre class="literal-block">
+(PCINT5,/RESET,ADC0/dW) PB5 |   U   | Vcc
+(PCINT3/CLKI/ADC3)      PB3 |       | PB2 (SCK/ADC1/T0/PCINT2)
+(PCINT4/ADC2)           PB4 |       | PB1 (MISO/AIN1/OC0B/INT0/PCINT1)
+                        GND |       | PB0 (MOSI/AIN0/OC0A/PCINT0)
+</pre>
+<p>20-QFN/MLF和10-QFN/MLF见&#64;page 2。</p>
+<p>端口B有内置上拉电阻。</p>
+<p>低电平输入/RESET产生复位。</p>
+<p>ATtiny13A是低功耗CMOS 8bit单片机，基于AVR增强RISC架构。通过强大的单周期指令，ATtiny13A可以达到1MIPS/MHz的性能，允许设计者优化功耗和性能。</p>
+<p>系统框图：</p>
+<img alt="_images/attiny13_datasheet_02_00.png" src="_images/attiny13_datasheet_02_00.png" />
+<p>AVR核心包含了丰富的指令集，和32个通用寄存器。所有32个寄存器都直接连接到了ALU，允许两个独立寄存器在单一指令单一周期中访问。结果架构使得比传统CISC快了10倍以上。</p>
+<p>&#64;page 5-6</p>
+</div>
+<div class="section" id="cpu">
+<h1><a class="toc-backref" href="#id36">3&nbsp;&nbsp;&nbsp;CPU核</a></h1>
+<p>&#64;page 7-14</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id37">4&nbsp;&nbsp;&nbsp;存储器</a></h1>
+<p>AVR架构有两个主要的存储空间，数据存储器和程序存储器。另外还提供了EEPROM存储器。所有存储器都是线性和规则的。</p>
+<div class="section" id="flash">
+<h2><a class="toc-backref" href="#id38">4.1&nbsp;&nbsp;&nbsp;片内Flash程序存储器</a></h2>
+<p>1KB的片内程序存储器，存储一般是32bit的指令，空间组织为512x16。</p>
+<p>程序指针(Program Counter = PC)是9bit宽的，这样可以指定512个程序存储器位置。</p>
+<p>常量表可以在整个程序存储器内定位，查看 <cite>LPM</cite> 指令。</p>
+<p>地址范围是0x0000 - 0x01ff。</p>
+</div>
+<div class="section" id="sram">
+<h2><a class="toc-backref" href="#id39">4.2&nbsp;&nbsp;&nbsp;SRAM数据存储器</a></h2>
+<p>低160个数据存储地址，同时包含寄存器、I/O存储和内部数据SRAM。最开始的32个位置是寄存器，接下来64个位置是标准I/O存储，最后64个位置是SRAM。</p>
+<p>有5种不同的寻址模式：</p>
+<ol class="arabic simple">
+<li>Direct</li>
+<li>Indirect with Displacement</li>
+<li>Indirect</li>
+<li>Indirect with Pre-decrement</li>
+<li>Indirect with Post-increment</li>
+</ol>
+<p>在寄存器中R26到R31是作为简介寻址的寄存器。直接寻址可以直接覆盖整个数据空间。</p>
+<p>Indirect with Displacement模式可以覆盖从基地址开始的63个地址位，通过Y-或Z-寄存器。</p>
+<p>当使用寄存器间接寻址模式，并使用pre-decrement或post-increment时，地址寄存器X、Y、Z作为减量或增量。</p>
+<p>数据存储器映射:</p>
+<pre class="literal-block">
+32 Registers            0x0000-0x001f
+64 I/O Registers        0x0020-0x005f
+Internal SRAM(64x8)     0x0060-0x009f
+</pre>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id40">4.3&nbsp;&nbsp;&nbsp;数据存储器存取时间</a></h2>
+<p>&#64;page 16-22</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id41">5&nbsp;&nbsp;&nbsp;系统时钟和时钟选项</a></h1>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id42">5.1&nbsp;&nbsp;&nbsp;系统时钟及其分布</a></h2>
+<p>&#64;page 23-24</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id43">5.2&nbsp;&nbsp;&nbsp;时钟源</a></h2>
+<p>通过熔丝位可以选择不同的时钟。时钟选择：</p>
+<ol class="arabic simple">
+<li>CKSEL[1:0]=00：外部时钟</li>
+<li>CKSEL[1:0]=01：片内4.8MHz RC振荡器</li>
+<li>CKSEL[1:0]=10：片内9.6MHz RC振荡器(默认)</li>
+<li>CKSEL[1:0]=11：片内128KHz RC振荡器</li>
+</ol>
+<p>CPU从掉电或省电模式环形时，使用选定时钟启动，确保在开始运行前时钟的稳定。当CPU从复位启动时，有个附加的延迟，允许电源到达稳定状态。看门狗振荡器提供启动时间的计时。可用的WDT震荡周期如下：</p>
+<ol class="arabic simple">
+<li>典型超时=4ms，周期=512</li>
+<li>典型超时=64ms，周期=8,192</li>
+</ol>
+<p>&#64;page 24-29</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id44">6&nbsp;&nbsp;&nbsp;电源管理和休眠模式</a></h1>
+<p>休眠模式方便实现低功耗，可以关闭不用的模块，来节省电力。</p>
+<p>&#64;page 30-34</p>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id45">7&nbsp;&nbsp;&nbsp;系统控制和复位</a></h1>
+<div class="section" id="avr">
+<h2><a class="toc-backref" href="#id46">7.1&nbsp;&nbsp;&nbsp;AVR复位</a></h2>
+<p>复位时，所有IO寄存器都设置为初始化值，程序开始从复位向量执行。复位向量处的指令必须是RJMP，相对跳转，跳到实际的复位程序。如果程序没有启用中断源，中断向量就不会使用，程序代码就可以放在这里。复位逻辑如下图。</p>
+<img alt="_images/attiny13_datasheet_07_00.png" src="_images/attiny13_datasheet_07_00.png" />
+<p>IO端口会在复位中断时立即复位到其初始状态，此时无需时钟。</p>
+<p>在所有复位中断源变得无效时，会有个延时计数器来延迟内部复位。这允许电源达到稳定状态后再操作。这个超时周期由熔丝SUT和CKSEL控制。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id47">7.2&nbsp;&nbsp;&nbsp;复位源</a></h2>
+<p>ATtiny13A有4中复位源：</p>
+<ol class="arabic simple">
+<li>上电复位：电源电压达到上电复位时，V_POT</li>
+<li>外部复位：低电平到/RESET引脚时，且脉冲超过最小脉冲</li>
+<li>看门狗复位：看门狗定时器溢出，且启用了看门狗</li>
+<li>掉电复位：电源典雅低于Brown-Out电压(V_BOT)，且掉电检测器启用了</li>
+</ol>
+<p>&#64;wait</p>
+<p>上电复位时序图：</p>
+<img alt="_images/attiny13_datasheet_07_01.png" src="_images/attiny13_datasheet_07_01.png" />
+<p>外部复位时序图：</p>
+<img alt="_images/attiny13_datasheet_07_02.png" src="_images/attiny13_datasheet_07_02.png" />
+<p>掉电复位时序图：</p>
+<img alt="_images/attiny13_datasheet_07_03.png" src="_images/attiny13_datasheet_07_03.png" />
+<p>看门狗复位时序图：</p>
+<img alt="_images/attiny13_datasheet_07_04.png" src="_images/attiny13_datasheet_07_04.png" />
+<p>&#64;page 36-38</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id48">7.3&nbsp;&nbsp;&nbsp;内部参考电压</a></h2>
+<p>&#64;page 38-38</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id49">7.4&nbsp;&nbsp;&nbsp;看门狗定时器</a></h2>
+<p>ATtiny13A有内置增强型看门狗定时器(WDT)。是一个定时器，基于片内128KHz振荡器。当计数器到达指定超时值，就会给出中断或系统复位。在正常操作模式，会要求系统使用WDR-Watchdog Timer Reset指令来重新开始计数器，避免到达超时。如果系统没有重启计数器，就会产生中断或系统复位。</p>
+<p>看门狗定时器逻辑：</p>
+<img alt="_images/attiny13_datasheet_07_05.png" src="_images/attiny13_datasheet_07_05.png" />
+<p>在中断模式，WDT会在超时时给出中断。这个中断可用于唤醒设备，或生成系统定时器。一个例子是限制特定操作时间，当操作执行时间过长时就中断掉。在系统复位模式，WDT会在超时时给出系统复位。典型的用户避免代码跑飞时的系统挂起。在第三种模式，中断和系统复位模式，合并了两者，首先给出中断，然后执行系统复位。允许一个安全的关机，并在系统复位前保存必要的参数。</p>
+<p>看门狗对应的WDTON熔丝总是会导致系统复位模式。如果熔丝启用系统复位模式WDE和中断模式WDTIE。想要确保安全，应该按照如下顺序设置看门狗。清除WDE和改变超时配置如下：</p>
+<ol class="arabic simple">
+<li>在相同模式，写逻辑1到看门狗修改允许位(WDCE)和WDE，一个逻辑1必须写到WDE不管之前的WDE值</li>
+<li>在接下来的4个时钟周期，写WDE和看门狗预分频位(WDP)为想要的值，但是确保WDCE是清除的，这必须在一个操作中完成</li>
+</ol>
+<p>如下代码例子展示了汇编和C代码来关闭看门狗定时器。例子假设中断已经被控制(禁用了全局中断)所以执行这些指令时不会有中断发生。</p>
+<p>汇编代码:</p>
+<pre class="literal-block">
+WDT_off:
+    ;关闭全局中断
+    cli
+    ;复位看门狗定时器
+    wdr
+    ;清除MCUSR的WDRF
+    in      r16,MCUSR
+    andi    r16,(0xff-(1&lt;&lt;WDRF))
+    out     MCUSR,r16
+    ;写逻辑1到WDCE和WDE，保持预分频器的值
+    in      r16,WDTCR
+    ori     r16,(1&lt;&lt;WDCE)|(1&lt;&lt;WDE)
+    out     WDTCR,r16
+    ;关闭WDT
+    ldi     r16,(0&lt;&lt;WDE)
+    out     WDTCR,r16
+    ;打开全局中断
+    sei
+    ret
+</pre>
+<p>C代码:</p>
+<pre class="literal-block">
+void WDT_off(void) {
+    __disable_interrupt();
+    __watchdog_reset();
+    //清除WDRF
+    MCUSR &amp;= ~(1&lt;&lt;WDRF);
+    //写逻辑1到WDCE和WDE，保持预分频器的值
+    WDTCR |= (1&lt;&lt;WDCE)|(1&lt;&lt;WDE);
+    //关闭WDT
+    WDTCR=0x00;
+    __enable_interrupt();
+}
+</pre>
+<p>如果WDT意外被打开，例如因为野指针或掉电，设备会被复位而看门狗定时器会移植保持启用。如果代码没有处理看门狗，就会导致不停的超时复位循环。要避免该情况，应用应该总是在初始化过程中清除看门狗系统复位标志(WDRF)和WDE位，哪怕还没有使用看门狗。</p>
+<p>如下代码展示汇编和C代码改变看门狗的超时值：</p>
+<p>汇编:</p>
+<pre class="literal-block">
+WDT_Prescaler_Change:
+    ;关闭全局中断
+    cli
+    ;复位看门狗定时器
+    wdr
+    ;开始计数序列
+    in      r16,WDTCR
+    ori     r16,(1&lt;&lt;WDCE)|(1&lt;&lt;WDE)
+    out     WDTCR,r16
+    ;在4周期设置新的值，新的预分频器位0.5秒
+    ldi     r16,(1&lt;&lt;WDE)|(1&lt;&lt;WDP2)|(1&lt;&lt;WDP0)
+    out     WDTCR,r16
+    ;完成，使用了2个周期
+    ;打开全局中断
+    sei
+    ret
+</pre>
+<p>C代码:</p>
+<pre class="literal-block">
+void WDT_Prescaler_Change(void) {
+    __disable_interrupt();
+    __watchdog_reset();
+    //开始定时序列
+    WDTCR |= (1&lt;&lt;WDCE)|(1&lt;&lt;WDE);
+    //设置新的预分频值，0.5秒
+    WDTCR = (1&lt;&lt;WDE)|(1&lt;&lt;WDP2)|(1&lt;&lt;WDP0);
+    __enable_interrupt();
+}
+</pre>
+<p>看门狗应该在修改WDP位之前复位，因为在修改WDP位之前就超时会导致更短的超时周期。</p>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id50">7.5&nbsp;&nbsp;&nbsp;寄存器描述</a></h2>
+<p><strong>MCUSR-MCU状态寄存器</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x34</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>WDRF</td>
+<td>BORF</td>
+<td>EXTRF</td>
+<td>PORF</td>
+</tr>
+<tr><td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[7-4:--]</cite> 保留。</p>
+<p><cite>[3:WDRF]</cite> 看门狗复位标志，当看门狗复位发生时值为1，该位的复位会在上电复位，或写逻辑0。</p>
+<p><cite>[2:BORF]</cite> 掉电复位标志，当掉电复位发生时值为1，该位的复位会在上电复位，或写逻辑0。</p>
+<p><cite>[1:EXTRF]</cite> 外部复位标志，当外部复位发生时值为1，该位的复位会在上电复位，或写逻辑0。</p>
+<p><cite>[0:PORF]</cite> 上电复位标志，当上电复位发生时值为1，该位的复位通过写逻辑0实现。</p>
+<p>想要使用复位标志来识别复位原因，用户应该尽早读取MCUSR。如果寄存器被另一个复位给清除了，则复位源可以通过检查复位标志实现。</p>
+<p><strong>WDTCR-看门狗控制寄存器</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x21</td>
+<td>WDTIF</td>
+<td>WDTIE</td>
+<td>WDP3</td>
+<td>WDCE</td>
+<td>WDE</td>
+<td>WDP2</td>
+<td>WDP1</td>
+<td>WDP0</td>
+</tr>
+<tr><td>R/W</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+<td>RW</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>x</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[7:WDTIF]</cite> 看门狗中断标志。当看门狗中断发生时为1，当执行中断向量时由硬件清除，或写逻辑1来清除。当全局中断打开且WDTIE=1时，会执行中断向量。</p>
+<p><cite>[6:WDTIE]</cite> 看门狗中断启用。写1，且全局中断打开，就打开了看门狗中断。当WDE=0，看门狗就是在中断模式，看门狗超时时就会调用中断处理。</p>
+<p>如果WDE=1，看门狗就是在中断和系统复位模式。第一次超时会设置WDTIF。执行对应中断向量并硬件清除WDTIE和WDTIF(看门狗进入系统复位模式)。这对于保持看门狗的安全有用。如果要保持在中断和系统复位模式，WDTIE必须在每次中断后写1。这不应该在中断函数里，因为这在系统复位模式不安全。如果中断在下次超时前没有执行，就会执行系统复位。</p>
+<p>看门狗配置：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="28%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>WDTON</td>
+<td>WDE</td>
+<td>WDTIE</td>
+<td>模式</td>
+<td>超时动作</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>0</td>
+<td>停止</td>
+<td>无</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>1</td>
+<td>中断模式</td>
+<td>中断</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>0</td>
+<td>系统复位模式</td>
+<td>复位</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>1</td>
+<td>中断和系统复位</td>
+<td>中断，然后去系统复位</td>
+</tr>
+<tr><td>0</td>
+<td>x</td>
+<td>x</td>
+<td>系统复位模式</td>
+<td>复位</td>
+</tr>
+</tbody>
+</table>
+<p>WDTON熔丝的0表示已编程，1表示未编程。</p>
+<p><cite>[4:WDCE]</cite> 看门狗修改启用。用于修改WDE和预分频位的时间序列中使用。要清除WDE位，或修改预分频值，则WDCE必须写1。一旦写1，硬件会自动在4个周期后清除WDCE。</p>
+<p><cite>[3:WDE]</cite> 看门狗系统复位启用。WDE会被MCUSR的WDRF复写，这意味着WDRF=1时，WDE也总是1，WDRF必须先清除。这个功能确保多个复位导致的失败，会在失败后安全的启动。</p>
+<p><cite>[5,2-0:WDP3-0]</cite> ：看门狗预分频器3-0。决定了看门狗预分频因子。如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="23%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>WDP3-0</td>
+<td>分频周期</td>
+<td>典型超时(Vcc=5.0V)</td>
+</tr>
+<tr><td>0000</td>
+<td>2K</td>
+<td>16mS</td>
+</tr>
+<tr><td>0001</td>
+<td>4K</td>
+<td>32mS</td>
+</tr>
+<tr><td>0010</td>
+<td>8K</td>
+<td>64mS</td>
+</tr>
+<tr><td>0011</td>
+<td>16K</td>
+<td>0.125 S</td>
+</tr>
+<tr><td>0100</td>
+<td>32K</td>
+<td>0.25 S</td>
+</tr>
+<tr><td>0101</td>
+<td>64K</td>
+<td>0.5S</td>
+</tr>
+<tr><td>0110</td>
+<td>128K</td>
+<td>1.0 S</td>
+</tr>
+<tr><td>0111</td>
+<td>256K</td>
+<td>2.0 S</td>
+</tr>
+<tr><td>1000</td>
+<td>512K</td>
+<td>4.0 S</td>
+</tr>
+<tr><td>1001</td>
+<td>1024K</td>
+<td>8.0 S</td>
+</tr>
+<tr><td>1010</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr><td>1011</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr><td>1100</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr><td>1101</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr><td>1110</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr><td>1111</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id15">
+<h1><a class="toc-backref" href="#id51">8&nbsp;&nbsp;&nbsp;中断</a></h1>
+<p>中断向量表：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="16%" />
+<col width="22%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>向量号</td>
+<td>程序地址</td>
+<td>源</td>
+<td>描述</td>
+</tr>
+<tr><td>1</td>
+<td>0x0000</td>
+<td>RESET</td>
+<td>外部引脚，上电，低电压，看门狗</td>
+</tr>
+<tr><td>2</td>
+<td>0x0001</td>
+<td>INT0</td>
+<td>外部中断0</td>
+</tr>
+<tr><td>3</td>
+<td>0x0002</td>
+<td>PCINT0</td>
+<td>引脚中断0</td>
+</tr>
+<tr><td>4</td>
+<td>0x0003</td>
+<td>TIM0_OVF</td>
+<td>Timer/Counter溢出</td>
+</tr>
+<tr><td>5</td>
+<td>0x0004</td>
+<td>EE_RDY</td>
+<td>EEPROM Ready</td>
+</tr>
+<tr><td>6</td>
+<td>0x0005</td>
+<td>ANA_COMP</td>
+<td>Analog Comparator</td>
+</tr>
+<tr><td>7</td>
+<td>0x0006</td>
+<td>TIM0_COMPA</td>
+<td>Timer/Counter Compare Match A</td>
+</tr>
+<tr><td>8</td>
+<td>0x0007</td>
+<td>TIM0_COMPB</td>
+<td>Timer/Counter Compare Match B</td>
+</tr>
+<tr><td>9</td>
+<td>0x0008</td>
+<td>WDT</td>
+<td>看门狗超时</td>
+</tr>
+<tr><td>10</td>
+<td>0x0009</td>
+<td>ADC</td>
+<td>ADC转换完成</td>
+</tr>
+</tbody>
+</table>
+<p>如果程序没启用中断源，则中断向量没有用，常规程序代码可能放在这些位置。</p>
+<p>典型和通用的中断向量地址设置例子，就是用汇编设置了中断向量的跳转。page45</p>
+<p>对应的avr-gcc中的中断向量名(文件 <tt class="docutils literal">/opt/local/avr/include/avr/iotn13.h</tt> )：</p>
+<ol class="arabic simple">
+<li>SIG_INTERRUPT0(INT0)</li>
+<li>SIG_PIN_CHANGE0(PCINT0)</li>
+<li>SIG_OVERFLOW0(TIM0_OVF)</li>
+<li>SIG_EEPROM_READY(EE_RDY)</li>
+<li>SIG_COMPARATOR(ANA_COMP)</li>
+<li>SIG_OUTPUT_COMPARE0A(TIM0_COMPA)</li>
+<li>SIG_OUTPUT_COMPARE0B(TIM0_COMPB)</li>
+<li>SIG_WATCHDOG_TIMEOUT(WDT)</li>
+<li>SIG_ADC(ADC)</li>
+</ol>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id52">8.1&nbsp;&nbsp;&nbsp;外部中断</a></h2>
+<p>外部中断通过INT0或PCINT[5:0]来触发。如果启用，即便INT0或PCINT[5:0]配置为输出时也会触发。这个功能提供了生成软中断的一种方法。引脚改变中断PCI会在任何PCINT[5:0]引脚翻转时触发。PCMSK寄存器控制哪个引脚可以接受中断。PCINT[5:0]上的引脚改变中断是异步的。这可以用于唤醒器件。</p>
+<p>INT0中断可以设置用上升沿、下降沿、低电平来触发。通过MCU控制寄存器MCUCR来设置。INT0中断启用，且配置为电平触发时，只要是保持低电平就一直触发。注意识别INT0是上升沿还是下降沿需要I/O时钟。</p>
+<p><strong>低电平中断</strong></p>
+<p>INT0的低电平中断是异步的，可以用于唤醒。I/O时钟在SLEEP模式会关闭，而IDLE模式会打开。</p>
+<p>如果用低电平中断触发唤醒，低电平持续时间必须足够MCU完成唤醒触发，否则继续休眠，且不产生中断。启动时间通过SUT和CKSEL熔丝来设置。</p>
+<p>如果在唤醒完成前移除了触发源，就不会进入中断服务例程，而是从SLEEP命令处继续。</p>
+<p><strong>引脚改变中断时序</strong></p>
+<p>&#64;page 46-46</p>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id53">8.2&nbsp;&nbsp;&nbsp;寄存器描述</a></h2>
+<p>&#64;page 47-48</p>
+</div>
+</div>
+<div class="section" id="i-o">
+<h1><a class="toc-backref" href="#id54">9&nbsp;&nbsp;&nbsp;I/O端口</a></h1>
+<p>&#64;page 49-58</p>
+</div>
+<div class="section" id="id18">
+<h1><a class="toc-backref" href="#id55">10&nbsp;&nbsp;&nbsp;定时器/计数器0，及其分频</a></h1>
+<p>功能描述：</p>
+<ol class="arabic simple">
+<li>两个独立的输出比较单元</li>
+<li>输出比较寄存器的双缓冲</li>
+<li>比较匹配时自动清零计时器(自动重载)</li>
+<li>无毛刺，相位正确的PWM</li>
+<li>可变的PWM周期</li>
+<li>频率生成器</li>
+<li>三个独立的中断源(TOV0、OCF0A、OCF0B)</li>
+</ol>
+<p>&#64;page 59-70</p>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id56">10.1&nbsp;&nbsp;&nbsp;寄存器描述</a></h2>
+<p><strong>TCCR0A-Timer/Counter0控制寄存器A</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x2f</td>
+<td>COM0A1</td>
+<td>COM0A0</td>
+<td>COM0B1</td>
+<td>COM0B0</td>
+<td>--</td>
+<td>--</td>
+<td>WGM01</td>
+<td>WGM00</td>
+</tr>
+<tr><td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[7-6:COM0A1-0]</cite> ：比较匹配输出A模式</p>
+<p>&#64;page 70-73</p>
+<p><strong>TCCR0B-Timer/Counter0控制寄存器B</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x33</td>
+<td>FOC0A</td>
+<td>FOC0B</td>
+<td>--</td>
+<td>--</td>
+<td>WGM02</td>
+<td>CS02</td>
+<td>CS01</td>
+<td>CS00</td>
+</tr>
+<tr><td>R/W</td>
+<td>W</td>
+<td>W</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>&#64;page 73-75</p>
+<p><strong>TIMSK0-Timer/Counter0中断掩码寄存器</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x39</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>OCIE0B</td>
+<td>OCIE0A</td>
+<td>TOIE0</td>
+<td>--</td>
+</tr>
+<tr><td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[3:OCIE0B]</cite> 输出比较匹配B中断启用，当该位写入1，且全局中断启用，就启用了比较匹配B中断。当发生中断时，就会设置TIFR0的OCF0B位。</p>
+<p><cite>[2:OCIE0A]</cite> 同上，就是把B改成A了。</p>
+<p><cite>[1:TOIE0]</cite> 计数器溢出中断启用，设置为1且全局中断启用，则计数器溢出时会写入TIFR0的TOV0位。</p>
+<p><strong>TIFR0-Timer/Counter0中断标志寄存器</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x38</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>OCF0B</td>
+<td>OCF0A</td>
+<td>TOV0</td>
+<td>--</td>
+</tr>
+<tr><td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>--</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>&#64;page 76-76</p>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id57">10.2&nbsp;&nbsp;&nbsp;预分频器</a></h2>
+<p>定时器可用系统时钟驱动 <cite>CSn[2:0]=1</cite> ，这是速度最快的方式，也可以有4中预分频模式。预分频时钟可以是8、64、256、1024对时钟的分频。</p>
+<p>预分频器是自由运行的，与系统时钟选择逻辑无关。与定时器的时钟选择也无关，就是对进入定时器的时钟进行分频。第一次时钟到期时间是不一定的。可能是一个1个系统周期，或N(分频比)+1个系统周期。为了确保这个时间，可以用程序复位分频器，来同步。</p>
+<p>&#64;page 77-78</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h1><a class="toc-backref" href="#id58">11&nbsp;&nbsp;&nbsp;模拟比较器</a></h1>
+<p>模拟比较器比较AIN0和AIN1的电压，当AIN0的电压比AIN1的高时，就会设置模拟比较器的输出ACO位。模拟比较器可以设置中断，并可以选择中断类型，上升沿、下降沿或翻转。AIN0为正输入，AIN1为负输入，对应运算放大器的输入。</p>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id59">11.1&nbsp;&nbsp;&nbsp;多路输入</a></h2>
+<p>可以用ADC[3:0]中的任何一个替换模拟比较器的负输入。不过该功能要求关闭ADC。如果启用了模拟比较器的输入选择位(ADCSRB寄存器的ACME位)，则ADMUX寄存器的MUX[1:]位负责选择用于替换负输入的引脚。如下表所示。如果ACME清空，ADEN置位，则AIN1用于负输入。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="23%" />
+<col width="48%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>ACME</td>
+<td>ADEN</td>
+<td>MUX[1:0]</td>
+<td>模拟比较器负输入</td>
+</tr>
+<tr><td>0</td>
+<td>x</td>
+<td>xx</td>
+<td>AIN1</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>xx</td>
+<td>AIN1</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>00</td>
+<td>ADC0</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>01</td>
+<td>ADC1</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>10</td>
+<td>ADC2</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>11</td>
+<td>ADC3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id60">11.2&nbsp;&nbsp;&nbsp;寄存器描述</a></h2>
+<p><strong>ADCSRB-ADC控制和状态寄存器</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x03</td>
+<td>--</td>
+<td>ACME</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+<td>ADTS2</td>
+<td>ADTS1</td>
+<td>ADTS0</td>
+</tr>
+<tr><td>R/W</td>
+<td>R</td>
+<td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[6:ACME]</cite> ：模拟比较器多路输入选择器，置位且ADC关闭时(ADCSRA:ADEN=0)，ADC多路选择器作为模拟比较器的负输入。当该位清空时，AIN1作为负输入。</p>
+<p><strong>ACSR-模拟比较器控制和状态寄存器</strong> ：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x08</td>
+<td>ACD</td>
+<td>ACBG</td>
+<td>ACO</td>
+<td>ACI</td>
+<td>ACIE</td>
+<td>--</td>
+<td>ACIS1</td>
+<td>ACS0</td>
+</tr>
+<tr><td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>N/A</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[7:ACD]</cite> ：模拟比较器禁用，设置为1时禁用模拟比较器，用于节省电力。修改时必须在ACSR:ACIE中断已经清除的情况下。否则在修改此位时会产生中断。</p>
+<p><cite>[6:ACBG]</cite> ：模拟比较器能隙选择，置位时使用内部电压源接到正输入，清空时，AIN0作为正输入。当能隙用于模拟比较器的输入时，需要一点时间达到稳定，如果不稳定，第一个值可能是错误的。</p>
+<p><cite>[5:ACO]</cite> ：模拟比较器输出，同步连接到模拟比较器的输出，延迟为1-2个时钟周期。</p>
+<p><cite>[4:ACI]</cite> ：模拟比较器中断标识，由硬件触发并设置。模拟比较器的中断处理在ACIE和SREG的I位被设置时执行。ACI在执行处理向量后清除。ACI位也可以通过写入1来清除。</p>
+<p><cite>[3:ACIE]</cite> ：模拟比较器启用中断，当设置为1时，且状态寄存器置位，则会引发模拟比较器中断，当写入0时，中断被禁止。</p>
+<p><cite>[2:-]</cite> ：保留，读取时总是0。</p>
+<p><cite>[1:0:ACIS]</cite> ：模拟比较器中断模式选择，两个位判断触发中断的方式，如下为不同的设置：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>ACIS1</td>
+<td>ACIS0</td>
+<td>中断模式</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>电压比较器输出翻转时</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>保留</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>电压比较器输出下降沿</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>电压比较器输出上升沿</td>
+</tr>
+</tbody>
+</table>
+<p>当改变ACIS1:0时，应该先禁用中断，否则会在改变时产生中断。</p>
+<p><strong>DIDR0-数字输入禁用寄存器</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr><td>0x14</td>
+<td>--</td>
+<td>--</td>
+<td>ADC0D</td>
+<td>ADC2D</td>
+<td>ADC3D</td>
+<td>ADC1D</td>
+<td>AIN1D</td>
+<td>AIN0D</td>
+</tr>
+<tr><td>R/W</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+</tr>
+<tr><td>初始值</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><cite>[1:0:AIN1D,AIN0D]</cite> ：AIN[1:0]数字输入禁用，当该位设置为1时，就禁用AIN1/0的数字输入缓冲。对应PIN寄存器位在读取时总是返回0。当模拟信号输入到AIN1/0端口，且并不需要这个端口作为数字输入时，可以置位来节省数字输入缓冲的电力。</p>
+<p>注意不要启用内部上拉电阻。默认情况下不用特地启用模拟比较器，因为默认就是开启的。要做的就是启用中断，即 <tt class="docutils literal">ACSR |= _BV(ACIE);</tt> 。</p>
+</div>
+</div>
+<div class="section" id="ad">
+<h1><a class="toc-backref" href="#id61">12&nbsp;&nbsp;&nbsp;AD转换</a></h1>
+<p>&#64;page 82-95</p>
+</div>
+<div class="section" id="debugwire">
+<h1><a class="toc-backref" href="#id62">13&nbsp;&nbsp;&nbsp;单线调试(debugWIRE)</a></h1>
+<p>功能：</p>
+<ol class="arabic simple">
+<li>完成的程序流程控制</li>
+<li>模拟所有片内功能，波括数字和模拟，除了RESET引脚</li>
+<li>实时操作</li>
+<li>符号调试支持(C和汇编级别，或其他HLL)</li>
+<li>无限制的断点数(使用软件断点)</li>
+<li>非入侵(non-intrusive)的操作</li>
+<li>电器符号标识到实际设备</li>
+<li>自动配置系统</li>
+<li>高速操作</li>
+<li>编程非挥发的存储器</li>
+</ol>
+<p>debugWIRE在线调试系统使用单线双向接口控制程序流，执行AVR指令，以及编程非挥发存储器。</p>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id63">13.1&nbsp;&nbsp;&nbsp;物理接口</a></h2>
+<p>当熔丝位DWEN被编程，而锁定位没有被编程时，debugWIRE系统就会被激活。RESET端口会别配置为线与(wire-AND)的双向I/O端口，并启用了内置上拉，作为目标与模拟器之间的网关。</p>
+<p>启用debugWIRE后，系统仍然归CLSEL熔丝控制。</p>
+<p>设计使用debugWIRE的系统时，需要注意的：</p>
+<ol class="arabic simple">
+<li>dW/RESET的上拉必须在10k~20k欧，可选的</li>
+<li>将RESET连接到Vcc将导致无法工作</li>
+<li>RESET上连接的电容必须断开</li>
+<li>所有外部复位源必须断开</li>
+</ol>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id64">13.2&nbsp;&nbsp;&nbsp;软件断点</a></h2>
+<!-- 感觉没啥用，因为并没有讲如何收发指令，看来是给AVRStudio专用的 -->
+<p>&#64;page 97-97</p>
+</div>
+</div>
+<div class="section" id="id26">
+<h1><a class="toc-backref" href="#id65">14&nbsp;&nbsp;&nbsp;Flash自编程</a></h1>
+<p>&#64;page 98-102</p>
+</div>
+<div class="section" id="id27">
+<h1><a class="toc-backref" href="#id66">15&nbsp;&nbsp;&nbsp;存储器编程</a></h1>
+<div class="section" id="id28">
+<h2><a class="toc-backref" href="#id67">15.1&nbsp;&nbsp;&nbsp;编程和数据锁定位</a></h2>
+<p>ATtiny13A提供两个锁定位，可以防止未编程(&quot;1&quot;)或编程(&quot;0&quot;)来提供附加的安全措施。锁定位只能通过擦除芯片命令变为1。</p>
+<p>程序存储器可以通过debugWIRE读出(仅DWEN熔丝编程时)，即便锁定位已经设置。因为需要安全保护时，debugWIRE应该禁用。</p>
+<p>锁定位有两个 <cite>[1:LB2]</cite> 和 <cite>[0:LB1]</cite> ，默认都是1(未编程)。各种取值对应的意义：</p>
+<ol class="arabic simple">
+<li>LB2=1、LB1=1：未锁定</li>
+<li>LB2=1、LB1=0：之后不允许对Flash和EEPROM编程，无论是高电压模式还是串行模式，熔丝位在两种模式下也锁定，debugWIRE禁用</li>
+<li>LB2=0、LB1=0：之后不允许对Flash和EEPROM编程和验证，无论是高电压模式还是串行模式，熔丝位在两种模式下也锁定，debugWIRE禁用</li>
+</ol>
+<p>使用avrdude对应的锁定位叫lock，读取用 <tt class="docutils literal">read lock</tt> ，得出默认值是0x3f。写入0x3c以后，再执行读出得到的就是整个Flash大小的文件，且不确认内容有效性。</p>
+</div>
+<div class="section" id="id29">
+<h2><a class="toc-backref" href="#id68">15.2&nbsp;&nbsp;&nbsp;熔丝字节</a></h2>
+<p>ATtiny13A有2个熔丝字节，注意这里&quot;0&quot;表示已编程，1表示未编程。</p>
+<p>熔丝高字节(默认0xff)：</p>
+<ol class="arabic simple">
+<li>7(-/1)：无</li>
+<li>6(-/1)：无</li>
+<li>5(-/1)：无</li>
+<li>4(SELFPRGEN/1)：启动自编程</li>
+<li>3(DWEN/1)：调试线启用</li>
+<li>2(BODLEVEL1/1)：低电压检测触发级别</li>
+<li>1(BODLEVEL0/1)：低电压检测触发级别</li>
+<li>0(RSTDISBL/1)：扩展复位禁用</li>
+</ol>
+<p>安全锁定模式DWEN必须置于未编程(1)模式。</p>
+<p>熔丝低字节(默认0x6a)：</p>
+<ol class="arabic simple">
+<li>7(SPIEN/0)：启用串行编程和数据下载</li>
+<li>6(EESAVE/1)：在芯片擦除时保留EEPROM</li>
+<li>5(WDTON/1)：看门口定时器总是启用</li>
+<li>4(CKDIV8/0)：时钟8分频</li>
+<li>3(SUT1/1)：启动时间</li>
+<li>2(SUT0/0)：启动时间</li>
+<li>1(CKSEL1/1)：时钟源选择</li>
+<li>0(CKSEL0/0)：时钟源选择</li>
+</ol>
+<p>SPI编程模式时，SPIEN熔丝无法访问。WDTON已编程会禁用看门狗定时器中断。</p>
+<p>默认时钟选项是9.6MHz内部RC振荡器，最大启动时间。</p>
+<p>在LB1锁定位已编程时，熔丝位是无法修改的，所以要在锁定前对熔丝进行设置。芯片擦除时不影响熔丝位。</p>
+<p>进入编程模式后，熔丝位的值被闩住，对熔丝位值的修改不会立即起效，直到离开编程模式。不过这对EESAVE熔丝无效，其会编程后立即起效。另外熔丝位在上电时也是闩住的。</p>
+<p>通常熔丝位设置：</p>
+<ol class="arabic simple">
+<li>lfuse=0x6a：默认的，9.6MHz，8分频=1.2MHz</li>
+<li>lfuse=0x7a：9.6MHz，不分频</li>
+<li>lfuse=0x79：4.8MHz，不分频</li>
+</ol>
+<p>&#64;page 105-116</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h1><a class="toc-backref" href="#id69">16&nbsp;&nbsp;&nbsp;电器特性和典型特性</a></h1>
+<p>&#64;page 117-157</p>
+</div>
+<div class="section" id="id31">
+<h1><a class="toc-backref" href="#id70">17&nbsp;&nbsp;&nbsp;寄存器概览</a></h1>
+<p>&#64;page 158-159</p>
+</div>
+<div class="section" id="id32">
+<h1><a class="toc-backref" href="#id71">18&nbsp;&nbsp;&nbsp;指令集概览</a></h1>
+<p>算术与逻辑指令：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="15%" />
+<col width="31%" />
+<col width="26%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>助记符</td>
+<td>操作数</td>
+<td>描述</td>
+<td>操作</td>
+<td>标志</td>
+<td>时钟数</td>
+</tr>
+<tr><td>ADD</td>
+<td>Rd,Rr</td>
+<td>相加</td>
+<td>Rd=Rd+Rr</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>ADC</td>
+<td>Rd,Rr</td>
+<td>相加，带进位</td>
+<td>Rd=Rd+Rr+C</td>
+<td>ZCNVH</td>
+<td>1</td>
+</tr>
+<tr><td>ADIW</td>
+<td>Rdl,k</td>
+<td>加立即数到字</td>
+<td>Rdh:Rdl=Rdh:Rdl+k</td>
+<td>ZCNVS</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>&#64;page 160-161</p>
+</div>
+<div class="section" id="id33">
+<h1><a class="toc-backref" href="#id72">19&nbsp;&nbsp;&nbsp;订购、封装</a></h1>
+<p>&#64;page 162-167</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 18053, "title": "ATtiny13a \u6570\u636e\u624b\u518c", "src_size": 28879, "filehash": "c08a4616d9d9656a106a842e23cd83a6", "dst_size": 51252} -->

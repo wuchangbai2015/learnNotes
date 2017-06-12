@@ -1,0 +1,1548 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>ATmega8数据手册</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<style type="text/css">
+
+/*
+*   math2html: convert LaTeX equations to HTML output.
+*
+*   Copyright (C) 2009,2010 Alex Fernández
+*
+*   Released under the terms of the `2-Clause BSD license'_, in short:
+*   Copying and distribution of this file, with or without modification,
+*   are permitted in any medium without royalty provided the copyright
+*   notice and this notice are preserved.
+*   This file is offered as-is, without any warranty.
+*
+* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause
+*
+*   Based on eLyXer: convert LyX source files to HTML output.
+*   http://elyxer.nongnu.org/
+*/
+/* --end--
+* CSS file for LaTeX formulas.
+*/
+
+/* Formulas */
+.formula {
+	text-align: center;
+	font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
+	margin: 1.2em 0;
+}
+span.formula {
+	white-space: nowrap;
+}
+div.formula {
+	padding: 0.5ex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Basic features */
+a.eqnumber {
+	display: inline-block;
+	float: right;
+	clear: right;
+	font-weight: bold;
+}
+span.unknown {
+	color: #800000;
+}
+span.ignored, span.arraydef {
+	display: none;
+}
+.formula i {
+	letter-spacing: 0.1ex;
+}
+
+/* Alignment */
+.align-left, .align-l {
+	text-align: left;
+}
+.align-right, .align-r {
+	text-align: right;
+}
+.align-center, .align-c {
+	text-align: center;
+}
+
+/* Structures */
+span.overline, span.bar {
+	text-decoration: overline;
+}
+.fraction, .fullfraction {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.fraction .fraction {
+	font-size: 80%;
+	line-height: 100%;
+}
+span.numerator {
+	display: block;
+}
+span.denominator {
+	display: block;
+	padding: 0ex;
+	border-top: thin solid;
+}
+sup.numerator, sup.unit {
+	font-size: 70%;
+	vertical-align: 80%;
+}
+sub.denominator, sub.unit {
+	font-size: 70%;
+	vertical-align: -20%;
+}
+span.sqrt {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.1ex;
+}
+sup.root {
+	font-size: 70%;
+	position: relative;
+	left: 1.4ex;
+}
+span.radical {
+	display: inline-block;
+	padding: 0ex;
+	font-size: 150%;
+	vertical-align: top;
+}
+span.root {
+	display: inline-block;
+	border-top: thin solid;
+	padding: 0ex;
+	vertical-align: middle;
+}
+span.symbol {
+	line-height: 125%;
+	font-size: 125%;
+}
+span.bigsymbol {
+	line-height: 150%;
+	font-size: 150%;
+}
+span.largesymbol {
+	font-size: 175%;
+}
+span.hugesymbol {
+	font-size: 200%;
+}
+span.scripts {
+	display: inline-table;
+	vertical-align: middle;
+}
+.script {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+span.limits {
+	display: inline-table;
+	vertical-align: middle;
+}
+.limit {
+	display: table-row;
+	line-height: 99%;
+}
+sup.limit, sub.limit {
+	line-height: 100%;
+}
+span.symbolover {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 100%;
+	bottom: 0.5em;
+	width: 0px;
+}
+span.withsymbol {
+	display: inline-block;
+}
+span.symbolunder {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 80%;
+	top: 0.3em;
+	width: 0px;
+}
+
+/* Environments */
+span.array, span.bracketcases, span.binomial, span.environment {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+span.arrayrow, span.binomrow {
+	display: table-row;
+	padding: 0ex;
+	border: 0ex;
+}
+span.arraycell, span.bracket, span.case, span.binomcell, span.environmentcell {
+	display: table-cell;
+	padding: 0ex 0.2ex;
+	line-height: 99%;
+	border: 0ex;
+}
+/*
+* CSS file for LaTeX formulas, extra stuff:
+* binomials, vertical braces, stackrel, fonts and colors.
+*/
+
+/* Inline binomials */
+span.binom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+span.binomstack {
+	display: block;
+	padding: 0em;
+}
+
+/* Over- and underbraces */
+span.overbrace {
+	border-top: 2pt solid;
+}
+span.underbrace {
+	border-bottom: 2pt solid;
+}
+
+/* Stackrel */
+span.stackrel {
+	display: inline-block;
+	text-align: center;
+}
+span.upstackrel {
+	display: block;
+	padding: 0em;
+	font-size: 80%;
+	line-height: 64%;
+	position: relative;
+	top: 0.15em;
+
+}
+span.downstackrel {
+	display: block;
+	vertical-align: bottom;
+	padding: 0em;
+}
+
+/* Fonts */
+span.mathsf, span.textsf {
+	font-style: normal;
+	font-family: sans-serif;
+}
+span.mathrm, span.textrm {
+	font-style: normal;
+	font-family: serif;
+}
+span.text, span.textnormal {
+	font-style: normal;
+}
+span.textipa {
+	color: #008080;
+}
+span.fraktur {
+	font-family: "Lucida Blackletter", eufm10, blackletter;
+}
+span.blackboard {
+	font-family: Blackboard, msbm10, serif;
+}
+span.scriptfont {
+	font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+	font-style: italic;
+}
+
+/* Colors */
+span.colorbox {
+	display: inline-block;
+	padding: 5px;
+}
+span.fbox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 2px;
+}
+span.boxed, span.framebox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 5px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="atmega8">
+<h1 class="title">ATmega8数据手册</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2014-04-01</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id53">1&nbsp;&nbsp;&nbsp;产品特性</a></li>
+<li><a class="reference internal" href="#id3" id="id54">2&nbsp;&nbsp;&nbsp;引脚配置</a></li>
+<li><a class="reference internal" href="#id4" id="id55">3&nbsp;&nbsp;&nbsp;综述</a></li>
+<li><a class="reference internal" href="#id5" id="id56">4&nbsp;&nbsp;&nbsp;代码例子</a></li>
+<li><a class="reference internal" href="#avr-cpu" id="id57">5&nbsp;&nbsp;&nbsp;AVR CPU内核</a></li>
+<li><a class="reference internal" href="#avr-atmega8" id="id58">6&nbsp;&nbsp;&nbsp;AVR ATmega8存储器</a></li>
+<li><a class="reference internal" href="#id6" id="id59">7&nbsp;&nbsp;&nbsp;系统时钟及时钟选项</a></li>
+<li><a class="reference internal" href="#id7" id="id60">8&nbsp;&nbsp;&nbsp;电源管理及睡眠模式</a></li>
+<li><a class="reference internal" href="#id8" id="id61">9&nbsp;&nbsp;&nbsp;系统控制与复位</a></li>
+<li><a class="reference internal" href="#id9" id="id62">10&nbsp;&nbsp;&nbsp;中断</a></li>
+<li><a class="reference internal" href="#i-o" id="id63">11&nbsp;&nbsp;&nbsp;I/O端口</a></li>
+<li><a class="reference internal" href="#id10" id="id64">12&nbsp;&nbsp;&nbsp;外部中断</a></li>
+<li><a class="reference internal" href="#id11" id="id65">13&nbsp;&nbsp;&nbsp;8位定时器/计数器0</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id12" id="id66">13.1&nbsp;&nbsp;&nbsp;综述</a></li>
+<li><a class="reference internal" href="#id13" id="id67">13.2&nbsp;&nbsp;&nbsp;时钟源</a></li>
+<li><a class="reference internal" href="#id14" id="id68">13.3&nbsp;&nbsp;&nbsp;计数器单元</a></li>
+<li><a class="reference internal" href="#id15" id="id69">13.4&nbsp;&nbsp;&nbsp;操作</a></li>
+<li><a class="reference internal" href="#t-c" id="id70">13.5&nbsp;&nbsp;&nbsp;T/C时序图</a></li>
+<li><a class="reference internal" href="#id16" id="id71">13.6&nbsp;&nbsp;&nbsp;寄存器说明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#t-c0t-c1" id="id72">14&nbsp;&nbsp;&nbsp;T/C0与T/C1的预分频器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id17" id="id73">14.1&nbsp;&nbsp;&nbsp;内部时钟源</a></li>
+<li><a class="reference internal" href="#id18" id="id74">14.2&nbsp;&nbsp;&nbsp;分频器复位</a></li>
+<li><a class="reference internal" href="#id19" id="id75">14.3&nbsp;&nbsp;&nbsp;外部时钟源</a></li>
+<li><a class="reference internal" href="#id20" id="id76">14.4&nbsp;&nbsp;&nbsp;寄存器说明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id21" id="id77">15&nbsp;&nbsp;&nbsp;16位定时器/计数器1</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id22" id="id78">15.1&nbsp;&nbsp;&nbsp;综述</a></li>
+<li><a class="reference internal" href="#bit" id="id79">15.2&nbsp;&nbsp;&nbsp;访问16bit寄存器</a></li>
+<li><a class="reference internal" href="#id23" id="id80">15.3&nbsp;&nbsp;&nbsp;时钟源</a></li>
+<li><a class="reference internal" href="#id24" id="id81">15.4&nbsp;&nbsp;&nbsp;计数器单元</a></li>
+<li><a class="reference internal" href="#id25" id="id82">15.5&nbsp;&nbsp;&nbsp;输入捕获单元</a></li>
+<li><a class="reference internal" href="#id26" id="id83">15.6&nbsp;&nbsp;&nbsp;输出比较单元</a></li>
+<li><a class="reference internal" href="#id27" id="id84">15.7&nbsp;&nbsp;&nbsp;比较匹配输出</a></li>
+<li><a class="reference internal" href="#id28" id="id85">15.8&nbsp;&nbsp;&nbsp;工作模式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id29" id="id86">15.8.1&nbsp;&nbsp;&nbsp;普通模式</a></li>
+<li><a class="reference internal" href="#ctc" id="id87">15.8.2&nbsp;&nbsp;&nbsp;CTC-比较匹配时清零定时器</a></li>
+<li><a class="reference internal" href="#pwm" id="id88">15.8.3&nbsp;&nbsp;&nbsp;快速PWM模式</a></li>
+<li><a class="reference internal" href="#id30" id="id89">15.8.4&nbsp;&nbsp;&nbsp;相位修正PWM模式</a></li>
+<li><a class="reference internal" href="#id31" id="id90">15.8.5&nbsp;&nbsp;&nbsp;相位与频率修正PWM模式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id32" id="id91">15.9&nbsp;&nbsp;&nbsp;时序图</a></li>
+<li><a class="reference internal" href="#id33" id="id92">15.10&nbsp;&nbsp;&nbsp;寄存器说明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pwm-2" id="id93">16&nbsp;&nbsp;&nbsp;8位有PWM与异步操作的定时器/计数器2</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id34" id="id94">16.1&nbsp;&nbsp;&nbsp;综述</a></li>
+<li><a class="reference internal" href="#id35" id="id95">16.2&nbsp;&nbsp;&nbsp;时钟源</a></li>
+<li><a class="reference internal" href="#id36" id="id96">16.3&nbsp;&nbsp;&nbsp;计数器单元</a></li>
+<li><a class="reference internal" href="#id37" id="id97">16.4&nbsp;&nbsp;&nbsp;输出比较单元</a></li>
+<li><a class="reference internal" href="#id38" id="id98">16.5&nbsp;&nbsp;&nbsp;比较匹配输出单元</a></li>
+<li><a class="reference internal" href="#id39" id="id99">16.6&nbsp;&nbsp;&nbsp;工作模式</a></li>
+<li><a class="reference internal" href="#id40" id="id100">16.7&nbsp;&nbsp;&nbsp;时序图</a></li>
+<li><a class="reference internal" href="#id41" id="id101">16.8&nbsp;&nbsp;&nbsp;寄存器说明</a></li>
+<li><a class="reference internal" href="#id42" id="id102">16.9&nbsp;&nbsp;&nbsp;定时器异步操作</a></li>
+<li><a class="reference internal" href="#id43" id="id103">16.10&nbsp;&nbsp;&nbsp;定时器预分频器</a></li>
+<li><a class="reference internal" href="#timer-counter" id="id104">16.11&nbsp;&nbsp;&nbsp;Timer/Counter全局寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spi" id="id105">17&nbsp;&nbsp;&nbsp;串行外设接口 SPI</a></li>
+<li><a class="reference internal" href="#usart" id="id106">18&nbsp;&nbsp;&nbsp;USART</a></li>
+<li><a class="reference internal" href="#twi" id="id107">19&nbsp;&nbsp;&nbsp;两线串行接口 TWI</a></li>
+<li><a class="reference internal" href="#id44" id="id108">20&nbsp;&nbsp;&nbsp;模拟比较器</a></li>
+<li><a class="reference internal" href="#id45" id="id109">21&nbsp;&nbsp;&nbsp;模数转换器</a></li>
+<li><a class="reference internal" href="#id46" id="id110">22&nbsp;&nbsp;&nbsp;引导载入程序</a></li>
+<li><a class="reference internal" href="#id47" id="id111">23&nbsp;&nbsp;&nbsp;存储器编程</a></li>
+<li><a class="reference internal" href="#id48" id="id112">24&nbsp;&nbsp;&nbsp;电气特性</a></li>
+<li><a class="reference internal" href="#id49" id="id113">25&nbsp;&nbsp;&nbsp;ATmega8典型特性</a></li>
+<li><a class="reference internal" href="#id50" id="id114">26&nbsp;&nbsp;&nbsp;寄存器概述</a></li>
+<li><a class="reference internal" href="#id51" id="id115">27&nbsp;&nbsp;&nbsp;指令集概述</a></li>
+<li><a class="reference internal" href="#id52" id="id116">28&nbsp;&nbsp;&nbsp;附录</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id53">1&nbsp;&nbsp;&nbsp;产品特性</a></h1>
+<p>&#64;page 1</p>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id54">2&nbsp;&nbsp;&nbsp;引脚配置</a></h1>
+<p>&#64;page 2</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id55">3&nbsp;&nbsp;&nbsp;综述</a></h1>
+<p>&#64;page 3</p>
+</div>
+<div class="section" id="id5">
+<h1><a class="toc-backref" href="#id56">4&nbsp;&nbsp;&nbsp;代码例子</a></h1>
+<p>&#64;page 6</p>
+</div>
+<div class="section" id="avr-cpu">
+<h1><a class="toc-backref" href="#id57">5&nbsp;&nbsp;&nbsp;AVR CPU内核</a></h1>
+<p>&#64;page 7</p>
+</div>
+<div class="section" id="avr-atmega8">
+<h1><a class="toc-backref" href="#id58">6&nbsp;&nbsp;&nbsp;AVR ATmega8存储器</a></h1>
+<p>&#64;page 14</p>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id59">7&nbsp;&nbsp;&nbsp;系统时钟及时钟选项</a></h1>
+<p>&#64;page 22</p>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id60">8&nbsp;&nbsp;&nbsp;电源管理及睡眠模式</a></h1>
+<p>&#64;page 30</p>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id61">9&nbsp;&nbsp;&nbsp;系统控制与复位</a></h1>
+<p>&#64;page 34</p>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id62">10&nbsp;&nbsp;&nbsp;中断</a></h1>
+<p>&#64;page 43</p>
+</div>
+<div class="section" id="i-o">
+<h1><a class="toc-backref" href="#id63">11&nbsp;&nbsp;&nbsp;I/O端口</a></h1>
+<p>&#64;page 48</p>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id64">12&nbsp;&nbsp;&nbsp;外部中断</a></h1>
+<p>&#64;page 62</p>
+</div>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id65">13&nbsp;&nbsp;&nbsp;8位定时器/计数器0</a></h1>
+<p>TCNT0简介：</p>
+<ol class="arabic simple">
+<li>单通道计数器</li>
+<li>频率发生器</li>
+<li>外部事件计数器</li>
+<li>10位的时钟预分频器</li>
+</ol>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id66">13.1&nbsp;&nbsp;&nbsp;综述</a></h2>
+<p>功能框图：</p>
+<img alt="_images/atmega8_datasheet_13_00.png" src="_images/atmega8_datasheet_13_00.png" />
+<p>TCNT0和OCR0都是8bit寄存器。中断需求在TIFR中有设置。所有中断都可以通过TIMSK单独屏蔽。因为TIFR和TIMSK是与其他定时器共享的，没有列出。</p>
+<p>可以通过预分频器获得时钟源，或通过T0输入的外部时钟驱动。由时钟选择逻辑决定用哪个时钟源和边沿，以及是自增或自减的。没有时钟源就不工作。</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id67">13.2&nbsp;&nbsp;&nbsp;时钟源</a></h2>
+<p>可以由内部同步时钟或外部时钟驱动。由TCCR0的CS02:0设置。</p>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id68">13.3&nbsp;&nbsp;&nbsp;计数器单元</a></h2>
+<p>8bit可编程双向计数单元。框图：</p>
+<img alt="_images/atmega8_datasheet_13_01.png" src="_images/atmega8_datasheet_13_01.png" />
+<p>信号说明：</p>
+<ol class="arabic simple">
+<li>count：使得TCNT0加1</li>
+<li>clk_Tn：T/C的时钟</li>
+<li>max：TCNT0已经到达最大值</li>
+</ol>
+<p>计数器对每个clk_T0实现加一操作。没有时钟源就不会加1，但无论何时CPU都可以访问TCNT0。CPU的写操作比计数器操作(清零，加减)的优先级高。</p>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id69">13.4&nbsp;&nbsp;&nbsp;操作</a></h2>
+<p>技术方向始终向上，且没有计数器清除操作。TCNT0&gt;MAX(0xff)时，重载到0x00。正常工作而TCNT0清零到0x00时，会置位TOV0。TOV0就像是第9位，只会置位，不会清零。TOV0标识可用定时器中断清零。可随时写入新的计数器值。</p>
+<p>如果TCNT0配置为使用外部时钟，即便T0被配置为输出，电平变化仍然会驱动计数器，可以作为软件控制计数。</p>
+</div>
+<div class="section" id="t-c">
+<h2><a class="toc-backref" href="#id70">13.5&nbsp;&nbsp;&nbsp;T/C时序图</a></h2>
+<p>T/C是同步电路，CLK_T0可以表示为时钟使能信号。</p>
+<p>无预分频器：</p>
+<img alt="_images/atmega8_datasheet_13_02.png" src="_images/atmega8_datasheet_13_02.png" />
+<p>有预分频器：</p>
+<img alt="_images/atmega8_datasheet_13_03.png" src="_images/atmega8_datasheet_13_03.png" />
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id71">13.6&nbsp;&nbsp;&nbsp;寄存器说明</a></h2>
+<p><strong>TCCR0(TCNT0控制寄存器)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:-][6:-][5:-][4:-][3:-][2:CS02][1:CS01][0:CS00]</span></tt> 。其中最低3位构成了CS02..0，其取值用于定义预分频器的分频值，如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>CS02..0</td>
+<td>说明</td>
+</tr>
+<tr><td>000</td>
+<td>无时钟，不工作</td>
+</tr>
+<tr><td>001</td>
+<td>clkio/1，不分频</td>
+</tr>
+<tr><td>010</td>
+<td>clkio/8</td>
+</tr>
+<tr><td>011</td>
+<td>clkio/64</td>
+</tr>
+<tr><td>100</td>
+<td>clkio/256</td>
+</tr>
+<tr><td>101</td>
+<td>clkio/1024</td>
+</tr>
+<tr><td>110</td>
+<td>时钟由T0引脚输入，下降沿触发</td>
+</tr>
+<tr><td>111</td>
+<td>时钟由T0引脚输入，上升沿触发</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TCNT0(TCNT0寄存器)</strong> ：作为计数器</p>
+<p><strong>TIMSK(中断屏蔽寄存器)</strong> ：3个定时器共用的，定义 <tt class="docutils literal"><span class="pre">[7:OCIE2][6:TOIE2][5:TICIE1][4:OCIE1A][3:OCIE1B][2:TOIE1][1:-][0:TOIE0]</span></tt> 。其中只有最低位TOIE0是属于定时器0的。</p>
+<ol class="arabic simple">
+<li><cite>[0:TOIE0]{RW/0}</cite> ：T/C0溢出中断使能，当其为1，且全局中断使能为1时，当T/C0发生溢出(TOV0=1)，则会调用中断服务程序。</li>
+</ol>
+<p><strong>TIFR(中断标志寄存器)</strong> ：3个定时器共用的，定义 <tt class="docutils literal"><span class="pre">[7:OCF2][6:TOV2][5:ICF1][4:OCF1A][3:OCF1B][2:TOV1][1:-][0:TOV0]</span></tt> 。其中只有最低位的TOV0是属于定时器0的。</p>
+<ol class="arabic simple">
+<li><cite>[0:TOV0]{RW/0}</cite> ：T/C0溢出时，TOV0置位，执行中断服务例程会自动清零，写1也可清零</li>
+</ol>
+</div>
+</div>
+<div class="section" id="t-c0t-c1">
+<h1><a class="toc-backref" href="#id72">14&nbsp;&nbsp;&nbsp;T/C0与T/C1的预分频器</a></h1>
+<p>T/C0与T/C1共用一个分频器模块，但可以有不同的分频设置。</p>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id73">14.1&nbsp;&nbsp;&nbsp;内部时钟源</a></h2>
+<p>CSn2:0=1时，系统内部始终直接作为T/C时钟源，也是最高频率的时钟源。预分频器可以输出4个不同的始终信号。对应8、64、256、1024分频。</p>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id74">14.2&nbsp;&nbsp;&nbsp;分频器复位</a></h2>
+<p>&#64;page 70-70</p>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id75">14.3&nbsp;&nbsp;&nbsp;外部时钟源</a></h2>
+<p>T1/T0引脚提供外部时钟源输入。每个系统始终周期对T1/T0采样，然后将采样信号输入到边沿检测器。寄存器由系统时钟的上升沿驱动。当内部时钟为高时，锁存器可以看做是透明的。</p>
+<p>CSn2:0=7时，边沿检测器检测到一个正跳变产生一个CLK_T1脉冲。CSn2:0=6时，一个负跳变产生一个CLK_T0脉冲。</p>
+<img alt="_images/atmega8_datasheet_14_00.png" src="_images/atmega8_datasheet_14_00.png" />
+<p>当使用外部时钟从T0/T1引脚输入时，需要2.5~3.5个系统时钟才能使计数器更新。</p>
+<p>禁止或使能外部时钟输入，必须在T0/T1保持稳定一个系统时钟周期之后才能进行，否则会出错。</p>
+<p>为保证正确的采样，外部时钟脉冲宽度必须大于一个系统时钟周期。占空比为50%时外部时钟频率必须小于系统时钟频率的一半(f_EXTCLK&lt;f_CLKIO/2)。因为边沿检测器使用采样，能检测到的外部时钟最高也只是采样频率的一半(Nyquist采样原理)。由于振荡器误差和占空比的差异。建议外部时钟频率不要超过系统时钟的2.5分之一。</p>
+<p>外部时钟输入不进入预分频器。</p>
+<p>预分频器：</p>
+<img alt="_images/atmega8_datasheet_14_01.png" src="_images/atmega8_datasheet_14_01.png" />
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id76">14.4&nbsp;&nbsp;&nbsp;寄存器说明</a></h2>
+<p><strong>SFIOR(特殊功能IO寄存器)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:-][6:-][5:-][4:-][3:ACME][2:PUD][1:PSR2][0:PSR10]</span></tt> ，只有最低位的PSR10与此有关。</p>
+<ol class="arabic simple">
+<li><cite>[0:PSR10]{RW/0}</cite> ：TC1与TC0预分频器复位，写1时预分频器复位，之后自动变为0，写0无效</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id21">
+<h1><a class="toc-backref" href="#id77">15&nbsp;&nbsp;&nbsp;16位定时器/计数器1</a></h1>
+<p>TCNT1简介：</p>
+<ol class="arabic simple">
+<li>真正的16bit设计，允许16bit PWM</li>
+<li>2个独立的输出比较单元</li>
+<li>双缓冲的输出比较寄存器</li>
+<li>一个输入捕捉单元</li>
+<li>输入捕获噪声抑制器</li>
+<li>比较匹配发生时清除寄存器(自动重载)</li>
+<li>无干扰脉冲，相位正确的PWM</li>
+<li>可变的PWM周期</li>
+<li>频率发生器</li>
+<li>外部事件计数器</li>
+<li>4个独立的中断源(TOV1、OCF1A、OCF1B、ICF1)</li>
+</ol>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id78">15.1&nbsp;&nbsp;&nbsp;综述</a></h2>
+<p>框图：</p>
+<img alt="_images/atmega8_datasheet_15_00.png" src="_images/atmega8_datasheet_15_00.png" />
+<p>TCNT1、OCR1A、OCR1B、ICR1都是16bit寄存器。访问16bit寄存器需要特定步骤。控制寄存器TCCR1A和TCCR1B是8bit寄存器，没有CPU访问限制。中断请求信号在TIFR中。所有中断可用TIMSK单独屏蔽。</p>
+<p>时钟源可选内部分频器或T1外部输入。没有选择时钟源时，TC1就停止工作。</p>
+<p>双缓冲输出比较寄存器OCR1A、OCR1B一直与TCNT1比较。波形发生器用比较结果产生PWM或在输出比较引脚OC1A、OC1B输出可变频率的信号。比较匹配结果还可以置位比较匹配标志OCF1A、OCF1B，产生输出比较中断请求。</p>
+<p>当输入捕捉引脚ICP1或模拟比较器输入引脚有输入捕捉事件产生时，当时TCNT1的值会传输到输入捕捉寄存器保存起来。输入捕捉单元包括一个数字滤波单元以降低干扰。</p>
+<p>某些操作模式下，TOP值或TCNT1最大值可以由OCR1A、ICR1、或一些固定数据来定义。PWM模式下用OCR1A作TOP值，OCR1A寄存器不能用作PWM输出。但此时OCR1A是双向缓冲的，TOP值可以在运行时改变。当需要固定TOP值时用ICR1寄存器，而释放OCR1A作PWM输出。</p>
+<p>几个定义：</p>
+<ol class="arabic simple">
+<li>BOTTOM：0x0000</li>
+<li>MAX：0xffff</li>
+<li>TOP：计数序列最大值，可以是0x00ff、0x01ff、0x03ff，或是在OCR1A或ICR1里的数值，与模式有关</li>
+</ol>
+<p>该计数器是对以前的升级，兼容旧版本的：</p>
+<ol class="arabic simple">
+<li>包括中断寄存器在内的所有16bit IO寄存器地址</li>
+<li>包括中断寄存器在内的所有16bit寄存器地址</li>
+<li>中断向量</li>
+</ol>
+<p>下列控制位名称改变了，但是具有相同功能寄存器单元：</p>
+<ol class="arabic simple">
+<li>PWM10改为WGM10</li>
+<li>PWM11改为WGM11</li>
+<li>CTC1改为WGM12</li>
+</ol>
+<p>添加了如下位：</p>
+<ol class="arabic simple">
+<li>TCCR1A加入了FOC1A和FOC1B</li>
+<li>TCCR1B加入WGM13</li>
+</ol>
+<p>一些改进影响兼容性。</p>
+</div>
+<div class="section" id="bit">
+<h2><a class="toc-backref" href="#id79">15.2&nbsp;&nbsp;&nbsp;访问16bit寄存器</a></h2>
+<!-- TCNT1、OCR1A/OCR1B、ICR1都是16bit寄存器，CPU对其访问分为两个步骤，见datasheet page74，我暂时不用汇编就不深究了。C语言会自动处理好16bit寄存器的访问。对16bit寄存器访问时最好屏蔽中断响应，防止读写中间被中断打断。 -->
+<p>C访问TCNT1的例子，包含防止中断影响的部分:</p>
+<pre class="literal-block">
+unsigned int TIM16_ReadTCNT1(void) {
+    unsigned char sreg;
+    unsigned int i;
+    //保存全局中断标志
+    sreg=SREG;
+    _CLI();
+    i=TCNT1;
+    SREG=sreg;
+    return i;
+}
+</pre>
+<!-- TCNT1映射到2个8bit存储器TCNT1H和TCNT1L，CPU只能间接访问TCNT1H，实际访问的是临时寄存器。 -->
+<!-- 时钟源由CS12:0决定。计数序列由TCCR1A和TCCR1B中WGM13:0决定，同时也决定了TOV1的置位方式，即中断。 -->
+<p>&#64;page 74-76</p>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id80">15.3&nbsp;&nbsp;&nbsp;时钟源</a></h2>
+<p>时钟源可以来自内部，也可以来自外部T1。由TCCR1B的CS12:0控制。</p>
+</div>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id81">15.4&nbsp;&nbsp;&nbsp;计数器单元</a></h2>
+<p>框图：</p>
+<img alt="_images/atmega8_datasheet_15_01.png" src="_images/atmega8_datasheet_15_01.png" />
+<p>信号描述：</p>
+<ol class="arabic simple">
+<li>count：TCNT1加1或减1</li>
+<li>direction：是加还是减</li>
+<li>clear：TCNT1清零</li>
+<li>clk_T1：定时器时钟信号</li>
+<li>TOP：TCNT1的最大值</li>
+<li>BOTTOM：TCNT1最小值</li>
+</ol>
+<p>&#64;page 77-77</p>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id82">15.5&nbsp;&nbsp;&nbsp;输入捕获单元</a></h2>
+<p>T/C1的输入捕获单元可以捕获外部事件，并记录时间标记。外部事件的触发信号从ICP1输入，也可以通过模拟比较器单元实现。时间标记可用来计算频率、占空比等，以及创建事件日志。</p>
+<p>框图：</p>
+<img alt="_images/atmega8_datasheet_15_02.png" src="_images/atmega8_datasheet_15_02.png" />
+<p>当ICP1输入或模拟比较器输出ACO电平变化，就触发输入捕捉，将TCNT1的数据拷贝到输入捕捉寄存器ICR1中，同时输入捕捉标志位ICF1置位。如果此时ICIE1=1则产生输入捕捉中断，中断执行时ICF1自动清零，也可以软件写1来清零。</p>
+<p>读取ICR1(16bit)时应该先读ICR1L，然后读ICR1H。对C语言，编译器已经处理好了。</p>
+<p>当波形产生模式时，才需要写ICR1，此时被用作计数器TOP值。写之前要先设置WGM13:0使能。对ICR1的写操作必须先写ICR1H，然后ICR1L。</p>
+<p>输入捕捉单元的主要触发源是ICP1。可用模拟比较输出作为输入捕捉单元的触发源。用户必须设置ACSR寄存器的ACIC来实现。改变触发源会造成一次输入捕捉，因为改变触发源后必须对输入捕捉标志执行一次清零操作，以免出现错误。</p>
+<p>ICP1与ACO的采样方式与T1相同，只不过可选噪声抑制，就是延迟4个时钟周期来避免噪声。除去使用ICR1定义TOP的波形产生模式外，T/C噪声抑制器与边沿检测器总是使能。</p>
+<p>软件也可以控制ICP1引脚来产生触发。</p>
+<p>噪声抑制器通过简单的数字滤波来提供系统抗噪声性能。对输入信号4次采样，只有4次采样结果相同才会送入边沿检测器。</p>
+<p>置位TCCR1B的ICNC1使能噪声抑制器。使能后，在输入发生变化到ICR1更新之间会有额外的4个系统周期的延时，此系统时钟不受分频器影响。</p>
+<p>输入捕捉最大的问题是要有足够的处理器资源来处理输入事件。必须确保下一次事件之前读取ICR1数据，否则会被覆盖。如果使用输入捕捉中断，则应该尽早读取ICR1数据。不推荐在输入捕捉模式下改变TOP值。</p>
+<p>测量外部信号占空比时，需要每次捕捉后都改变触发沿，因此读取ICR1后尽快改变，然后马上软件清零ICF1(在对应位写1)。如果只是测量频率，且使用了中断，则无需对ICF1软件清零。</p>
+<p>WGM13:0的多种设置中只要没有占用ICR1作为TOP值的，输入捕获就可以工作。</p>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id83">15.6&nbsp;&nbsp;&nbsp;输出比较单元</a></h2>
+<p>16bit比较器持续比较TCNT1与OCR1x的内容，一旦发现相同就在下一个时钟周期对OCF1x置位。如果OCIE1x=1，则产生输出比较中断，中断执行时自动对OCF1x清零，或软件在对应位写1清零。根据WGM13:0和COM1x1:0的设置，波形发生器用匹配信号生成不同的波形。</p>
+<p>输出比较单元A可以定义T/C的TOP值(计数器的分辨率)，TOP值还用来定义波形周期。</p>
+<p>框图：</p>
+<img alt="_images/atmega8_datasheet_15_03.png" src="_images/atmega8_datasheet_15_03.png" />
+<p>当T/C工作在12种PWM模式之一时，OCR1x寄存器为双缓冲寄存器；而在正常模式和匹配时清零模式(CTC)双缓冲功能禁止。双缓冲可以实现OCR1x对TOP和BOTTOM的同步更新，防止产生不对称的PWM波形，消除毛刺。</p>
+<p>使用双缓冲时，CPU访问的是OCR1x的缓冲，禁止双缓冲时，CPU访问的是OCR1x本身。只有写操作才能改变OCR1x，所以OCR1x不能通过TEMP读取。读取时先读低字节。写OCR1x通过TEMP寄存器。先写OCR1xH。当CPU将数据写入高字节的IO地址时，TEMP寄存器的内容才更新，接下来写OCR1xL。同时，TEMP中的高字节数据拷贝到OCR1x缓冲器，或OCR1x比较寄存器。硬件不会改变OCR1x寄存器的内容，自己写OCR1x应该先高字节后低字节。</p>
+<p>非PWM时，可以强制FOC1x为1来产生比较匹配。强制比较匹配不会置位OCF1x标志，也不重载/清零定时器，但OC1x引脚会被更新，好像真的发生匹配一样(COMx1:0决定OC1x是置位、清零，还是交替变化)。</p>
+<p>对TCNT1的写操作会阻止比较匹配的发生，可以用来将OCR1x初始化为与TCNT1相同的数值而不触发中断。小心此特性导致的匹配的丢失。不要设置TCNT1等同于TOP或BOTTOM。若写TCNT1=OCR1x则比较匹配就被忽略了，造成不正确的波形。PWM模式下，当TOP为可变数值时，不要让TCNT1=TOP，否则会丢失一次匹配，计数器也将一直到0xffff。相同的，将序计数时，不要让TCNT1写入等于BOTTOM的值。</p>
+<p>OC1x的设置应该在设置数据方向寄存器之前完成。最简单的OC1x设置是普通模式下强制输出比较FOC1x。即使改变波形发生器模式，OC1x也会一直保持其值。</p>
+<p>COM1x1:0和比较数据都不是双缓冲，COM1x1:0的改变立即生效。</p>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id84">15.7&nbsp;&nbsp;&nbsp;比较匹配输出</a></h2>
+<p>比较匹配模式COM1x1:0有双重功能。波形发生器用COM1x1:0确定下次比较匹配发生时的输出比较OC1x状态。COM1x1:0还控制OC1x引脚输出的来源。</p>
+<p>框图：</p>
+<img alt="_images/atmega8_datasheet_15_04.png" src="_images/atmega8_datasheet_15_04.png" />
+<p>只要COM1x1:0不全为0，则波形发生器就会重载OC1x的通用IO口功能。但是OC1x引脚方向仍然受DDR控制。想要输出波形需要确保DDR_OC1x为输出。必须在DDR_OC1x设置前先初始化OC1x。COM1x1:0的设置在某些工作模式下保留。</p>
+<p>波形发生器使用COM1x1:0在普通、CTC、PWM模式下有区别。对所有模型，COM1x1:0=0表示比较匹配发生时波形发生器不改变OC1x寄存器。</p>
+<p>改变COM1x1:0将影响写入数据后的第一次比较匹配。对非PWM模式，可以通过使用FOC1x来立即产生效果。</p>
+</div>
+<div class="section" id="id28">
+<h2><a class="toc-backref" href="#id85">15.8&nbsp;&nbsp;&nbsp;工作模式</a></h2>
+<p>工作模式由波形发生器WGM13:0和比较输出模式COM1x1:0的控制位决定。比较输出模式对计数序列没有影响，而波形产生模式对计数序列有影响。COM1x1:0控制PWM输出是否为反极性。非PWM模式时COM1x1:0控制输出是否应该在比较匹配时置位、清零、取反。</p>
+<p>固定TOP时最好用ICR1定义TOP，而不固定时需要用OCR1A定义TOP。</p>
+<div class="section" id="id29">
+<h3><a class="toc-backref" href="#id86">15.8.1&nbsp;&nbsp;&nbsp;普通模式</a></h3>
+<p>WGM13:0=0，计数器不停累加，到最大值TOP=0xffff后溢出并回到最小值0x0000重新开始。在TCNT1为0时置位TOV1中断标志位。中断服务程序会自动清零TOV1。用户随时可以写入新的计数器值。</p>
+<p>普通模式下输入捕获单元很容易使用。要注意外部事件最大时间间隔不能超过计数器分辨率。如果时间太长，就必须使用溢出中断或预分频器来扩展输入捕获的分辨率。</p>
+<p>输出比较单元可以用来产生中断，但是不推荐利用输出比较来产生波形，因为会占用太多CPU时间。</p>
+</div>
+<div class="section" id="ctc">
+<h3><a class="toc-backref" href="#id87">15.8.2&nbsp;&nbsp;&nbsp;CTC-比较匹配时清零定时器</a></h3>
+<p>CTC模式的WGM13:0=4或12。OCR1A或ICR1用于调整计数器分辨率，作为TOP值。TCNT1=TOP时，TCNT1清零。方便用户控制输出频率，简化外部事件计数。</p>
+<img alt="_images/atmega8_datasheet_15_05.png" src="_images/atmega8_datasheet_15_05.png" />
+<p>利用OCF1A或ICF1标志可以在计数器到达TOP时产生中断，中断里可以修改TOP数值。不过小心如果写入的数值接近TOP或BOTTOM，则可能丢失一次匹配，而一直计数到0xffff才返回。这一特性显然不好，替代方法是使用快速PWM模式，该模式使用OCR1A定义TOP值(WGM13:0=15)，因为此时OCR1A为双缓冲。</p>
+<p>要获得波形输出，要先设置DDR_OC1A=1，然后设置COM1A1:0=1在匹配发生时改变逻辑电平。波形发生器产生的频率公式 <span class="formula"><i>f</i><sub><i>OCnA</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i><sub><i>clk</i><sub><i>IO</i></sub></sub></span><span class="ignored">)/(</span><span class="denominator">2*<i>N</i>*(1 + <i>OCRnA</i>)</span><span class="ignored">)</span></span></span> 。其中N为分频因子(1/8/64/256/1024)。</p>
+<p>其中N为分频因子(1、8、32、64、128、256、1024)。</p>
+<p>在普通模式下，TOV1标志位的置位发生在MAX到0x0000的定时器周期内。</p>
+</div>
+<div class="section" id="pwm">
+<h3><a class="toc-backref" href="#id88">15.8.3&nbsp;&nbsp;&nbsp;快速PWM模式</a></h3>
+<p>快速PWM模式，WGM13:0=5、6、7、14、15，可以用来产生高频的PWM波形。不同之处是工作于单边斜坡方式，计数器从BOTTOM累加到TOP，然后立即回到BOTTOM重新开始。对于普通的比较输出模式，OC1x在TCNT1与OCR1x匹配时置位，在TOP时清零；反向比较输出模式正好相反。快速PWM模式频率高，特别适合功率调节、整流、DAC。</p>
+<p>快速PWM的分辨率可以固定为8、9、10位，也可以由ICR1或OCR1A定义，最小2比特0x0003，最大分辨率16位。固定为8、9、10位时，TOP对应0x00ff、0x01ff、0x03ff(WGM13:0=5、6、7)。而WGM13:0=14时TOP=ICR1、WGM13:0=15时TOP=OCR1A。</p>
+<p>PWM分辨率位数公式： <span class="formula"><i>R</i><sub><i>FPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator">log(<i>TOP</i> + 1)</span><span class="ignored">)/(</span><span class="denominator">(log(2)</span><span class="ignored">)</span></span></span> 。</p>
+<p>工作于快速PWM模式时，计数器一直累加到TOP。然后在下个时钟周期清零。如下图，包含了PWM输出和反向PWM输出。TCNT1斜坡上的短水平线表示OCR1x和TCNT1的匹配比较。比较匹配后OC1x中断标志置位。</p>
+<img alt="_images/atmega8_datasheet_15_06.png" src="_images/atmega8_datasheet_15_06.png" />
+<p>计数器到达TOP时置位TOV1，如果TOP是由OCR1A或ICR1定义则OC1A或ICF1同时置位。如果中断使能，可以在中断服务程序里更新TOP值和比较值。改变TOP值时不能小于所有比较寄存器的值，否则不会出现匹配比较。使用固定TOP值时，向任意OCR1x寄存器写入数据时未使用的位将屏蔽为&quot;0&quot;。</p>
+<p>ICR1不是双缓冲寄存器。在预分频比例很低时，设置ICR1为新TOP时有可能比当前TCNT1还小，导致计数器一直狂奔到0xffff才返回。而OCR1A是双缓冲寄存器，当前更新不影响本次累加到TOP，而在TCNT1重置后才开始使用新的TOP值。同一时钟周期TCNT1被清零，TOV1置位。</p>
+<p>使用固定TOP值时最好用ICR1定义TOP值，OCR1A可以用于在OC1A输出PWM波。不过如果PWM基频不断变化(改变TOP值)，则应该利用OCR1A的双缓冲特性避免频率失控。</p>
+<p>要输出PMW波则设置COM1x1:0为2，反向PWM为3。然后设置DDR_OC1x为输出。PWM波形产生原理是OC1x在OCR1x与TCNT1匹配时置位(清零)，然后在计数器清零(从TOP变成BOTTOM)时清零(置位)。</p>
+<p>输出PWM频率公式 <span class="formula"><i>f</i><sub><i>OCnxPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i><sub><i>clk</i><sub><i>IO</i></sub></sub></span><span class="ignored">)/(</span><span class="denominator"><i>N</i>*(1 + <i>TOP</i>)</span><span class="ignored">)</span></span></span> ，N为分频因子(1、8、64、256、1024)。</p>
+<p>OCR1x等于BOTTOM(0x0000)时，在TOP+1个定时器周期输出窄脉冲；OCR1x等于TOP时，根据COM1x1:0，输出恒定高电平或低电平。</p>
+<p>OC1A设置匹配时取反(COM1A1:0=1)，可以得到占空比50%的信号。只适用于OCR1A定义TOP值时(WGM13:0=15)。OCR1A为0x0000时，信号有最高频率 <span class="formula"><i>f</i><sub><i>OC</i>1<i>A</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i><sub><i>clk</i><sub><i>IO</i></sub></sub></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span></span> 。类似于CTC模式的OC1A取反操作，不同是快速PWM有双缓冲。</p>
+</div>
+<div class="section" id="id30">
+<h3><a class="toc-backref" href="#id89">15.8.4&nbsp;&nbsp;&nbsp;相位修正PWM模式</a></h3>
+<p>WGM13:0=1,2,3,10,11提供高精度，相位准确的PWM波形。与相位和频率修正模式都是 <strong>双斜坡操作</strong> 。当TCNT1自增时若TCNT1==OCR1x，OC1x将变为低电平；当TCNT1自减时若TCNT1==BOTTOM，OC1x将变为高电平。反向比较输出时则正好相反。双斜坡比单斜坡的频率低，但其对称性很适合电机控制。</p>
+<p>分辨率可以选固定的8、9、10位，或ICR1、OCR1A来定义，最小分辨率2bit(ICR1、OCR1A设为0x0003)，最大分辨率16bit。PWM分辨率位数可以如下计算 <span class="formula"><i>R</i><sub><i>PCPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator">log(<i>TOP</i> + 1)</span><span class="ignored">)/(</span><span class="denominator">log(2)</span><span class="ignored">)</span></span></span> 。</p>
+<p>相位修正模式工作时，计数器累加到TOP，然后改变计数方向递减。对OC1x的反转事件由2个OCR1x匹配控制，一个在上升或下降途中，另一个是在TOP值时。在递减到达BOTTOM时，仅置位TOV1，而不改变OC1x输出。对 <strong>相频修正PWM模式</strong> 也适用。</p>
+<img alt="_images/atmega8_datasheet_15_07.png" src="_images/atmega8_datasheet_15_07.png" />
+<p>TCNT1==BOTTOM时，置位TOV1，若TOP=OCR1A或ICR1，则在OCR1x寄存器通过双缓冲模式得到更新的同一个时钟周期里OC1A或ICF1置位。</p>
+<p>OCR1A作TOP值且启用双缓冲时，注意只是在计数器溢出到达BOTTOM时才更新新的TOP值。所以下降区间取决于之前的TOP，而新的上升区间取决于新的TOP。若在TCNT1自增时改变OCR1x的TOP，则导致输出不对称。若要运行时改变TOP值最好用相位与频率修正模式。如果TOP值不变，两者没区别。</p>
+<p>相位修正模式的PWM频率 <span class="formula"><i>f</i><sub><i>OCnxPCPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i><sub><i>clk</i><sub><i>IO</i></sub></sub></span><span class="ignored">)/(</span><span class="denominator">2*<i>N</i>*<i>TOP</i></span><span class="ignored">)</span></span></span> 。其中N为预分频因子。</p>
+<p>若OCR1x=BOTTOM，则一直输出低电平；OCR1x=TOP则一直输出高电平，这一点比快速PWM好些就在于没有OCR1x=BOTTOM时的窄高电平。</p>
+<p>若OCR1A定义TOP值(WGM13:0=11)，且COM1A1:0=1，则OC1A输出占空比50%的周期信号。</p>
+</div>
+<div class="section" id="id31">
+<h3><a class="toc-backref" href="#id90">15.8.5&nbsp;&nbsp;&nbsp;相位与频率修正PWM模式</a></h3>
+<p>WGM13:0=8、9，以下简称相频修正PWM模式，可以产生高精度，相位和频率都准确的PWM波形。基于双斜坡操作。if (TCNT1++==TOP) {OC1x=0}。if(TCNT1--==BOTTOM) {OC1x=1}。反向输出模式时正好相反。频率比快速PWM模式的低，但对称性更适合电机控制。</p>
+<p>相频修正与相位修正PWM的主要区别在于OCR1x寄存器的更新时间。相位修正PWM是立即更新的，所以一个周期中可能左右不对称，产生一个频率位于前后两次设置频率之间的一个频率。而相频修正PWM对OCR1x使用双缓冲，在下次BOTTOM时才更新OCR1x，所以每个周期的OC1x都是左右对称的，确保频率正确。</p>
+<p>相频修正PWM分辨率由ICR1或OCR1A定义，最小为2(对应0x0003)，最大16bit。分辨率位数计算 <span class="formula"><i>R</i><sub><i>FCPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator">log(<i>TOP</i> + 1)</span><span class="ignored">)/(</span><span class="denominator">log(2)</span><span class="ignored">)</span></span></span> 。</p>
+<p>此模式TCNT1一直自增到TOP(ICR1或OCR1A)，然后开始自减。</p>
+<img alt="_images/atmega8_datasheet_15_08.png" src="_images/atmega8_datasheet_15_08.png" />
+<p>在OCR1x寄存器通过双缓冲方式得到更新的同一周期里，TOV1置位。若TOP=OCR1A或ICR1，则当TCNT1==TOP时，OC1A或CF1置位。可用于在TCNT1=TOP或BOTTOM时产生中断。</p>
+<p>相频修正PWM模式在所有周期中都是对称的信号。这是由于OCR1x在BOTTOM时更新，上升与下降斜坡始终相等。确保了频率的正确。</p>
+<p>固定TOP值时最好用ICR1作为TOP。这样OCR1A可用于在OC1A输出PWM波。但如果基频会变化(改变TOP值)，则OCR1A的双缓冲更合适。</p>
+<p>相频修正PWM模式在OC1x引脚输出PWM波形。原理是OC1x寄存器在OCR1x与升序TCNT1匹配时置位，在与降序TCNT1匹配时清零。</p>
+<p>输出频率公式 <span class="formula"><i>f</i><sub><i>OCnxPFCPWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i><sub><i>clk</i><sub><i>IO</i></sub></sub></span><span class="ignored">)/(</span><span class="denominator">2*<i>N</i>*<i>TOP</i></span><span class="ignored">)</span></span></span> 。N为分频因子(1、8、64、256、1024)。</p>
+<p>OCR1x=BOTTOM时一直保持低电平，OCR1x=TOP则一直保持高电平。</p>
+<p>若OCR1A作为TOP(WGM13:0=9)且COM1A1:0=1，则OC1A输出占空比为50%的周期信号。</p>
+</div>
+</div>
+<div class="section" id="id32">
+<h2><a class="toc-backref" href="#id91">15.9&nbsp;&nbsp;&nbsp;时序图</a></h2>
+<p>定时器/计数器是同步电路。clk_T1是时钟信号。图中说明了何时设置中断标志及何时使用OCR1x缓冲器中的数据更新OCR1x寄存器(双缓冲模式)。</p>
+<p>T/C时序图，OCF1x置位，无预分频器：</p>
+<img alt="_images/atmega8_datasheet_15_09.png" src="_images/atmega8_datasheet_15_09.png" />
+<p>置位OCF1x，8分频：</p>
+<img alt="_images/atmega8_datasheet_15_10.png" src="_images/atmega8_datasheet_15_10.png" />
+<p>不同模式下，接近TOP时的计数序列。工作于相频修正PWM模式时，OCR1x寄存器在BOTTOM时被更新。时序图相同，但TOP用BOTTOM代替，BOTTOM+1代替TOP-1。同样命名规则也适用于在BOTTOM置位TOV标志的工作模式。</p>
+<p>无预分频器：</p>
+<img alt="_images/atmega8_datasheet_15_11.png" src="_images/atmega8_datasheet_15_11.png" />
+<p>8分频：</p>
+<img alt="_images/atmega8_datasheet_15_12.png" src="_images/atmega8_datasheet_15_12.png" />
+</div>
+<div class="section" id="id33">
+<h2><a class="toc-backref" href="#id92">15.10&nbsp;&nbsp;&nbsp;寄存器说明</a></h2>
+<p><strong>TCCR1A(T/C1控制寄存器A)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:COM1A1][6:COM1A0][5:COM1B1][4:COM1B0][3:FOC1A][2:FOC1B][1:WGM11][0:WGM10]</span></tt> 。各个位定义：</p>
+<ol class="arabic simple">
+<li>[7:6:COM1A1:0]{RW/0} ：通道A的比较输出模式</li>
+<li>[5:4:COM1B1:0]{RW/0} ：通道B的比较输出模式</li>
+<li>[3:FOC1A]{W/0} ：通道A强制比较输出</li>
+<li>[2:FOC1B]{W/0} ：通道B强制比较输出</li>
+<li>[1:0:WGM11:0]{RW/0} ：波形发生器模式</li>
+</ol>
+<p>一旦COM1A1:0或COM1B1:0不为0，则启用OC1A/OC1B。不过必须先设置DDR为输出才能使能输出驱动器。不过其功能还是受到WGM13:0的控制。</p>
+<p>WGM13:0为普通模式和CTC模式时COM1x1:0的功能定义：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>COM1x1</td>
+<td>COM1x0</td>
+<td>说明</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>普通端口，OC1A/OC1B未连接</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>比较匹配时OC1A/OC1B取反</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>比较匹配时清零OC1A/OC1B(输出低电平)</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>比较匹配时置位OC1A/OC1B(输出高电平)</td>
+</tr>
+</tbody>
+</table>
+<p>WGM13:0为快速PWM模式时COM1x1:0的功能定义：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>COM1x1</td>
+<td>COM1x0</td>
+<td>说明</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>普通端口，OC1A/OC1B未连接</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>WGM13:0=15；比较匹配时，OC1A取反，OC1B未连接
+WGM13:0为其他值时为普通端口</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>比较匹配时清零OC1A/OC1B，OC1A/OC1B在TOP时置位</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>比较匹配时置位OC1A/OC1B，OC1A/OC1B在TOP时清零</td>
+</tr>
+</tbody>
+</table>
+<p>当OCR1A/OCR1B等于TOP且COM1A1/COM1B1置位时，比较匹配被忽略，但是置位/清零有效。详见快速PWM模式。</p>
+<p>比较输出模式、相位修正及相频修正PWM模式：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>COM1x1</td>
+<td>COM1x0</td>
+<td>说明</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>普通端口，OC1A/OC1B未连接</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>WGM13:0=9/14，比较匹配时OC1A取反，OC1B未连接,
+WGM13:0其他值时为普通端口，OC1A/OC1B未连接</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>升序计数时比较匹配清零OC1A/OC1B，降序时置位</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>升序计数时比较潎批置位OC1A/OC1B，降序时清零</td>
+</tr>
+</tbody>
+</table>
+<p>OCR1A/OCR1B等于TOP且COM1A1/COM1B1置位是一个特殊情况，详见相位修正PWM模式。</p>
+<p>FOC1A/FOC1B只有当WGM13:0为非PWM模式时才激活。在PWM时必须写0，当FOC1A/FOC1B置位，立即强制波形产生器进行比较匹配。COM1x1:0的设置改变OC1A/OC1B的输出。FOC1A/FOC1B位作为选通信号，COM1x1:0位的值决定强制比较效果。</p>
+<p>CTC模式下，OCR1A作为TOP值，FOC1A/FOC1B的选通不会产生中断和清除定时器。FOC1A、FOC1B的读取总是0。</p>
+<p><strong>WGM13:0</strong> 其实是TCCR1A和TCCR1B中共同的4个位，用以控制计数器的计数序列和波形发生器的工作模式。工作模式有：</p>
+<ol class="arabic simple">
+<li>普通模式(计数器)</li>
+<li>比较匹配时清零定时器(CTC)模式</li>
+<li>三种脉宽调制(PWM)模式</li>
+</ol>
+<p>具体的WGM13:0配置映射需要先参考WGM13:0各个位的意义：</p>
+<ol class="arabic simple">
+<li>WGM13：没说</li>
+<li>WGM12：CTC1</li>
+<li>WGM11：PWM11</li>
+<li>WGM10：PWM10</li>
+</ol>
+<p>模式映射：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="16%" />
+<col width="33%" />
+<col width="10%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>模式</td>
+<td>WGM13:0</td>
+<td>工作模式</td>
+<td>TOP</td>
+<td>OCR1x更新时</td>
+<td>TOV1置位时</td>
+</tr>
+<tr><td>0</td>
+<td>0000</td>
+<td>普通模式</td>
+<td>0xffff</td>
+<td>立即更新</td>
+<td>MAX</td>
+</tr>
+<tr><td>1</td>
+<td>0001</td>
+<td>8位相位修正PWM</td>
+<td>0x00ff</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>2</td>
+<td>0010</td>
+<td>9位相位修正PWM</td>
+<td>0x01ff</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>3</td>
+<td>0011</td>
+<td>10位相位修正PWM</td>
+<td>0x03ff</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>4</td>
+<td>0100</td>
+<td>CTC</td>
+<td>OCR1A</td>
+<td>立即更新</td>
+<td>MAX</td>
+</tr>
+<tr><td>5</td>
+<td>0101</td>
+<td>8位快速PWM</td>
+<td>0x00ff</td>
+<td>TOP</td>
+<td>TOP</td>
+</tr>
+<tr><td>6</td>
+<td>0110</td>
+<td>9位快速PWM</td>
+<td>0x01ff</td>
+<td>TOP</td>
+<td>TOP</td>
+</tr>
+<tr><td>7</td>
+<td>0111</td>
+<td>10位快速PWM</td>
+<td>0x03ff</td>
+<td>TOP</td>
+<td>TOP</td>
+</tr>
+<tr><td>8</td>
+<td>1000</td>
+<td>相位与频率修正PWM</td>
+<td>ICR1</td>
+<td>BOTTOM</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>9</td>
+<td>1001</td>
+<td>相位与频率修正PWM</td>
+<td>OCR1A</td>
+<td>BOTTOM</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>10</td>
+<td>1010</td>
+<td>相位修正PWM</td>
+<td>ICR1</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>11</td>
+<td>1011</td>
+<td>相位修正PWM</td>
+<td>OCR1A</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>12</td>
+<td>1100</td>
+<td>CTC</td>
+<td>ICR1</td>
+<td>立即更新</td>
+<td>MAX</td>
+</tr>
+<tr><td>13</td>
+<td>1101</td>
+<td>保留</td>
+<td>--</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr><td>14</td>
+<td>1110</td>
+<td>快速PWM</td>
+<td>ICR1</td>
+<td>TOP</td>
+<td>TOP</td>
+</tr>
+<tr><td>15</td>
+<td>1111</td>
+<td>快速PWM</td>
+<td>OCR1A</td>
+<td>TOP</td>
+<td>TOP</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TCCR1B(T/C1控制寄存器B)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:ICNC1][6:ICES1][5:-][4:WGM13][3:WGM12][2:CS12][1:CS11][0:CS10]</span></tt> 。各个位定义：</p>
+<ol class="arabic">
+<li><p class="first">[7:ICNC1]{RW/0} ：输入噪声抑制器，此时启用ICP1的输入滤波，就是4次采样，如果值都相同才送入边沿检测器，导致了延迟4个周期</p>
+</li>
+<li><p class="first">[6:ICES1]{RW/0} ：输入捕捉触发沿选择，选择ICP1上的触发沿捕获事件，0为下降沿，1为上升沿。捕获到事件后计数器值送入ICR1寄存器，捕获事件还置位ICF1，如果使能中断还触发中断。当ICR1作TOP值时，ICP1的输入捕获就无效了。</p>
+</li>
+<li><p class="first">[5:-]{R/0} ：保留，写入时必须为0</p>
+</li>
+<li><p class="first">[4-3:WGM13-2]{RW/0} ：WGM13:2波形发生器模式，见WGM13:0</p>
+</li>
+<li><p class="first">[2-0:CS12-0]{RW/0} ：时钟选择CS12:0，见下表：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>CS12:0=000，无时钟源，停止</li>
+<li>CS12:0=001，无分频</li>
+<li>CS12:0=010，8分频</li>
+<li>CS12:0=011，64分频</li>
+<li>CS12:0=100，256分频</li>
+<li>CS12:0=101，1024分频</li>
+<li>CS12:0=110，外部T1引脚，下降沿驱动</li>
+<li>CS12:0=111，外部T1引脚，上升沿驱动</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>当定义使用外部时钟源时，即时T1引脚定义为输出，其上逻辑电平变化也会引起T/C1计数，用以实现软件计数器。</p>
+<p><strong>TCNT1H</strong> 和 <strong>TCNT1L</strong> ，就是计数器1的计数值，共同组成了TCNT1。</p>
+<p>为了保证CPU对高字节和低字节的同时读写，引入了8bit临时高字节寄存器TEMP。TEMP是所有16bit寄存器共用的。</p>
+<p>修改TCNT1时可能丢失一次OCR1x的比较匹配操作，写好后会在下一个时钟周期阻塞比较匹配。</p>
+<p><strong>OCR1AH</strong> 和 <strong>OCR1AL</strong> ：输出比较寄存器1A，16bit寄存器，共同构成OCR1A。</p>
+<p><strong>OCR1BH</strong> 和 <strong>OCR1BL</strong> ：输出比较寄存器1B，16bit寄存器，共同构成OCR1B。</p>
+<p>与TCNT1比较，一旦匹配就产生中断或改变OC1x的输出逻辑电平。因为是16bit寄存器，所以需要使用TEMP寄存器，来暂时存储高字节。</p>
+<p><strong>ICR1(输入捕捉寄存器1)</strong> ：当ICP1引脚有输入捕捉信号产生时，TCNT1的值就写入ICR1。ICR1的值可作为计数器的TOP值。需要使用TEMP寄存器来读写。</p>
+<p>长度为16bit，为保证CPU对高低字节同时读取，要引入8bit的临时高位寄存器TEMP。TEMP对所有16bit寄存器共用。</p>
+<p><strong>TIMSK(中断屏蔽寄存器)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:OCIE2][6:TOIE2][5:TICIE1][4:OCIE1A][3:OCIE1B][2:TOIE1][1:-][0:TOIE0]</span></tt> ，其中bit2,3,4,5与T/C2有关。</p>
+<ol class="arabic simple">
+<li><cite>[5:TICIE1]{RW/0}</cite> ：输入捕捉中断使能，为1且全局中断使能且TIFR的ICF1置位时，会调用输入捕捉终端服务例程</li>
+<li><cite>[4:OCIE1A]{RW/0}</cite> ：输出比较A匹配中断使能</li>
+<li><cite>[3:OCIE1B]{RW/0}</cite> ：输出比较B匹配中断使能</li>
+<li><cite>[2:TOIE1]{RW/0}</cite> ：溢出中断使能</li>
+</ol>
+<p><strong>TIFR(中断标识寄存器)</strong> 定义 <tt class="docutils literal"><span class="pre">[7:OCF2][6:TOV2][5:ICF1][4:OCF1A][3:OCF1B][2:TOV1][1:-][0:TOV0]</span></tt> 其中只有bit 2~5是属于T/C2的。</p>
+<ol class="arabic simple">
+<li><cite>[5:ICF1]{RW/0}</cite> ：输入捕获标志，外部事件捕捉时ICF1置位，另外当ICR1作为TOP时，一旦TCNT1到达TOP，ICF1也会置位；中断服务例程会自动将ICF1清零，写1也清零</li>
+<li><cite>[4:OCF1A]{RW/0}</cite> ：输出比较A匹配标志，当TCNT1==OCR1A时置位，强制输出比较(FOC1A)不会置位OCF1A；中断服务例程会将OCF1A清零，写1也清零</li>
+<li><cite>[3:OCF1B]{RW/0}</cite> ：输出比较B匹配标志，当TCNT1==OCR1B时置位，强制输出比较(FOC1B)不会置位OCF1B；中断服务例程会将OCF1B清零，写1也清零</li>
+<li><cite>[2:TOV1]{RW/0}</cite> ：溢出标志，普通模式和CTC模式时，溢出时TOV1置位，其他模式下参见WGM设置的表；中断服务例程会将TOV1清零，写1也清零</li>
+</ol>
+</div>
+</div>
+<div class="section" id="pwm-2">
+<h1><a class="toc-backref" href="#id93">16&nbsp;&nbsp;&nbsp;8位有PWM与异步操作的定时器/计数器2</a></h1>
+<p>主要特点：</p>
+<ol class="arabic simple">
+<li>单通道计数器</li>
+<li>比较匹配发生时清零定时器(自动重载)</li>
+<li>无干扰脉冲，相位正确的脉宽调制器PWM</li>
+<li>频率发生器</li>
+<li>10位时钟预分频器</li>
+<li>溢出与比较匹配中断源(TOV2和OCF2)</li>
+<li>允许使用外部32kHz手表晶振作为独立I/O时钟源</li>
+</ol>
+<div class="section" id="id34">
+<h2><a class="toc-backref" href="#id94">16.1&nbsp;&nbsp;&nbsp;综述</a></h2>
+<img alt="_images/atmega8_datasheet_16_00.png" src="_images/atmega8_datasheet_16_00.png" />
+<p>相关寄存器有计数器TCNT2和输出比较寄存器OCR2，都是8bit的。</p>
+<p>时钟可以来自内部时钟或TOSC1/2引脚的异步时钟。异步操作由异步状态寄存器ASSR控制。双缓冲输出比较寄存器OCR2会一直比较。波形发生器可以控制OC2引脚。比较匹配还会置位OCF2，产生中断。</p>
+</div>
+<div class="section" id="id35">
+<h2><a class="toc-backref" href="#id95">16.2&nbsp;&nbsp;&nbsp;时钟源</a></h2>
+<p>可以由内部时钟或外部异步时钟驱动。clk_T2缺省为clk_IO。当ASSR的AS2置位时，时钟源来自外部TOSC1和TOSC2。</p>
+</div>
+<div class="section" id="id36">
+<h2><a class="toc-backref" href="#id96">16.3&nbsp;&nbsp;&nbsp;计数器单元</a></h2>
+<p>&#64;page 98-98</p>
+</div>
+<div class="section" id="id37">
+<h2><a class="toc-backref" href="#id97">16.4&nbsp;&nbsp;&nbsp;输出比较单元</a></h2>
+<p>&#64;page 99-100</p>
+</div>
+<div class="section" id="id38">
+<h2><a class="toc-backref" href="#id98">16.5&nbsp;&nbsp;&nbsp;比较匹配输出单元</a></h2>
+<p>&#64;page 101-101</p>
+</div>
+<div class="section" id="id39">
+<h2><a class="toc-backref" href="#id99">16.6&nbsp;&nbsp;&nbsp;工作模式</a></h2>
+<p>&#64;page 102-105</p>
+</div>
+<div class="section" id="id40">
+<h2><a class="toc-backref" href="#id100">16.7&nbsp;&nbsp;&nbsp;时序图</a></h2>
+<p>&#64;page 106-107</p>
+</div>
+<div class="section" id="id41">
+<h2><a class="toc-backref" href="#id101">16.8&nbsp;&nbsp;&nbsp;寄存器说明</a></h2>
+<p><strong>TCCR2(T/C2控制寄存器)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:FOC2][6:WGM20][5:COM21][4:COM20][3:WGM21][CS22][CS21][CS20]</span></tt> ，位定义：</p>
+<ol class="arabic">
+<li><p class="first"><cite>[7:FOC2]{W/0}</cite> ：强制输出比较，仅非PWM模式有效。写1立即进行比较操作，不触发中断和清零，FOC2类似于一个锁存信号，真正对强制输出起作用的是COM21:0的设置</p>
+</li>
+<li><p class="first"><cite>[6,3:WGM21:0]{RW/0}</cite> ：波形产生模式，WGM21是CTC2，WGM20是PWM2：</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="36%" />
+<col width="9%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>WGM21:0</td>
+<td>工作模式</td>
+<td>TOP</td>
+<td>OCR2更新时间</td>
+<td>TOV2置位时间</td>
+</tr>
+<tr><td>00</td>
+<td>普通</td>
+<td>0xff</td>
+<td>立即更新</td>
+<td>MAX</td>
+</tr>
+<tr><td>01</td>
+<td>相位修正PWM</td>
+<td>0xff</td>
+<td>TOP</td>
+<td>BOTTOM</td>
+</tr>
+<tr><td>10</td>
+<td>CTC</td>
+<td>OCR2</td>
+<td>立即更新</td>
+<td>MAX</td>
+</tr>
+<tr><td>11</td>
+<td>快速PWM</td>
+<td>0xff</td>
+<td>TOP</td>
+<td>MAX</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ol>
+<p>&#64;page 108-110</p>
+</div>
+<div class="section" id="id42">
+<h2><a class="toc-backref" href="#id102">16.9&nbsp;&nbsp;&nbsp;定时器异步操作</a></h2>
+<p>&#64;page 110-113</p>
+</div>
+<div class="section" id="id43">
+<h2><a class="toc-backref" href="#id103">16.10&nbsp;&nbsp;&nbsp;定时器预分频器</a></h2>
+<p>&#64;page 113-114</p>
+</div>
+<div class="section" id="timer-counter">
+<h2><a class="toc-backref" href="#id104">16.11&nbsp;&nbsp;&nbsp;Timer/Counter全局寄存器</a></h2>
+<p><strong>TIMSK(TCNT中断屏蔽寄存器)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:OCIE2][6:TOIE2][5:TICIE1][4:OCIE1A][3:OCIE1B][2:TOIE1][1:-][0:TOIE0]</span></tt> 。各个位定义：</p>
+<ol class="arabic simple">
+<li>[7:OCIE2]{RW/0} ：--</li>
+<li>[6:TOIE2]{RW/0} ：--</li>
+<li>[5:TICIE1]{RW/0} ：T/C1输入捕捉中断使能，=1时且状态寄存器对应位为1时，T/C1输入捕捉中断使能，如果TIFR的ICF1置位，就触发中断</li>
+<li>[4:OCIE1A]{RW/0} ：输出比较A匹配中断使能</li>
+<li>[3:OCIE1B]{RW/0} ：输出比较B匹配中断使能</li>
+<li>[2:TOIE1]{RW/0} ：溢出中断使能</li>
+<li>[1:-]{R/0} ：保留位</li>
+<li>[0:TOIE0]{RW/0} ：TCNT0溢出中断使能</li>
+</ol>
+<p><strong>TIFR(TCNT中断标志寄存器)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:OCF2][6:TOV2][5:ICF1][4:OCF1A][3:OCF1B][2:TOV1][1:-][0:TOV0]</span></tt> 。各个位定义：</p>
+<ol class="arabic simple">
+<li>[7:OCF2]{RW/0} ：--</li>
+<li>[6:TOV2]{RW/0} ：--</li>
+<li>[5:ICF1]{RW/0} ：T/C1输入捕捉标志，几种可能：ICP1出现捕获事件；ICR1作TOP值时计数器达到TOP值</li>
+<li>[4:OCF1A]{RW/0} ：T/C1输出比较A匹配标志，当TCNT1与OCR1A匹配成功时置位，强制输出比较FOC1A不会置位，如果开启中断会自动清零，也可写入1来清零</li>
+<li>[3:OCF1B]{RW/0} ：同上，只不过针对比较匹配B</li>
+<li>[2:TOV1]{RW/0} ：T/C1溢出标志，与T/C1的工作方式有关，普通模式和CTC模式时，T/C1溢出对TOV1置位，其他模式置位见page91，溢出中断自动清零，也可写入1来清零</li>
+<li>[1:-]{R/0} ：保留位</li>
+<li>[0:TOV0]{RW/0} ：TCNT0溢出标志位，可以通过写1来清零</li>
+</ol>
+<p><strong>SFIOR(特殊功能IO寄存器)</strong> ：定义 <tt class="docutils literal"><span class="pre">[7:-][6:-][5:-][4:-][3:ACME][2:PUD][1:PSR2][0:PSR10]</span></tt> 。各个位定义：</p>
+<ol class="arabic simple">
+<li>[0:PSR10]{RW/0} ：置位时让TCNT0与TCNT1共用的分频器复位，操作完成后由硬件自动清零，写入0时无效</li>
+</ol>
+<p>&#64;page 不知道</p>
+</div>
+</div>
+<div class="section" id="spi">
+<h1><a class="toc-backref" href="#id105">17&nbsp;&nbsp;&nbsp;串行外设接口 SPI</a></h1>
+<p>&#64;page 115-122</p>
+</div>
+<div class="section" id="usart">
+<h1><a class="toc-backref" href="#id106">18&nbsp;&nbsp;&nbsp;USART</a></h1>
+<p>&#64;page 123-149</p>
+</div>
+<div class="section" id="twi">
+<h1><a class="toc-backref" href="#id107">19&nbsp;&nbsp;&nbsp;两线串行接口 TWI</a></h1>
+<p>&#64;page 150-179</p>
+</div>
+<div class="section" id="id44">
+<h1><a class="toc-backref" href="#id108">20&nbsp;&nbsp;&nbsp;模拟比较器</a></h1>
+<p>&#64;page 180-182</p>
+</div>
+<div class="section" id="id45">
+<h1><a class="toc-backref" href="#id109">21&nbsp;&nbsp;&nbsp;模数转换器</a></h1>
+<p>&#64;page 183-195</p>
+</div>
+<div class="section" id="id46">
+<h1><a class="toc-backref" href="#id110">22&nbsp;&nbsp;&nbsp;引导载入程序</a></h1>
+<p>&#64;page 196-208</p>
+</div>
+<div class="section" id="id47">
+<h1><a class="toc-backref" href="#id111">23&nbsp;&nbsp;&nbsp;存储器编程</a></h1>
+<p>&#64;page 209-225</p>
+</div>
+<div class="section" id="id48">
+<h1><a class="toc-backref" href="#id112">24&nbsp;&nbsp;&nbsp;电气特性</a></h1>
+<p>&#64;page 226-232</p>
+</div>
+<div class="section" id="id49">
+<h1><a class="toc-backref" href="#id113">25&nbsp;&nbsp;&nbsp;ATmega8典型特性</a></h1>
+<p>&#64;page 233-270</p>
+</div>
+<div class="section" id="id50">
+<h1><a class="toc-backref" href="#id114">26&nbsp;&nbsp;&nbsp;寄存器概述</a></h1>
+<p>&#64;page 271-272</p>
+</div>
+<div class="section" id="id51">
+<h1><a class="toc-backref" href="#id115">27&nbsp;&nbsp;&nbsp;指令集概述</a></h1>
+<p>&#64;page 273-275</p>
+</div>
+<div class="section" id="id52">
+<h1><a class="toc-backref" href="#id116">28&nbsp;&nbsp;&nbsp;附录</a></h1>
+<p>&#64;page 276-285 产品信息、封装信息、勘误表、变更日志</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 20953, "title": "ATmega8\u6570\u636e\u624b\u518c", "src_size": 37379, "filehash": "3fd4806da07d8f563aad9f331e192bf7", "dst_size": 69928} -->

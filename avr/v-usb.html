@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR单片机USB编程</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avrusb">
+<h1 class="title">AVR单片机USB编程</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2009-02-22</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id8">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id3" id="id9">2&nbsp;&nbsp;&nbsp;电路图分析</a></li>
+<li><a class="reference internal" href="#id4" id="id10">3&nbsp;&nbsp;&nbsp;下位机程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#libs-device" id="id11">3.1&nbsp;&nbsp;&nbsp;libs-device</a></li>
+<li><a class="reference internal" href="#usbdrv" id="id12">3.2&nbsp;&nbsp;&nbsp;usbdrv</a><ul class="auto-toc">
+<li><a class="reference internal" href="#cpu" id="id13">3.2.1&nbsp;&nbsp;&nbsp;CPU核心频率</a></li>
+<li><a class="reference internal" href="#usb" id="id14">3.2.2&nbsp;&nbsp;&nbsp;USB标识符</a></li>
+<li><a class="reference internal" href="#id5" id="id15">3.2.3&nbsp;&nbsp;&nbsp;开发系统</a></li>
+<li><a class="reference internal" href="#avr-usb" id="id16">3.2.4&nbsp;&nbsp;&nbsp;免费使用AVR-USB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id17">4&nbsp;&nbsp;&nbsp;上位机程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#opendevice" id="id18">4.1&nbsp;&nbsp;&nbsp;opendevice</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id19">5&nbsp;&nbsp;&nbsp;例子</a><ul class="auto-toc">
+<li><a class="reference internal" href="#examples" id="id20">5.1&nbsp;&nbsp;&nbsp;examples</a><ul class="auto-toc">
+<li><a class="reference internal" href="#custom-class" id="id21">5.1.1&nbsp;&nbsp;&nbsp;custom-class</a></li>
+<li><a class="reference internal" href="#hid-custom-rq" id="id22">5.1.2&nbsp;&nbsp;&nbsp;hid-custom-rq</a></li>
+<li><a class="reference internal" href="#hid-mouse" id="id23">5.1.3&nbsp;&nbsp;&nbsp;hid-mouse</a></li>
+<li><a class="reference internal" href="#hid-data" id="id24">5.1.4&nbsp;&nbsp;&nbsp;hid-data</a></li>
+<li><a class="reference internal" href="#usbtool" id="id25">5.1.5&nbsp;&nbsp;&nbsp;usbtool</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tests" id="id26">5.2&nbsp;&nbsp;&nbsp;tests</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id8">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>已经可以用AVR做一些好玩的实验了，不过还是做通信实验好玩。</p>
+<p>看了一些相关的文章，本以为又要自己买D12之类的芯片来搭建与电脑USB接口的通信。后来发现一些帖子说可以拿AVR的端口直接来做。想想也是，这样最好了。</p>
+<p>参考文献：</p>
+<ol class="arabic simple">
+<li>[u] USB1.1的AVR实现，需要12.8MHz或16.5MHz的时钟，2KB flash、128byte RAM的芯片： <a class="reference external" href="http://www.obdev.at/products/avrusb/index.html">http://www.obdev.at/products/avrusb/index.html</a></li>
+<li>[u] 一套AVR系统上的操作系统OPEX ： <a class="reference external" href="http://www.atmanecl.net/EnglishSite/OPEX.htm">http://www.atmanecl.net/EnglishSite/OPEX.htm</a></li>
+<li>[u] AVRUSBBoot，对平台支持，功能强大： <a class="reference external" href="http://www.fischl.de/avrusbboot/">http://www.fischl.de/avrusbboot/</a></li>
+<li>[u] AVR做USB控制器的更多实例： <a class="reference external" href="http://www.getproject.com.cn/Article/Show/16.aspx">http://www.getproject.com.cn/Article/Show/16.aspx</a></li>
+<li>[u] 用AVR实现的软USB： <a class="reference external" href="http://www.smart-io.com/second/article/avr_usb.htm">http://www.smart-io.com/second/article/avr_usb.htm</a></li>
+<li>[u] 对AVR-USB的初步研究： <a class="reference external" href="http://blog.ednchina.com/sprhawk/">http://blog.ednchina.com/sprhawk/</a></li>
+<li>[u] 这个博客里面有好几篇文章在研究： <a class="reference external" href="http://eiart.net/blog/archive/316">http://eiart.net/blog/archive/316</a></li>
+<li>[u] V-USB的wiki： <a class="reference external" href="http://vusb.wikidot.com/">http://vusb.wikidot.com/</a></li>
+<li>[u] Work in Progress： <a class="reference external" href="http://www.workinprogress.ca/v-usb-tutorial-software-only-usb-for-mega-tiny/">http://www.workinprogress.ca/v-usb-tutorial-software-only-usb-for-mega-tiny/</a></li>
+<li>[u] Pieter Provoost： <a class="reference external" href="http://www.pieterprovoost.nl/usblogger.php">http://www.pieterprovoost.nl/usblogger.php</a></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id9">2&nbsp;&nbsp;&nbsp;电路图分析</a></h1>
+<p>基于AVRUSB，即obdev.at网站的教程。</p>
+<p><tt class="docutils literal">circuits</tt> 目录。</p>
+<p>从USB的正极那里引入电路后，需要先串联两个1N4148二极管才给电路供电，是因为USB规范中D+/D-信号线的电压是3.3v，而经过两个二极管降压后正好是这个电压。另外一种降压的方式是在D+/D-信号线和地线之间串接3.6v电压的稳压二极管。</p>
+<p>所有的例子中都是把D+数据线接到AVR单片机的INT0端口，这是因为INT0是AVR的最高优先级中断。你也可以在 <tt class="docutils literal">usbconfig.h</tt> 中改为其他的中断，只是确保不能有更高的中断。</p>
+<p>如果在 <tt class="docutils literal">usbconfig.h</tt> 中使用了 <cite>USB_SOF_HOOK</cite> 或 <cite>USB_COUNT_SOF</cite> ，必须将D-连接到中断。这样在USB帧起始脉冲时触发。</p>
+<p>大多数例子中D+会使用一个1M的电阻接地，这是为了在使用自身供电，而没有接入USB数据线时不会误触发中断。而对于USB供电的设计，则可以忽略这个电阻的存在。至于给出的1.5K的电阻，连接在D-和电源线之间的，是为了提供齐纳二极管降压模式时的电压的。</p>
+<p>所有例子中使用ATmega8/88/168时D+连接到PD2，因为这也是INT0，而D-连接到PD4，因为这也是定时器/计数器0的时钟输入。这样可以定期检测是否连接上USB了，如果没有连接则可以进入低功耗挂起模式。</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id10">3&nbsp;&nbsp;&nbsp;下位机程序</a></h1>
+<div class="section" id="libs-device">
+<h2><a class="toc-backref" href="#id11">3.1&nbsp;&nbsp;&nbsp;libs-device</a></h2>
+<p><tt class="docutils literal"><span class="pre">libs-device</span></tt> 目录提供了下位机的一些有用的程序片段。包含文件如下：</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">libs-device/osccal.c</span></tt> ：提供了测试AVR内置RC时钟的函数，查看头文件了解接口。</li>
+<li><tt class="docutils literal"><span class="pre">libs-device/osctune.h</span></tt> ：包含供 <tt class="docutils literal">usbconfig.h</tt> 使用的代码片段。通过这些代码可以在保持USB帧同步时的RC时钟。这是连续的同步，而不只是在USB重置时的一次校准。需要注意的是这段代码仅在D-连接到中断，而不是D+，的时候才工作。</li>
+</ol>
+</div>
+<div class="section" id="usbdrv">
+<h2><a class="toc-backref" href="#id12">3.2&nbsp;&nbsp;&nbsp;usbdrv</a></h2>
+<p><tt class="docutils literal">usbdrv</tt> 是下位机中的USB驱动程序。把所有的.c和.S文件拷贝到你的工程中，主要是 <tt class="docutils literal">usbdrv.c</tt> 、 <tt class="docutils literal">usbdrvasm.S</tt> 、 <tt class="docutils literal">oddebug.c</tt> 。然后拷贝 <tt class="docutils literal"><span class="pre">usbconfig-prototype.h</span></tt> 作为 <tt class="docutils literal">usbconfig.h</tt> 到工程中，然后修改你自己的配置。</p>
+<p>API的细节信息在 <tt class="docutils literal">usbdrv.h</tt> 中，请小心阅读所有部分。配置选项文档在 <tt class="docutils literal"><span class="pre">usbconfig-prototype.h</span></tt> 中。</p>
+<div class="section" id="cpu">
+<h3><a class="toc-backref" href="#id13">3.2.1&nbsp;&nbsp;&nbsp;CPU核心频率</a></h3>
+<p>AVRUSB支持的时钟频率有12MHz、12.8MHz、15MHz、16MHz、16.5MHz、20MHz。其他的不支持。除非使用默认的12MHz，否则需要修改 <tt class="docutils literal">usbdrv.h</tt> 中的配置。</p>
+<ol class="arabic simple">
+<li><strong>12MHz</strong> ：能够支持的最低频率。</li>
+<li><strong>15MHz</strong> ：类似于12MHz，但是包含了一些NOP。允许生成更小的代码。</li>
+<li><strong>16MHz</strong> ：用于支持Arduino和其他已经制造好的板子。因为16MHz无法整除为低速USB所需的1.5MHz时钟，所以代码中包含了一些狡猾的技巧来支持。</li>
+<li><strong>12.8MHz</strong> 和 <strong>16.5MHz</strong> ：AVR的内部晶振频率。</li>
+<li><strong>20MHz</strong> ：跟16MHz的处理方式一样。</li>
+</ol>
+</div>
+<div class="section" id="usb">
+<h3><a class="toc-backref" href="#id14">3.2.2&nbsp;&nbsp;&nbsp;USB标识符</a></h3>
+<p>每个USB设备拥有一个制造商(vendor)和一个产品(product)标识符，即VID和PID。VID需要向usb.org申请，每个1500美元，有VID后，就可以随便分配PID了。</p>
+<p>因为1500美元对很多公司和爱好者(hobbyist)来说依然很贵。所以我们搞到一些免费的VID/PID对，查看文件 <tt class="docutils literal"><span class="pre">USB-License.txt</span></tt> 了解更多。</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id15">3.2.3&nbsp;&nbsp;&nbsp;开发系统</a></h3>
+<p>本驱动开发面向gcc 3，而在gcc4下仍然可以很好的工作，只是代码尺寸会变大。我们还是推荐gcc套件，因为自由。本驱动也移植到了IAR的编译器，只不过一直使用gcc开发，所以对gcc的优化也是最好的。</p>
+</div>
+<div class="section" id="avr-usb">
+<h3><a class="toc-backref" href="#id16">3.2.4&nbsp;&nbsp;&nbsp;免费使用AVR-USB</a></h3>
+<p>使用了GPL2和GPL3协议。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id17">4&nbsp;&nbsp;&nbsp;上位机程序</a></h1>
+<p><tt class="docutils literal"><span class="pre">libs-host</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">libs-host/opendevice.c</span></tt> ：这个模块包含的函数用于寻找和打开给定ID、名字、序列号的设备。它基于libusb/libusb-win32，并且返回libusb设备句柄。查看头文件了解用法。</p>
+<p><tt class="docutils literal"><span class="pre">libs-host/hiddata.c</span></tt> ：包含的函数用于在HID功能报告上进行数据传输。基于libusb和Windows本地函数。在Windows上无需驱动DLL。</p>
+<p><tt class="docutils literal"><span class="pre">libs-host/hidsdi.h</span></tt> ：这个头文件在MinGW的Windows DDK中缺失了。在你发现&quot;include file not found&quot;错误时用它。</p>
+<div class="section" id="opendevice">
+<h2><a class="toc-backref" href="#id18">4.1&nbsp;&nbsp;&nbsp;opendevice</a></h2>
+<p>函数声明：</p>
+<p><tt class="docutils literal">int usbGetStringAscii(usb_dev_handle *dev, int index, char *buf, int buflen)</tt></p>
+<p>这个函数获取字符串的设备描述符，返回ISO latin1编码的字符串。index是描述符序号。获取的字符串存入buf，最大缓存长度输入buflen，函数返回实际字符串长度，包括结尾的\0，负数表示错误。出错后通过 <cite>usb_strerror()</cite> 获取错误信息。</p>
+<p><tt class="docutils literal">int usbOpenDevice(usb_dev_handle **device, int vendorID, char *vendorNamePattern, int productID, char *productNamePattern, char *serialNumberPattern, FILE *printMatchingDevicesFp, FILE *warningsFp)</tt></p>
+<p>遍历所有USB设备并搜索。首先通过vendorID和productID来匹配，0表示任意数字。如果这两个ID匹配成功了，就开始匹配名字，可以基于带vendor的名字 <cite>vendorNamePattern</cite> ，或带product的名字 <cite>productNamePattern</cite> ，或带序列号的 <cite>serialNamePattern</cite> 。设备的匹配要求所有非空模式的匹配成功。如果某个字段不存在就填入一个NULL。模式用的是Unix shell方式的， '*' 表示0个或多个字符，'?'是一个字符，方括号用以从序列中选取一个字符(破折号可以用于指定范围)，如果列表开始与&quot;^&quot;则是反义匹配。</p>
+<p>其他参数warningsFp如果不为NULL则用于显示打印警告信息。printMatchingDevicesFp用以打印匹配成功的设备，而不打开设备。</p>
+<p>如果打开了设备，结果USB设备存入 *device 中。返回0成功，失败返回错误码。如下：</p>
+<blockquote>
+<ol class="arabic simple">
+<li><cite>USBOPEN_SUCCESS=0</cite> ：无错误</li>
+<li><cite>USBOPEN_ERR_ACCESS=1</cite> ：权限不够</li>
+<li><cite>USBOPEN_ERR_IO=2</cite> ：I/O错误</li>
+<li><cite>USBOPEN_ERR_NOTFOUND=3</cite> ：没找到设备</li>
+</ol>
+</blockquote>
+<p>Obdev的免费USB ID，查看 <tt class="docutils literal"><span class="pre">USB-IDs-for-free.txt</span></tt> 了解详细。</p>
+<blockquote>
+<ol class="arabic simple">
+<li><cite>USB_VID_OBDEV_SHARED=5824</cite> ：bodev的共享产品ID</li>
+<li><cite>USB_PID_OBDEV_SHARED_CUSTOM=1500</cite> ：共享PID，用以自定义类设备</li>
+<li><cite>USB_PID_OBDEV_SHARED_HID=1503</cite> ：共享PID，用以除了鼠标和键盘的HID</li>
+<li><cite>USB_PID_OBDEV_SHARED_CDCACM=1505</cite> ：共享PID，CDC猫设备</li>
+<li><cite>USB_PID_OBDEV_SHARED_MIDI=1508</cite> ：共享PID，MIDI类设备</li>
+</ol>
+</blockquote>
+</div>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id19">5&nbsp;&nbsp;&nbsp;例子</a></h1>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id20">5.1&nbsp;&nbsp;&nbsp;examples</a></h2>
+<p><tt class="docutils literal">examples</tt> 目录，包含一些教学目的的例子。如下是一些介绍：</p>
+<ol class="arabic simple">
+<li><cite>custom-class</cite> ：一个自定义类型设备，主机端使用libusb。演示了主机端和设备的连续小数量数据通信。没有演示大批量数据的传输，也没有设备持续返回数据(使用 <cite>usbFunctionWrite()</cite> 和 <cite>usbFunctionRead()</cite> )。查看hid-data了解这两个函数。</li>
+<li><cite>hid-custom-rq</cite> ：这个例子实现的功能同 <cite>custom-class</cite> ，但是声明了设备类型为HID。这会在Windows上产生一个&quot;给出驱动CD&quot;的对话框。设备可以像上面的例子一样被控制(Windows上必须安装filter版本的libusb-win32)。与上面例子的不同在于演示如何定义一个HID类型设备。</li>
+<li><cite>hid-mouse</cite> ：这个例子实现了鼠标。不需要主机端驱动，因为现代操作系统都内置了。它演示了真实的HID类型设备的实现和断点中断的使用。</li>
+<li><cite>hid-data</cite> ：这个例子演示了HID类型设备被误用(misuse)，在HID功能报告中传输任意数据。这个技术也很有用，在于无需驱动( <cite>hid-custom-rq</cite> 尚且需要libusb-win32)，而主机端程序无需安装。例子也同时演示了如何使用 <cite>usbFunctionWrite()</cite> 和 <cite>usbFunctionRead()</cite> 。</li>
+<li><cite>usbtool</cite> ：这是个通用目的的USB设备开发和调试工具。你可以在开发和测试阶段一直开着它。也同时演示了libusb API的使用。</li>
+</ol>
+<p>更多相关信息参考特定目录的README文件。</p>
+<p>这里例子只是演示了基本功能，更多例子参考 <a class="reference external" href="http://www.obdev.at/avrusb/projects.html">http://www.obdev.at/avrusb/projects.html</a> 。大部分其中的功能在我们的wiki中 <a class="reference external" href="http://www.obdev.at/goto.php?t=avrusb-wiki">http://www.obdev.at/goto.php?t=avrusb-wiki</a> .</p>
+<p>顺便提及：</p>
+<ol class="arabic simple">
+<li>使用RC振荡器做系统时钟：AVR-USB模块使用12.8MHz和16.5MHz的时钟都要确保时钟误差不超过1%。这也允许使用RC振荡器。AVR内置的RC振荡器在出厂时精度是10%，因此必须使用外部参考来校准。EasyLogger的例子展示了如何使用。</li>
+<li>动态生成描述符：有时候你希望使用跳线或其他条件指定USB设备类型。AVR-USB有非常灵活的接口可以提供USB描述符。查看AVR-Doper了解运行时如何提供描述符。</li>
+<li>虚拟串口：一些人希望用虚拟串口与其他设备通信。我们强烈不建议使用这种方法，因为它已经被USB规范禁用。如果你仍然需要这种路由，查看AVR-CDC。</li>
+<li>实现挂起模式：AVR-USB没有实现挂起模式。这意味着设备无法在主机睡眠时进入省电状态。设备firmware可以自由实现挂起模式。查看USB2LPT的例子。</li>
+</ol>
+<p>上面的项目在如下页列表中： <a class="reference external" href="http://www.obdev.at/avrusb/prjall.html">http://www.obdev.at/avrusb/prjall.html</a></p>
+<div class="section" id="custom-class">
+<h3><a class="toc-backref" href="#id21">5.1.1&nbsp;&nbsp;&nbsp;custom-class</a></h3>
+<p>这个例子演示了通过USB接口控制一个LED灯。</p>
+<p>本例演示了设备与主机之前的小数据量通信，同样演示了如何在主机端使用libusb或libusb-win32构建驱动。这里没有演示 <cite>usbFunctionWrite()</cite> 和 <cite>usbFunctionRead()</cite> 的使用。查看 hid-data 的例子了解他们如何使用。</p>
+<p>使用需求：目标硬件，有如电路图目录中的制作即可。AVR的开发环境。主机端开发环境，Unix上需要C编译器和libusb，Windows上需要Driver Development Kit。而MinGW已经附带了一个免费版本的DDK了。</p>
+<p>进入firmware目录修改你自己需要的配置，包括CPU时钟、目标设备、熔丝值、ISP编程器。修改 <tt class="docutils literal">config.h</tt> 定义你连接到D+和D-的端口。输入 <tt class="docutils literal">make hex</tt> 构建 <tt class="docutils literal">main.hex</tt> ，然后 <tt class="docutils literal">make flash</tt> 下载firmware到设备。不要忘记 <tt class="docutils literal">make fuse</tt> 对熔丝编程。如果你使用带有bootloader的板子，遵循bootloader的下载方式。</p>
+<p>注意 <tt class="docutils literal">make hex</tt> 会把驱动从顶级目录拷贝到firmware目录，如果你使用其他的构建系统，需要手动拷贝过来。</p>
+<p>进入firmware目录，修改Makefile到你的配置，包括CPU时钟、目标设备、熔丝值和ISP编程器。修改 <tt class="docutils literal">usbconfig.h</tt> 可以修改你所使用的D+与D-的端口定义。而本实验需要用一个输出端口接LED，然后修改 <tt class="docutils literal">main.c</tt> 中的对应控制端口。</p>
+<p>构建主机端程序：确保机器上有libusb或libusb-win32。如果是Unix确保libusb-config在搜索路径中。在Windows上编辑缺省的 <tt class="docutils literal">Makefile.windows</tt> 设置搜索路径。然后就去构建。</p>
+<p>使用方式：程序有三种参数， <cite>status</cite> 用于查询LED状态， <cite>on</cite> 打开LED， <cite>off</cite> 关闭LED。</p>
+<p>效果还不错，只是我一直没发用pyusb进行控制。</p>
+</div>
+<div class="section" id="hid-custom-rq">
+<h3><a class="toc-backref" href="#id22">5.1.2&nbsp;&nbsp;&nbsp;hid-custom-rq</a></h3>
+<p>类似于custom-class例子，区别在于设备表现为USB HID类。例子还展示了如何发送其他请求给HID兼容的实现。这样就可以提供驱动CD对话框在Windows上，且依旧可以用libusb-win32控制。</p>
+<p>需要安装过滤器版本的libusb-win32，来得到完整的功能。设备驱动版本只存取已经注册了inf文件的设备。过滤器版本存取所有设备。</p>
+<p>实际的测试中控制LED灯没有成功。也是走控制消息的。</p>
+</div>
+<div class="section" id="hid-mouse">
+<h3><a class="toc-backref" href="#id23">5.1.3&nbsp;&nbsp;&nbsp;hid-mouse</a></h3>
+<p>这个项目实现了USB鼠标设备，为了演示功能避免复杂性，只是让鼠标指针按照预先计算的绕圈而已。</p>
+<p>没有实现 USBRQ_HID_SET_REPORT 和 report-ID。可以参考hid-data的例子。也没有实现挂起模式的功能。</p>
+<p>Makefile的几个参数都一样的。</p>
+</div>
+<div class="section" id="hid-data">
+<h3><a class="toc-backref" href="#id24">5.1.4&nbsp;&nbsp;&nbsp;hid-data</a></h3>
+<p>这个例子展示了与HID类型设备交换数据。因为操作系统自带了HID驱动，所以无需另外安装驱动。这个例子只能传送固定大小的数据块，最高可以到HID功能报告驱动限制的大小。这个技术非常适合于Windows无驱动的程序。主机端应用无需安装。例子同时演示了 <cite>usbFunctionWrite()</cite> 和 <cite>usbFunctionRead()</cite> 函数。</p>
+<p>在主机端确保你拥有libusb(Unix)或DDK(Windows)。对Windows我们强烈推荐MinGW，因为它自带了DDK了。然后进入commandline目录，运行 <tt class="docutils literal">make</tt> ，或windows下运行 <tt class="docutils literal">make <span class="pre">-f</span> Makefile.windows</tt> 。</p>
+<p>设备实现了对EEPROM上128byte数据的访问。你可以发送128字节的数据到设备，或者读取出来。读写的例子:</p>
+<pre class="literal-block">
+hidtool write 0x01,0x02,0x03,0x04,...
+hidtool read
+</pre>
+</div>
+<div class="section" id="usbtool">
+<h3><a class="toc-backref" href="#id25">5.1.5&nbsp;&nbsp;&nbsp;usbtool</a></h3>
+<p>通用目的的USB命令行控制工具。当你基于USB实现一些协议的时候，必须写两个程序，分别在通信的两端。对于USB这意味着要写firmware和设备驱动。usbtool可以节省编写主机端设备驱动的时间。可以发送和接收控制请求，也可以通过交互和批量端点模式收发数据。</p>
+<p>不仅如此usbtool也是使用libusb的好例子。</p>
+<p>命令语法:</p>
+<pre class="literal-block">
+$ usbtool [options] &lt;command&gt;
+</pre>
+<p>可选命令：</p>
+<ol class="arabic">
+<li><p class="first"><cite>list</cite> ：打印所有设备的列表,-v、-V、-p、-P可以用于过滤列表</p>
+</li>
+<li><p class="first"><cite>control in|out &lt;type&gt; &lt;recipient&gt; &lt;request&gt; &lt;value&gt; &lt;index&gt;</cite> ：发送控制请求，请求参数如下：</p>
+<blockquote>
+<ol class="arabic simple">
+<li><cite>type</cite> ：请求类型，可以是standard、class、vendor、reserved。取决于设备应答请求的方式：standard请求通过驱动响应，class请求由class实现(例如HID、CDC)，而vendor请求是自定义代码</li>
+<li><cite>recipient</cite> ：设备上的请求容器，可以是device、interface、endpoint、other。对standard和class请求，应该用recipient，对vendor请求，选择你自己的代码</li>
+<li><cite>request</cite> ：8bit数字值，标志请求</li>
+<li><cite>value</cite> ：16bit数字值，附加数值</li>
+<li><cite>index</cite> ：另外一个16bit数字值，传递给设备的</li>
+</ol>
+<p>使用 -v、-V、-p、-P可以只输出特定设备，使用-d、-D发送数据到一个输出请求。-n、-O、-b检测接收到数据以后如何处理。</p>
+</blockquote>
+</li>
+<li><p class="first"><cite>interrupt in|out</cite> ：使用out交互模式发送和接收数据，-in端点。使用-v、-V、-p、-P指定输出设备。-d、-D指定输出端点。-n、-O、-b指定从IN端点接收到数据以后干什么。-e设置端点编号，-c选择配置，-i认领指定接口</p>
+</li>
+<li><p class="first"><cite>bulk in|out</cite> ：同交互输入输出，只不过是对批量端点。</p>
+</li>
+</ol>
+<p>选项：</p>
+<p>&#64;waiting</p>
+</div>
+</div>
+<div class="section" id="tests">
+<h2><a class="toc-backref" href="#id26">5.2&nbsp;&nbsp;&nbsp;tests</a></h2>
+<p>一些工具，用于计算驱动程序的大小。</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 8555, "title": "AVR\u5355\u7247\u673aUSB\u7f16\u7a0b", "src_size": 15841, "filehash": "79f13116cb461d713ca3c44f1732db02", "dst_size": 30792} -->

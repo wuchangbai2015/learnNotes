@@ -1,0 +1,1771 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Arduino开发实战指南 AVR篇</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<style type="text/css">
+
+/*
+*   math2html: convert LaTeX equations to HTML output.
+*
+*   Copyright (C) 2009,2010 Alex Fernández
+*
+*   Released under the terms of the `2-Clause BSD license'_, in short:
+*   Copying and distribution of this file, with or without modification,
+*   are permitted in any medium without royalty provided the copyright
+*   notice and this notice are preserved.
+*   This file is offered as-is, without any warranty.
+*
+* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause
+*
+*   Based on eLyXer: convert LyX source files to HTML output.
+*   http://elyxer.nongnu.org/
+*/
+/* --end--
+* CSS file for LaTeX formulas.
+*/
+
+/* Formulas */
+.formula {
+	text-align: center;
+	font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
+	margin: 1.2em 0;
+}
+span.formula {
+	white-space: nowrap;
+}
+div.formula {
+	padding: 0.5ex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Basic features */
+a.eqnumber {
+	display: inline-block;
+	float: right;
+	clear: right;
+	font-weight: bold;
+}
+span.unknown {
+	color: #800000;
+}
+span.ignored, span.arraydef {
+	display: none;
+}
+.formula i {
+	letter-spacing: 0.1ex;
+}
+
+/* Alignment */
+.align-left, .align-l {
+	text-align: left;
+}
+.align-right, .align-r {
+	text-align: right;
+}
+.align-center, .align-c {
+	text-align: center;
+}
+
+/* Structures */
+span.overline, span.bar {
+	text-decoration: overline;
+}
+.fraction, .fullfraction {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.fraction .fraction {
+	font-size: 80%;
+	line-height: 100%;
+}
+span.numerator {
+	display: block;
+}
+span.denominator {
+	display: block;
+	padding: 0ex;
+	border-top: thin solid;
+}
+sup.numerator, sup.unit {
+	font-size: 70%;
+	vertical-align: 80%;
+}
+sub.denominator, sub.unit {
+	font-size: 70%;
+	vertical-align: -20%;
+}
+span.sqrt {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.1ex;
+}
+sup.root {
+	font-size: 70%;
+	position: relative;
+	left: 1.4ex;
+}
+span.radical {
+	display: inline-block;
+	padding: 0ex;
+	font-size: 150%;
+	vertical-align: top;
+}
+span.root {
+	display: inline-block;
+	border-top: thin solid;
+	padding: 0ex;
+	vertical-align: middle;
+}
+span.symbol {
+	line-height: 125%;
+	font-size: 125%;
+}
+span.bigsymbol {
+	line-height: 150%;
+	font-size: 150%;
+}
+span.largesymbol {
+	font-size: 175%;
+}
+span.hugesymbol {
+	font-size: 200%;
+}
+span.scripts {
+	display: inline-table;
+	vertical-align: middle;
+}
+.script {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+span.limits {
+	display: inline-table;
+	vertical-align: middle;
+}
+.limit {
+	display: table-row;
+	line-height: 99%;
+}
+sup.limit, sub.limit {
+	line-height: 100%;
+}
+span.symbolover {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 100%;
+	bottom: 0.5em;
+	width: 0px;
+}
+span.withsymbol {
+	display: inline-block;
+}
+span.symbolunder {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 80%;
+	top: 0.3em;
+	width: 0px;
+}
+
+/* Environments */
+span.array, span.bracketcases, span.binomial, span.environment {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+span.arrayrow, span.binomrow {
+	display: table-row;
+	padding: 0ex;
+	border: 0ex;
+}
+span.arraycell, span.bracket, span.case, span.binomcell, span.environmentcell {
+	display: table-cell;
+	padding: 0ex 0.2ex;
+	line-height: 99%;
+	border: 0ex;
+}
+/*
+* CSS file for LaTeX formulas, extra stuff:
+* binomials, vertical braces, stackrel, fonts and colors.
+*/
+
+/* Inline binomials */
+span.binom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+span.binomstack {
+	display: block;
+	padding: 0em;
+}
+
+/* Over- and underbraces */
+span.overbrace {
+	border-top: 2pt solid;
+}
+span.underbrace {
+	border-bottom: 2pt solid;
+}
+
+/* Stackrel */
+span.stackrel {
+	display: inline-block;
+	text-align: center;
+}
+span.upstackrel {
+	display: block;
+	padding: 0em;
+	font-size: 80%;
+	line-height: 64%;
+	position: relative;
+	top: 0.15em;
+
+}
+span.downstackrel {
+	display: block;
+	vertical-align: bottom;
+	padding: 0em;
+}
+
+/* Fonts */
+span.mathsf, span.textsf {
+	font-style: normal;
+	font-family: sans-serif;
+}
+span.mathrm, span.textrm {
+	font-style: normal;
+	font-family: serif;
+}
+span.text, span.textnormal {
+	font-style: normal;
+}
+span.textipa {
+	color: #008080;
+}
+span.fraktur {
+	font-family: "Lucida Blackletter", eufm10, blackletter;
+}
+span.blackboard {
+	font-family: Blackboard, msbm10, serif;
+}
+span.scriptfont {
+	font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+	font-style: italic;
+}
+
+/* Colors */
+span.colorbox {
+	display: inline-block;
+	padding: 5px;
+}
+span.fbox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 2px;
+}
+span.boxed, span.framebox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 5px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="arduino-avr">
+<h1 class="title">Arduino开发实战指南 AVR篇</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">程晨</td>
+</tr>
+<tr class="field"><th class="docinfo-name">出版社:</th><td class="field-body">背景,机械工业出版社,2012.2</td>
+</tr>
+<tr class="field"><th class="docinfo-name">ISBN:</th><td class="field-body">978-7-111-37005-5</td>
+</tr>
+</tbody>
+</table>
+<p>I.A  II.程  III.单片微型计算机-指南  IV.TP368.1-62</p>
+<p>中国版本图书馆CIP数据核字(2011)第281978号</p>
+<p>2012年3月第1版第1次印刷</p>
+<p>186mm x 240mm 21印张  定价：59.00元</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#arduino" id="id74">1&nbsp;&nbsp;&nbsp;初识Arduino</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id2" id="id75">1.1&nbsp;&nbsp;&nbsp;Arduino的历史</a></li>
+<li><a class="reference internal" href="#id3" id="id76">1.2&nbsp;&nbsp;&nbsp;Arduino家族</a></li>
+<li><a class="reference internal" href="#id4" id="id77">1.3&nbsp;&nbsp;&nbsp;Arduino的资源</a></li>
+<li><a class="reference internal" href="#id5" id="id78">1.4&nbsp;&nbsp;&nbsp;Arduino的开发环境</a></li>
+<li><a class="reference internal" href="#id6" id="id79">1.5&nbsp;&nbsp;&nbsp;添加新硬件及设置开发环境</a></li>
+<li><a class="reference internal" href="#id7" id="id80">1.6&nbsp;&nbsp;&nbsp;Arduino开发环境的应用</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id81">2&nbsp;&nbsp;&nbsp;编写Arduino程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id9" id="id82">2.1&nbsp;&nbsp;&nbsp;绘制流程图</a></li>
+<li><a class="reference internal" href="#c" id="id83">2.2&nbsp;&nbsp;&nbsp;C语言的标识符与关键字</a></li>
+<li><a class="reference internal" href="#id10" id="id84">2.3&nbsp;&nbsp;&nbsp;控制语句</a></li>
+<li><a class="reference internal" href="#id11" id="id85">2.4&nbsp;&nbsp;&nbsp;程序结构</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12" id="id86">3&nbsp;&nbsp;&nbsp;Arduino的基本函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#i-o" id="id87">3.1&nbsp;&nbsp;&nbsp;数字I/O</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pinmode" id="id88">3.1.1&nbsp;&nbsp;&nbsp;<cite>pinMode()</cite></a></li>
+<li><a class="reference internal" href="#digitalwrite" id="id89">3.1.2&nbsp;&nbsp;&nbsp;<cite>digitalWrite()</cite></a></li>
+<li><a class="reference internal" href="#digitalread-pin" id="id90">3.1.3&nbsp;&nbsp;&nbsp;<cite>digitalRead(pin)</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13" id="id91">3.2&nbsp;&nbsp;&nbsp;模拟I/O</a><ul class="auto-toc">
+<li><a class="reference internal" href="#analogreference" id="id92">3.2.1&nbsp;&nbsp;&nbsp;<cite>analogReference()</cite></a></li>
+<li><a class="reference internal" href="#analogread" id="id93">3.2.2&nbsp;&nbsp;&nbsp;<cite>analogRead()</cite></a></li>
+<li><a class="reference internal" href="#analogwrite" id="id94">3.2.3&nbsp;&nbsp;&nbsp;<cite>analogWrite()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id95">3.3&nbsp;&nbsp;&nbsp;高级I/O</a><ul class="auto-toc">
+<li><a class="reference internal" href="#shiftout-shiftin" id="id96">3.3.1&nbsp;&nbsp;&nbsp;<cite>shiftOut()</cite> 和 <cite>shiftIn()</cite></a></li>
+<li><a class="reference internal" href="#pulsein" id="id97">3.3.2&nbsp;&nbsp;&nbsp;<cite>pulseIn()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id98">3.4&nbsp;&nbsp;&nbsp;时间函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#millis" id="id99">3.4.1&nbsp;&nbsp;&nbsp;<cite>millis()</cite></a></li>
+<li><a class="reference internal" href="#delay" id="id100">3.4.2&nbsp;&nbsp;&nbsp;<cite>delay()</cite></a></li>
+<li><a class="reference internal" href="#delaymicroseconds" id="id101">3.4.3&nbsp;&nbsp;&nbsp;<cite>delayMicroseconds()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16" id="id102">3.5&nbsp;&nbsp;&nbsp;数学库</a></li>
+<li><a class="reference internal" href="#id17" id="id103">3.6&nbsp;&nbsp;&nbsp;随机数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#randomseed" id="id104">3.6.1&nbsp;&nbsp;&nbsp;<cite>randomSeed()</cite></a></li>
+<li><a class="reference internal" href="#random" id="id105">3.6.2&nbsp;&nbsp;&nbsp;<cite>random()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18" id="id106">3.7&nbsp;&nbsp;&nbsp;位操作</a></li>
+<li><a class="reference internal" href="#id19" id="id107">3.8&nbsp;&nbsp;&nbsp;中断函数</a><ul class="auto-toc">
+<li><a class="reference internal" href="#interrupts-nointerrupts" id="id108">3.8.1&nbsp;&nbsp;&nbsp;<cite>interrupts()</cite> 和 <cite>noInterrupts()</cite></a></li>
+<li><a class="reference internal" href="#attachinterrupt-detachinterrupt" id="id109">3.8.2&nbsp;&nbsp;&nbsp;<cite>attachInterrupt()</cite> 和 <cite>detachInterrupt()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20" id="id110">3.9&nbsp;&nbsp;&nbsp;串口通信</a><ul class="auto-toc">
+<li><a class="reference internal" href="#serial-begin" id="id111">3.9.1&nbsp;&nbsp;&nbsp;<cite>Serial.begin()</cite></a></li>
+<li><a class="reference internal" href="#serial-available" id="id112">3.9.2&nbsp;&nbsp;&nbsp;<cite>Serial.available()</cite></a></li>
+<li><a class="reference internal" href="#serial-read" id="id113">3.9.3&nbsp;&nbsp;&nbsp;<cite>Serial.read()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spi" id="id114">3.10&nbsp;&nbsp;&nbsp;SPI接口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id21" id="id115">3.10.1&nbsp;&nbsp;&nbsp;SPI接口概述</a></li>
+<li><a class="reference internal" href="#id22" id="id116">3.10.2&nbsp;&nbsp;&nbsp;SPI接口数据传输</a></li>
+<li><a class="reference internal" href="#id23" id="id117">3.10.3&nbsp;&nbsp;&nbsp;SPI类及其成员函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id24" id="id118">4&nbsp;&nbsp;&nbsp;Arduino硬件平台</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id25" id="id119">4.1&nbsp;&nbsp;&nbsp;Arduino的原理图</a></li>
+<li><a class="reference internal" href="#id26" id="id120">4.2&nbsp;&nbsp;&nbsp;串行通信口的使用</a></li>
+<li><a class="reference internal" href="#id27" id="id121">4.3&nbsp;&nbsp;&nbsp;数字I/O口的使用</a></li>
+<li><a class="reference internal" href="#id28" id="id122">4.4&nbsp;&nbsp;&nbsp;模拟I/O口的使用</a></li>
+<li><a class="reference internal" href="#id29" id="id123">4.5&nbsp;&nbsp;&nbsp;烧写引导程序</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30" id="id124">5&nbsp;&nbsp;&nbsp;Arduino基本扩展模块</a><ul class="auto-toc">
+<li><a class="reference internal" href="#l293-moter-shield" id="id125">5.1&nbsp;&nbsp;&nbsp;L293 Moter Shield</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id31" id="id126">5.1.1&nbsp;&nbsp;&nbsp;直流电机工作原理</a></li>
+<li><a class="reference internal" href="#h" id="id127">5.1.2&nbsp;&nbsp;&nbsp;H桥驱动电路</a></li>
+<li><a class="reference internal" href="#id32" id="id128">5.1.3&nbsp;&nbsp;&nbsp;线性放大调速远离</a></li>
+<li><a class="reference internal" href="#pwm" id="id129">5.1.4&nbsp;&nbsp;&nbsp;PWM调速远离</a></li>
+<li><a class="reference internal" href="#l293-motor-shield" id="id130">5.1.5&nbsp;&nbsp;&nbsp;L293 Motor Shield的原理</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#input-shield" id="id131">5.2&nbsp;&nbsp;&nbsp;Input Shield</a></li>
+<li><a class="reference internal" href="#lcd-keypad-shield" id="id132">5.3&nbsp;&nbsp;&nbsp;LCD Keypad Shield</a></li>
+<li><a class="reference internal" href="#ethernet-shield" id="id133">5.4&nbsp;&nbsp;&nbsp;Ethernet Shield</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id33" id="id134">5.4.1&nbsp;&nbsp;&nbsp;Ethernet Shield原理图</a></li>
+<li><a class="reference internal" href="#w5100" id="id135">5.4.2&nbsp;&nbsp;&nbsp;W5100芯片介绍</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id34" id="id136">5.5&nbsp;&nbsp;&nbsp;I/O扩展板</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id35" id="id137">6&nbsp;&nbsp;&nbsp;Arduino的扩展库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id36" id="id138">6.1&nbsp;&nbsp;&nbsp;Arduino扩展库介绍</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id37" id="id139">6.1.1&nbsp;&nbsp;&nbsp;作用</a></li>
+<li><a class="reference internal" href="#id38" id="id140">6.1.2&nbsp;&nbsp;&nbsp;应用</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id39" id="id141">6.2&nbsp;&nbsp;&nbsp;对象和类</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id40" id="id142">6.2.1&nbsp;&nbsp;&nbsp;类的定义</a></li>
+<li><a class="reference internal" href="#id41" id="id143">6.2.2&nbsp;&nbsp;&nbsp;对性的创建及成员函数的调用</a></li>
+<li><a class="reference internal" href="#id42" id="id144">6.2.3&nbsp;&nbsp;&nbsp;对象的初始化和构造函数</a></li>
+<li><a class="reference internal" href="#id43" id="id145">6.2.4&nbsp;&nbsp;&nbsp;函数的重载</a></li>
+<li><a class="reference internal" href="#id44" id="id146">6.2.5&nbsp;&nbsp;&nbsp;析构函数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#liquidcrystal" id="id147">6.3&nbsp;&nbsp;&nbsp;LiquidCrystal库</a></li>
+<li><a class="reference internal" href="#ethernet" id="id148">6.4&nbsp;&nbsp;&nbsp;Ethernet库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#ethernetclass" id="id149">6.4.1&nbsp;&nbsp;&nbsp;<cite>EthernetClass</cite> 类的定义</a></li>
+<li><a class="reference internal" href="#server" id="id150">6.4.2&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类定义</a></li>
+<li><a class="reference internal" href="#id45" id="id151">6.4.3&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类构造函数</a></li>
+<li><a class="reference internal" href="#id46" id="id152">6.4.4&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类成员函数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#softwareserial" id="id153">6.5&nbsp;&nbsp;&nbsp;SoftwareSerial库</a></li>
+<li><a class="reference internal" href="#eeprom" id="id154">6.6&nbsp;&nbsp;&nbsp;EEPROM库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#read" id="id155">6.6.1&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></li>
+<li><a class="reference internal" href="#write" id="id156">6.6.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wire" id="id157">6.7&nbsp;&nbsp;&nbsp;Wire库</a></li>
+<li><a class="reference internal" href="#servo" id="id158">6.8&nbsp;&nbsp;&nbsp;Servo库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id47" id="id159">6.8.1&nbsp;&nbsp;&nbsp;构造函数</a></li>
+<li><a class="reference internal" href="#attach" id="id160">6.8.2&nbsp;&nbsp;&nbsp;<cite>attach()</cite></a></li>
+<li><a class="reference internal" href="#id48" id="id161">6.8.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+<li><a class="reference internal" href="#writemicroseconds" id="id162">6.8.4&nbsp;&nbsp;&nbsp;<cite>writeMicroseconds()</cite></a></li>
+<li><a class="reference internal" href="#id49" id="id163">6.8.5&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></li>
+<li><a class="reference internal" href="#readmicroseconds" id="id164">6.8.6&nbsp;&nbsp;&nbsp;<cite>readMicroseconds()</cite></a></li>
+<li><a class="reference internal" href="#attached" id="id165">6.8.7&nbsp;&nbsp;&nbsp;<cite>attached()</cite></a></li>
+<li><a class="reference internal" href="#deattach" id="id166">6.8.8&nbsp;&nbsp;&nbsp;<cite>deattach()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stepper" id="id167">6.9&nbsp;&nbsp;&nbsp;Stepper库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id50" id="id168">6.9.1&nbsp;&nbsp;&nbsp;步进电机概述</a></li>
+<li><a class="reference internal" href="#id51" id="id169">6.9.2&nbsp;&nbsp;&nbsp;步进电机的基本参数</a></li>
+<li><a class="reference internal" href="#id52" id="id170">6.9.3&nbsp;&nbsp;&nbsp;步进电机的优缺点</a></li>
+<li><a class="reference internal" href="#id53" id="id171">6.9.4&nbsp;&nbsp;&nbsp;步进电机的工作远离</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tlc5940" id="id172">6.10&nbsp;&nbsp;&nbsp;TLC5940库</a></li>
+<li><a class="reference internal" href="#onewire" id="id173">6.11&nbsp;&nbsp;&nbsp;OneWire库</a></li>
+<li><a class="reference internal" href="#xbee" id="id174">6.12&nbsp;&nbsp;&nbsp;XBee库</a></li>
+<li><a class="reference internal" href="#id54" id="id175">6.13&nbsp;&nbsp;&nbsp;创建自己的库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#morse" id="id176">6.13.1&nbsp;&nbsp;&nbsp;库的功能-Morse</a></li>
+<li><a class="reference internal" href="#morsecode" id="id177">6.13.2&nbsp;&nbsp;&nbsp;MorseCode类的定义</a></li>
+<li><a class="reference internal" href="#id55" id="id178">6.13.3&nbsp;&nbsp;&nbsp;MorseCode类的成员函数</a></li>
+<li><a class="reference internal" href="#id56" id="id179">6.13.4&nbsp;&nbsp;&nbsp;MorseCode库的使用</a></li>
+<li><a class="reference internal" href="#id57" id="id180">6.13.5&nbsp;&nbsp;&nbsp;关键字的定义</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id58" id="id181">7&nbsp;&nbsp;&nbsp;无线模块的应用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#apc220" id="id182">7.1&nbsp;&nbsp;&nbsp;APC220</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id59" id="id183">7.1.1&nbsp;&nbsp;&nbsp;APC220性能指标</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dfduino-wireless" id="id184">7.2&nbsp;&nbsp;&nbsp;DFduino wireless</a></li>
+<li><a class="reference internal" href="#bluetooth-v3" id="id185">7.3&nbsp;&nbsp;&nbsp;Bluetooth V3</a></li>
+<li><a class="reference internal" href="#xbeexbee-pro" id="id186">7.4&nbsp;&nbsp;&nbsp;XBee和XBee PRO</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id60" id="id187">8&nbsp;&nbsp;&nbsp;打造自己的遥控履带车</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id61" id="id188">8.1&nbsp;&nbsp;&nbsp;履带车的驱动</a></li>
+<li><a class="reference internal" href="#id62" id="id189">8.2&nbsp;&nbsp;&nbsp;添加感知器件</a></li>
+<li><a class="reference internal" href="#id63" id="id190">8.3&nbsp;&nbsp;&nbsp;添加无线模块</a></li>
+<li><a class="reference internal" href="#id64" id="id191">8.4&nbsp;&nbsp;&nbsp;制作遥控器</a></li>
+<li><a class="reference internal" href="#id65" id="id192">8.5&nbsp;&nbsp;&nbsp;履带车遥控调速</a></li>
+<li><a class="reference internal" href="#id66" id="id193">8.6&nbsp;&nbsp;&nbsp;添加无线摄像头</a></li>
+<li><a class="reference internal" href="#id67" id="id194">8.7&nbsp;&nbsp;&nbsp;环境信息获取器件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id68" id="id195">9&nbsp;&nbsp;&nbsp;仿生机器人</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id69" id="id196">9.1&nbsp;&nbsp;&nbsp;遥控机械臂</a></li>
+<li><a class="reference internal" href="#id70" id="id197">9.2&nbsp;&nbsp;&nbsp;双足机器人</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id71" id="id198">10&nbsp;&nbsp;&nbsp;附录</a><ul class="auto-toc">
+<li><a class="reference internal" href="#arduinoavr" id="id199">10.1&nbsp;&nbsp;&nbsp;Arduino引脚与AVR单片机管脚对应关系</a></li>
+<li><a class="reference internal" href="#id72" id="id200">10.2&nbsp;&nbsp;&nbsp;Arduino扩展板</a></li>
+<li><a class="reference internal" href="#id73" id="id201">10.3&nbsp;&nbsp;&nbsp;其他可扩展模块</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="arduino">
+<h1><a class="toc-backref" href="#id74">1&nbsp;&nbsp;&nbsp;初识Arduino</a></h1>
+<p>来自于意大利的一个开源项目。</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id75">1.1&nbsp;&nbsp;&nbsp;Arduino的历史</a></h2>
+<p>Massimo Banzi是意大利米兰互动设计学院的教师，他的学生抱怨找不到方便的控制主板。2005年冬天，他找到David Cuartielles讨论此事，后者是西班牙的微处理器设计师。后来又找了学生David Mellis，用了2天写代码，3天做板子，取名Arduino。</p>
+<p>Arduino设计者持有Arduino商标，防止被拙劣的设计损坏。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id76">1.2&nbsp;&nbsp;&nbsp;Arduino家族</a></h2>
+<ol class="arabic simple">
+<li>Duemilanove：全规格的板子</li>
+<li>Nano：去掉了直流电源接口，Mini-USB供电和编程，小板子</li>
+<li>Mini：去掉了USB口和复位，比Nano还小</li>
+<li>BT：全规格，带有Bluegiga WT11蓝牙模块，可以通过蓝牙编程，没有USB口</li>
+<li>LilyPad：圆形的，方便缝制到衣服上，没有USB口</li>
+<li>Pro Mini：对成本要求极高的，无USB口，无插针，比Mini略大，区分3.3V和5V的</li>
+<li>Fio：3.3V，8MHz，Mini-USB口，略小，带有XBee插座</li>
+<li>Uno：全国规格，但是使用ATmega8U2作为USB芯片，主推产品</li>
+<li>Mega2560：比全规格的更长，性能高</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id77">1.3&nbsp;&nbsp;&nbsp;Arduino的资源</a></h2>
+<p>DUE有14个数字IO(其中6个可以做PWM)，6个模拟IO。芯片为ATmega328或ATmega168。</p>
+<p>数字IO：D0~D13，模拟IO：A0~A5。串行通信：D0(RX)和D1(TX)。外部中断：D2(INT0)和D3(INT1)。PWM输出：D3、D5、D6、D9、D10、D11。SPI通信：D10=SS、D11=MOSI、D12=MISO、D13=SCK。板载LED=D13。TWI通信：A4=SDA、A5=SCL。</p>
+<p>Uno与Due一样。</p>
+<p>Mega2560则资源丰富的多。有54个数字IO，其中14个PWM输出。16个模拟IO，4对串行口UART。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id78">1.4&nbsp;&nbsp;&nbsp;Arduino的开发环境</a></h2>
+<p>可以到 <a class="reference external" href="http://www.arduino.cc/">http://www.arduino.cc/</a> 下载，本书实用的版本是0021。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id79">1.5&nbsp;&nbsp;&nbsp;添加新硬件及设置开发环境</a></h2>
+<p>主要以Duemilanove为例子，缩写是Uno。之后需要在IDE里设置正确的串口。板子选择Arduino Uno。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id80">1.6&nbsp;&nbsp;&nbsp;Arduino开发环境的应用</a></h2>
+<p>工具栏的一排按钮：</p>
+<ol class="arabic simple">
+<li>Verify：校验，程序的检查和编译</li>
+<li>Stop：停止，停止编译</li>
+<li>New：新建，开一个新的程序文件</li>
+<li>Open：打开，打开已有的程序，扩展名.pde</li>
+<li>Save：保存，当前程序</li>
+<li>Upload：上传，将编译好的程序上传到Arduino板子</li>
+<li>Serial Monitor：串口监视器，查看开发环境所用串口收发的数据</li>
+</ol>
+<p>快速的灯闪耀的例子。[Open]=&gt;[Basics]=&gt;[Blink]。点击[Verify]会编译，看到&quot;Done Compiling&quot;。随后[Upload]会上传，可以看到板子上的灯在闪耀。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id81">2&nbsp;&nbsp;&nbsp;编写Arduino程序</a></h1>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id82">2.1&nbsp;&nbsp;&nbsp;绘制流程图</a></h2>
+<p>太简单了，就不写了。</p>
+</div>
+<div class="section" id="c">
+<h2><a class="toc-backref" href="#id83">2.2&nbsp;&nbsp;&nbsp;C语言的标识符与关键字</a></h2>
+<p>C语言的基础也太基础了，不写了。</p>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id84">2.3&nbsp;&nbsp;&nbsp;控制语句</a></h2>
+<p>if、switch、while、do-while、for、break、continue、goto</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id85">2.4&nbsp;&nbsp;&nbsp;程序结构</a></h2>
+<p>C程序必须要有主函数 <cite>main()</cite> 。Arduino则必须实现至少两个函数：</p>
+<ol class="arabic simple">
+<li><cite>void setup()</cite> ：用于初始化设置</li>
+<li><cite>void loop()</cite> ：用于循环执行</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id12">
+<h1><a class="toc-backref" href="#id86">3&nbsp;&nbsp;&nbsp;Arduino的基本函数</a></h1>
+<div class="section" id="i-o">
+<h2><a class="toc-backref" href="#id87">3.1&nbsp;&nbsp;&nbsp;数字I/O</a></h2>
+<div class="section" id="pinmode">
+<h3><a class="toc-backref" href="#id88">3.1.1&nbsp;&nbsp;&nbsp;<cite>pinMode()</cite></a></h3>
+<p><cite>void pinMode(pin, mode)</cite> ：配置引脚的模式，pin为要配置的引脚，mode表示模式， <cite>INPUT</cite> 或 <cite>OUTPUT</cite> 。</p>
+<p>Arduino上的模拟引脚也可以当作数字引脚使用。编号为D14对应A0，D19对应A5。</p>
+<p>该函数的原型在 <tt class="docutils literal">hardware/arduino/cores/arduino/wiring_digital.c</tt> 中:</p>
+<pre class="literal-block">
+void pinMode(uint8_t pin, uint8_t mode) {
+    uint8_t bit=digitalPinToBitMask(pin);
+    uint8_t port=digitalPinToPort(pin);
+    volatile uint8_t *reg;
+
+    if (port==NOT_A_PIN)
+        return;
+    reg=portModeRegister(port);
+    if (mode==INPUT) {
+        uint8_t oldSREG=SREG;
+        cli();
+        *reg &amp;= ~bit;
+        SREG=oldSREG;
+    }else {
+        uint8_t oldSREG=SREG;
+        cli();
+        *reg |= bit;
+        SREG=oldSREG;
+    }
+}
+</pre>
+</div>
+<div class="section" id="digitalwrite">
+<h3><a class="toc-backref" href="#id89">3.1.2&nbsp;&nbsp;&nbsp;<cite>digitalWrite()</cite></a></h3>
+<p><cite>void digitalWrite(pin, value)</cite> 设置引脚的输出电压为高或低。pin为要设置的引脚，value表示输出电压， <cite>HIGH</cite> 或 <cite>LOW</cite> 。</p>
+<p>原型就不照抄了。</p>
+</div>
+<div class="section" id="digitalread-pin">
+<h3><a class="toc-backref" href="#id90">3.1.3&nbsp;&nbsp;&nbsp;<cite>digitalRead(pin)</cite></a></h3>
+<p><cite>int digitalRead(pin)</cite> 读取引脚电压的高低，返回值为 <cite>HIGH</cite> 或 <cite>LOW</cite> 。</p>
+<p>如果引脚悬空，随机返回。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id91">3.2&nbsp;&nbsp;&nbsp;模拟I/O</a></h2>
+<div class="section" id="analogreference">
+<h3><a class="toc-backref" href="#id92">3.2.1&nbsp;&nbsp;&nbsp;<cite>analogReference()</cite></a></h3>
+<p><cite>void analogReference(type)</cite> 设置模拟引脚的参考电压。type的可选值：</p>
+<ol class="arabic simple">
+<li><cite>DEFAULT</cite> ：默认值，即Vcc=5V</li>
+<li><cite>INTERNAL</cite> ：低电压模式，片内参考电压源</li>
+<li><cite>EXTERNAL</cite> ：扩展模式，外部AREF引脚的参考电压</li>
+</ol>
+<p>AREF接外部参考电压时，应该接个5KOhm的上拉电阻，避免芯片损坏。</p>
+</div>
+<div class="section" id="analogread">
+<h3><a class="toc-backref" href="#id93">3.2.2&nbsp;&nbsp;&nbsp;<cite>analogRead()</cite></a></h3>
+<p><cite>int analogRead(pin)</cite> 读取模拟电压值。每次读取花费100uS时间，返回值范围[0,1023]。</p>
+<p>函数原型:</p>
+<pre class="literal-block">
+int analogRead(uint8_t pin) {
+    uint8_t low, high;
+    ADMUX=(analog_reference&lt;&lt;6)|(pin &amp; 0x07);
+    sbi(ADCSRA, ADSC);
+    while(bit_is_set(ADCSRA, ADSC));
+    low=ADCL;
+    high=ADCH;
+    return (high&lt;&lt;8)|low;
+}
+</pre>
+<p>pin的取值范围是[0,5]，表示6个模拟I/O中的一个。</p>
+</div>
+<div class="section" id="analogwrite">
+<h3><a class="toc-backref" href="#id94">3.2.3&nbsp;&nbsp;&nbsp;<cite>analogWrite()</cite></a></h3>
+<p><cite>void analogWrite(pin, value)</cite> 通过PWM方式在引脚输出一个模拟量，常用于LED亮度和电机转速控制。</p>
+<p>PWM是控制占空比的方式D/T。最终输出平均电压为 <cite>Vcc * D/T</cite> 。</p>
+<p>Arduino执行该操作后，需要等待一定时间后才能进行下次操作。Arduino的PWM频率大约为490Hz，支持该功能的引脚有：3、5、6、9、10、11，控制板上这些引脚旁有&quot;~&quot;标识。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id95">3.3&nbsp;&nbsp;&nbsp;高级I/O</a></h2>
+<div class="section" id="shiftout-shiftin">
+<h3><a class="toc-backref" href="#id96">3.3.1&nbsp;&nbsp;&nbsp;<cite>shiftOut()</cite> 和 <cite>shiftIn()</cite></a></h3>
+<p><cite>void shiftOut(dataPin, clockPin, bitOrder, val)</cite> 以串行方式在引脚上输出，相当于同步串行通信。</p>
+<ol class="arabic simple">
+<li><cite>dataPin</cite> ：数据输出引脚，每一位逐位输出，引脚模式为输出</li>
+<li><cite>clockPin</cite> ：时钟输出引脚，为数据提供时钟，引脚模式为输出</li>
+<li><cite>bitOrder</cite> ：移位顺序，MSBFIRST和LSBFIRST</li>
+<li><cite>val</cite> ：要输出的数据，1字节</li>
+</ol>
+<p><cite>uint8_t shiftIn(dataPin, clockPin, bitOrder)</cite> 以串行方式读取引脚输入。</p>
+<p>估计相当于软件模拟的单向SPI通信。</p>
+</div>
+<div class="section" id="pulsein">
+<h3><a class="toc-backref" href="#id97">3.3.2&nbsp;&nbsp;&nbsp;<cite>pulseIn()</cite></a></h3>
+<p><cite>unsigned long pulseIn(pin, state, timeout)</cite> 读取引脚脉冲的长度，返回脉冲长度，单位为mS，如果超时还没读取到就返回0。state为脉冲状态， <cite>HIGH</cite> 或 <cite>LOW</cite> 。timeout为超时。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id98">3.4&nbsp;&nbsp;&nbsp;时间函数</a></h2>
+<div class="section" id="millis">
+<h3><a class="toc-backref" href="#id99">3.4.1&nbsp;&nbsp;&nbsp;<cite>millis()</cite></a></h3>
+<p><cite>unsigned long millis()</cite> 机器运行时间长度，单位mS。系统最长记录9小时22分，超出则重新从0开始。</p>
+</div>
+<div class="section" id="delay">
+<h3><a class="toc-backref" href="#id100">3.4.2&nbsp;&nbsp;&nbsp;<cite>delay()</cite></a></h3>
+<p><cite>void delay(unsigned long ms)</cite> 延时，单位是mS。</p>
+</div>
+<div class="section" id="delaymicroseconds">
+<h3><a class="toc-backref" href="#id101">3.4.3&nbsp;&nbsp;&nbsp;<cite>delayMicroseconds()</cite></a></h3>
+<p><cite>void delayMicroseconds(us)</cite> 延时，单位是uS。</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id102">3.5&nbsp;&nbsp;&nbsp;数学库</a></h2>
+<ol class="arabic simple">
+<li><cite>min(x,y)</cite></li>
+<li><cite>max(x,y)</cite></li>
+<li><cite>abs(x)</cite></li>
+<li><cite>constrain(amt,low,high)</cite> ：如果amt&lt;low返回low，如果amt&gt;high返回high，否则返回amt，一般用于将值归一化到某个区间内</li>
+<li><cite>map(x,in_min,in_max,out_min,out_max)</cite> ：将[in_min,in_max]范围内的x等比映射到[out_min,out_max]范围内，返回值类型为long</li>
+<li><cite>sin(rad)</cite></li>
+<li><cite>cos(rad)</cite></li>
+<li><cite>tan(rad)</cite></li>
+</ol>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id103">3.6&nbsp;&nbsp;&nbsp;随机数</a></h2>
+<div class="section" id="randomseed">
+<h3><a class="toc-backref" href="#id104">3.6.1&nbsp;&nbsp;&nbsp;<cite>randomSeed()</cite></a></h3>
+<p><cite>void randomSeed(unsigned int seed)</cite> 设置随机数种子。内部调用的是 <cite>srandom(seed)</cite> 。</p>
+</div>
+<div class="section" id="random">
+<h3><a class="toc-backref" href="#id105">3.6.2&nbsp;&nbsp;&nbsp;<cite>random()</cite></a></h3>
+<p><cite>long random(long howsmall, long howbig)</cite> 产生一个随机数，howsmall和howbig决定了随机数的范围。</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id106">3.7&nbsp;&nbsp;&nbsp;位操作</a></h2>
+<p>读取字节中的一个位或几位：</p>
+<ol class="arabic simple">
+<li><cite>bitRead(value, bit)</cite> ：保留几个位，其余清零</li>
+<li><cite>bitSet(value, bit)</cite> ：将指定位设为1，其余清零</li>
+<li><cite>bitClear(value, bit)</cite> ：将指定位清零</li>
+<li><cite>bitWrite(value, bit, bitvalue)</cite> ：写bit位的值</li>
+<li><cite>lowByte(w)</cite> ：低字节</li>
+<li><cite>highByte(w)</cite> ：高字节</li>
+</ol>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id107">3.8&nbsp;&nbsp;&nbsp;中断函数</a></h2>
+<div class="section" id="interrupts-nointerrupts">
+<h3><a class="toc-backref" href="#id108">3.8.1&nbsp;&nbsp;&nbsp;<cite>interrupts()</cite> 和 <cite>noInterrupts()</cite></a></h3>
+<p>打开和关闭中断，无参数，无返回值。内部其实就是 <cite>sei()</cite> 和 <cite>cli()</cite> 。</p>
+</div>
+<div class="section" id="attachinterrupt-detachinterrupt">
+<h3><a class="toc-backref" href="#id109">3.8.2&nbsp;&nbsp;&nbsp;<cite>attachInterrupt()</cite> 和 <cite>detachInterrupt()</cite></a></h3>
+<p><cite>attachInterrupt(interrupt, function, mode)</cite> 设置外部中断。interrupt可选0或1，表示两个外部中断引脚，一般对应D2和D3引脚。function对应中断处理函数的指针。mode为触发类型：LOW、CHANGE、RISING、FALLING。</p>
+<p>注意的要点：</p>
+<ol class="arabic simple">
+<li>中断函数中不能使用 <cite>delay()</cite></li>
+<li>使用 <cite>millis()</cite> 函数始终返回进入中断前的值</li>
+<li>读取串口数据的话，可能丢失</li>
+<li>中断函数中使用的变量需要定义为volatile类型</li>
+</ol>
+<p><cite>detachInterrupt(uint8_t interruptNum)</cite> 用于取消中断。</p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id110">3.9&nbsp;&nbsp;&nbsp;串口通信</a></h2>
+<p>头文件 <tt class="docutils literal">HarewareSerial.h</tt> 定义了 <cite>HardwareSerial</cite> 类的对象 <cite>Serial</cite> ，直接使用其成员函数即可实现串口通信。</p>
+<div class="section" id="serial-begin">
+<h3><a class="toc-backref" href="#id111">3.9.1&nbsp;&nbsp;&nbsp;<cite>Serial.begin()</cite></a></h3>
+<p><cite>void HardwareSerial::begin(rate)</cite> 初始化串口，并设置速率。常用的rate如9600。</p>
+</div>
+<div class="section" id="serial-available">
+<h3><a class="toc-backref" href="#id112">3.9.2&nbsp;&nbsp;&nbsp;<cite>Serial.available()</cite></a></h3>
+<p><cite>int HardwareSerial::available()</cite> 判断串口是否收到数据。</p>
+</div>
+<div class="section" id="serial-read">
+<h3><a class="toc-backref" href="#id113">3.9.3&nbsp;&nbsp;&nbsp;<cite>Serial.read()</cite></a></h3>
+<p><cite>int HardwareSerial::read()</cite> ：读取数据。</p>
+</div>
+</div>
+<div class="section" id="spi">
+<h2><a class="toc-backref" href="#id114">3.10&nbsp;&nbsp;&nbsp;SPI接口</a></h2>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id115">3.10.1&nbsp;&nbsp;&nbsp;SPI接口概述</a></h3>
+<p>SPI-Serial Peripheral Interface是摩托罗拉提出的同步串行外设总线。采用4根线：</p>
+<ol class="arabic simple">
+<li>CS/SS：片选</li>
+<li>SCLK/SCK：串行时钟</li>
+<li>SDI/MISO：数据输入</li>
+<li>SDO/MOSI：数据输出</li>
+</ol>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id116">3.10.2&nbsp;&nbsp;&nbsp;SPI接口数据传输</a></h3>
+<p>主从方式，一个主机可以对应多个从机，通过SS片选来选择不同的设备。SCK的上升沿发送、下降沿接收。未选中设备的MOSI信号线应该保持高阻状态。</p>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id117">3.10.3&nbsp;&nbsp;&nbsp;SPI类及其成员函数</a></h3>
+<p>Arduino的SPI通信通过SPIClass实现，这个类提供了6个成员函数：</p>
+<ol class="arabic">
+<li><p class="first"><cite>void SPIClass::begin()</cite> ：初始化SPI</p>
+</li>
+<li><p class="first"><cite>void SPIClass::setBitOrder(uint8_t bitOrder)</cite> ：设置字节序，bitOrder可选值 <cite>LSBFIRST</cite> 和 <cite>MSBFIRST</cite></p>
+</li>
+<li><p class="first"><cite>void SPIClass::setClockDivider(uint8_t rate)</cite> ：设置通信时钟分频比，可选值：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>SPI_CLOCK_DIV2</li>
+<li>SPI_CLOCK_DIV4</li>
+<li>SPI_CLOCK_DIV8</li>
+<li>SPI_CLOCK_DIV16</li>
+<li>SPI_CLOCK_DIV32</li>
+<li>SPI_CLOCK_DIV64</li>
+<li>SPI_CLOCK_DIV128</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first"><cite>void SPIClass::setDataMode(uint8_t mode)</cite> ：设置数据模式，可选值：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>SPI_MODE0：上升沿采样，下降沿置位，SCK闲置为0</li>
+<li>SPI_MODE1：上升沿置位，下降沿采样，SCK闲置为0</li>
+<li>SPI_MODE2：下降沿采样，上升沿置位，SCK闲置为1</li>
+<li>SPI_MODE3：下降沿置位，上升沿采样，SCK闲置为1</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first"><cite>byte SPIClass::transfer(byte _data)</cite> ：传输一个数据，同时也收到一个数据</p>
+</li>
+<li><p class="first"><cite>void SPIClass::end()</cite> ：停止SPI通信</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h1><a class="toc-backref" href="#id118">4&nbsp;&nbsp;&nbsp;Arduino硬件平台</a></h1>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id119">4.1&nbsp;&nbsp;&nbsp;Arduino的原理图</a></h2>
+<p>Due是意大利语中的2009年的意思。电路图就不列出了。</p>
+</div>
+<div class="section" id="id26">
+<h2><a class="toc-backref" href="#id120">4.2&nbsp;&nbsp;&nbsp;串行通信口的使用</a></h2>
+<p>串行通信口除了通过USB连接到主机以外，海作为D0和D1引脚。</p>
+<p>可以用于两个Arduino板子互相通信。调试时，可以先用Serial Monitor。</p>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id121">4.3&nbsp;&nbsp;&nbsp;数字I/O口的使用</a></h2>
+<p>可以给D2加个按键开关，控制D13的LED灯。开关要接上拉电阻。</p>
+</div>
+<div class="section" id="id28">
+<h2><a class="toc-backref" href="#id122">4.4&nbsp;&nbsp;&nbsp;模拟I/O口的使用</a></h2>
+<p>实际是通过ADC实现的。可以通过读取电位器来学习。</p>
+<p>发送数据回去 <tt class="docutils literal">Serial.print(analogRead(0), DEC);</tt> 。</p>
+</div>
+<div class="section" id="id29">
+<h2><a class="toc-backref" href="#id123">4.5&nbsp;&nbsp;&nbsp;烧写引导程序</a></h2>
+<p>用于自己的一些板子，通过AVRISP烧写引导程序，以及AVR Studio。</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h1><a class="toc-backref" href="#id124">5&nbsp;&nbsp;&nbsp;Arduino基本扩展模块</a></h1>
+<div class="section" id="l293-moter-shield">
+<h2><a class="toc-backref" href="#id125">5.1&nbsp;&nbsp;&nbsp;L293 Moter Shield</a></h2>
+<p>基于L293B直流电机驱动芯片的模块，可以驱动两个电机，可堆叠设计。4个LED显示正反转。</p>
+<div class="section" id="id31">
+<h3><a class="toc-backref" href="#id126">5.1.1&nbsp;&nbsp;&nbsp;直流电机工作原理</a></h3>
+<p>用磁感应原理，将电能转化为机械能。调速性能好，启动转矩大。总的来说，电流越大，转速就越快。</p>
+</div>
+<div class="section" id="h">
+<h3><a class="toc-backref" href="#id127">5.1.2&nbsp;&nbsp;&nbsp;H桥驱动电路</a></h3>
+<p>变换直流电压的正负极实现的。</p>
+<img alt="_images/book_Arduino开发实战指南_AVR篇_5.1.2_00.png" src="_images/book_Arduino开发实战指南_AVR篇_5.1.2_00.png" />
+<p>Q1和Q4导通时是一种转动方向，Q2和Q3导通时是相反方向。</p>
+<p>实际应用中不能让同侧导通，要不就是短路了。</p>
+</div>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id128">5.1.3&nbsp;&nbsp;&nbsp;线性放大调速远离</a></h3>
+<p>电机转速公式 <span class="formula"><i>n</i> = (<i>U</i> − <i>IR</i>) ⁄ <i>K</i><i>φ</i></span> 。n为转速， <span class="formula"><i>φ</i></span> 是每极磁通量，K是电机结构参数。</p>
+<p>线性放大电路控制电机两端的电压，但效率很低，其余电压就消耗在调整管上了。</p>
+</div>
+<div class="section" id="pwm">
+<h3><a class="toc-backref" href="#id129">5.1.4&nbsp;&nbsp;&nbsp;PWM调速远离</a></h3>
+<p>采样控制论中的一个重要结论：当冲量相等而形状不同的窄脉冲，在具有惯性的环节，其效果相同。PWM就是以该结论为基础。优点是从处理器到倍控系统信号都是数字式的，无需数模转换。</p>
+</div>
+<div class="section" id="l293-motor-shield">
+<h3><a class="toc-backref" href="#id130">5.1.5&nbsp;&nbsp;&nbsp;L293 Motor Shield的原理</a></h3>
+<p>核心是直流电机芯片L293B，电源取自Vin引脚，输入电压范围4.5~36V，内置4重推挽(双H桥)，每个通道可以独立提供1A电流。芯片过热时可以自动关闭。</p>
+<p>&#64;page 83-89</p>
+</div>
+</div>
+<div class="section" id="input-shield">
+<h2><a class="toc-backref" href="#id131">5.2&nbsp;&nbsp;&nbsp;Input Shield</a></h2>
+<p>带有摇杆和按键的输入扩展板，同时预留了无线通信模块接口，可堆叠设计。</p>
+<p>&#64;page 90-94</p>
+</div>
+<div class="section" id="lcd-keypad-shield">
+<h2><a class="toc-backref" href="#id132">5.3&nbsp;&nbsp;&nbsp;LCD Keypad Shield</a></h2>
+<p>使用1602液晶的显示扩展板。5个按键，一个复位键。</p>
+<p>&#64;page 94-108</p>
+</div>
+<div class="section" id="ethernet-shield">
+<h2><a class="toc-backref" href="#id133">5.4&nbsp;&nbsp;&nbsp;Ethernet Shield</a></h2>
+<p>以W5100为核心的网络扩展模块，可堆叠设计，同时支持SD卡读写。</p>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id134">5.4.1&nbsp;&nbsp;&nbsp;Ethernet Shield原理图</a></h3>
+<p>网络模块和SD卡都使用同一个SPI接口，占用引脚：</p>
+<ol class="arabic simple">
+<li>D10：SPI的/SS</li>
+<li>D11：SPI的MOSI</li>
+<li>D12：SPI的MISO</li>
+<li>D13：SPI的SCK</li>
+<li>D2：W5100的外部中断</li>
+<li>D3：W5100的片选</li>
+<li>D4：SD卡的片选</li>
+</ol>
+<p>原理图不画了。</p>
+</div>
+<div class="section" id="w5100">
+<h3><a class="toc-backref" href="#id135">5.4.2&nbsp;&nbsp;&nbsp;W5100芯片介绍</a></h3>
+<p>单片网络接口芯片，内部集成10/100M以太网控制器。可以实现没有OS的连接，兼容IEEE802.3 10Base-T以及802.3u 100BASE-TX。</p>
+<p>内部集成了经过多年验证的TCP/IP协议栈，以太网介质传输层(MAC)、物理层(PHY)。硬件TCP/IP协议栈支持TCP、UDP、IPv4、ICMP、ARP、IGMP、PPPoE。</p>
+<p>主要特点：</p>
+<ol class="arabic simple">
+<li>支持硬件TCP/IP协议</li>
+<li>内嵌10BaseT/100BaseTX以太网物理层</li>
+<li>支持自动通信握手，全双工和半双工</li>
+<li>支持MDI/MDX，自动校正信号极性</li>
+<li>支持ADSL连接</li>
+<li>支持4个独立端口同时运行</li>
+<li>不支持IP的分片处理</li>
+<li>内部16KB存储器用于数据收发缓冲</li>
+<li>0.18um CMOS工艺</li>
+<li>3.3V工作电压，I/O可以承受5V</li>
+<li>支持SPI接口(SPI模式0)</li>
+<li>多功能LED信号输出(TX、RX、全双工/半双工、地址冲突、连接、速度等)</li>
+</ol>
+<p>&#64;page 111-120</p>
+</div>
+</div>
+<div class="section" id="id34">
+<h2><a class="toc-backref" href="#id136">5.5&nbsp;&nbsp;&nbsp;I/O扩展板</a></h2>
+<p>只是变换引脚。本节介绍Xbee传感器扩展板V5和Interface Shield扩展板。</p>
+<p>&#64;page 120-136</p>
+</div>
+</div>
+<div class="section" id="id35">
+<h1><a class="toc-backref" href="#id137">6&nbsp;&nbsp;&nbsp;Arduino的扩展库</a></h1>
+<div class="section" id="id36">
+<h2><a class="toc-backref" href="#id138">6.1&nbsp;&nbsp;&nbsp;Arduino扩展库介绍</a></h2>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id139">6.1.1&nbsp;&nbsp;&nbsp;作用</a></h3>
+<p>由爱好者编写，完成某一功能后，共享给大家的。</p>
+<p>主要作用是两点：封装硬件、具体应用。</p>
+</div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id140">6.1.2&nbsp;&nbsp;&nbsp;应用</a></h3>
+<p>没有统一规划。总之放在 <tt class="docutils literal">libraries</tt> 目录里。了解扩展库有哪些函数可用。</p>
+<p>使用时主要是注意两点：包含头文件、定义类的对象。</p>
+</div>
+</div>
+<div class="section" id="id39">
+<h2><a class="toc-backref" href="#id141">6.2&nbsp;&nbsp;&nbsp;对象和类</a></h2>
+<div class="section" id="id40">
+<h3><a class="toc-backref" href="#id142">6.2.1&nbsp;&nbsp;&nbsp;类的定义</a></h3>
+<p>先有类，再有对象。类的定义格式:</p>
+<pre class="literal-block">
+class 类名 {
+    private:
+        私有数据成员和成员函数;
+    public:
+        公有数据成员和成员函数;
+    protected:
+        保护数据成员和成员函数;
+};
+</pre>
+</div>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id143">6.2.2&nbsp;&nbsp;&nbsp;对性的创建及成员函数的调用</a></h3>
+<p>例如 <tt class="docutils literal">car bmw;</tt> 。之后就可以调用对象的方法了 <tt class="docutils literal">bmw.move(left);</tt> 。</p>
+</div>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id144">6.2.3&nbsp;&nbsp;&nbsp;对象的初始化和构造函数</a></h3>
+<p>就是跟类名一样的，如:</p>
+<pre class="literal-block">
+class car {
+    public:
+        car(int posi_x, int posi_y) {
+            //....
+        }
+};
+</pre>
+<p>构造函数的要求：</p>
+<ol class="arabic simple">
+<li>名字必须与类名一样</li>
+<li>无返回类型，包括void类型</li>
+<li>创建对象时自动被调用</li>
+<li>一般为公有函数，函数体可以在类体内，或体外</li>
+<li>与普通函数一样，可以有多个参数</li>
+<li>如果不写构造函数，则有默认的</li>
+</ol>
+</div>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id145">6.2.4&nbsp;&nbsp;&nbsp;函数的重载</a></h3>
+<p>就是一个函数名对应多个实现，参数不同。</p>
+</div>
+<div class="section" id="id44">
+<h3><a class="toc-backref" href="#id146">6.2.5&nbsp;&nbsp;&nbsp;析构函数</a></h3>
+<p>在删除对象之前进行一些资源释放的工作。就是在类名之前加上&quot;~&quot;。要求：</p>
+<ol class="arabic simple">
+<li>类名之前加&quot;~&quot;</li>
+<li>一般为公有函数，可以在类体内，也可以在类体外</li>
+<li>一个类只能有一个</li>
+<li>析构函数可以被程序调用，也可以被系统调用</li>
+<li>如果类没有定义析构函数，则系统会提供默认的</li>
+</ol>
+</div>
+</div>
+<div class="section" id="liquidcrystal">
+<h2><a class="toc-backref" href="#id147">6.3&nbsp;&nbsp;&nbsp;LiquidCrystal库</a></h2>
+<p>针对日立HD44780芯片组驱动的液晶屏的。</p>
+<p>&#64;page 145-157</p>
+</div>
+<div class="section" id="ethernet">
+<h2><a class="toc-backref" href="#id148">6.4&nbsp;&nbsp;&nbsp;Ethernet库</a></h2>
+<p>针对Ethernet Shield扩展板，最多支持4路双向连接。可以同时作为服务器和客户端。定义了3个类： <cite>EthernetClass</cite> 、 <cite>Server</cite> 、 <cite>Client</cite> 。</p>
+<div class="section" id="ethernetclass">
+<h3><a class="toc-backref" href="#id149">6.4.1&nbsp;&nbsp;&nbsp;<cite>EthernetClass</cite> 类的定义</a></h3>
+<p>声明如下:</p>
+<pre class="literal-block">
+#define MAX_SOCK_NUM 4      //最多支持4个连接
+class EthernetClass {
+    private:
+    public:
+        static uint8_t _state[MAX_SOCK_NUM];
+        static uint16_t _server_port[MAX_SOCK_NUM];
+        void begin(uint8_t *mac, uint8_t *ip);
+        void begin(uint8_t *mac, uint8_t *ip, uint8_t *gateway);
+        void begin(uint8_t *mac, uint8_t *ip, uint8_t *gateway,
+            *uint8_t *subnet);
+        friend class Client;
+        friend class Server;
+};
+</pre>
+<p>无构造函数，只有3个 <cite>begin()</cite> ，用来初始化。</p>
+</div>
+<div class="section" id="server">
+<h3><a class="toc-backref" href="#id150">6.4.2&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类定义</a></h3>
+<p>声明:</p>
+<pre class="literal-block">
+class Server {
+    private:
+        uint16_t _port;
+        void accept();
+    public:
+        Server(uint16_t);
+        Client available();
+        void begin();
+        virtual void write(uint8_t);
+        virtual void write(const char *str);
+        virtual void write(const uint8_t *buf, size_t size);
+};
+</pre>
+</div>
+<div class="section" id="id45">
+<h3><a class="toc-backref" href="#id151">6.4.3&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类构造函数</a></h3>
+<p>仅仅是幅值端口号。</p>
+</div>
+<div class="section" id="id46">
+<h3><a class="toc-backref" href="#id152">6.4.4&nbsp;&nbsp;&nbsp;<cite>Server</cite> 类成员函数</a></h3>
+<p>&#64;page 159-169</p>
+</div>
+</div>
+<div class="section" id="softwareserial">
+<h2><a class="toc-backref" href="#id153">6.5&nbsp;&nbsp;&nbsp;SoftwareSerial库</a></h2>
+<p>用软件模拟的方式用任意两个IO口实现串口通信。库里定义了1个类 <cite>SoftwareSerial</cite> 。头文件 <tt class="docutils literal">SoftwareSerial.h</tt> 。</p>
+<p>&#64;page 170-176</p>
+</div>
+<div class="section" id="eeprom">
+<h2><a class="toc-backref" href="#id154">6.6&nbsp;&nbsp;&nbsp;EEPROM库</a></h2>
+<p>EEPROM可以按照自己读写，擦写次数在100,000次以上，掉电后仍然保存。不同的AVR芯片的EEPROM大小不同，ATmega328p为1024字节。ATmega1280和ATmega2560为4KB。</p>
+<p>EEPROMClass:</p>
+<pre class="literal-block">
+class EEPROMClass {
+    public:
+        uint8_t read(int);
+        void write(int, uint8_t);
+};
+</pre>
+<div class="section" id="read">
+<h3><a class="toc-backref" href="#id155">6.6.1&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></h3>
+<p><cite>uint8_t EEPROMClass::read(int address)</cite> 读取一个字节。对于没有写过的，默认返回255。</p>
+</div>
+<div class="section" id="write">
+<h3><a class="toc-backref" href="#id156">6.6.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p><cite>void EEPROMClass::write(int address, uint8_t value)</cite> 写入一个字节的数据。</p>
+</div>
+</div>
+<div class="section" id="wire">
+<h2><a class="toc-backref" href="#id157">6.7&nbsp;&nbsp;&nbsp;Wire库</a></h2>
+<p>通过I2C/TWI总线连接其他设备。大部分的Arduino板子是D4为SDA，D5为SCL。对于Arduino Mega是D20=SDA，D21=SCL。</p>
+<p>&#64;page 177-185</p>
+</div>
+<div class="section" id="servo">
+<h2><a class="toc-backref" href="#id158">6.8&nbsp;&nbsp;&nbsp;Servo库</a></h2>
+<p>主要针对舵机的应用。最多支持12路舵机的控制。</p>
+<p>文件 <tt class="docutils literal">Servo.h</tt> 的内容:</p>
+<pre class="literal-block">
+#define Servo_VERSION       2       //软件版本
+#define MIN_PULSE_WIDTH     544     //最短脉冲
+#define MAX_PULSE_HEIGHT    2400    //最大脉冲
+#define DEFAULT_PULSE_WIDTH 1500    //缺省输出
+#define REFRESH_INTERVAL    20000   //刷新周期，微秒，此数字对应0.02S
+#define SERVO_PER_TIMER     12      //一个定时器可以控制的最大舵机数量
+#define MAX_SERVOS          (_Nbr_16timers * SERVO_PER_TIMER)
+#define INVALID_SERVO       255     //无效的舵机索引
+typedef struct {
+    uint8_t nbr:6;                  //0到63的引脚
+    uint8_t isActive:1;             //通道已启用
+} ServoPin_t;
+
+typedef struct {
+    ServoPin_t Pin;
+    unsigned int ticks;
+} servo_t;
+
+class Servo {
+    public:
+        Servo();
+        uint8_t attach(int pin);    //连接引脚
+        uint8_t attach(int pin, int min, int max);  //连接引脚，设置极值
+        void detach();
+        void write(int value);      //写值，&lt;200表示角度，否则是微秒
+        void writeMicroseconds(int value);  //写值，高电平长度
+        int read();                 //当前值，0~180的角度
+        int readMicroseconds();     //读取当前脉冲宽度
+        bool attached();            //是否已经连接了
+    private:
+        uint8_t servoIndex;         //通道
+        int8_t min;
+        int8_t max;
+};
+</pre>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id159">6.8.1&nbsp;&nbsp;&nbsp;构造函数</a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+Servo();
+</pre>
+<p>初始化类而已。并指定个servoIndex。存储缺省值。</p>
+</div>
+<div class="section" id="attach">
+<h3><a class="toc-backref" href="#id160">6.8.2&nbsp;&nbsp;&nbsp;<cite>attach()</cite></a></h3>
+<p>为舵机指定一个引脚。</p>
+<p>原型:</p>
+<pre class="literal-block">
+uint8_t attach(int pin);
+uint8_t attach(int pin, int min, int max);
+</pre>
+<p>返回值表示通道号，返回0表示失败了。</p>
+<p>min和max是最大和最小脉冲宽度，单位uS，默认最小544，最大2400，分别对应角度的0和180度。</p>
+</div>
+<div class="section" id="id48">
+<h3><a class="toc-backref" href="#id161">6.8.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p>设置舵机的角度。</p>
+<p>原型:</p>
+<pre class="literal-block">
+void write(int value);
+</pre>
+<p>角度范围0~180度。</p>
+</div>
+<div class="section" id="writemicroseconds">
+<h3><a class="toc-backref" href="#id162">6.8.4&nbsp;&nbsp;&nbsp;<cite>writeMicroseconds()</cite></a></h3>
+<p>设置脉冲宽度。</p>
+<p>原型:</p>
+<pre class="literal-block">
+void writeMicroseconds(int value);
+</pre>
+</div>
+<div class="section" id="id49">
+<h3><a class="toc-backref" href="#id163">6.8.5&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></h3>
+<p>读取当前角度值。</p>
+<p>原型:</p>
+<pre class="literal-block">
+int read();
+</pre>
+</div>
+<div class="section" id="readmicroseconds">
+<h3><a class="toc-backref" href="#id164">6.8.6&nbsp;&nbsp;&nbsp;<cite>readMicroseconds()</cite></a></h3>
+<p>读取当前脉冲宽度值，单位uS。</p>
+<p>原型:</p>
+<pre class="literal-block">
+int readMicroseconds();
+</pre>
+</div>
+<div class="section" id="attached">
+<h3><a class="toc-backref" href="#id165">6.8.7&nbsp;&nbsp;&nbsp;<cite>attached()</cite></a></h3>
+<p>检查舵机是否已经指定了引脚。</p>
+<p>原型:</p>
+<pre class="literal-block">
+bool attached();
+</pre>
+</div>
+<div class="section" id="deattach">
+<h3><a class="toc-backref" href="#id166">6.8.8&nbsp;&nbsp;&nbsp;<cite>deattach()</cite></a></h3>
+<p>将舵机与指定引脚分离。</p>
+<p>原型:</p>
+<pre class="literal-block">
+void detach();
+</pre>
+<p>调用后，具备PWM功能的引脚才能恢复PWM输出。</p>
+</div>
+</div>
+<div class="section" id="stepper">
+<h2><a class="toc-backref" href="#id167">6.9&nbsp;&nbsp;&nbsp;Stepper库</a></h2>
+<p>针对多极性(unipolar)和双极性(bipolar)步进电机。需要一些驱动电路。</p>
+<div class="section" id="id50">
+<h3><a class="toc-backref" href="#id168">6.9.1&nbsp;&nbsp;&nbsp;步进电机概述</a></h3>
+<p>按照一个固定角度一步一步转动的电机。非超载情况下，电机的转速、停止位置只取决于脉冲信号的频率和脉冲数，而不受负载影响。</p>
+<p>一个脉冲信号对应的转动角度叫 <strong>步距角</strong> 。</p>
+</div>
+<div class="section" id="id51">
+<h3><a class="toc-backref" href="#id169">6.9.2&nbsp;&nbsp;&nbsp;步进电机的基本参数</a></h3>
+<ol class="arabic simple">
+<li>步距角：每个步进脉冲对应的转动角度， <span class="formula"><i>θ</i> = 360 ⁄ (<i>转子齿数</i> × <i>运行拍数</i>)</span> ，常见的二、四相，转子50齿，4拍运行步距角=360/(50x4)=1.8度(整步)，而8拍运行时步距角=360/(50x8)=0.9度(半步)</li>
+<li>相数：电机内部不同对极N、S磁场的激磁线圈对数，m表示，常用的有2-5相，影响步距角</li>
+<li>保持转矩(holding torque)：通电但没有转动时，定子锁住转子的力矩，低速时保持该参数</li>
+<li>定位转矩(detent torque)：没有通电时，电机转子自身的锁定力矩</li>
+<li>静转矩：而定静态电作用下，电动机不做旋转时，转轴的锁定力矩，影响电机体积</li>
+<li>拍数：完成一个磁场周期性变化所需脉冲数，n表示，或转过一个步距角所需脉冲数，3相3拍工作方式：AB-BC-CA-AB，3相6拍工作方式：A-AB-B-BC-C-CA-A</li>
+</ol>
+</div>
+<div class="section" id="id52">
+<h3><a class="toc-backref" href="#id170">6.9.3&nbsp;&nbsp;&nbsp;步进电机的优缺点</a></h3>
+<p>优点：</p>
+<ol class="arabic simple">
+<li>旋转角度正比于脉冲数</li>
+<li>停转时具有最大转矩</li>
+<li>每步精度在3%~5%，不会累计误差，定位精度好</li>
+<li>优秀的起停和反转响应</li>
+<li>没有电刷，可靠性好，寿命长(取决于轴承)</li>
+<li>响应只由数字输入脉冲确定，可以开环控制，结构简单</li>
+<li>仅仅将负载连接到转轴上也可以低速同步旋转</li>
+<li>速度正比于脉冲频率，有很宽的调速范围</li>
+</ol>
+<p>缺点：</p>
+<ol class="arabic simple">
+<li>控制不当会引起共振</li>
+<li>难以获得较高转速</li>
+<li>难以获得较高转矩</li>
+<li>体积和重量上没有优势，能源效率低</li>
+<li>超出负载时会破坏同步，高速工作时会有振动和噪声</li>
+</ol>
+</div>
+<div class="section" id="id53">
+<h3><a class="toc-backref" href="#id171">6.9.4&nbsp;&nbsp;&nbsp;步进电机的工作远离</a></h3>
+<p>一个普通的3相反应式步进电机：</p>
+<img alt="_images/book_Arduino开发实战指南_AVR篇_6.9.4_00.png" src="_images/book_Arduino开发实战指南_AVR篇_6.9.4_00.png" />
+<p>定子由硅钢片叠成，6个磁极，每2个相对磁极组成一对共3对。每对磁极都有同一绕组，形成一相，3对磁极形成3相。同理4相步进电机有4对磁极，4相绕组。每个磁极内表面都有很多小齿，大小相同，间距相等。</p>
+<p>转子的内表面也有很多小齿，间距与定子磁极上的相同，形状相似。当某相上的小齿与转子上的小齿完全对齐时(对齿)，其他相上的小齿一定与转子上的小齿不对齐(错齿)，错齿的存在是步进电机旋转的前提条件。</p>
+<p>如果给处于错齿状态的相通电，则转子在电磁力作用下向导磁率最大(磁阻最小)的位置旋转，即趋于对齿的状态。</p>
+<p>如下是3相6拍的工作方式：</p>
+<img alt="_images/book_Arduino开发实战指南_AVR篇_6.9.4_01.png" src="_images/book_Arduino开发实战指南_AVR篇_6.9.4_01.png" />
+<p>&#64;page 190-200</p>
+</div>
+</div>
+<div class="section" id="tlc5940">
+<h2><a class="toc-backref" href="#id172">6.10&nbsp;&nbsp;&nbsp;TLC5940库</a></h2>
+<p>针对TI的TLC5940NT PWM LED驱动芯片的，该芯片提供16路PWM输出，最大30MHz数据传输率，用于全彩LED驱动或舵机控制。</p>
+<p>&#64;page 201-206</p>
+</div>
+<div class="section" id="onewire">
+<h2><a class="toc-backref" href="#id173">6.11&nbsp;&nbsp;&nbsp;OneWire库</a></h2>
+<p>单总线(One-Wire)是Dallas公司的总线技术，采用单根数据线实现数据的双向传输。适用于单主机系统，控制多个从机。</p>
+<p>&#64;page 206-215</p>
+</div>
+<div class="section" id="xbee">
+<h2><a class="toc-backref" href="#id174">6.12&nbsp;&nbsp;&nbsp;XBee库</a></h2>
+<p>针对DIGI公司的zigbee模块XBee的扩展库。XBee是远距离低功耗数传模块，频段有2.4G、900M、868M三种，兼容802.15.4协议。模块内置协议栈，可组mesh网络，每个模块都可以成为路由结点、协调器、终端。Arduino通过D0(RX)、D1(TX)来对XBee进行控制。</p>
+<p>&#64;page 215-221</p>
+</div>
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id175">6.13&nbsp;&nbsp;&nbsp;创建自己的库</a></h2>
+<p>在 <a class="reference external" href="http://www.arduino.cc/en/Reference/Libraries">http://www.arduino.cc/en/Reference/Libraries</a> 还可以下载到更多的库。也可以自己创建一些库。</p>
+<div class="section" id="morse">
+<h3><a class="toc-backref" href="#id176">6.13.1&nbsp;&nbsp;&nbsp;库的功能-Morse</a></h3>
+<p>例子是莫尔斯电码的译码器。长点，划，&quot;-&quot;，dah(嗒)；短点，点，&quot;.&quot;，dit(滴)。划一般是3个点的长度，字元之间是3个点的长度。单词之间7个点。</p>
+<p>简单的发送SOS的莫尔斯电码:</p>
+<pre class="literal-block">
+void setup() {
+    pinMode(13, OUTPUT);
+}
+
+void loop() {
+    dot();
+    dot();
+    dot();
+    dash();
+    dash();
+    dash();
+    dot();
+    dot();
+    dot();
+    delay(3000);
+}
+
+void dot() {
+    digitalWrite(13, HIGH);
+    delay(250);
+    digitalWrite(13, LOW);
+    delay(250);
+}
+
+void dash() {
+    digitalWrite(13, HIGH);
+    delay(1000);
+    digitalWrite(13, LOW);
+    delay(250);
+}
+</pre>
+</div>
+<div class="section" id="morsecode">
+<h3><a class="toc-backref" href="#id177">6.13.2&nbsp;&nbsp;&nbsp;MorseCode类的定义</a></h3>
+<p>类的定义包含变量和成员函数两部分，变量定义为似有(private)，包括codePin。成员函数定义为共有的(public)，包括 <cite>dash()</cite> 、 <cite>dot()</cite> 、构造函数、字符转译函数。</p>
+<p><tt class="docutils literal">MorseCode.h</tt></p>
+<pre class="literal-block">
+#ifndef MorseCode_h
+#define MorseCode_h
+
+class MorseCode {
+    private:
+        int _codePin;       //输出引脚
+    public:
+    Morse(int _pin);        //构造函数
+        void dot();
+        void dash();
+        void transfer(char _code);
+};
+
+#endif
+</pre>
+<p>类的定义一般放在.h文件中，只是一个描述性的作用。这里是 <tt class="docutils literal">MorseCode.h</tt> 。</p>
+</div>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id178">6.13.3&nbsp;&nbsp;&nbsp;MorseCode类的成员函数</a></h3>
+<p>放在 <tt class="docutils literal">MorseCode.cpp</tt> 中:</p>
+<pre class="literal-block">
+#include &lt;WProgram.h&gt;
+#include &lt;MorseCode.h&gt;
+#include &quot;string.h&quot;
+
+MorseCode::MorseCode(int _pin) {
+    pinMode(_pin, OUTPUT);
+    _codePin=_pin;
+}
+</pre>
+<p><cite>dot()</cite> 和 <cite>dash()</cite> 就不写了，跟上面例子一样。</p>
+<p><cite>transfer()</cite> 函数用于将字符转为莫尔斯电码。声明:</p>
+<pre class="literal-block">
+void MorseCode::transfer(char _code) {
+//...
+</pre>
+<p>为了使用这个库，还需要在Arduino开发环境目录下的 <tt class="docutils literal">libraries</tt> 目录中创建目录 <tt class="docutils literal">MorseCode</tt> ，然后将.h和.cpp都放入该目录。</p>
+</div>
+<div class="section" id="id56">
+<h3><a class="toc-backref" href="#id179">6.13.4&nbsp;&nbsp;&nbsp;MorseCode库的使用</a></h3>
+<p>使用时，应该先包含，再使用:</p>
+<pre class="literal-block">
+#include &quot;MorseCode.h&quot;
+
+MorseCode Morse(13);
+
+void setup() {
+}
+
+void loop() {
+    Morse.transfer('S');
+    Morse.transfer('O');
+    Morse.transfer('S');
+    delay(3000);
+}
+</pre>
+</div>
+<div class="section" id="id57">
+<h3><a class="toc-backref" href="#id180">6.13.5&nbsp;&nbsp;&nbsp;关键字的定义</a></h3>
+<p>在IDE中， <cite>setup()</cite> 和 <cite>loop()</cite> 之类的会以橙色显示，而我们自己的成员函数则没有。可以通过编写 <tt class="docutils literal">keywords.txt</tt> 文件来实现加亮显示。</p>
+<p>每行如 <tt class="docutils literal">dot KEYWORD2</tt> 。每行开始是要定义的关键字，随后跟着个TAB符号，最后是关键字的颜色。KEYWORD1是橙色，KEYWORD2是褐色。</p>
+<p>修改完成后需要重启IDE才能生效。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id58">
+<h1><a class="toc-backref" href="#id181">7&nbsp;&nbsp;&nbsp;无线模块的应用</a></h1>
+<div class="section" id="apc220">
+<h2><a class="toc-backref" href="#id182">7.1&nbsp;&nbsp;&nbsp;APC220</a></h2>
+<p>半双工微功耗无线数据传输模块，内置高速单片机，用于无线门铃、无线键盘、工业控制等。7种速率、3种接口校验方式，对外UART/TTL接口。透明传输任何大小的数据，距离可达1000m(空旷地)。</p>
+<div class="section" id="id59">
+<h3><a class="toc-backref" href="#id183">7.1.1&nbsp;&nbsp;&nbsp;APC220性能指标</a></h3>
+<ol class="arabic simple">
+<li>工作频率：415~455MHz(1KHz步进)</li>
+<li>调制方式：GFSK</li>
+<li>频率间隔：200KHz</li>
+<li>发射功率：20mW(10级可调)</li>
+<li>接收灵敏度：<a class="reference external" href="mailto:-117dBm&#64;1200bps">-117dBm&#64;1200bps</a></li>
+<li>空中传输速率：1200~19200bps</li>
+<li>接口速率：1200~57600bps</li>
+<li>接口校验方式：8E1、8N1、8O1</li>
+<li>接口缓冲空间：512Byte</li>
+<li>发射电流：&lt;=35mA</li>
+<li>接收电流：&lt;=30mA</li>
+<li>休眠电流：&lt;=5uA</li>
+<li>尺寸：37mm x 17mm x 6.5mm(不含天线座和引脚插头)</li>
+</ol>
+<p>&#64;page 236-239</p>
+</div>
+</div>
+<div class="section" id="dfduino-wireless">
+<h2><a class="toc-backref" href="#id184">7.2&nbsp;&nbsp;&nbsp;DFduino wireless</a></h2>
+<p>&#64;page 239-242</p>
+</div>
+<div class="section" id="bluetooth-v3">
+<h2><a class="toc-backref" href="#id185">7.3&nbsp;&nbsp;&nbsp;Bluetooth V3</a></h2>
+<p>&#64;page 242-245</p>
+</div>
+<div class="section" id="xbeexbee-pro">
+<h2><a class="toc-backref" href="#id186">7.4&nbsp;&nbsp;&nbsp;XBee和XBee PRO</a></h2>
+<p>&#64;page 245-251</p>
+</div>
+</div>
+<div class="section" id="id60">
+<h1><a class="toc-backref" href="#id187">8&nbsp;&nbsp;&nbsp;打造自己的遥控履带车</a></h1>
+<p>就是路虎5履带底盘的。</p>
+<div class="section" id="id61">
+<h2><a class="toc-backref" href="#id188">8.1&nbsp;&nbsp;&nbsp;履带车的驱动</a></h2>
+<p>&#64;page 253-268</p>
+</div>
+<div class="section" id="id62">
+<h2><a class="toc-backref" href="#id189">8.2&nbsp;&nbsp;&nbsp;添加感知器件</a></h2>
+<p>&#64;page 268-271</p>
+</div>
+<div class="section" id="id63">
+<h2><a class="toc-backref" href="#id190">8.3&nbsp;&nbsp;&nbsp;添加无线模块</a></h2>
+<p>&#64;page 272-275</p>
+</div>
+<div class="section" id="id64">
+<h2><a class="toc-backref" href="#id191">8.4&nbsp;&nbsp;&nbsp;制作遥控器</a></h2>
+<p>使用了Input Shield做的遥控器。</p>
+<p>&#64;page 276-278</p>
+</div>
+<div class="section" id="id65">
+<h2><a class="toc-backref" href="#id192">8.5&nbsp;&nbsp;&nbsp;履带车遥控调速</a></h2>
+<p>&#64;page 278-283</p>
+</div>
+<div class="section" id="id66">
+<h2><a class="toc-backref" href="#id193">8.6&nbsp;&nbsp;&nbsp;添加无线摄像头</a></h2>
+<p>&#64;page 283-294</p>
+</div>
+<div class="section" id="id67">
+<h2><a class="toc-backref" href="#id194">8.7&nbsp;&nbsp;&nbsp;环境信息获取器件</a></h2>
+<p>&#64;page 294-305</p>
+</div>
+</div>
+<div class="section" id="id68">
+<h1><a class="toc-backref" href="#id195">9&nbsp;&nbsp;&nbsp;仿生机器人</a></h1>
+<div class="section" id="id69">
+<h2><a class="toc-backref" href="#id196">9.1&nbsp;&nbsp;&nbsp;遥控机械臂</a></h2>
+<p>6自由度机械臂，然后用Wii Nunchunk控制动作。</p>
+<p>&#64;page 306-315</p>
+</div>
+<div class="section" id="id70">
+<h2><a class="toc-backref" href="#id197">9.2&nbsp;&nbsp;&nbsp;双足机器人</a></h2>
+<p>&#64;page 315-329</p>
+</div>
+</div>
+<div class="section" id="id71">
+<h1><a class="toc-backref" href="#id198">10&nbsp;&nbsp;&nbsp;附录</a></h1>
+<div class="section" id="arduinoavr">
+<h2><a class="toc-backref" href="#id199">10.1&nbsp;&nbsp;&nbsp;Arduino引脚与AVR单片机管脚对应关系</a></h2>
+<p>&#64;page 330-330</p>
+</div>
+<div class="section" id="id72">
+<h2><a class="toc-backref" href="#id200">10.2&nbsp;&nbsp;&nbsp;Arduino扩展板</a></h2>
+<p>&#64;page 331-332</p>
+</div>
+<div class="section" id="id73">
+<h2><a class="toc-backref" href="#id201">10.3&nbsp;&nbsp;&nbsp;其他可扩展模块</a></h2>
+<p>&#64;page 333-334</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 19511, "title": "Arduino\u5f00\u53d1\u5b9e\u6218\u6307\u5357 AVR\u7bc7", "src_size": 30707, "filehash": "22c146a30be2bc8057c5d6e2499c9c3c", "dst_size": 75057} -->

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>i2c twi 两线串口</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="i2c-twi">
+<h1 class="title">i2c twi 两线串口</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-11-08</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id12">1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#i2c" id="id13">2&nbsp;&nbsp;&nbsp;I2C简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id3" id="id14">2.1&nbsp;&nbsp;&nbsp;I2C电平与时序</a></li>
+<li><a class="reference internal" href="#id4" id="id15">2.2&nbsp;&nbsp;&nbsp;数据包格式</a></li>
+<li><a class="reference internal" href="#avrtwi" id="id16">2.3&nbsp;&nbsp;&nbsp;AVR的TWI接口功能</a></li>
+<li><a class="reference internal" href="#id5" id="id17">2.4&nbsp;&nbsp;&nbsp;电路参数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id18">3&nbsp;&nbsp;&nbsp;寄存器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#twbr-twi" id="id19">3.1&nbsp;&nbsp;&nbsp;TWBR-TWI比特率寄存器</a></li>
+<li><a class="reference internal" href="#twcr-twi" id="id20">3.2&nbsp;&nbsp;&nbsp;TWCR-TWI控制寄存器</a></li>
+<li><a class="reference internal" href="#twsr-twi" id="id21">3.3&nbsp;&nbsp;&nbsp;TWSR-TWI状态寄存器</a></li>
+<li><a class="reference internal" href="#twdr-twi" id="id22">3.4&nbsp;&nbsp;&nbsp;TWDR-TWI数据寄存器</a></li>
+<li><a class="reference internal" href="#twar-twi" id="id23">3.5&nbsp;&nbsp;&nbsp;TWAR-TWI从机地址寄存器</a></li>
+<li><a class="reference internal" href="#twamr-twi" id="id24">3.6&nbsp;&nbsp;&nbsp;TWAMR-TWI从机地址屏蔽寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id25">4&nbsp;&nbsp;&nbsp;应用注记</a></li>
+<li><a class="reference internal" href="#avr-gcc" id="id26">5&nbsp;&nbsp;&nbsp;avr-gcc编程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#atmega48twi" id="id27">5.1&nbsp;&nbsp;&nbsp;ATmega48的TWI主机初始化</a></li>
+<li><a class="reference internal" href="#id8" id="id28">5.2&nbsp;&nbsp;&nbsp;ATmega48的TWI从机初始化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id29">6&nbsp;&nbsp;&nbsp;常见状态的响应</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id10" id="id30">6.1&nbsp;&nbsp;&nbsp;状态码响应</a></li>
+<li><a class="reference internal" href="#id11" id="id31">6.2&nbsp;&nbsp;&nbsp;外部设备操作序列</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id12">1&nbsp;&nbsp;&nbsp;简介</a></h1>
+<p>AVR的TWI就是I2C，兼容的，为了避免付专利费而已。这玩意是真正的总线，而且在已有器件中应用十分广泛。</p>
+<p>先行研究ATmega48的TWI实现。</p>
+<p>参考文献：</p>
+<ol class="arabic">
+<li><p class="first">[i] ATmega48-88-168(V).pdf：184-212，还没看的部分</p>
+<blockquote>
+<ol class="arabic simple">
+<li>多主机总线系统，仲裁与同步 page 187</li>
+<li>TWI模块概述 page 189</li>
+<li>TWI寄存器说明 page 191</li>
+<li>使用TWI page 194</li>
+<li>发送模式 page 197</li>
+<li>多主机系统与仲裁 page 211-212</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="i2c">
+<h1><a class="toc-backref" href="#id13">2&nbsp;&nbsp;&nbsp;I2C简介</a></h1>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">2.1&nbsp;&nbsp;&nbsp;I2C电平与时序</a></h2>
+<p>SCL位高电平时，SDA上的电平有效，此期间SDA上的电平必须保持稳定。因为上升沿和下降沿还有另外的意义。</p>
+<p>START与STOP信号之间需要假定总线忙，其他主机不允许控制总线。可以在一次发送完成后不发STOP，而再发一个START信号，这叫REPEAT START，这会不放弃总线的控制权而继续发送。</p>
+<p>当SCL位高时的下降沿表示START，上升沿表示STOP。时序图如下：</p>
+<img alt="_images/i2c_level.png" src="_images/i2c_level.png" />
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id15">2.2&nbsp;&nbsp;&nbsp;数据包格式</a></h2>
+<p><strong>地址包</strong> 位9bit，包括7bit地址位、1bit读写(READ/WRITE)控制位，1bit应答位(ACK)。如果READ/WRITE=1表示READ(SLA+R)，否则位WRITE(SLA+W)。从机被寻址时，必须在第9个SCL周期拉低SDA来做出应答。如果主机没有收到ACK，则主机应该发出STOP，表明没有寻址到从机，放弃总线控制权。或REPEAT START继续寻址。</p>
+<p>地址的MSB先发送，从机地址0000000作为广播地址保留，其他地址可以由设计者定制。</p>
+<p>广播呼叫时，所有从机都应该在ACK周期拉低SDA做出应答。广播对WRITE有意义，对READ则没有啥意义的。因为如果所有从机都发送数据就乱了。</p>
+<p>所有形如1111xxx的地址都保留。</p>
+<p>地址包格式：</p>
+<img alt="_images/i2c_addrpacket.png" src="_images/i2c_addrpacket.png" />
+<p>实际数据负载为9bit，其中8bit数据和1bit的应答。主机负责产生时钟和START/STOP状态，接收器响应。应答时由从机在第9个SCL周期拉低SDA实现的。如果接收器使SDA为高，则算作NACK信号。当接收器完成接收，或者无法接收更多数据，应该在收到最后的字节后发出NACK来告知发送器。数据的MSB首先发送。</p>
+<p>数据包格式：</p>
+<img alt="_images/i2c_datapacket.png" src="_images/i2c_datapacket.png" />
+<p>只有START和STOP的包是非法的。从机可以通过拉低SCL电平来使发送者延迟发送。这种行为不会影响SCL高电平时间，因为SCL高电平是由主机控制的。改变SCL占空比就可以降低TWI数据传送速度。</p>
+<p>典型的数据传送：</p>
+<img alt="_images/i2c_fullpacket.png" src="_images/i2c_fullpacket.png" />
+</div>
+<div class="section" id="avrtwi">
+<h2><a class="toc-backref" href="#id16">2.3&nbsp;&nbsp;&nbsp;AVR的TWI接口功能</a></h2>
+<ol class="arabic simple">
+<li>只需两根线</li>
+<li>支持主机/从机模式</li>
+<li>可以作为发送器或接收器</li>
+<li>7位地址空间，支持最大128个从机地址</li>
+<li>支持多主机模式</li>
+<li>最高数据传输率400KHz</li>
+<li>斜率受限的输出驱动器</li>
+<li>噪声监控电路防止总线上的毛刺</li>
+<li>可编程的从机地址，支持呼叫</li>
+<li>地址识别中断可以将AVR从休眠模式唤醒</li>
+</ol>
+<p>两根数据线是SDA和SCL，地线当然也是需要的。</p>
+<p>概念：</p>
+<ol class="arabic simple">
+<li>Master：启动与终止数据传送的器件，主机也负责产生SCL时钟</li>
+<li>Slave：被主机寻址的器件</li>
+<li>Transmitter：将数据送到总线的器件</li>
+<li>Receiver：从总线读取数据的器件</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id17">2.4&nbsp;&nbsp;&nbsp;电路参数</a></h2>
+<p>应该将SCL和SDA数据线都接上拉电阻。</p>
+<p>总线仲裁的关键是线与，通过器件内部的漏机开路或集电极开路实现的。</p>
+<p>总线电容要低于400pF。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id18">3&nbsp;&nbsp;&nbsp;寄存器</a></h1>
+<div class="section" id="twbr-twi">
+<h2><a class="toc-backref" href="#id19">3.1&nbsp;&nbsp;&nbsp;TWBR-TWI比特率寄存器</a></h2>
+<p>一个整体的8bit寄存器，作为比特率发生器的分频因子。主机模式下产生SCL时钟频率。</p>
+<p>SCL_freq= CPU时钟频率/(16+2*(TWBR)*4^TWPS)</p>
+</div>
+<div class="section" id="twcr-twi">
+<h2><a class="toc-backref" href="#id20">3.2&nbsp;&nbsp;&nbsp;TWCR-TWI控制寄存器</a></h2>
+<p>使能TWI、启动主机访问、产生接收器应答、产生STOP状态、写入TWDR寄存器时控制总线暂停等。</p>
+<p>[7:TWINT:R/W:0]：TWI中断标志，表示需要中断了，若SREG的I和TWCR的TWIE都置位，则MCU产生TWI中断。TWINT置位时，SCL的低电平被延长。TWINT标志的清零需要靠写1来完成，执行中断时硬件不会自动将其改为为0。一旦被清零则TWI立即开始工作，因此要在清零前完成对TWAR、TWSR、TWDR的访问。</p>
+<p>[6:TWEA:R/W:0]：使能TWI应答，控制应答脉冲的产生，若置位，则如下条件时产生ACK：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>器件的从机地址与主机的请求相符合</li>
+<li>TWAR的TWGCE置位时接收到广播呼叫</li>
+<li>在主机/从机模式下接收到一个字节的数据</li>
+</ol>
+</blockquote>
+<p>将TWEA清零可以使器件暂时脱离总线，置位后重新恢复地址识别。</p>
+<p>[5:TWSTA:R/W:0]：START状态标志，当CPU希望成为主机时对此置位。不定何时才能成为主机。发送START后软件必须清零TWSTA。</p>
+<p>[4:TWSTO:R/W:0]：主机模式下置位TWSTO则在总线产生STOP状态，然后TWSTO自动清零。从机模式下置位TWSTO则使接口从错误状态恢复到未寻址状态，此时总线不产生STOP信号，但TWI返回一个定义好的未被寻址的从机模式释放SCL和SDA为高阻态。</p>
+<p>[3:TWWC:R:0]：TWI写碰撞标志，当TWINT为低时写数据寄存器将置位TWWC，每一次对TWDR的写都将更新此标志。</p>
+<p>[2:TWEN:R/W:0]：TWI操作使能，写1时，TWI引脚将I/O引脚切换到SCL与SDA引脚，使能波形斜率限制器与尖峰滤波器。清零则关闭TWI模块。</p>
+<p>[1:-:R:0]：保留。</p>
+<p>[0:TWIE:R/W:0]：TWI中断使能。</p>
+</div>
+<div class="section" id="twsr-twi">
+<h2><a class="toc-backref" href="#id21">3.3&nbsp;&nbsp;&nbsp;TWSR-TWI状态寄存器</a></h2>
+<p>[7-3:TWS7-TWS3:R:1]：这5bit反映TWI逻辑和总线的状态，状态码在后面描述。建议检测该部分值时应该屏蔽低3bit。</p>
+<p>[2:-:R:0]：保留，总是0。</p>
+<p>[1-0:TWPS1-TWPS0:R/W:0]：TWI预分频位。分频值如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>TWPS1:0</td>
+<td>预分频值</td>
+</tr>
+<tr><td>00</td>
+<td>1</td>
+</tr>
+<tr><td>01</td>
+<td>4</td>
+</tr>
+<tr><td>10</td>
+<td>16</td>
+</tr>
+<tr><td>11</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
+<p>该值在比特率发生器中有用到。</p>
+</div>
+<div class="section" id="twdr-twi">
+<h2><a class="toc-backref" href="#id22">3.4&nbsp;&nbsp;&nbsp;TWDR-TWI数据寄存器</a></h2>
+<p>整体的8bit寄存器。</p>
+<p>发送模式时，包含了要发送的字节，接收模式时，包含了接收到的数据。</p>
+<p>当TWI接口没有进行移位工作(TWINT置位)时此寄存器可写。第一次中断发生前用户不能够初始化数据寄存器。只要TWINT置位，TWDR的数据就是稳定的。在数据移出时，总线上的数据同时移入寄存器。TWDR总是包含总线萨好你个出现的最后一个字节。总线仲裁失败时，主机切换为从机，但总线上的数据不会丢失。ACK的处理由TWI逻辑自动管理，CPU不能直接访问ACK。</p>
+</div>
+<div class="section" id="twar-twi">
+<h2><a class="toc-backref" href="#id23">3.5&nbsp;&nbsp;&nbsp;TWAR-TWI从机地址寄存器</a></h2>
+<p>该寄存器高7bit为从机地址，当工作于从机模式时，TWI根据此地址响应。主机模式不需要此地址。</p>
+<p>[7-1:TWA6-TWA0:R/W:1]：TWI从机地址寄存器，值为本机的从机地址。</p>
+<p>[0:TWGCE:R/W:0]：置位后可以识别TWI总线的广播。</p>
+</div>
+<div class="section" id="twamr-twi">
+<h2><a class="toc-backref" href="#id24">3.6&nbsp;&nbsp;&nbsp;TWAMR-TWI从机地址屏蔽寄存器</a></h2>
+<p>[7-1:TWAM6-TWAM0:R/W:0]：从机地址屏蔽位，如果对应位为1则忽略输入地址与TWAR对应位的区别。估计是用于让从机可以匹配一大段地址的。</p>
+<p>[0:-:R:0]：保留。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id25">4&nbsp;&nbsp;&nbsp;应用注记</a></h1>
+<p>ATmega系列芯片的I2C接口，所用的上拉电阻时可以用芯片内置的上拉电阻的。如果需要负载能力更强的，可以外接10Kohm的上拉电阻。</p>
+<p>Raspberry Pi也不需要担心，板子上自带了1.8Kohm的上拉电阻了。</p>
+</div>
+<div class="section" id="avr-gcc">
+<h1><a class="toc-backref" href="#id26">5&nbsp;&nbsp;&nbsp;avr-gcc编程</a></h1>
+<p>中断名 <cite>TWI_vect</cite> ，对AVR所有型号都一样。</p>
+<div class="section" id="atmega48twi">
+<h2><a class="toc-backref" href="#id27">5.1&nbsp;&nbsp;&nbsp;ATmega48的TWI主机初始化</a></h2>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id28">5.2&nbsp;&nbsp;&nbsp;ATmega48的TWI从机初始化</a></h2>
+<p>通过如下初始化函数，至少让RPi有反应了:</p>
+<pre class="literal-block">
+void twi_slave_init() {
+    TWCR = 0x00;
+    TWBR = 0x07;                //设置比特率，0x07=400K，0x34=100K
+    TWSR = 0x00;                //分频比，两者决定400KHz
+    TWAR = 0xcc;                //从机写地址0xcc，读地址0xcd
+    TWCR= _BV(TWEN)|_BV(TWIE)|_BV(TWEA);
+}
+</pre>
+<p>RPi发出 <tt class="docutils literal">i2cdetect <span class="pre">-y</span> 0</tt> 从usart的返回看，先收到了0x60，然后收到了0x00。而RPi返回则是0x6b到0x77的地址全满。第二次执行该命令AVR没响应，RPi返回所有地址都满了。</p>
+<p>0x60代表了TW_SR_SLA_ACK。在对0x00进行错误处理 <tt class="docutils literal">TWCR= (TWCR &amp; <span class="pre">_BV(TWINT))|_BV(TWSTO);</span></tt> 后，反倒是RPi又搜索不到地址了。</p>
+<p>这里的关键是在0x60时，通过 <tt class="docutils literal">TWCR |= _BV(TWEA);</tt> 来发送一个ACK。这样就可以被RPi扫描到了。扫描到的地址为0x66。怎么来说0xcc和0x66也对不上阿。0xc2则对应0x61。</p>
+<p>尝试用RPi发送数据时，AVR收到了0x60，然后一直是0xa0，表示收到了STOP。看来是我对0x60的处理不对，导致没有后续发送了。</p>
+<p>原来用作usart调试的部分耽误了一些i2c信号，导致一些信号没有接到。同时导致RPi一直提示 <tt class="docutils literal">IOError: [Errno 5] Input/output error</tt> 。去掉了所有的usart调试后，一路顺顺当当的接到了数据。同时RPi的出错提示也没有了。即便是将usart提高到115200bps也还是有一定机会出错。</p>
+<p>TWCR寄存器中。TWEA是一种状态，表明可以自动响应ACK，而不是一种动作，所以一般不需要手动操作。</p>
+<p>每次连接成功可以发送接受多个字节的，但是每次中断是只收一个字节。</p>
+<p>状态转移函数:</p>
+<pre class="literal-block">
+ISR(TWI_vect) {
+    uint8_t twi_status;
+    twi_status=TWSR &amp; 0xf8;
+    //usart_puthex(twi_status);
+    switch(twi_status) {
+        case TW_SR_SLA_ACK: //0x60，收到SLA+W
+            //自动发送ACK响应了
+            break;
+        case TW_SR_STOP:    //0xa0，收到STOP
+            usart_putchar('x');
+            TWCR |= _BV(TWSTO);
+            break;
+        case TW_SR_DATA_ACK:    //0x80，收到数据
+            //此处可读取TWDR了
+            //usart_puthex(TWDR);
+            break;
+        case TW_BUS_ERROR:  //0x00，总线错误
+        default:
+            TWCR |= _BV(TWSTO);
+            usart_puthex(twi_status);   //看看错误状态码
+            break;
+    }
+    TWCR |= _BV(TWINT)|_BV(TWEN);
+}
+</pre>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id29">6&nbsp;&nbsp;&nbsp;常见状态的响应</a></h1>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id30">6.1&nbsp;&nbsp;&nbsp;状态码响应</a></h2>
+<p>TW_SR_SLA_ACK 0x60：从机收到了SLA+W，此时应返回ACK表明自己的在响应。通过 <tt class="docutils literal">TWCR |= _BV(TWEA);</tt> 。</p>
+<p>TW_BUS_ERROR 0x00：总线错误，应该复位自己的状态机。通过 <tt class="docutils literal">TWCR= (TWCR &amp; <span class="pre">_BV(TWINT))|_BV(TWSTO);</span></tt> 。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id31">6.2&nbsp;&nbsp;&nbsp;外部设备操作序列</a></h2>
+<p>RPi扫描设备是一个0x60+0xa0，即尝试对每一个从机写START，但立即STOP结束通信。</p>
+<p>RPi扫描到的地址是从机地址设置中的值的一半，或者说右移一位的结果。</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 5963, "title": "i2c twi \u4e24\u7ebf\u4e32\u53e3", "src_size": 10891, "filehash": "e713bbf02c58cc1f48d497b5361f216e", "dst_size": 23115} -->

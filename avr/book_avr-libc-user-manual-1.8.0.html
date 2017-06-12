@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>avr-libc用户手册1.8.0</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-libc1-8-0">
+<h1 class="title">avr-libc用户手册1.8.0</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">未知</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-01-03</td>
+</tr>
+<tr class="field"><th class="docinfo-name">版本:</th><td class="field-body">1.8.0</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2012-11-10</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#avr-libc" id="id29">1&nbsp;&nbsp;&nbsp;AVR libc</a></li>
+<li><a class="reference internal" href="#id2" id="id30">2&nbsp;&nbsp;&nbsp;工具链概览</a></li>
+<li><a class="reference internal" href="#malloc" id="id31">3&nbsp;&nbsp;&nbsp;内存区域与 malloc()</a></li>
+<li><a class="reference internal" href="#id3" id="id32">4&nbsp;&nbsp;&nbsp;内存段</a></li>
+<li><a class="reference internal" href="#id4" id="id33">5&nbsp;&nbsp;&nbsp;程序空间的数据</a></li>
+<li><a class="reference internal" href="#id5" id="id34">6&nbsp;&nbsp;&nbsp;avr-libc与汇编程序</a></li>
+<li><a class="reference internal" href="#id6" id="id35">7&nbsp;&nbsp;&nbsp;行内汇编入门</a></li>
+<li><a class="reference internal" href="#id7" id="id36">8&nbsp;&nbsp;&nbsp;如何建立一个库</a></li>
+<li><a class="reference internal" href="#id8" id="id37">9&nbsp;&nbsp;&nbsp;性能测试</a></li>
+<li><a class="reference internal" href="#iaravr-gcc" id="id38">10&nbsp;&nbsp;&nbsp;从IAR到AVR GCC的移植</a></li>
+<li><a class="reference internal" href="#faq" id="id39">11&nbsp;&nbsp;&nbsp;FAQ</a></li>
+<li><a class="reference internal" href="#gnu" id="id40">12&nbsp;&nbsp;&nbsp;构建和安装GNU工具链</a></li>
+<li><a class="reference internal" href="#id9" id="id41">13&nbsp;&nbsp;&nbsp;使用GNU工具</a></li>
+<li><a class="reference internal" href="#id10" id="id42">14&nbsp;&nbsp;&nbsp;编译器优化</a></li>
+<li><a class="reference internal" href="#avrdude" id="id43">15&nbsp;&nbsp;&nbsp;使用avrdude</a></li>
+<li><a class="reference internal" href="#id11" id="id44">16&nbsp;&nbsp;&nbsp;版本号和方法学</a></li>
+<li><a class="reference internal" href="#id12" id="id45">17&nbsp;&nbsp;&nbsp;感谢</a></li>
+<li><a class="reference internal" href="#todo" id="id46">18&nbsp;&nbsp;&nbsp;TODO列表</a></li>
+<li><a class="reference internal" href="#id13" id="id47">19&nbsp;&nbsp;&nbsp;不赞成列表</a></li>
+<li><a class="reference internal" href="#id14" id="id48">20&nbsp;&nbsp;&nbsp;模块索引</a></li>
+<li><a class="reference internal" href="#id15" id="id49">21&nbsp;&nbsp;&nbsp;数据结构索引</a></li>
+<li><a class="reference internal" href="#id16" id="id50">22&nbsp;&nbsp;&nbsp;文件索引</a></li>
+<li><a class="reference internal" href="#id17" id="id51">23&nbsp;&nbsp;&nbsp;模块文档</a><ul class="auto-toc">
+<li><a class="reference internal" href="#alloca-h" id="id52">23.1&nbsp;&nbsp;&nbsp;alloca.h：在栈上分配空间</a></li>
+<li><a class="reference internal" href="#assert-h" id="id53">23.2&nbsp;&nbsp;&nbsp;assert.h：诊断</a></li>
+<li><a class="reference internal" href="#ctype-h" id="id54">23.3&nbsp;&nbsp;&nbsp;ctype.h：字符操作</a></li>
+<li><a class="reference internal" href="#errno-h" id="id55">23.4&nbsp;&nbsp;&nbsp;errno.h：系统错误</a></li>
+<li><a class="reference internal" href="#inttypes-h" id="id56">23.5&nbsp;&nbsp;&nbsp;inttypes.h：整数类型转换</a></li>
+<li><a class="reference internal" href="#math-h" id="id57">23.6&nbsp;&nbsp;&nbsp;math.h：数学</a></li>
+<li><a class="reference internal" href="#setjmp-h" id="id58">23.7&nbsp;&nbsp;&nbsp;setjmp.h：非本地跳转</a></li>
+<li><a class="reference internal" href="#stdint-h" id="id59">23.8&nbsp;&nbsp;&nbsp;stdint.h：标准整数类型</a></li>
+<li><a class="reference internal" href="#stdio-h-io" id="id60">23.9&nbsp;&nbsp;&nbsp;stdio.h：标准IO设备</a></li>
+<li><a class="reference internal" href="#stdlib-h" id="id61">23.10&nbsp;&nbsp;&nbsp;stdlib.h：通用工具</a></li>
+<li><a class="reference internal" href="#string-h" id="id62">23.11&nbsp;&nbsp;&nbsp;string.h：字符串</a></li>
+<li><a class="reference internal" href="#avr-boot-h" id="id63">23.12&nbsp;&nbsp;&nbsp;avr/boot.h：引导器支持工具</a></li>
+<li><a class="reference internal" href="#avr-cpufunc-h-avr-cpu" id="id64">23.13&nbsp;&nbsp;&nbsp;avr/cpufunc.h：特定AVR CPU函数</a></li>
+<li><a class="reference internal" href="#avr-eeprom-h-eeprom" id="id65">23.14&nbsp;&nbsp;&nbsp;avr/eeprom.h：EEPROM处理</a></li>
+<li><a class="reference internal" href="#avr-fuse-h" id="id66">23.15&nbsp;&nbsp;&nbsp;avr/fuse.h：熔丝支持</a></li>
+<li><a class="reference internal" href="#avr-interrupt-h" id="id67">23.16&nbsp;&nbsp;&nbsp;avr/interrupt.h：中断</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id18" id="id68">23.16.1&nbsp;&nbsp;&nbsp;细节描述</a></li>
+<li><a class="reference internal" href="#id19" id="id69">23.16.2&nbsp;&nbsp;&nbsp;定义文档</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avr-io-h-avrio" id="id70">23.17&nbsp;&nbsp;&nbsp;avr/io.h：AVR设备相关IO定义</a></li>
+<li><a class="reference internal" href="#avr-lock-h" id="id71">23.18&nbsp;&nbsp;&nbsp;avr/lock.h：锁定位支持</a></li>
+<li><a class="reference internal" href="#avr-pgmspace-h" id="id72">23.19&nbsp;&nbsp;&nbsp;avr/pgmspace.h：程序空间工具</a></li>
+<li><a class="reference internal" href="#avr-power-h" id="id73">23.20&nbsp;&nbsp;&nbsp;avr/power.h：节能管理</a></li>
+<li><a class="reference internal" href="#avr-sfr-defs-h" id="id74">23.21&nbsp;&nbsp;&nbsp;avr/sfr_defs.h的附加注记</a></li>
+<li><a class="reference internal" href="#id20" id="id75">23.22&nbsp;&nbsp;&nbsp;avr/sfr_defs.h：特殊功能寄存器</a></li>
+<li><a class="reference internal" href="#avr-signature-h" id="id76">23.23&nbsp;&nbsp;&nbsp;avr/signature.h：签名支持</a></li>
+<li><a class="reference internal" href="#avr-sleep-h" id="id77">23.24&nbsp;&nbsp;&nbsp;avr/sleep.h：电源管理和休眠模式</a></li>
+<li><a class="reference internal" href="#avr-version-h-avr-libc" id="id78">23.25&nbsp;&nbsp;&nbsp;avr/version.h：avr-libc版本宏</a></li>
+<li><a class="reference internal" href="#avr-wdt-h" id="id79">23.26&nbsp;&nbsp;&nbsp;avr/wdt.h：看门狗定时器</a></li>
+<li><a class="reference internal" href="#util-atomic-h" id="id80">23.27&nbsp;&nbsp;&nbsp;util/atomic.h：原子和非原子执行块</a></li>
+<li><a class="reference internal" href="#util-crc16-h-crc" id="id81">23.28&nbsp;&nbsp;&nbsp;util/crc16.h：CRC计算</a></li>
+<li><a class="reference internal" href="#util-delay-h" id="id82">23.29&nbsp;&nbsp;&nbsp;util/delay.h：忙等待循环的便利函数</a></li>
+<li><a class="reference internal" href="#util-delay-basic-h" id="id83">23.30&nbsp;&nbsp;&nbsp;util/delay_basic.h：简单忙等待循环</a></li>
+<li><a class="reference internal" href="#util-parity-h" id="id84">23.31&nbsp;&nbsp;&nbsp;util/parity.h：等价位生成</a></li>
+<li><a class="reference internal" href="#util-setbaud-h" id="id85">23.32&nbsp;&nbsp;&nbsp;util/setbaud.h：波特率计算的宏</a></li>
+<li><a class="reference internal" href="#util-twi-h-twi" id="id86">23.33&nbsp;&nbsp;&nbsp;util/twi.h：TWI位掩码定义</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id21" id="id87">23.33.1&nbsp;&nbsp;&nbsp;细节描述</a></li>
+<li><a class="reference internal" href="#id22" id="id88">23.33.2&nbsp;&nbsp;&nbsp;定义文档</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#compat-deprecated-h" id="id89">23.34&nbsp;&nbsp;&nbsp;compat/deprecated.h：废弃项目</a></li>
+<li><a class="reference internal" href="#compat-ina90-h-iar-ewb-3-x" id="id90">23.35&nbsp;&nbsp;&nbsp;compat/ina90.h：兼容IAR EWB 3.x</a></li>
+<li><a class="reference internal" href="#id23" id="id91">23.36&nbsp;&nbsp;&nbsp;演示项目</a></li>
+<li><a class="reference internal" href="#c" id="id92">23.37&nbsp;&nbsp;&nbsp;合并C和汇编源码文件</a></li>
+<li><a class="reference internal" href="#id24" id="id93">23.38&nbsp;&nbsp;&nbsp;一个简单项目</a></li>
+<li><a class="reference internal" href="#id25" id="id94">23.39&nbsp;&nbsp;&nbsp;一个复杂点的项目</a></li>
+<li><a class="reference internal" href="#io" id="id95">23.40&nbsp;&nbsp;&nbsp;使用标准IO设备</a></li>
+<li><a class="reference internal" href="#twi" id="id96">23.41&nbsp;&nbsp;&nbsp;使用TWI的例子</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id26" id="id97">23.41.1&nbsp;&nbsp;&nbsp;TWI简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id27" id="id98">24&nbsp;&nbsp;&nbsp;数据结构文档</a></li>
+<li><a class="reference internal" href="#id28" id="id99">25&nbsp;&nbsp;&nbsp;文件文档</a></li>
+</ul>
+</div>
+<p>网上下载的PDF文档。2734099字节，433页。因为发现avr-libc升级到1.8.0之后，以前的很多东西都用不了了，需要升级，所以研究下其文档。</p>
+<div class="section" id="avr-libc">
+<h1><a class="toc-backref" href="#id29">1&nbsp;&nbsp;&nbsp;AVR libc</a></h1>
+<p>&#64;page 18-27</p>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id30">2&nbsp;&nbsp;&nbsp;工具链概览</a></h1>
+<p>&#64;page 28-32</p>
+</div>
+<div class="section" id="malloc">
+<h1><a class="toc-backref" href="#id31">3&nbsp;&nbsp;&nbsp;内存区域与 malloc()</a></h1>
+<p>&#64;page 33-37</p>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id32">4&nbsp;&nbsp;&nbsp;内存段</a></h1>
+<p>&#64;page 38-42</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id33">5&nbsp;&nbsp;&nbsp;程序空间的数据</a></h1>
+<p>&#64;page 43-47</p>
+</div>
+<div class="section" id="id5">
+<h1><a class="toc-backref" href="#id34">6&nbsp;&nbsp;&nbsp;avr-libc与汇编程序</a></h1>
+<p>&#64;page 48-53</p>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id35">7&nbsp;&nbsp;&nbsp;行内汇编入门</a></h1>
+<p>&#64;page 54-66</p>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id36">8&nbsp;&nbsp;&nbsp;如何建立一个库</a></h1>
+<p>&#64;page 67-69</p>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id37">9&nbsp;&nbsp;&nbsp;性能测试</a></h1>
+<p>&#64;page 70-71</p>
+</div>
+<div class="section" id="iaravr-gcc">
+<h1><a class="toc-backref" href="#id38">10&nbsp;&nbsp;&nbsp;从IAR到AVR GCC的移植</a></h1>
+<p>&#64;page 72-76</p>
+</div>
+<div class="section" id="faq">
+<h1><a class="toc-backref" href="#id39">11&nbsp;&nbsp;&nbsp;FAQ</a></h1>
+<p>&#64;page 77-106</p>
+</div>
+<div class="section" id="gnu">
+<h1><a class="toc-backref" href="#id40">12&nbsp;&nbsp;&nbsp;构建和安装GNU工具链</a></h1>
+<p>&#64;page 107-121</p>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id41">13&nbsp;&nbsp;&nbsp;使用GNU工具</a></h1>
+<p>&#64;page 122-140</p>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id42">14&nbsp;&nbsp;&nbsp;编译器优化</a></h1>
+<p>&#64;page 141-142</p>
+</div>
+<div class="section" id="avrdude">
+<h1><a class="toc-backref" href="#id43">15&nbsp;&nbsp;&nbsp;使用avrdude</a></h1>
+<p>&#64;page 143-144</p>
+</div>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id44">16&nbsp;&nbsp;&nbsp;版本号和方法学</a></h1>
+<p>&#64;page 145-147</p>
+</div>
+<div class="section" id="id12">
+<h1><a class="toc-backref" href="#id45">17&nbsp;&nbsp;&nbsp;感谢</a></h1>
+<p>&#64;page 148-148</p>
+</div>
+<div class="section" id="todo">
+<h1><a class="toc-backref" href="#id46">18&nbsp;&nbsp;&nbsp;TODO列表</a></h1>
+<p>&#64;page 149-149</p>
+</div>
+<div class="section" id="id13">
+<h1><a class="toc-backref" href="#id47">19&nbsp;&nbsp;&nbsp;不赞成列表</a></h1>
+<p>&#64;page 149-149</p>
+</div>
+<div class="section" id="id14">
+<h1><a class="toc-backref" href="#id48">20&nbsp;&nbsp;&nbsp;模块索引</a></h1>
+<p>&#64;page 150-151</p>
+</div>
+<div class="section" id="id15">
+<h1><a class="toc-backref" href="#id49">21&nbsp;&nbsp;&nbsp;数据结构索引</a></h1>
+<p>&#64;page 152-152</p>
+</div>
+<div class="section" id="id16">
+<h1><a class="toc-backref" href="#id50">22&nbsp;&nbsp;&nbsp;文件索引</a></h1>
+<p>&#64;page 152-156</p>
+</div>
+<div class="section" id="id17">
+<h1><a class="toc-backref" href="#id51">23&nbsp;&nbsp;&nbsp;模块文档</a></h1>
+<div class="section" id="alloca-h">
+<h2><a class="toc-backref" href="#id52">23.1&nbsp;&nbsp;&nbsp;alloca.h：在栈上分配空间</a></h2>
+<p>&#64;page 158-159</p>
+</div>
+<div class="section" id="assert-h">
+<h2><a class="toc-backref" href="#id53">23.2&nbsp;&nbsp;&nbsp;assert.h：诊断</a></h2>
+<p>&#64;page 160-160</p>
+</div>
+<div class="section" id="ctype-h">
+<h2><a class="toc-backref" href="#id54">23.3&nbsp;&nbsp;&nbsp;ctype.h：字符操作</a></h2>
+<p>&#64;page 161-163</p>
+</div>
+<div class="section" id="errno-h">
+<h2><a class="toc-backref" href="#id55">23.4&nbsp;&nbsp;&nbsp;errno.h：系统错误</a></h2>
+<p>&#64;page 164-164</p>
+</div>
+<div class="section" id="inttypes-h">
+<h2><a class="toc-backref" href="#id56">23.5&nbsp;&nbsp;&nbsp;inttypes.h：整数类型转换</a></h2>
+<p>&#64;page 165-176</p>
+</div>
+<div class="section" id="math-h">
+<h2><a class="toc-backref" href="#id57">23.6&nbsp;&nbsp;&nbsp;math.h：数学</a></h2>
+<p>&#64;page 177-188</p>
+</div>
+<div class="section" id="setjmp-h">
+<h2><a class="toc-backref" href="#id58">23.7&nbsp;&nbsp;&nbsp;setjmp.h：非本地跳转</a></h2>
+<p>&#64;page 189-191</p>
+</div>
+<div class="section" id="stdint-h">
+<h2><a class="toc-backref" href="#id59">23.8&nbsp;&nbsp;&nbsp;stdint.h：标准整数类型</a></h2>
+<p>&#64;page 192-203</p>
+</div>
+<div class="section" id="stdio-h-io">
+<h2><a class="toc-backref" href="#id60">23.9&nbsp;&nbsp;&nbsp;stdio.h：标准IO设备</a></h2>
+<p>&#64;page 204-221</p>
+</div>
+<div class="section" id="stdlib-h">
+<h2><a class="toc-backref" href="#id61">23.10&nbsp;&nbsp;&nbsp;stdlib.h：通用工具</a></h2>
+<p>&#64;page 222-232</p>
+</div>
+<div class="section" id="string-h">
+<h2><a class="toc-backref" href="#id62">23.11&nbsp;&nbsp;&nbsp;string.h：字符串</a></h2>
+<p>&#64;page 233-245</p>
+</div>
+<div class="section" id="avr-boot-h">
+<h2><a class="toc-backref" href="#id63">23.12&nbsp;&nbsp;&nbsp;avr/boot.h：引导器支持工具</a></h2>
+<p>&#64;page 246-252</p>
+</div>
+<div class="section" id="avr-cpufunc-h-avr-cpu">
+<h2><a class="toc-backref" href="#id64">23.13&nbsp;&nbsp;&nbsp;avr/cpufunc.h：特定AVR CPU函数</a></h2>
+<p>&#64;page 253-253</p>
+</div>
+<div class="section" id="avr-eeprom-h-eeprom">
+<h2><a class="toc-backref" href="#id65">23.14&nbsp;&nbsp;&nbsp;avr/eeprom.h：EEPROM处理</a></h2>
+<p>&#64;page 254-257</p>
+</div>
+<div class="section" id="avr-fuse-h">
+<h2><a class="toc-backref" href="#id66">23.15&nbsp;&nbsp;&nbsp;avr/fuse.h：熔丝支持</a></h2>
+<p>&#64;page 258-261</p>
+</div>
+<div class="section" id="avr-interrupt-h">
+<h2><a class="toc-backref" href="#id67">23.16&nbsp;&nbsp;&nbsp;avr/interrupt.h：中断</a></h2>
+<p>全局中断标志是由状态寄存器SREG控制的。如果需要事件处理中的原子操作，参见 <tt class="docutils literal">util/atomic.h</tt> 。</p>
+<p>中断是默认禁用的，避免占用过多时间。可以自己研究&quot;Probelms with recording code&quot;，研究如何优化。</p>
+<p>全局启用和禁用中断用 <cite>sei()</cite> 和 <cite>cli()</cite> 。</p>
+<p>用于编写中断处理器的宏：</p>
+<ol class="arabic simple">
+<li><cite>ISR(vector,attr)</cite></li>
+<li><cite>SIGNAL(vector)</cite></li>
+<li><cite>EMPTY_INTERRUPT(vector)</cite></li>
+<li><cite>ISR_ALIAS(vector,target_vector)</cite></li>
+<li><cite>reti()</cite></li>
+<li><cite>BADISR_vect</cite></li>
+</ol>
+<p>ISR的属性：</p>
+<ol class="arabic simple">
+<li><cite>ISR_BLOCK</cite></li>
+<li><cite>ISR_NOBLOCK</cite></li>
+<li><cite>ISR_NAKED</cite></li>
+<li><cite>ISR_ALIASOF(target_vector)</cite></li>
+</ol>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id68">23.16.1&nbsp;&nbsp;&nbsp;细节描述</a></h3>
+<p>各个编译器对中断处理的办法都不同。因为C尝试保持机器无关，每个编译器作者各自设计支持方法。</p>
+<p>在AVR-GCC环境，向量表只想中断例程。通过使用恰当的名字，你的例程会在中断发生时调用。设备库会提供一些缺省中断例程，在你没定义时给出默认处理a</p>
+<p>修补向量表是唯一一个问题。编译器按照惯例使用一组寄存器来执行编译器生成代码。这些寄存器的保存和恢复是重点。扩展代码需要用 <cite>__attribute__((signal))</cite> 来标记。</p>
+<p>这些细节似的中断变得麻烦，不过这些所有都是由中断API来处理。中断例程使用 <cite>ISR()</cite> 宏来定义。这个宏注册和标记例程作为特定外设的中断处理器。如下例子代码作为ADC中断的例子:</p>
+<pre class="literal-block">
+#include &lt;avr/interrupt.h&gt;
+ISR(ADC_vect) {
+    //用户代码
+}
+</pre>
+<p><strong>捕捉所有中断向量</strong></p>
+<p>如果非预期中断发生(中断启用，且未安装处理器，通常是bug)，缺省动作是跳转到复位向量来使得设备复位。你可以重载此行为，通过提供函数 <cite>BADISR_vect</cite> ，并定义在 <cite>ISR()</cite> 里，该中断向量其实是 <cite>__vector_default</cite> 的别名。之后必须在汇编代码里适应，因为 <tt class="docutils literal">avr/interrupt.h</tt> 未包含。</p>
+<pre class="literal-block">
+#include &lt;avr/interrupt.h&gt;
+ISR(BADISR_vect) {
+    //用户代码
+}
+</pre>
+<p><strong>嵌套中断</strong></p>
+<p>AVR硬件会在进入中断向量表之前清除SREG中的全局中断标识。因此，通常来说，中断处理器退出之前不会发生其他中断。由编译器生成的RETI指令会重新启用中断。因此中断处理器通常是不嵌套的。对大多数中断处理器，这是期望的行为，使得中断的发生有顺序，例如UART中断或电平触发中断。在少见的情况下，希望在中断处理时仍然允许全局中断，使得不会错过重要的中断。这可以通过在中断处理程序开头调用 <cite>sei()</cite> 来实现，不过这仍然使得在几个编译器生成的指令周期中无法响应中断。不过可以通过特定的声明，让编译器确保在中断刚开始就执行 <cite>sei()</cite> ，避免那几个指令周期中错过中断。通过如下方式:</p>
+<pre class="literal-block">
+ISR(XXX_vect,ISR_NOBLOCK) {
+    //用户代码
+}
+</pre>
+<p>其中XXX_vect就是有效的中断名。</p>
+<p><strong>两个中断向量共享相同代码</strong></p>
+<p>在一些情况中，两个不同中断做相同的事情。例如两个不同引脚的电平改变来触发另一个动作。共享中断代码可以通过 <cite>ISR_ALIASOF()</cite> 宏作为 <cite>ISR()</cite> 的属性实现，例如:</p>
+<pre class="literal-block">
+ISR(PCINT0_vect) {
+    //用户代码
+}
+
+ISR(PCINT1_vect, ISR_ALIASOF(PCINT0_vect)); //此时是没有主体的
+</pre>
+<p><cite>ISR_ALIASOF()</cite> 功能需要gcc-4.2或更高版本来实现。</p>
+<p><strong>空中断服务例程</strong></p>
+<p>有些情况下，中断向量不需要任何代码。但是向量又必须实现，所以当中断触发时，不应该去执行 <cite>BADISR_vect</cite> 的代码(缺省就是重启应用)。</p>
+<p>这个可以用于让芯片从 <cite>sleep_mode()</cite> 唤醒。</p>
+<p>这样的处理器可以通过 <cite>EMPTY_INTERRUPT()</cite> 宏来实现，无需主体:</p>
+<pre class="literal-block">
+EMPTY_INTERRUPT(ADD_vect);
+</pre>
+<p><strong>手动定义ISR</strong></p>
+<p>有些情况下，编译器生成的中断开场和谢幕代码可能对任务不够，可能需要手动定义来加速中断处理。</p>
+<p>一个解决方法是通过用汇编实现整个ISR。</p>
+<p>另一个方案是仍然使用C实现ISR，但是替换开场和谢幕。这可以通过 <cite>ISR()</cite> 宏的 <cite>ISR_NAKED</cite> 属性来实现。注意此时编译器不会生成开场和谢幕代码，所以最后必须提供 <cite>reti()</cite> ，也需要手工保存SREG。而 <cite>__zero_reg__</cite> 总是零也会导致错误。当中断紧跟着MUL指令时。</p>
+<pre class="literal-block">
+ISR(TIMER1_OVF_vect, ISR_NAKED) {
+    PORTB |= _BV(0);    //结果是SBI而不需要动SREG
+    reti();
+}
+</pre>
+<p><strong>选择向量，中断向量名</strong></p>
+<p>中断需要选择如下表格中的一个名字。</p>
+<p>现在有两种不同风格的向量名字。一种形式使用前缀 <cite>SIG_</cite> ，跟随相关的名字来描述中断向量。这是avr-libc-1.2.x以及之前的唯一形式。</p>
+<p>自从avr-libc-1.4.0开始，第二种形式的中断向量名开始启用了，用一个后缀 <cite>_vect</cite> 表示是中断向量。具体所用的名字与设备有关。用 <cite>_vect</cite> 做后缀是为了方便移植到其他编译器。</p>
+<p>这种历史命名方式会在未来废弃，所以推荐不要用在新项目里。</p>
+<p><cite>ISR()</cite> 宏无法检查参数名。因此，写错了的向量名会创建函数，但是不会被注册到中断向量表。编译器会生成警告来提示(例如一个宏替换不是以 <cite>__vector_</cite> 开头)。</p>
+<p>各种设备、各种中断的名字：</p>
+<p>&#64;page 266-280</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id69">23.16.2&nbsp;&nbsp;&nbsp;定义文档</a></h3>
+<p><tt class="docutils literal">#define BADISR_vect</tt></p>
+<p>该向量等同于 <cite>__vector_default</cite> ，会在有中断发生，却没有中断处理函数时被调用。可单独用于 <cite>ISR()</cite> 宏来创建一个捕获所有为定义中断的处理器，用以调试。</p>
+<p><tt class="docutils literal">#define cli()</tt></p>
+<p>禁用所有中断，通过清空全局中断掩码。实际会编译为一条汇编代码，所以不会调用函数。不过宏会消耗内存，导致消耗一部分优化。</p>
+<p>想要实现院子级别的存取多字节对象，可以使用 <tt class="docutils literal">util/atomic.h</tt> 中的宏。而不是手工实现 <cite>cli()</cite> 和 <cite>sei()</cite> 。</p>
+<p><tt class="docutils literal">#define EMPTY_INTERRUPT(vector)</tt></p>
+<p>定义空的中断处理函数，不会生成开场和谢幕代码，而只是从ISR返回。不要定义任何函数体。例如:</p>
+<pre class="literal-block">
+EMPTY_INTERRUPT(ADC_vect);
+</pre>
+<p><tt class="docutils literal">#define ISR(vector,attributes)</tt></p>
+<p>不指定属性时，会引入禁用全局中断的中断处理函数。</p>
+<p>属性是可选的，并可定制生成代码的行为。多个属性可以用在单一函数中，用空格分隔。</p>
+<p>可选属性有：ISR_BLOCK、ISR_NOBLOCK、ISR_NAKED、ISR_ALIASOF(vect)。</p>
+<p>vector必须是特定硬件有效的中断向量名。</p>
+<p><tt class="docutils literal">#define ISR_ALIAS(vector,target_vector)</tt></p>
+<p>&#64;page 281-282</p>
+<p><tt class="docutils literal">#define reti()</tt></p>
+<p>从中断例程返回，启用全局中断，这应该是包含 <cite>ISR_NAKED</cite> 属性的 <cite>ISR()</cite> 定义的最后一句命令。</p>
+<p>这个宏实际编译到一行汇编代码，所以不会有函数调用损耗。</p>
+<p><tt class="docutils literal">#define sei()</tt></p>
+<p>启用全局中断，通过设置全局中断掩码。这个函数实际编译到一行汇编代码，没有函数调用损耗。不过宏是带有内存边界的，所以会导致额外的性能损耗。</p>
+<p>想要实现院子的多字节对象，应该用 <tt class="docutils literal">util/atomic.h</tt> 中的宏，而不是手工实现 <cite>cli()</cite> 和 <cite>sei()</cite> 。</p>
+<p><tt class="docutils literal">#define SIGNAL(vector)</tt></p>
+<p>引入会屏蔽全局中断的中断处理器。相当于不带任何附加属性的 <cite>ISR()</cite> 宏。</p>
+<p>该名字即将废弃。</p>
+</div>
+</div>
+<div class="section" id="avr-io-h-avrio">
+<h2><a class="toc-backref" href="#id70">23.17&nbsp;&nbsp;&nbsp;avr/io.h：AVR设备相关IO定义</a></h2>
+<p><tt class="docutils literal">#include &lt;avr/io.h&gt;</tt></p>
+<p>这个头文件会包含设备相关的IO定义，由gcc的 <cite>-mmcu=&lt;cpu&gt;</cite> 参数指定。实际是通过转移到 <tt class="docutils literal">avr/ioXXXX.h</tt> 实现的。对所有AVR设备都存在的寄存器名字定义在 <tt class="docutils literal">avr/common.h</tt> ，并已经被 <tt class="docutils literal">avr/io.h</tt> 包含了。不过大多数定义还是来自特定硬件的。</p>
+<p>注意该文件默认包含了如下文件:</p>
+<pre class="literal-block">
+#include &lt;avr/sfr_defs.h&gt;
+#include &lt;avr/portpins.h&gt;
+#include &lt;avr/common.h&gt;
+#include &lt;avr/version.h&gt;
+</pre>
+<p>&#64;page 283-283</p>
+</div>
+<div class="section" id="avr-lock-h">
+<h2><a class="toc-backref" href="#id71">23.18&nbsp;&nbsp;&nbsp;avr/lock.h：锁定位支持</a></h2>
+<p>&#64;page 284-286</p>
+</div>
+<div class="section" id="avr-pgmspace-h">
+<h2><a class="toc-backref" href="#id72">23.19&nbsp;&nbsp;&nbsp;avr/pgmspace.h：程序空间工具</a></h2>
+<p>定义:</p>
+<pre class="literal-block">
+#define PROGMEM __ATTR_PROGMEM__
+#define PGM_P const char *
+#define PGM_VOID_P const void *
+#define PSTR(s) ((const PROGMEM char *)(s))
+#define pgm_read_byte_near(address_short) __LPM((uint16_t)(address_short))
+#define pgm_read_word_near(address_short) __LPM_word((uint16_t)(address_short))
+#define pgm_read_dword_near(address_short) __LPM_dword((uint16_t)(address_short))
+#define pgm_read_float_near(address_short) __LPM_float((uint16_t)(address_short))
+#define pgm_read_byte_far(address_long) __ELPM((uint32_t)(address_long))
+#define pgm_read_word_far(address_long) __ELPM_word((uint32_t)(address_long))
+#define pgm_read_dword_far(address_long) __ELPM_dword((uint32_t)(address_long))
+#define pgm_read_float_far(address_long) __ELPM_float((uint32_t)(address_long))
+#define pgm_read_byte(address_short) pgm_read_byte_near(address_short)
+#define pgm_read_word(address_short) pgm_read_word_near(address_short)
+#define pgm_read_dword(address_short) pgm_read_dword_near(address_short)
+#define pgm_read_float(address_short) pgm_read_float_near(address_short)
+</pre>
+<p>&#64;page 287-301</p>
+</div>
+<div class="section" id="avr-power-h">
+<h2><a class="toc-backref" href="#id73">23.20&nbsp;&nbsp;&nbsp;avr/power.h：节能管理</a></h2>
+<p>&#64;page 302-304</p>
+</div>
+<div class="section" id="avr-sfr-defs-h">
+<h2><a class="toc-backref" href="#id74">23.21&nbsp;&nbsp;&nbsp;avr/sfr_defs.h的附加注记</a></h2>
+<p>&#64;page 305-306</p>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id75">23.22&nbsp;&nbsp;&nbsp;avr/sfr_defs.h：特殊功能寄存器</a></h2>
+<p>&#64;page 307-309</p>
+</div>
+<div class="section" id="avr-signature-h">
+<h2><a class="toc-backref" href="#id76">23.23&nbsp;&nbsp;&nbsp;avr/signature.h：签名支持</a></h2>
+<p>&#64;page 310-310</p>
+</div>
+<div class="section" id="avr-sleep-h">
+<h2><a class="toc-backref" href="#id77">23.24&nbsp;&nbsp;&nbsp;avr/sleep.h：电源管理和休眠模式</a></h2>
+<p>&#64;page 311-313</p>
+</div>
+<div class="section" id="avr-version-h-avr-libc">
+<h2><a class="toc-backref" href="#id78">23.25&nbsp;&nbsp;&nbsp;avr/version.h：avr-libc版本宏</a></h2>
+<p>&#64;page 314-315</p>
+</div>
+<div class="section" id="avr-wdt-h">
+<h2><a class="toc-backref" href="#id79">23.26&nbsp;&nbsp;&nbsp;avr/wdt.h：看门狗定时器</a></h2>
+<p>&#64;page 316-319</p>
+</div>
+<div class="section" id="util-atomic-h">
+<h2><a class="toc-backref" href="#id80">23.27&nbsp;&nbsp;&nbsp;util/atomic.h：原子和非原子执行块</a></h2>
+<p>&#64;page 320-323</p>
+</div>
+<div class="section" id="util-crc16-h-crc">
+<h2><a class="toc-backref" href="#id81">23.28&nbsp;&nbsp;&nbsp;util/crc16.h：CRC计算</a></h2>
+<p>&#64;page 324-327</p>
+</div>
+<div class="section" id="util-delay-h">
+<h2><a class="toc-backref" href="#id82">23.29&nbsp;&nbsp;&nbsp;util/delay.h：忙等待循环的便利函数</a></h2>
+<p>&#64;page 328-330</p>
+</div>
+<div class="section" id="util-delay-basic-h">
+<h2><a class="toc-backref" href="#id83">23.30&nbsp;&nbsp;&nbsp;util/delay_basic.h：简单忙等待循环</a></h2>
+<p>&#64;page 331-331</p>
+</div>
+<div class="section" id="util-parity-h">
+<h2><a class="toc-backref" href="#id84">23.31&nbsp;&nbsp;&nbsp;util/parity.h：等价位生成</a></h2>
+<p>&#64;page 332-332</p>
+</div>
+<div class="section" id="util-setbaud-h">
+<h2><a class="toc-backref" href="#id85">23.32&nbsp;&nbsp;&nbsp;util/setbaud.h：波特率计算的宏</a></h2>
+<p>&#64;page 333-335</p>
+</div>
+<div class="section" id="util-twi-h-twi">
+<h2><a class="toc-backref" href="#id86">23.33&nbsp;&nbsp;&nbsp;util/twi.h：TWI位掩码定义</a></h2>
+<p>就是TWSR的值。</p>
+<p>助记符：</p>
+<ul class="simple">
+<li><cite>TW_MT_xxx</cite> ：主机发送</li>
+<li><cite>TW_MR_xxx</cite> ：主机接收</li>
+<li><cite>TW_ST_xxx</cite> ：从机发送</li>
+<li><cite>TW_SR_xxx</cite> ：从机接收</li>
+</ul>
+<ol class="arabic simple">
+<li>TW_START 0x08</li>
+<li>TW_REP_START 0x10</li>
+<li>TW_MT_SLA_ACK 0x18</li>
+<li>TW_MT_SLA_NACK 0x20</li>
+<li>TW_MT_DATA_ACK 0x28</li>
+<li>TW_MT_DATA_NACK 0x30</li>
+<li>TW_MT_ARB_LOST 0x38</li>
+<li>TW_MR_ARB_LOST 0x38</li>
+<li>TW_MR_SLA_ACK 0x40</li>
+<li>TW_MR_SLA_NACK 0x48</li>
+<li>TW_MR_DATA_ACK 0x50</li>
+<li>TW_MR_DATA_NACK 0x58</li>
+<li>TW_ST_SLA_ACK 0xA8：收到了SLA+R，应返回ACK</li>
+<li>TW_ST_ARB_LOST_SLA_ACK 0xB0</li>
+<li>TW_ST_DATA_ACK 0xB8</li>
+<li>TW_ST_DATA_NACK 0xC0</li>
+<li>TW_ST_LAST_DATA 0xC8</li>
+<li>TW_SR_SLA_ACK 0x60：收到SLA+W，已返回ACK</li>
+<li>TW_SR_ARB_LOST_SLA_ACK 0x68</li>
+<li>TW_SR_GCALL_ACK 0x70</li>
+<li>TW_SR_ARB_LOST_GCALL_ACK 0x78</li>
+<li>TW_SR_DATA_ACK 0x80：收到了数据，已返回ACK</li>
+<li>TW_SR_DATA_NACK 0x88</li>
+<li>TW_SR_GCALL_DATA_ACK 0x90</li>
+<li>TW_SR_GCALL_DATA_NACK 0x98</li>
+<li>TW_SR_STOP 0xA0：被选中时，收到了STOP或REPEATED START</li>
+<li>TW_NO_INFO 0xF8</li>
+<li>TW_BUS_ERROR 0x00</li>
+<li>TW_STATUS_MASK</li>
+<li>TW_STATUS (TWSR &amp; TW_STATUS_MASK)</li>
+</ol>
+<p>R/~W位在SLA+R/W地址字段:</p>
+<pre class="literal-block">
+#define TW_READ     1
+#define TW_WRITE    0
+</pre>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id87">23.33.1&nbsp;&nbsp;&nbsp;细节描述</a></h3>
+<p>需要包含 <tt class="docutils literal">util/twi.h</tt> 。</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id88">23.33.2&nbsp;&nbsp;&nbsp;定义文档</a></h3>
+<p>&#64;page 337-340</p>
+</div>
+</div>
+<div class="section" id="compat-deprecated-h">
+<h2><a class="toc-backref" href="#id89">23.34&nbsp;&nbsp;&nbsp;compat/deprecated.h：废弃项目</a></h2>
+<p>&#64;page 341-343</p>
+</div>
+<div class="section" id="compat-ina90-h-iar-ewb-3-x">
+<h2><a class="toc-backref" href="#id90">23.35&nbsp;&nbsp;&nbsp;compat/ina90.h：兼容IAR EWB 3.x</a></h2>
+<p>&#64;page 344-344</p>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id91">23.36&nbsp;&nbsp;&nbsp;演示项目</a></h2>
+<p>&#64;page 345-346</p>
+</div>
+<div class="section" id="c">
+<h2><a class="toc-backref" href="#id92">23.37&nbsp;&nbsp;&nbsp;合并C和汇编源码文件</a></h2>
+<p>&#64;page 347-350</p>
+</div>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id93">23.38&nbsp;&nbsp;&nbsp;一个简单项目</a></h2>
+<p>&#64;page 351-366</p>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id94">23.39&nbsp;&nbsp;&nbsp;一个复杂点的项目</a></h2>
+<p>&#64;page 367-374</p>
+</div>
+<div class="section" id="io">
+<h2><a class="toc-backref" href="#id95">23.40&nbsp;&nbsp;&nbsp;使用标准IO设备</a></h2>
+<p>&#64;page 375-382</p>
+</div>
+<div class="section" id="twi">
+<h2><a class="toc-backref" href="#id96">23.41&nbsp;&nbsp;&nbsp;使用TWI的例子</a></h2>
+<p>较新的ATmega系列产品包含了两线制总线，叫做TWI。其实等同于I2C，不过该术语是属于philips的，其文档详见 <a class="reference external" href="http://www.nxp.com/documents/user_manual/UM10204.pdf">http://www.nxp.com/documents/user_manual/UM10204.pdf</a> 。</p>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id97">23.41.1&nbsp;&nbsp;&nbsp;TWI简介</a></h3>
+<p>&#64;page 383-388</p>
+</div>
+</div>
+</div>
+<div class="section" id="id27">
+<h1><a class="toc-backref" href="#id98">24&nbsp;&nbsp;&nbsp;数据结构文档</a></h1>
+<p>&#64;page 389-390</p>
+</div>
+<div class="section" id="id28">
+<h1><a class="toc-backref" href="#id99">25&nbsp;&nbsp;&nbsp;文件文档</a></h1>
+<p>&#64;page 390-433</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 9728, "title": "avr-libc\u7528\u6237\u624b\u518c1.8.0", "src_size": 14668, "filehash": "eaa9396dfb9f0bdda89fa004ef3728c5", "dst_size": 39438} -->

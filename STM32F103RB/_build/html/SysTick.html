@@ -1,0 +1,179 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LED灯的闪烁-systick的应用 &#8212; STM32F103RB v0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="led-systick">
+<h1>LED灯的闪烁-systick的应用<a class="headerlink" href="#led-systick" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="systick">
+<h2>1.systick的简要介绍<a class="headerlink" href="#systick" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>systick是一个24位（0~2^24-1）的系统时钟，是从重载值递减到0会产生一个systick事件。
+systick一共有四个相关的寄存器。</div></blockquote>
+</div>
+<div class="section" id="id1">
+<h2>2.systick的配置流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">2.1设置系统时钟（初始化系统）</p>
+<blockquote>
+<div><p>可直接使用固件库函数”void SystemInit(void)”设置成72M赫兹</p>
+</div></blockquote>
+</li>
+<li><p class="first">2.2配置systick</p>
+<blockquote>
+<div><p>“void systick_init(void)</p>
+<p>{</p>
+<blockquote>
+<div><p>/<em>配置Systick重载值，系统时钟为72MHz</em>/</p>
+<p>/<em>设置72000，中断时间：72000*（1/72000000） = 1ms</em>/</p>
+<p>if(SysTick_Config(72000) == 1)</p>
+<p>{</p>
+<blockquote>
+<div><p>while(1);</p>
+</div></blockquote>
+<p>}</p>
+<p>/<em>while(Systick_Config(72000) == 1);</em>/</p>
+</div></blockquote>
+<p>}”</p>
+<p>没有设置完成就”while(1)”,设置完成了就出if语句，重载寄存器就变成了7200减1，减到0将
+产生一次中断。将跳入到中断入口函数这来了。</p>
+</div></blockquote>
+</li>
+<li><p class="first">2.3写中断处理函数</p>
+<blockquote>
+<div><p>先可在“startup_stm32f10x_md.s”函数里面找到systick的中断入口函数
+“void SysTick_Handler(void)“</p>
+</div></blockquote>
+</li>
+<li><p class="first">2.4编写systick的中断处理函数</p>
+<blockquote>
+<div><p>“__IO uint32_t TimingDelay; // 定义一个volatile 型的变量</p>
+<p>void TimingDelay_Decrement(void)</p>
+<p>{</p>
+<blockquote>
+<div><p>if (TimingDelay != 0x00)</p>
+<p>{</p>
+<blockquote>
+<div><p>TimingDelay–;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p>void SysTick_Handler(void)</p>
+<p>{</p>
+<blockquote>
+<div><p>TimingDelay_Decrement();</p>
+</div></blockquote>
+<p>}</p>
+<p>void delay_ms(__IO uint32_t nTime)</p>
+<p>{</p>
+<blockquote>
+<div><p>TimingDelay = nTime;//时钟滴答数</p>
+<p>while(TimingDelay != 0);</p>
+</div></blockquote>
+<p>}”</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">LED灯的闪烁-systick的应用</a><ul>
+<li><a class="reference internal" href="#systick">1.systick的简要介绍</a></li>
+<li><a class="reference internal" href="#id1">2.systick的配置流程</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SysTick.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 伍长柏.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/SysTick.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR ASM Introduction</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-asm-introduction">
+<h1 class="title">AVR ASM Introduction</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">译者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2011-10-23</td>
+</tr>
+<tr class="field"><th class="docinfo-name">地址:</th><td class="field-body"><a class="reference external" href="http://sites.google.com/site/avrasmintro/">http://sites.google.com/site/avrasmintro/</a></td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#introduction" id="id15">1&nbsp;&nbsp;&nbsp;Introduction</a></li>
+<li><a class="reference internal" href="#avr" id="id16">2&nbsp;&nbsp;&nbsp;基本AVR架构</a></li>
+<li><a class="reference internal" href="#id2" id="id17">3&nbsp;&nbsp;&nbsp;寄存器</a></li>
+<li><a class="reference internal" href="#id3" id="id18">4&nbsp;&nbsp;&nbsp;寄存器定义</a></li>
+<li><a class="reference internal" href="#id4" id="id19">5&nbsp;&nbsp;&nbsp;常量</a></li>
+<li><a class="reference internal" href="#id5" id="id20">6&nbsp;&nbsp;&nbsp;包含文件指令</a></li>
+<li><a class="reference internal" href="#id6" id="id21">7&nbsp;&nbsp;&nbsp;安装汇编器</a></li>
+<li><a class="reference internal" href="#beep" id="id22">8&nbsp;&nbsp;&nbsp;&quot;BEEP&quot;第一个程序</a></li>
+<li><a class="reference internal" href="#butterfly-beep" id="id23">9&nbsp;&nbsp;&nbsp;一个蝴蝶飞(butterfly)beep</a></li>
+<li><a class="reference internal" href="#id7" id="id24">10&nbsp;&nbsp;&nbsp;移植到其他芯片</a></li>
+<li><a class="reference internal" href="#origin" id="id25">11&nbsp;&nbsp;&nbsp;ORIGIN指令</a></li>
+<li><a class="reference internal" href="#id8" id="id26">12&nbsp;&nbsp;&nbsp;标签</a></li>
+<li><a class="reference internal" href="#id9" id="id27">13&nbsp;&nbsp;&nbsp;高低表达式</a></li>
+<li><a class="reference internal" href="#id10" id="id28">14&nbsp;&nbsp;&nbsp;栈指针</a></li>
+<li><a class="reference internal" href="#id11" id="id29">15&nbsp;&nbsp;&nbsp;数据指令寄存器</a></li>
+<li><a class="reference internal" href="#clrser" id="id30">16&nbsp;&nbsp;&nbsp;CLR和SER命令</a></li>
+<li><a class="reference internal" href="#id12" id="id31">17&nbsp;&nbsp;&nbsp;激活扬声器</a></li>
+<li><a class="reference internal" href="#rcallret" id="id32">18&nbsp;&nbsp;&nbsp;子例程、RCALL和RET命令</a></li>
+<li><a class="reference internal" href="#addsubtract" id="id33">19&nbsp;&nbsp;&nbsp;ADD和SUBTRACT命令</a></li>
+<li><a class="reference internal" href="#id13" id="id34">20&nbsp;&nbsp;&nbsp;跳转和分支</a></li>
+<li><a class="reference internal" href="#pause" id="id35">21&nbsp;&nbsp;&nbsp;PAUSE例程</a></li>
+<li><a class="reference internal" href="#nop" id="id36">22&nbsp;&nbsp;&nbsp;NOP指令</a></li>
+<li><a class="reference internal" href="#and" id="id37">23&nbsp;&nbsp;&nbsp;AND操作符</a></li>
+<li><a class="reference internal" href="#or" id="id38">24&nbsp;&nbsp;&nbsp;OR操作符</a></li>
+<li><a class="reference internal" href="#exclusive-or-eor" id="id39">25&nbsp;&nbsp;&nbsp;异或(exclusive or)EOR操作符</a></li>
+<li><a class="reference internal" href="#inverse-not" id="id40">26&nbsp;&nbsp;&nbsp;反转(inverse)或NOT操作符</a></li>
+<li><a class="reference internal" href="#sbicbi" id="id41">27&nbsp;&nbsp;&nbsp;SBI和CBI指令</a></li>
+<li><a class="reference internal" href="#id14" id="id42">28&nbsp;&nbsp;&nbsp;栈</a></li>
+<li><a class="reference internal" href="#pushpop" id="id43">29&nbsp;&nbsp;&nbsp;PUSH和POP指令</a></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id15">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<p>汇编语言非常简单，就是移动一字节数据到寄存器，做某些事，然后写出。其他语言都是转换为类似汇编的机器语言，因此汇编指令接近于与机器码一一对应了。</p>
+<p>汇编看起来比较难，在于陡峭的学习曲线。其实每件事情一个指令，还是相对简单的。开始之前应该仔细了解机器架构、指令集、汇编语法、编程机制、循环、子例程，然后就可以编程了。</p>
+<p>汇编的好处是他们非常相似，其余可以切换到大多数处理器，只要移动字节就是了。</p>
+<p>汇编允许你创建很小和很快的代码，不过对大工程，可能代码会很多。</p>
+</div>
+<div class="section" id="avr">
+<h1><a class="toc-backref" href="#id16">2&nbsp;&nbsp;&nbsp;基本AVR架构</a></h1>
+<p>AVR由三部分构成：寄存器[Register]、端口[Port]、内存[RAM]。</p>
+<p>有32个寄存器可以作为快速的内存来工作。有如前面提到的，需要先把数据移入寄存器才能做事。</p>
+<p>RAM就是用于存储程序和数据的。</p>
+<p>端口用来与外部通信，不过对MCU来说也是寄存器。</p>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id17">3&nbsp;&nbsp;&nbsp;寄存器</a></h1>
+<p>每个寄存器是1字节(8bit)，在MCU内部操作速度很快。可以把他们看作工作空间。所以在编写AVR汇编程序之前，理解寄存器很重要。</p>
+<p>AVR典型的有32个内部寄存器，叫做R0~R31。最常用的是R16~R31，因为他们用起来很简单。可以直接载入常量。例如，如果你想要载入100到寄存器R16，就这么写:</p>
+<pre class="literal-block">
+LDI R16,100 ;LDI=LoaD Immediate 100到寄存器16
+</pre>
+<p>LDI表示立即载入，R16是寄存器，而100是常量。在分号&quot;;&quot;之后的是注释。</p>
+<p>如果你想要移动值100到另一个寄存器，你 <strong>不能</strong> 这么做 <tt class="docutils literal">LDI R1,100</tt> 。</p>
+<p>移动100到R0~R15寄存器，你应该这样:</p>
+<pre class="literal-block">
+LDI R16,100
+MOV R1,R16
+</pre>
+<p>即先把值载入到R16，然后移动到R1。注意操作是从右到左的。MOV是从R16到R1。</p>
+<p>可以看到R16~R31很容易使用。这其中R26~R31通常作为两字节指针来实现高级功能，所以主要工作空间是用R16~R25。</p>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id18">4&nbsp;&nbsp;&nbsp;寄存器定义</a></h1>
+<p>我们可以使用 <cite>.DEF</cite> 命令给寄存器一个有意义的名字:</p>
+<pre class="literal-block">
+.DEF A=R16
+.DEF B=R18
+.DEF N=R20
+.DEF STUDENT_SCORE=R25
+</pre>
+<p>现在，我们可以载入值100到寄存器R16， <tt class="docutils literal">LDI A,100</tt> 。</p>
+</div>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id19">5&nbsp;&nbsp;&nbsp;常量</a></h1>
+<p>常量就是运行时不会改变的值。在汇编到机器码时定义。</p>
+<p>可以通过 <cite>.SET</cite> 或 <cite>.EQU</cite> 来给出个名字。在上面的例子载入值100到R16，预期使用常量100，我们可以给出个名字，例如:</p>
+<pre class="literal-block">
+.SET PERFECT_SCORE=100
+.EQU PERFETC_SCORE=100
+</pre>
+<p>然后在程序中就可以用:</p>
+<pre class="literal-block">
+LDI R16,PERFECT_SCORE
+</pre>
+<p>常量可以用多种方式表示，十六进制、八进制、二进制等。如下定义都等于PERFECT_SOCRE设置为100:</p>
+<pre class="literal-block">
+.SET PREFECT_SCORE=100          ;十进制
+.SET PERFECT_SCORE=(2000+500)/25    ;计算结果为100
+.SET PERFECT_SCORE=0x0064       ;十六进制
+.EQU PERFECT_SCORE=$64          ;十六进制
+.EQU PERFECT_SCORE=0b0110_0100  ;二进制
+.EQU PERFECT_SCORE=0144         ;八进制
+.EQU PERFECT_SCORE='d'          ;ASCII形式
+</pre>
+<p>有如如上看到的，常量可以直接载入到寄存器R16~R31.如下都是可接受的方式:</p>
+<pre class="literal-block">
+LDI R16,100
+LDI R16,PERFECT_SCORE
+LDI R16,(2000+500)/25
+LDI R16,$64
+LDI R16,0b0100_0100
+LDI R16,'d'
+LDI A, PERFECT_SCORE
+</pre>
+</div>
+<div class="section" id="id5">
+<h1><a class="toc-backref" href="#id20">6&nbsp;&nbsp;&nbsp;包含文件指令</a></h1>
+<p>AVR拥有庞大的芯片家族，为了帮助我们产生特定处理器的代码，ATMEL提供了一系列文件，其中包含标准的 <cite>.DEF</cite> 和 <cite>.EQU</cite> 定义来指定芯片相关的细节。例如有个 <tt class="docutils literal">M69DEF.INC</tt> 文件，是供ATmega169处理器的，其定义了R26-R31寄存器作为两字节指针，叫做X、Y、Z:</p>
+<pre class="literal-block">
+; ***** CPU REGISTER DEFINITIONS *****
+.def XH = r27
+.def XL = r26
+.def YH = r29
+.def YL = r28
+.def ZH = r31
+.def ZL = r30
+</pre>
+<p><cite>.INCLUDE</cite> 指令告诉会便器读取文件作为我们程序的一部分。例如在butterfly程序的顶部，应该写:</p>
+<pre class="literal-block">
+.INCLUDE &quot;M169DEF.INC&quot;
+</pre>
+<p>或者如果程序是供ATtiny13的:</p>
+<pre class="literal-block">
+.INCLUDE &quot;TN13DEF.INC&quot;
+</pre>
+<p>你还可以创建自己的库例程或常量，供包含:</p>
+<pre class="literal-block">
+.INCLUDE &quot;MYFILE.ASM&quot;
+</pre>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id21">7&nbsp;&nbsp;&nbsp;安装汇编器</a></h1>
+<p>最好的学习方式就是动手实践，所以去下载个Studio 4软件，从atmel.com，安装到Windows上。如果你使用其他操作系统，我假设你已经安装好了汇编器和编程器。从串口连接芯片和电脑，并且你已经准备好了。</p>
+<p>然后进入汇编程序调用BEEP的butterfly。</p>
+<p>如果这是你第一次运行软件，选择&quot;Atmel AVR Assembler&quot;。键入文件名，再选芯片，比如butterlfy选择ATmega169。</p>
+</div>
+<div class="section" id="beep">
+<h1><a class="toc-backref" href="#id22">8&nbsp;&nbsp;&nbsp;&quot;BEEP&quot;第一个程序</a></h1>
+<p>如下是第一个程序，可以直接粘贴到汇编器。然后编译，会产生beep.hex文件供写入到芯片。代码:</p>
+<pre class="literal-block">
+;BEEP.ASM 给AVR butterfly
+;产生著名的声音
+;作者: DANIEL J. DOREY ...
+
+.INCLUDE &quot;M169DEF.INC&quot;          ;butterfly定义
+
+;定义一些使用的寄存器
+.DEF A=R16                      ;通用目的累加器
+.DEF I=R21                      ;循环控制索引
+.DEF J=R22
+
+.ORG $0000
+
+;设置栈区域，之灵位使用PORT-B作为输出
+START:
+    LDI A,LOW(RAMEND)           ;设置栈指针
+    OUT SPL,A                   ;调用子例程
+    LDI A,HIGH(RAMEND)          ;工作正确
+    OUT SPH,A
+    LDI A,0b1111_1111           ;设置PORTB为输出
+    OUT DDRB,A                  ;写入值到方向寄存器
+
+;主例程
+BEEP: CLR I
+BLUPE:
+    SER A                       ;打开扬声器
+    OUT PORTB,A
+    RCALL PAUSE                 ;等待
+    CLR A                       ;关闭
+    OUT PORTB,A
+    RCALL PAUSE                 ;再次等待
+    DEC I
+    BRNE BLUPE
+LOOP: RJMP LOOP                 ;持续执行
+
+;等待例程
+PAUSE:
+    CLR J
+PLUPE:
+    NOP
+    DEC J
+    BRNE PLUPE
+    RET
+</pre>
+</div>
+<div class="section" id="butterfly-beep">
+<h1><a class="toc-backref" href="#id23">9&nbsp;&nbsp;&nbsp;一个蝴蝶飞(butterfly)beep</a></h1>
+<p>如果你的程序运行成功了，并发出了butterfly的声音，如果失败就检查程序模块是否发送了正确的文件，汇编编辑器在切换程序时，并不更新程序模块。</p>
+<p>现在我们看程序的细节。现在你应该理解了程序的第一部分了。开始于一些注释。然后使用 <cite>.INCLUDE</cite> 指令读取 <tt class="docutils literal">M169DEF.INC</tt> ，其中包含了ATmega169的芯片的一些定义。</p>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id24">10&nbsp;&nbsp;&nbsp;移植到其他芯片</a></h1>
+<p>如果你使用其他芯片如ATtiny13，你应该使用 <tt class="docutils literal">AT13DEF.INC</tt> 。如果你完成了在Windows XP的安装，那么这些文件在 <tt class="docutils literal"><span class="pre">C:\Program</span> Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</tt> 。如果你要看看芯片对应的文件可以过去玩玩。</p>
+<p>然后你要使用3V电压连接芯片，以及扬声器连接到PortB/Pin5。检查输出口。你可以使用小的PC扬声器。如果一定要使用5V，则注意使用电阻范围在100~220 ohm的眼生气来限制电流。</p>
+<p>如果PortB/Pin5不可用，例如ATtiny系列芯片将其作为RESET。你可以连接到PortB/Pin0，然后修改下程序。</p>
+<p>回到程序，我们随后给出自己的名字(A,I,J)到寄存器。注意他们都在R16~R25之间:</p>
+<pre class="literal-block">
+; 首先定义要用的寄存器
+.DEF A=R16      ;通用累加器
+.DEF I=R21      ;循环索引控制
+.DEF J=R22
+</pre>
+</div>
+<div class="section" id="origin">
+<h1><a class="toc-backref" href="#id25">11&nbsp;&nbsp;&nbsp;ORIGIN指令</a></h1>
+<p>在我们实际创建自己的第一行代码之前，我们需要告诉汇编器，把程序放到存储器的何处。这通过Origin指令 <cite>.ORG</cite> 来实现，告知AVR程序开始的内存位置，定位到0。因为这是AVR芯片启动(fire-up)或重置(reset)后的起始位置。</p>
+<pre class="literal-block">
+.ORG $0000
+</pre>
+<p>其中 <tt class="docutils literal">$0000</tt> 就是个常量，有如之前说的。</p>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id26">12&nbsp;&nbsp;&nbsp;标签</a></h1>
+<p>为了跳转、循环和子例程，我们需要一种方法告诉汇编器到哪里。标签就是为这个目的存在的。也利于理解代码的目的。例如，在程序的开始使用标签&quot;START:&quot;。</p>
+<p>标签典型的在屏幕左侧，而程序则缩进。标签可以用字母和数字构成，但是必须以字母开始，最后以冒号&quot;:&quot;结束。使用标签时不包含冒号，例如跳转到START，就用 <tt class="docutils literal">RJMP START</tt> 。</p>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id27">13&nbsp;&nbsp;&nbsp;高低表达式</a></h1>
+<p>在我们调用任何子例程之前，我们需要在内存中设置一个结构，叫做栈(stack)。典型的程序内存在内存底部，而栈在顶部。程序一般在启动时设置栈。</p>
+<p>在包含文件，如本例的 <tt class="docutils literal">M169DEF.INC</tt> ，一个常量RAMEND定义了内存的顶部。问题是如果我们有多于256字节内存，就无法放在一个字节中。表达式 <cite>LOW()</cite> 和 <cite>HIGH()</cite> 提供了十六字节数字。 <cite>LOW(RAMEND)</cite> 告诉我们低字节 <cite>HIGH(RAMEND)</cite> 告诉我们高字节。注意，这些都是双字节常量，想要尝试写入栈指针时，我们必须将其先载入R16~R31范围，有如其他常量。</p>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id28">14&nbsp;&nbsp;&nbsp;栈指针</a></h1>
+<p>是一个特殊的2字节内存位置，总是指向栈的顶部项。两个内存位置分别定义为SPL(低字节)和SPH(高字节)。在AVR，他们被看作一个端口，所以可以不能用MOV命令，而需要用OUT命令。OUT典型的发送寄存器内容到一个端口位置:</p>
+<pre class="literal-block">
+START:
+    LDI A,LOW(RAMEND)       ;设置栈指针
+    OUT SPL,A               ;调用子例程
+    LDI A,HIGH(RAMEND)      ;工作正确
+    OUT SPH,A
+</pre>
+</div>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id29">15&nbsp;&nbsp;&nbsp;数据指令寄存器</a></h1>
+<p>每个AVR的IO端口都有个对应的数据方向寄存器。例如PortB的是DDRB，而PortC的是DDRC等。如果设置该寄存器的一个位为1，则该管脚变为输出状态，反之写入0则变为输入管脚。</p>
+<p>现在我们需要PortB的Pin5变为输出，而不使用其他管脚，则可以简单的是这个管脚变为输出。</p>
+<p>当移入常量0b1111_1111到R16寄存器。数据方向寄存器不能使用MOV命令，而必须用OUT命令:</p>
+<pre class="literal-block">
+LDI A,0b1111_1111   ;设置PortB全部为输出
+OUT DDRB,A          ;写入方向寄存器
+</pre>
+</div>
+<div class="section" id="clrser">
+<h1><a class="toc-backref" href="#id30">16&nbsp;&nbsp;&nbsp;CLR和SER命令</a></h1>
+<p>现在初始化完成了，进入程序的主体。程序发出beep声，所以叫做BEEP，你也可以叫他MAIN之类的。</p>
+<p>我们不希望一直叫，所以设置个计数器来限制声音的时间。我们使用R21，即之前的I，来从0开始。一般载入0用 <tt class="docutils literal">LDI I,0</tt> ，但是我们现在用新命令 <cite>CLR</cite> 来设置一个寄存器为0。</p>
+<p>命令CLR可以用于所有R0~R31的寄存器。与 <cite>CLR</cite> 对应的命令是 <cite>SER</cite> (SEt Register)，会设置寄存器所有位为1。实际上之前的 <tt class="docutils literal">LDI A,0b1111_1111</tt> 可以替换为 <tt class="docutils literal">SER A</tt> 。</p>
+<pre class="literal-block">
+; MAIN ROUTINE
+BEEP: CLR I
+</pre>
+</div>
+<div class="section" id="id12">
+<h1><a class="toc-backref" href="#id31">17&nbsp;&nbsp;&nbsp;激活扬声器</a></h1>
+<p>在扬声器制造声音就是通过发送一系列的1和0到端口。这会让扬声器不断进出来创造音调(tone)。要实现这个需要一个循环，而循环需要标签，把这个叫做 BLUPE(Beep Loop):</p>
+<pre class="literal-block">
+BLUPE:
+</pre>
+<p>激活眼生气需要发送1到PortB，Pin5。因为其他端口没有用，所以也可以直接用 <tt class="docutils literal">SER A</tt> 来设置PortB所有的位都是1。</p>
+<pre class="literal-block">
+SER A       ;开启SPKR
+OUT PORTB,A
+</pre>
+</div>
+<div class="section" id="rcallret">
+<h1><a class="toc-backref" href="#id32">18&nbsp;&nbsp;&nbsp;子例程、RCALL和RET命令</a></h1>
+<p>因为处理器很快，这里的芯片默认1MHz，除非我们降低速度，否则就太高而根本听不到了。所以我们使用子例程叫做PAUSE，可以通过 <cite>RCALL</cite> 命令来跳过去，用以浪费一些时间。</p>
+<p><cite>RCALL</cite> 命令保存我们的现场(spot)到栈，然后跳到子例程继续执行该位置的命令。与 <cite>RCALL</cite> 相反(opposite)对应的是 <cite>RET</cite> 命令，会获取之前在栈的位置，并返回到那里继续执行。所以每个子例程必须以RET结束。我们缩进 <tt class="docutils literal">RCALL PAUSE</tt> 命令来提醒自己程序跳到另一个位置了。</p>
+<p>之前通过写入1到PortB来激活扬声器，现在还需要做相反的事情，使用 <cite>CLR</cite> 命令来设置寄存器A的所谓位为0，再发送到PortB:</p>
+<pre class="literal-block">
+CLR A
+OUT PORTB, A
+RCALL PAUSE
+</pre>
+</div>
+<div class="section" id="addsubtract">
+<h1><a class="toc-backref" href="#id33">19&nbsp;&nbsp;&nbsp;ADD和SUBTRACT命令</a></h1>
+<p>之前把寄存器I作为计数器，来限制扬声器发声时间。实现这个需要对计数器一直减一，直到我们激活和禁止扬声器256次。</p>
+<p>要让寄存器I减一，我们可以 <tt class="docutils literal">LDI A,1</tt> ，然后 <tt class="docutils literal">SUB I,A</tt> ，就会从I中减去A中的值。类似于使用 <tt class="docutils literal">ADD I,A</tt> 是就爱你个A的内容加到I。</p>
+<p>一个更好的实现I减一的办法是立即减法命令(SUBtract Immediate) <tt class="docutils literal">SUBI I,1</tt> ，允许我们立即从寄存器减去一个常量。不幸的是没有加法的立即命令。</p>
+<p>一个常见的寄存器I自减是使用 <cite>DEC</cite> 命令 <tt class="docutils literal">DEC I</tt> 。寄存器的自加和自减非常常用，分别对应 <tt class="docutils literal">INC I</tt> 和 <tt class="docutils literal">DEC I</tt> 。</p>
+</div>
+<div class="section" id="id13">
+<h1><a class="toc-backref" href="#id34">20&nbsp;&nbsp;&nbsp;跳转和分支</a></h1>
+<p>一般当我们想要跳转到一个位置，而不需要返回时，使用 <cite>RJMP</cite> 命令，而如果只是跳到基于特定的尺度(certain criteria)，通常用 <cite>BRANCH</cite> ，就像爬树。</p>
+<p>有很多分支指令，如果你没概念，就看看数据手册。</p>
+<p>我们需要在主循环中每次对寄存器I减一，一直到0时停止。这里我们使用分支 <cite>BRNE</cite> (BRanch if Not Equal to zero)。所以如果I还不是0，就会分支跳回主循环，而当寄存器I为0时，则不走分支，而是继续执行下一条指令，退出循环。 <tt class="docutils literal">BRNE BLUPE</tt> 。</p>
+<p>如果想无条件的跳转(unconditionally jump)到程序的其他位置，一般使用 <cite>RJMP</cite> (Relative JuMP)命令。 <cite>RJMP</cite> 指令会快速带我们到另一个位置，不过限制了能到达的距离。如果因为标签太远而失败，那么我们应该使用更慢的 <cite>JMP</cite> 命令，来避开距离的限制。</p>
+<p>读者可能会问，如果从0开始，自减能否重新到达0？答案是当自减一从0开始时，瘾让8-bit寄存器溢出(roll over)到255，然后继续从255开始自减，直到重新到达0。</p>
+<p>一旦我们制造了beep声音，我们就不需要处理器做其他事情了，所以发送他到一个无限(infinite)循环，通过跳转到自身 <tt class="docutils literal">LOOP: RJMP LOOP</tt> 。</p>
+</div>
+<div class="section" id="pause">
+<h1><a class="toc-backref" href="#id35">21&nbsp;&nbsp;&nbsp;PAUSE例程</a></h1>
+<p>要降低程序的速度，才能听到特定的声调，我们使用子例程中的循环255次来在激活和禁用扬声器之间提供时延。我们使用寄存器J来做这个循环，将其自减直到0，有如在主循环中的那样，通过 <cite>BRNE</cite> 指令实现。</p>
+</div>
+<div class="section" id="nop">
+<h1><a class="toc-backref" href="#id36">22&nbsp;&nbsp;&nbsp;NOP指令</a></h1>
+<p>要减慢我们的程序，可以插入一个命令到循环体不做任何事，而只是等待一个时钟周期，这个指令是 <cite>NOP</cite> (No OPeration)。我们可以通过增减NOP来改变频率:</p>
+<pre class="literal-block">
+; PAUSE ROUTINE
+PAUSE:
+    CLR J
+PLUPE:
+    NOP
+    DEC J
+    BRNE PLUPE
+    RET
+</pre>
+<p>有如早先提到的，所有子例程必须以RET指令结束。</p>
+</div>
+<div class="section" id="and">
+<h1><a class="toc-backref" href="#id37">23&nbsp;&nbsp;&nbsp;AND操作符</a></h1>
+<p>AND操作可以理解为一条线上的两个开关，控制一个灯。仅在两个开关都闭合时才会接通，可以用真值图(truth table)表示，我这里就不画了。</p>
+<p>AND可以用于清除一个位到0，例如要清除一个寄存器的高位为0，如下就是:</p>
+<pre class="literal-block">
+LDI     A,0b1111_1111   ;A=11111111
+ANDI    A,0b0111_1111   ;A=01111111
+</pre>
+<p>AND操作也可以用于位掩码(bit-mask)来截断一些位，以凸显我们感兴趣的位。例如我们之关系一个字节的最高4位。我们可以用二进制数 0b1111_0000来与寄存器的字节操作，以忽略低端的:</p>
+<pre class="literal-block">
+LDI     A,0b1010_1111   ;A=1010_1111
+ANDI    A,0b1111_0000   ;A=1010_0000
+</pre>
+</div>
+<div class="section" id="or">
+<h1><a class="toc-backref" href="#id38">24&nbsp;&nbsp;&nbsp;OR操作符</a></h1>
+<p><cite>OR</cite> 操作对应并联线路上的两个开关。</p>
+<p>只要任何一个接通，灯就会亮。</p>
+<p>OR操作可以用于设置一个位为1。从真值图可知，如果你要设置一个寄存器的最高位为1，可以用如下代码:</p>
+<pre class="literal-block">
+LDI     A,0b0101_0101   ;A=0101_0101
+ORI     A,0b1000_0000   ;A=1101_0101
+</pre>
+</div>
+<div class="section" id="exclusive-or-eor">
+<h1><a class="toc-backref" href="#id39">25&nbsp;&nbsp;&nbsp;异或(exclusive or)EOR操作符</a></h1>
+<p><cite>EOR</cite> 操作符类似于 <cite>OR</cite> ，除了其两折相同时却关闭。这意味着两个开关状态不同时，灯是亮的。真值图就不画了。</p>
+<p>EOR给我们相反的(opposite或inverse)。例如需要闪烁修改寄存器的高位，如下代码就是，而不需要令人烦扰(disturbing)的A寄存器:</p>
+<pre class="literal-block">
+LDI     B,0b1000_0000
+LDI     A,0b0101_0101   ;A=0101_0101
+EOR     A,B             ;A=1101_0101
+EOR     A,B             ;A=0101_0101
+EOR     A,B             ;A=1101_0101
+</pre>
+</div>
+<div class="section" id="inverse-not">
+<h1><a class="toc-backref" href="#id40">26&nbsp;&nbsp;&nbsp;反转(inverse)或NOT操作符</a></h1>
+<p><cite>NOT</cite> 或反转操作，意味着相反(opposite)，1变0或0变1。回到EOR命令的例子，如果我们让一个值与1进行EOR操作，则那个值就会被反转，与NOT相同。例如:</p>
+<pre class="literal-block">
+LDI     B,0b1111_1111   ;全1
+LDI     A,0b1010_1010   ;A=1010_1010
+EOR     A,B             ;A=0101_0101
+</pre>
+<p>前面的主程序中，一会写1，一会写0到扬声器，每次重复256个周期。</p>
+<p>另一种方法就是读入扬声器的值，反转后写入，可以用EOR来做反转。</p>
+<p>新版本的例子，我们使用寄存器J来保持PortB的所有值:</p>
+<pre class="literal-block">
+;MAIN ROUTINE
+BEEP:
+    CLR I
+BLUPE:
+    LDI     J,0b1111_1111   ;载入位掩码
+    IN      A,PORTB         ;读入PortB
+    EOR     A,J             ;反转 invert/toggle
+    OUT     PORTB,A         ;写到PortB
+    RCALL   PAUSE
+    DEC     I
+    BRNE    BLUPE
+LOOP:
+    RJMP    LOOP
+</pre>
+<p>我们改进(refine)此程序时，只要反转扬声器的管脚即可。也可以用其他管脚来生成音调。</p>
+<p>在Butterfly，扬声器连接到PortB的Pin5，所以我们可以用寄存器J载入值 0b0001_0000 来替换:</p>
+<pre class="literal-block">
+LDI     J,0b0001_0000   ;载入位掩码
+IN      A,PORTB         ;读入PortB
+</pre>
+</div>
+<div class="section" id="sbicbi">
+<h1><a class="toc-backref" href="#id41">27&nbsp;&nbsp;&nbsp;SBI和CBI指令</a></h1>
+<p>SBI=Set Bit in I/O，CBI=Clear Bit in I/O。用于设置和清除I/O端口上特定的位，来实现更改特定针脚的状态。例如我们可以在主循环中激活扬声器。</p>
+<pre class="literal-block">
+BEEP: CLR I
+BLUPE:
+    SBI     PORTB,5     ;激活扬声器
+    RCALL   PAUSE       ;等待
+    CBI     PORTB,5     ;关闭扬声器
+    RCALL   PAUSE       ;等待
+    DEC     I
+    BRNE    BLUPE
+LOOP: RJMP  LOOP        ;结束后在这里持续
+</pre>
+<p>数据手册告诉我们可以通过写入1到输入(PINx)来反转引脚。每个输出端口都有个特定的输入寄存器，对PORTB就是PINB。我们可以简单的反转扬声器:</p>
+<pre class="literal-block">
+; MAIN ROUTINE
+BEEP: CLR I
+BLUPE:
+    SBI     PINB, 5     ;反转扬声器
+    RCALL   PAUSE       ;等待
+    DEC     I
+    BRNE    BLUPE
+LOOP: RJMP LOOP         ;结束后在这里持续
+</pre>
+</div>
+<div class="section" id="id14">
+<h1><a class="toc-backref" href="#id42">28&nbsp;&nbsp;&nbsp;栈</a></h1>
+<p>栈是一种内存结构，有如一摞盘子。你只能从栈的顶部放置新盘子。例如栈上有3个项目，你需要添加第四个，就是在最上面放。</p>
+<p>而取走也只能从最上面取。</p>
+</div>
+<div class="section" id="pushpop">
+<h1><a class="toc-backref" href="#id43">29&nbsp;&nbsp;&nbsp;PUSH和POP指令</a></h1>
+<p><cite>PUSH</cite> 指令拷贝寄存器的内容到栈顶，而 <cite>POP</cite> 指令移除栈顶的值拷贝入寄存器。</p>
+<p>一个常见的应用是保护寄存器的值。例如我们想要BEEP程序需要在两处都使用寄存器A，分别是主程序和PAUSE子例程。那么可以在调用PAUSE子例程之前将A压入栈，而在返回后再弹出:</p>
+<pre class="literal-block">
+; MAIN ROUTINE
+BEEP: CLR A             ;使用A作为计数器
+BLUPE:
+    SBI     PINB,5      ;反转扬声器
+    PUSH    A           ;保存A的内容
+    RCALL   PAUSE       ;等待
+    POP     A           ;恢复A
+    DEC     A
+    BRNE    BLUPE
+LOOP:
+    RJMP    LOOP        ;停止后在此持续
+
+PAUSE:
+    CLR     A
+PLUPE:
+    NOP
+    DEC     A
+    BRNE    PLUPE
+    RET
+</pre>
+<p>一个更好的方式是在PAUSE子例程中用PUSH和POP指令。第一个事情是保存A到栈，然后在返回前恢复。这使得PAUSE子例程可以复用和移植，因为他保存和恢复了他会使用的寄存器的值:</p>
+<pre class="literal-block">
+PAUSE:
+    PUSH    A           ;保存A的内容
+    CLR     A
+PLUPE:
+    NOP
+    DEC     A
+    BRNE    PLUPE
+    POP     A           ;恢复A
+    RET
+</pre>
+<p>现在对AVR汇编语言有一定的了解了，你可以继续看更多高级的教程了。一个更好的方法是看可以工作的代码，并了解其机制。建议拿些可用代码研究下，因为学习汇编的最好方式就是动手练习。</p>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 11447, "title": "AVR ASM Introduction", "src_size": 20439, "filehash": "5da599d456592992c51ba962c0810603", "dst_size": 35298} -->

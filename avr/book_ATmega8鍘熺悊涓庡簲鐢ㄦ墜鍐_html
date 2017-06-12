@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>ATmega8原理及应用手册</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="atmega8">
+<h1 class="title">ATmega8原理及应用手册</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">马潮 詹卫前 狄德根</td>
+</tr>
+<tr class="field"><th class="docinfo-name">出版社:</th><td class="field-body">清华大学出版社</td>
+</tr>
+<tr class="field"><th class="docinfo-name">书号:</th><td class="field-body">ISBN 7-302-06204-8 / TP.3710</td>
+</tr>
+<tr class="field"><th class="docinfo-name">日期:</th><td class="field-body">2009-03-26</td>
+</tr>
+</tbody>
+</table>
+<p>图书在版编目(CIP)数据</p>
+<p>ATmega8原理及应用手册/马潮，詹卫前，狄德根编著  -北京：清华大学出版社，2002</p>
+<ol class="upperroman simple">
+<li>A...  II. 马、詹、狄  III. 单片微型计算机，ATmega8-技术手册  IV. TP368.1-62</li>
+</ol>
+<p>中国版本图书馆CIP数据核字(2002)第105905号</p>
+<p>开本：787x1092 1/16  印张：19.5  字数：446千字</p>
+<p>版次：2003年3月第1版  2003年3月第1次印刷  印数：0001-4000</p>
+<p>定价：29.00元</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id81">1&nbsp;&nbsp;&nbsp;ATmega8单片机简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#avr" id="id82">1.1&nbsp;&nbsp;&nbsp;AVR单片机</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id3" id="id83">1.1.1&nbsp;&nbsp;&nbsp;AVR单片机简介</a></li>
+<li><a class="reference internal" href="#id4" id="id84">1.1.2&nbsp;&nbsp;&nbsp;AVR单片机的主要特点</a></li>
+<li><a class="reference internal" href="#id5" id="id85">1.1.3&nbsp;&nbsp;&nbsp;AVR单片机系列产品</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id86">1.2&nbsp;&nbsp;&nbsp;ATmega8单片机</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id7" id="id87">1.2.1&nbsp;&nbsp;&nbsp;ATmega8单片机简介</a></li>
+<li><a class="reference internal" href="#id8" id="id88">1.2.2&nbsp;&nbsp;&nbsp;ATmega8单片机的结构与主要性能</a></li>
+<li><a class="reference internal" href="#id9" id="id89">1.2.3&nbsp;&nbsp;&nbsp;ATmega8单片机封装与引脚</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id90">2&nbsp;&nbsp;&nbsp;ATmega8硬件结构</a><ul class="auto-toc">
+<li><a class="reference internal" href="#atmega8-mcu" id="id91">2.1&nbsp;&nbsp;&nbsp;ATmega8 MCU内核</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id11" id="id92">2.1.1&nbsp;&nbsp;&nbsp;结构概述</a></li>
+<li><a class="reference internal" href="#mcu" id="id93">2.1.2&nbsp;&nbsp;&nbsp;微控制器(MCU)</a></li>
+<li><a class="reference internal" href="#id12" id="id94">2.1.3&nbsp;&nbsp;&nbsp;MCU工作时序</a></li>
+<li><a class="reference internal" href="#id13" id="id95">2.1.4&nbsp;&nbsp;&nbsp;复位和中断处理</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id96">2.2&nbsp;&nbsp;&nbsp;ATmega8单片机存储器组织</a><ul class="auto-toc">
+<li><a class="reference internal" href="#flash" id="id97">2.2.1&nbsp;&nbsp;&nbsp;支持可在线编程和可在应用自编程的Flash程序存储器</a></li>
+<li><a class="reference internal" href="#sram" id="id98">2.2.2&nbsp;&nbsp;&nbsp;数据存储器(SRAM)</a></li>
+<li><a class="reference internal" href="#eeprom" id="id99">2.2.3&nbsp;&nbsp;&nbsp;EEPROM数据存储器</a></li>
+<li><a class="reference internal" href="#i-o" id="id100">2.2.4&nbsp;&nbsp;&nbsp;I/O寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id101">2.3&nbsp;&nbsp;&nbsp;系统时钟和时钟选择</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id16" id="id102">2.3.1&nbsp;&nbsp;&nbsp;时钟系统和时钟分配</a></li>
+<li><a class="reference internal" href="#id17" id="id103">2.3.2&nbsp;&nbsp;&nbsp;时钟源</a></li>
+<li><a class="reference internal" href="#id18" id="id104">2.3.3&nbsp;&nbsp;&nbsp;外部晶振</a></li>
+<li><a class="reference internal" href="#id19" id="id105">2.3.4&nbsp;&nbsp;&nbsp;外部低频率晶振</a></li>
+<li><a class="reference internal" href="#rc" id="id106">2.3.5&nbsp;&nbsp;&nbsp;外部RC振荡器</a></li>
+<li><a class="reference internal" href="#id20" id="id107">2.3.6&nbsp;&nbsp;&nbsp;可校准的内部RC振荡器</a></li>
+<li><a class="reference internal" href="#id21" id="id108">2.3.7&nbsp;&nbsp;&nbsp;外部时钟源</a></li>
+<li><a class="reference internal" href="#id22" id="id109">2.3.8&nbsp;&nbsp;&nbsp;定时器/计数器振荡器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23" id="id110">2.4&nbsp;&nbsp;&nbsp;电源管理和休眠模式</a><ul class="auto-toc">
+<li><a class="reference internal" href="#mcumcucr" id="id111">2.4.1&nbsp;&nbsp;&nbsp;MCU控制寄存器MCUCR</a></li>
+<li><a class="reference internal" href="#id24" id="id112">2.4.2&nbsp;&nbsp;&nbsp;空闲模式</a></li>
+<li><a class="reference internal" href="#adc-adc-noise-reduction" id="id113">2.4.3&nbsp;&nbsp;&nbsp;ADC降噪模式(ADC Noise Reduction)</a></li>
+<li><a class="reference internal" href="#id25" id="id114">2.4.4&nbsp;&nbsp;&nbsp;掉电模式</a></li>
+<li><a class="reference internal" href="#power-save" id="id115">2.4.5&nbsp;&nbsp;&nbsp;省电模式(Power-save)</a></li>
+<li><a class="reference internal" href="#standby-mode" id="id116">2.4.6&nbsp;&nbsp;&nbsp;等待模式(Standby mode)</a></li>
+<li><a class="reference internal" href="#id26" id="id117">2.4.7&nbsp;&nbsp;&nbsp;如何将功耗降到最低</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id27" id="id118">2.5&nbsp;&nbsp;&nbsp;系统复位</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id28" id="id119">2.5.1&nbsp;&nbsp;&nbsp;复位源</a></li>
+<li><a class="reference internal" href="#mcumcucsr" id="id120">2.5.2&nbsp;&nbsp;&nbsp;MCU控制和状态寄存器MCUCSR</a></li>
+<li><a class="reference internal" href="#id29" id="id121">2.5.3&nbsp;&nbsp;&nbsp;内部参考电压源</a></li>
+<li><a class="reference internal" href="#id30" id="id122">2.5.4&nbsp;&nbsp;&nbsp;看门狗定时器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id31" id="id123">2.6&nbsp;&nbsp;&nbsp;中断向量</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id32" id="id124">2.6.1&nbsp;&nbsp;&nbsp;复位和中断向量表的移动</a></li>
+<li><a class="reference internal" href="#gicr" id="id125">2.6.2&nbsp;&nbsp;&nbsp;中断控制寄存器GICR</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id33" id="id126">2.7&nbsp;&nbsp;&nbsp;I/O端口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id34" id="id127">2.7.1&nbsp;&nbsp;&nbsp;通用数字I/O接口</a></li>
+<li><a class="reference internal" href="#id35" id="id128">2.7.2&nbsp;&nbsp;&nbsp;数字输入使能和休眠模式</a></li>
+<li><a class="reference internal" href="#id36" id="id129">2.7.3&nbsp;&nbsp;&nbsp;端口的第二功能</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id37" id="id130">2.8&nbsp;&nbsp;&nbsp;外部中断</a></li>
+<li><a class="reference internal" href="#id38" id="id131">2.9&nbsp;&nbsp;&nbsp;ATmega8的定时器/计数器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id39" id="id132">2.9.1&nbsp;&nbsp;&nbsp;定时器/计数器预订比例分频器</a></li>
+<li><a class="reference internal" href="#t-c0" id="id133">2.9.2&nbsp;&nbsp;&nbsp;8位定时器/计数器0-T/C0</a></li>
+<li><a class="reference internal" href="#tc-1" id="id134">2.9.3&nbsp;&nbsp;&nbsp;16位定时器/计数器1-TC/1</a></li>
+<li><a class="reference internal" href="#t-c2" id="id135">2.9.4&nbsp;&nbsp;&nbsp;8位定时器/计数器2-T/C2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spi" id="id136">2.10&nbsp;&nbsp;&nbsp;同步串行接口SPI</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id40" id="id137">2.10.1&nbsp;&nbsp;&nbsp;SPI接口控制与数据传输过程</a></li>
+<li><a class="reference internal" href="#id41" id="id138">2.10.2&nbsp;&nbsp;&nbsp;与SPI接口相关的寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usart" id="id139">2.11&nbsp;&nbsp;&nbsp;通用同/异步串行接口USART</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id42" id="id140">2.11.1&nbsp;&nbsp;&nbsp;概述</a></li>
+<li><a class="reference internal" href="#id43" id="id141">2.11.2&nbsp;&nbsp;&nbsp;串行时钟发生</a></li>
+<li><a class="reference internal" href="#id44" id="id142">2.11.3&nbsp;&nbsp;&nbsp;数据帧格式</a></li>
+<li><a class="reference internal" href="#id45" id="id143">2.11.4&nbsp;&nbsp;&nbsp;USART的初始化</a></li>
+<li><a class="reference internal" href="#id46" id="id144">2.11.5&nbsp;&nbsp;&nbsp;数据发送</a></li>
+<li><a class="reference internal" href="#id47" id="id145">2.11.6&nbsp;&nbsp;&nbsp;数据接收</a></li>
+<li><a class="reference internal" href="#id48" id="id146">2.11.7&nbsp;&nbsp;&nbsp;异步串行数据的硬件扫描检测和接收时序</a></li>
+<li><a class="reference internal" href="#id49" id="id147">2.11.8&nbsp;&nbsp;&nbsp;多机通信模式</a></li>
+<li><a class="reference internal" href="#id50" id="id148">2.11.9&nbsp;&nbsp;&nbsp;USART寄存器</a></li>
+<li><a class="reference internal" href="#id51" id="id149">2.11.10&nbsp;&nbsp;&nbsp;串行通信波特率的设置与偏差</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#twi-i2c" id="id150">2.12&nbsp;&nbsp;&nbsp;两线串行TWI(I2C)总线接口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id52" id="id151">2.12.1&nbsp;&nbsp;&nbsp;两线串行总线接口定义</a></li>
+<li><a class="reference internal" href="#twi" id="id152">2.12.2&nbsp;&nbsp;&nbsp;TWI模块的概述</a></li>
+<li><a class="reference internal" href="#id53" id="id153">2.12.3&nbsp;&nbsp;&nbsp;TWI寄存器</a></li>
+<li><a class="reference internal" href="#id54" id="id154">2.12.4&nbsp;&nbsp;&nbsp;使用TWI总线</a></li>
+<li><a class="reference internal" href="#id55" id="id155">2.12.5&nbsp;&nbsp;&nbsp;多主机系统和仲裁</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id56" id="id156">2.13&nbsp;&nbsp;&nbsp;模拟比较器</a></li>
+<li><a class="reference internal" href="#adc" id="id157">2.14&nbsp;&nbsp;&nbsp;模数转换功能ADC</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id57" id="id158">2.14.1&nbsp;&nbsp;&nbsp;特点</a></li>
+<li><a class="reference internal" href="#id58" id="id159">2.14.2&nbsp;&nbsp;&nbsp;启动ADC转换</a></li>
+<li><a class="reference internal" href="#id59" id="id160">2.14.3&nbsp;&nbsp;&nbsp;预分频与转换定时</a></li>
+<li><a class="reference internal" href="#id60" id="id161">2.14.4&nbsp;&nbsp;&nbsp;ADC输入通道和参考电源的选择</a></li>
+<li><a class="reference internal" href="#id61" id="id162">2.14.5&nbsp;&nbsp;&nbsp;ADC噪声抑制器</a></li>
+<li><a class="reference internal" href="#id62" id="id163">2.14.6&nbsp;&nbsp;&nbsp;有关的I/O寄存器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id63" id="id164">2.15&nbsp;&nbsp;&nbsp;引导加载支持的自编程功能</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id64" id="id165">2.15.1&nbsp;&nbsp;&nbsp;引导加载计数的实现</a></li>
+<li><a class="reference internal" href="#id65" id="id166">2.15.2&nbsp;&nbsp;&nbsp;相关I/O寄存器</a></li>
+<li><a class="reference internal" href="#id66" id="id167">2.15.3&nbsp;&nbsp;&nbsp;程序存储器Flash的自编程</a></li>
+<li><a class="reference internal" href="#id67" id="id168">2.15.4&nbsp;&nbsp;&nbsp;一个简单的引导加载汇编程序</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id68" id="id169">2.16&nbsp;&nbsp;&nbsp;ATmega8存储器编程</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id69" id="id170">2.16.1&nbsp;&nbsp;&nbsp;ATmega8的锁定位、熔丝位、标志位和校正位</a></li>
+<li><a class="reference internal" href="#id70" id="id171">2.16.2&nbsp;&nbsp;&nbsp;并行编程模式</a></li>
+<li><a class="reference internal" href="#id71" id="id172">2.16.3&nbsp;&nbsp;&nbsp;串行编程模式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id72" id="id173">2.17&nbsp;&nbsp;&nbsp;EEPROM数据存储器读写访问</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id73" id="id174">2.17.1&nbsp;&nbsp;&nbsp;EEPROM读写访问</a></li>
+<li><a class="reference internal" href="#id74" id="id175">2.17.2&nbsp;&nbsp;&nbsp;寄存器描述</a></li>
+<li><a class="reference internal" href="#id75" id="id176">2.17.3&nbsp;&nbsp;&nbsp;简单的读写EEPROM例程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id76" id="id177">3&nbsp;&nbsp;&nbsp;ATmega8指令系统</a></li>
+<li><a class="reference internal" href="#id77" id="id178">4&nbsp;&nbsp;&nbsp;ATmega8开发工具</a></li>
+<li><a class="reference internal" href="#id78" id="id179">5&nbsp;&nbsp;&nbsp;ATmega8应用设计</a><ul class="auto-toc">
+<li><a class="reference internal" href="#i2c" id="id180">5.1&nbsp;&nbsp;&nbsp;硬件I2C的应用</a></li>
+<li><a class="reference internal" href="#a-d" id="id181">5.2&nbsp;&nbsp;&nbsp;A/D转换器的应用</a></li>
+<li><a class="reference internal" href="#id79" id="id182">5.3&nbsp;&nbsp;&nbsp;USART接口的应用</a></li>
+<li><a class="reference internal" href="#id80" id="id183">5.4&nbsp;&nbsp;&nbsp;ATmega8实时时钟的应用</a></li>
+<li><a class="reference internal" href="#boot" id="id184">5.5&nbsp;&nbsp;&nbsp;BOOT引导区的应用</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id81">1&nbsp;&nbsp;&nbsp;ATmega8单片机简介</a></h1>
+<div class="section" id="avr">
+<h2><a class="toc-backref" href="#id82">1.1&nbsp;&nbsp;&nbsp;AVR单片机</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id83">1.1.1&nbsp;&nbsp;&nbsp;AVR单片机简介</a></h3>
+<p>ATMEL是著名的IC芯片制造商，在单片机产品中融入EEPROM和Flash，使得其产品具有明显优势。</p>
+<p>AVR是1997年设计的，使用了32个寄存器解决累加器性能低下问题。</p>
+<p>最大可以寻址8MB的内存空间。</p>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id84">1.1.2&nbsp;&nbsp;&nbsp;AVR单片机的主要特点</a></h3>
+<p>吸取了PIC和8051的优点，还做出很多改进：</p>
+<ol class="arabic simple">
+<li>片内继承Flash程序存储器，16bit指令，不过数据存储器还是以8bit为一个单元，所以算8位单片机。</li>
+<li>采用CMOS工艺，高速度(50nS)、低功耗(uA)、具有SLEEP功能。可以预读指令。</li>
+<li>高度保密，可以将Flash锁死。</li>
+<li>工业级(WDT)产品，大电流10mA ~ 20mA或40mA(单一输出)。</li>
+<li>超功能精简指令，有32个通用寄存器，客服单一累加器的瓶颈。对C语言做了优化。</li>
+<li>程序写入器件可以并行写入，也可以用ISP。</li>
+<li>可以控制的内置上拉电阻</li>
+<li>内部集成模拟比较器，可以作为A/D转换器</li>
+<li>有多个固定中断向量地址，比PIC的单一中断向量地址响应速度更好。</li>
+<li>可以重新设置启动复位，省略了外部的复位延时电路。</li>
+<li>具有休眠省电功能和闲置，等多种省电方式。</li>
+<li>AT90S1200等具有内部RC振荡器，无需外部晶振就可以工作</li>
+<li>有8bit和16bit定时器/计数器，可作比较器、计数器、外部中断和PWM(作DAC)</li>
+<li>有串行异步通信UART硬件接口，有单独的波特率发生器。有SPI，最高可以达到576Kbps。</li>
+<li>AT90S4414和AT90S8515具有可扩展外部RAM能力，最高可达64KB，引脚排列可以替换8051。</li>
+<li>工作电压范围2.7 ~ 6.0V，电源抗干扰能力强</li>
+<li>多通道的10bit ADC和实时时钟(RTC)</li>
+<li>高档的ATmega系列功能更强大，比如ATmega128</li>
+<li>片内集成可擦写10万次的EEPROM存储器，用于保存系统的设置、表格和掉电后数据。</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id85">1.1.3&nbsp;&nbsp;&nbsp;AVR单片机系列产品</a></h3>
+<p>分为ATtiny、AT90、ATmega三个系列，书中列出2002年Atmel公司的单片机选型列表。</p>
+<p>ATtiny大部分型号无内存，无EEPROM，IO口大多也只有6个，没有SPI、UART、TWI、硬件乘法器。定时器一般也只有1个8bit的。大部分没有PWM，不过都有WDT。没有实时时钟、ADC。都有模拟比较器和片内振荡器。都支持ISP，但是没有IAP。其中ATtiny26系列功能就已经接近AT90了。引脚以8为主，也有20和28的。</p>
+<p>AT90S系列都有内存、EEPROM、IO口不多，中断很少。大部分没有SPI、UART、TWI、硬件乘法器。大部分只有1个8bit计数器，16bit的有些有。没有RTC、ADC、BOD、BootLoader。部分有片内振荡器。引脚一般20-32。</p>
+<p>ATmega，含一部分AT90S85xx，功能很完善，内存和Flash都上KB了。列出功能基本都有。引脚以40为主，少数有28的。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id86">1.2&nbsp;&nbsp;&nbsp;ATmega8单片机</a></h2>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id87">1.2.1&nbsp;&nbsp;&nbsp;ATmega8单片机简介</a></h3>
+<p>以往的单片机是引脚少的性能低，引脚多的性能高，而ATmega8是为了解决这个矛盾而引入的，引脚少(DIP28/TQFP/MLF32)，但是功能强大。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id88">1.2.2&nbsp;&nbsp;&nbsp;ATmega8单片机的结构与主要性能</a></h3>
+<p>书上page20提供了ATmega8的内部结构图。</p>
+<p>基本介绍：</p>
+<ol class="arabic simple">
+<li>8KB FLash</li>
+<li>512B EEPROM</li>
+<li>1KB SRAM</li>
+<li>32个通用寄存器</li>
+<li>23个I/O口</li>
+<li>3个定时器/计数器</li>
+<li>18+2个内外中断源</li>
+<li>1个可编程UART</li>
+<li>1个8位TWI</li>
+<li>4/6通道10bit ADC</li>
+<li>2通道8bit ADC</li>
+<li>可编程看门狗</li>
+<li>1个SPI接口</li>
+<li>5种可软件选择的省电模式</li>
+</ol>
+<p>功耗：4MHz、3V、25摄氏度：</p>
+<ol class="arabic simple">
+<li>正常模式3.6mA</li>
+<li>空闲模式(Idle)1.0mA</li>
+<li>掉电模式(Power-down) 0.5uA</li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id89">1.2.3&nbsp;&nbsp;&nbsp;ATmega8单片机封装与引脚</a></h3>
+<p>芯片引脚图见page23，三种封装的。PORTB和PORTD有8个，PORTC有7个。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h1><a class="toc-backref" href="#id90">2&nbsp;&nbsp;&nbsp;ATmega8硬件结构</a></h1>
+<p>Atmel的AVR单片机是基于增强RISC结构、低功耗、采用CMOS技术的8位微控制器(Enhanced RISC Microcontroller)。AVR是一系列产品，包含ATtiny、AT90、ATmega三种类型，分别对应低、中、高三个档次的50多个型号。</p>
+<div class="section" id="atmega8-mcu">
+<h2><a class="toc-backref" href="#id91">2.1&nbsp;&nbsp;&nbsp;ATmega8 MCU内核</a></h2>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id92">2.1.1&nbsp;&nbsp;&nbsp;结构概述</a></h3>
+<p>为了提高并行处理效率，AVR采用了程序存储器与数据存储器分开的Harvard结构。page27有系统结构图。</p>
+<p>大部分AVR指令是16bit的，少数32bit的会占用两个程序存储器单元。</p>
+</div>
+<div class="section" id="mcu">
+<h3><a class="toc-backref" href="#id93">2.1.2&nbsp;&nbsp;&nbsp;微控制器(MCU)</a></h3>
+<p>&#64;page 28</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id94">2.1.3&nbsp;&nbsp;&nbsp;MCU工作时序</a></h3>
+<p>ATmega8的时钟信号由clk_cpu驱动，该信号由系统时钟振荡源产生，内部没有使用系统分频。</p>
+<p>AVR在执行当前指令的同时取下一条指令。</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id95">2.1.4&nbsp;&nbsp;&nbsp;复位和中断处理</a></h3>
+<p>ATmega8有18个中断源，每个中断源和系统复位都在存储器中有独立的中断向量，每个中断事件都有各自独立的中断允许控制位。只有特定中断使能，且状态寄存器(SREG)中全局中断允许位也是1时，MCU才响应中断。可以对启动锁定位(Boot Lock bits)的BLB02和BLB12编程，也能禁止MCU响应中断。</p>
+<p>通常Flash中地址最低的部分定义中断向量。且中断向量表中，低地址的优先级更高些，所以系统复位RESET的优先级最高。</p>
+<p>中断向量表的位置可以通过熔丝修改的。</p>
+<p>MCU响应中断时会自动将全局中断允许位清零，也就是屏蔽接下来的中断，在中断处理结束后的RETI指令会重新开启中断允许位。用户可以在中断处理中打开中断允许位，以实现中断嵌套。</p>
+<p>中断有触发型中断(如时钟、计数、比较)和条件中断两种方式。事件触发型中断发生，会对中断标志位置位，申请中断处理，跳转到中断处理向量后自动清除中断标志位。也可以通过软件写&quot;1&quot;来清除。</p>
+<p>当中断发生，但是对应的中断允许位是0，则中断标志会保持，直到中断被处理或被软件清除。被全局中断允许位屏蔽的也是如此，只要重新允许全局中断，这个事件会立即发生。</p>
+<p>对一些条件中断(如外部电平中断)是没有中断标志位的，当中断条件符合，会一直不停的向MCU申请中断。当中断被处理之前中断条件改变了，则中断就终止了。</p>
+<p>AVR的中断响应至少需要4个时钟周期。包括将当前PC指针入栈，堆栈指针减2，然后跳转到中断向量处，执行中断向量。休眠时发生中断还要计算上唤醒的时间。中断的返回也需要4个时钟周期。回到主程序至少执行1条指令才能响应下一个中断。</p>
+<p>中断和返回时，AVR不会自动保存状态寄存器SREG的内容。因此状态寄存器的中断保护和恢复需要软件实现。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id96">2.2&nbsp;&nbsp;&nbsp;ATmega8单片机存储器组织</a></h2>
+<div class="section" id="flash">
+<h3><a class="toc-backref" href="#id97">2.2.1&nbsp;&nbsp;&nbsp;支持可在线编程和可在应用自编程的Flash程序存储器</a></h3>
+<p>AVR的指令大多为16bit，少数有32bit，所以Flash存储器的组织是4K x 16位的。ATmega8程序计数器PC的字长为12bit，可以寻址整个4K的程序存储空间。</p>
+</div>
+<div class="section" id="sram">
+<h3><a class="toc-backref" href="#id98">2.2.2&nbsp;&nbsp;&nbsp;数据存储器(SRAM)</a></h3>
+<p>&#64;page 34</p>
+</div>
+<div class="section" id="eeprom">
+<h3><a class="toc-backref" href="#id99">2.2.3&nbsp;&nbsp;&nbsp;EEPROM数据存储器</a></h3>
+<p>ATmega8内置512Byte的EEPROM数据存储器，以字节为单位。</p>
+</div>
+<div class="section" id="i-o">
+<h3><a class="toc-backref" href="#id100">2.2.4&nbsp;&nbsp;&nbsp;I/O寄存器</a></h3>
+<p>&#64;page 36</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id101">2.3&nbsp;&nbsp;&nbsp;系统时钟和时钟选择</a></h2>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id102">2.3.1&nbsp;&nbsp;&nbsp;时钟系统和时钟分配</a></h3>
+<p>并不是所有时钟信号都处于活跃状态，不工作的模块可以休眠。</p>
+<p>主系统时钟会产生如下多种时钟信号：</p>
+<ol class="arabic simple">
+<li>CPU时钟信号-clk_cpu：控制CPU内部的操作，如各类寄存器和数据存储器。暂停CPU信号可以停止核心操作与运算。</li>
+<li>I/O时钟信号-clk_i/o：控制输入输出模块，如定时器/计数器、SPI、USART。还用于外部中断，也有些外部中断是轮询的，这样即便是IO时钟暂停，也可以检测到这些中断信号。I2C地址识别也是异步的。</li>
+<li>Flash时钟信号-clk_FLASH：控制Flash接口操作。</li>
+<li>异步定时器时钟信号-clk_asy：驱动异步定时器/计数器。即便是系统休眠，也可以工作。可以用外接32KHz晶振，也可以用片内引入的32KHz时钟源。</li>
+<li>ADC时钟信号-clk_ADC：用于ADC转换。</li>
+</ol>
+</div>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id103">2.3.2&nbsp;&nbsp;&nbsp;时钟源</a></h3>
+<p>ATmega8通过熔丝位CKSEL3..0来选择时钟源。几个选择范围：</p>
+<ol class="arabic simple">
+<li>外部晶振： 1111-1010</li>
+<li>外部低频晶振： 1001</li>
+<li>外部RC振荡： 1000-0101</li>
+<li>内部RC振荡： 0100-0001</li>
+<li>外部时钟： 0000</li>
+</ol>
+<p>系统从掉电或节电唤醒后，会先对时钟源延时计数，经过Start-up Time后才开始正常工作，该时间可设置，用以确保工作开始时，时钟已经稳定了。</p>
+<p>芯片出厂时熔丝位是CKSEL3..0=0001，SUT=01，使用1MHz内部RC振荡器，慢速率上升电源。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id104">2.3.3&nbsp;&nbsp;&nbsp;外部晶振</a></h3>
+<p>将晶振连接到XTAL1、XTAL2，然后每个引脚接一个22pF电容接地。</p>
+<p>CKOPT熔丝编程后，输出满幅振荡信号，用于高噪声环境，但是费电。CKOPT未编程时使用较小振幅的信号，省电，可选频率范围小。</p>
+<p>通过CKOPT和CKSEL3..1使用外部晶振或陶瓷振荡器时，选择的频率和滤波电容：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="26%" />
+<col width="32%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>CKOPT</td>
+<td>CKSEL3..1</td>
+<td>工作频率范围MHz</td>
+<td>C1,C2范围(石英晶体)</td>
+</tr>
+<tr><td>1</td>
+<td>101</td>
+<td>0.4 ~ 0.9</td>
+<td>仅适合陶瓷振荡器</td>
+</tr>
+<tr><td>1</td>
+<td>110</td>
+<td>0.9 ~ 3.0</td>
+<td>12 ~ 22pF</td>
+</tr>
+<tr><td>1</td>
+<td>111</td>
+<td>3.0 ~ 8.0</td>
+<td>12 ~ 22pF</td>
+</tr>
+<tr><td>0</td>
+<td>101,110,111</td>
+<td>&lt;= 1.0</td>
+<td>12 ~ 22pF</td>
+</tr>
+</tbody>
+</table>
+<p>&#64;page 41</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id105">2.3.4&nbsp;&nbsp;&nbsp;外部低频率晶振</a></h3>
+<p>可以使用32768Hz的时钟晶振，此时CKSEL=1001，编程CKOPT熔丝位，就会使用XTAL1、XTAL2的心片内电容(36pF)，就无需外接了。</p>
+<p>&#64;page 42</p>
+</div>
+<div class="section" id="rc">
+<h3><a class="toc-backref" href="#id106">2.3.5&nbsp;&nbsp;&nbsp;外部RC振荡器</a></h3>
+<p>&#64;page 42</p>
+</div>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id107">2.3.6&nbsp;&nbsp;&nbsp;可校准的内部RC振荡器</a></h3>
+<p>&#64;page 43</p>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id108">2.3.7&nbsp;&nbsp;&nbsp;外部时钟源</a></h3>
+<p>外部时钟源时钟信号从XTAL1输入，CKSEL3..0=0000。可以编程CKOPT启用芯片内对地电容。</p>
+<p>使用外部时钟源时唤醒的选择：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="26%" />
+<col width="32%" />
+<col width="27%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>SUT1..0</td>
+<td>掉电和省电模式唤醒</td>
+<td>复位延时启动时间Vcc=5V</td>
+<td>适合应用条件</td>
+</tr>
+<tr><td>00</td>
+<td>6CK</td>
+<td>--</td>
+<td>BOD方式</td>
+</tr>
+<tr><td>01</td>
+<td>6CK</td>
+<td>4.1ms</td>
+<td>快速上升电源</td>
+</tr>
+<tr><td>10</td>
+<td>6CK</td>
+<td>65ms</td>
+<td>慢速上升电源</td>
+</tr>
+<tr><td>11</td>
+<td>保留</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+</tbody>
+</table>
+<p>MCU工作时不能改变外部时钟频率，变化超过2%就会出错。可以在复位状态时改变。</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id109">2.3.8&nbsp;&nbsp;&nbsp;定时器/计数器振荡器</a></h3>
+<p>对于已经有定时器/计数器振荡器引脚TOSC1、TOSC2的芯片，直接将32768Hz晶振接上即可，无需外部电容。芯片已经做了优化。最好不要直接从TOSC1引入时钟脉冲信号。</p>
+</div>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id110">2.4&nbsp;&nbsp;&nbsp;电源管理和休眠模式</a></h2>
+<p>各种休眠意味着省电。当MCUCR寄存器SE位为1，执行SLEEP指令后就进入休眠了。MCUCR寄存器的SM2、SM1、SM0的设置决定了SLEEP指令后的休眠模式：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="71%" />
+<col width="29%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>休眠模式</td>
+<td>SM2..0</td>
+</tr>
+<tr><td>空闲IDLE</td>
+<td>000</td>
+</tr>
+<tr><td>ADC降噪ADC Noise Reduction</td>
+<td>001</td>
+</tr>
+<tr><td>掉电Power-down</td>
+<td>010</td>
+</tr>
+<tr><td>省电Power-save</td>
+<td>011</td>
+</tr>
+<tr><td>保留Reserved</td>
+<td>100</td>
+</tr>
+<tr><td>保留Reserved</td>
+<td>101</td>
+</tr>
+<tr><td>等待Standby</td>
+<td>110</td>
+</tr>
+</tbody>
+</table>
+<p>等待模式仅在使用外部晶振时有效。</p>
+<p>当单片机休眠时，中断会唤醒，在4+唤醒脉冲值之后才开始响应中断。中断处理完成后，从SLEEP语句的下一条继续。</p>
+<div class="section" id="mcumcucr">
+<h3><a class="toc-backref" href="#id111">2.4.1&nbsp;&nbsp;&nbsp;MCU控制寄存器MCUCR</a></h3>
+<p>&#64;page 46</p>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id112">2.4.2&nbsp;&nbsp;&nbsp;空闲模式</a></h3>
+<p>&#64;page 47</p>
+</div>
+<div class="section" id="adc-adc-noise-reduction">
+<h3><a class="toc-backref" href="#id113">2.4.3&nbsp;&nbsp;&nbsp;ADC降噪模式(ADC Noise Reduction)</a></h3>
+<p>&#64;page 47</p>
+</div>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id114">2.4.4&nbsp;&nbsp;&nbsp;掉电模式</a></h3>
+<p>&#64;page 47</p>
+</div>
+<div class="section" id="power-save">
+<h3><a class="toc-backref" href="#id115">2.4.5&nbsp;&nbsp;&nbsp;省电模式(Power-save)</a></h3>
+<p>&#64;page 48</p>
+</div>
+<div class="section" id="standby-mode">
+<h3><a class="toc-backref" href="#id116">2.4.6&nbsp;&nbsp;&nbsp;等待模式(Standby mode)</a></h3>
+<p>&#64;page 48</p>
+</div>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id117">2.4.7&nbsp;&nbsp;&nbsp;如何将功耗降到最低</a></h3>
+<p>几个可以考虑的省电技巧：</p>
+<ol class="arabic simple">
+<li>ADC转换：只要ADC使能，即便在休眠时也持续工作，所以应该在休眠前禁止ADC。第一个AD转换是预启动转换，应该舍弃结果。</li>
+<li>模拟比较器：进入空闲和ADC降噪之前应该关闭，其他模式会自动关闭。如果使用了内部参考电源，则所有休眠模式中都应该主动关闭，否则内部参考电源会一直工作于所有状态。</li>
+<li>电压检测(BROWN-OUT)电路：如果不需要就关闭，如果BODEN熔丝位使能，那么在所有模式中都工作，成为主要耗电的地方。</li>
+</ol>
+<p>&#64;page 50</p>
+</div>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id118">2.5&nbsp;&nbsp;&nbsp;系统复位</a></h2>
+<p>&#64;page 50</p>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id119">2.5.1&nbsp;&nbsp;&nbsp;复位源</a></h3>
+<p>ATmega8有4个复位源：</p>
+<ol class="arabic simple">
+<li>上电复位：当系统电源电平低于上电复位门限电压Vpot时的复位</li>
+<li>外部复位：当低电平加到RESET引脚超过Trst时间</li>
+<li>看门狗复位：当看门狗使能，且超时</li>
+<li>电源电压检测BOD复位：电源电压过低时</li>
+</ol>
+<p>&#64;page 52</p>
+</div>
+<div class="section" id="mcumcucsr">
+<h3><a class="toc-backref" href="#id120">2.5.2&nbsp;&nbsp;&nbsp;MCU控制和状态寄存器MCUCSR</a></h3>
+<p>&#64;page 54</p>
+</div>
+<div class="section" id="id29">
+<h3><a class="toc-backref" href="#id121">2.5.3&nbsp;&nbsp;&nbsp;内部参考电压源</a></h3>
+<p>&#64;page 55</p>
+</div>
+<div class="section" id="id30">
+<h3><a class="toc-backref" href="#id122">2.5.4&nbsp;&nbsp;&nbsp;看门狗定时器</a></h3>
+<p>&#64;page 55</p>
+</div>
+</div>
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id123">2.6&nbsp;&nbsp;&nbsp;中断向量</a></h2>
+<p>ATmega8有18个中断源，占据Flash存储器的0x000 ~ 0x012位置。</p>
+<p>书page58中列出了中断向量表，不过还是看datasheet吧。</p>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id124">2.6.1&nbsp;&nbsp;&nbsp;复位和中断向量表的移动</a></h3>
+<p>&#64;page 59</p>
+</div>
+<div class="section" id="gicr">
+<h3><a class="toc-backref" href="#id125">2.6.2&nbsp;&nbsp;&nbsp;中断控制寄存器GICR</a></h3>
+<p>通用中断控制寄存器GICR，IVSEL位和IVCE位用于控制中断向量位置的移动。控制位为 <tt class="docutils literal"><span class="pre">[7:INT1],[6:INT0],[5:-],[4:-],[3:-],[2:-],[1:IVSEL],[0:IVCE]</span></tt> 。</p>
+<p>&#64;page 62</p>
+</div>
+</div>
+<div class="section" id="id33">
+<h2><a class="toc-backref" href="#id126">2.7&nbsp;&nbsp;&nbsp;I/O端口</a></h2>
+<p>AVR的所有I/O端口都可以独立控制读写，上拉电阻。使用推挽式驱动，可以提供20mA的电流输出。方向寄存器DDRx、输出寄存器PORTx、输入寄存器PINx。</p>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id127">2.7.1&nbsp;&nbsp;&nbsp;通用数字I/O接口</a></h3>
+<p>I/O口设置：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>DDRxn</td>
+<td>PORTxn</td>
+<td>PDU</td>
+<td>I/O</td>
+<td>上拉</td>
+<td>说明</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>x</td>
+<td>input</td>
+<td>N</td>
+<td>三态(高阻)</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>0</td>
+<td>input</td>
+<td>Y</td>
+<td>外部引脚拉低时输出电流</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>1</td>
+<td>input</td>
+<td>N</td>
+<td>三态(高阻)</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>x</td>
+<td>output</td>
+<td>N</td>
+<td>低电平推挽输出，吸收电流</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>x</td>
+<td>output</td>
+<td>N</td>
+<td>高电平推挽输出，输出电流</td>
+</tr>
+</tbody>
+</table>
+<p>无论方向如何，都可以通过PINxn读取当前端口的状态，但是如果刚刚输出，就要读取，应该在两条语句之间加个NOP指令。</p>
+<p>I/O特殊功能寄存器SFIOR定义 <tt class="docutils literal"><span class="pre">[7:-],[6:-],[5:-],[4:ADHSM],[3:ACME],[2:PUD],[1:PSR2],[0:PSR10]</span></tt> 。</p>
+<p>&#64;page 66</p>
+</div>
+<div class="section" id="id35">
+<h3><a class="toc-backref" href="#id128">2.7.2&nbsp;&nbsp;&nbsp;数字输入使能和休眠模式</a></h3>
+<p>&#64;page 68</p>
+</div>
+<div class="section" id="id36">
+<h3><a class="toc-backref" href="#id129">2.7.3&nbsp;&nbsp;&nbsp;端口的第二功能</a></h3>
+<p>&#64;page 69</p>
+</div>
+</div>
+<div class="section" id="id37">
+<h2><a class="toc-backref" href="#id130">2.8&nbsp;&nbsp;&nbsp;外部中断</a></h2>
+<p>外部中断是由INT0和INT1引脚触发的。只要启用了中断，即便INT0和INT1是输出方式，外部中断也会触发，这样就可以通过软件实现中断了。外部中断可选上升沿、下降沿、低电平触发方式，如果设置为低电平触发方式，只要保持低电平则中断会一直发生。上升沿和下降沿方式需要时钟，低电平方式不需要时钟，所以可以作为唤醒MCU的方式。</p>
+<p>低电平中断唤醒需要持续一点时间，为了防止噪声。需要维持看门狗的两次采样。</p>
+<p>MCU控制寄存器 <strong>MCUCR</strong> 。通用中断控制寄存器 <strong>GICR</strong> 。通用中断标识寄存器 <strong>GIFR</strong> 。MCUCR定义 <tt class="docutils literal"><span class="pre">[7:SE],[6:SM2],[5:SM1],[4:SM0],[3:ISC11],[2:ISC10],[1:ISC01],[ISC00]</span></tt> 。ISCxx用于控制外部中断的触发方式，如ISC1x控制INT1的。如下取值：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="69%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>ISC11</td>
+<td>ISC0</td>
+<td>中断方式</td>
+</tr>
+<tr><td>0</td>
+<td>0</td>
+<td>INT1的低电平中断</td>
+</tr>
+<tr><td>0</td>
+<td>1</td>
+<td>INT1的上升沿和下降沿都中断</td>
+</tr>
+<tr><td>1</td>
+<td>0</td>
+<td>INT1的下降沿中断</td>
+</tr>
+<tr><td>1</td>
+<td>1</td>
+<td>INT1的上升沿中断</td>
+</tr>
+</tbody>
+</table>
+<p>通用中断控制寄存器GICR定义 <tt class="docutils literal"><span class="pre">[7:INT1],[6:INT0],[5:-],[4:-],[3:-],[2:-],[1:IVSEL],[0:IVCE]</span></tt> 。其中INT1和INT0位用于控制两个外部中断，1为使能。即使INT1/0配置为输出，遇到电平变化仍然会产生中断，这为软件中断提供实现。</p>
+<p>通用中断标志寄存器GIFR定义 <tt class="docutils literal"><span class="pre">[7:INTF1],[6:INTF0],[5:-],[4:-],[3:-],[2:-],[1:-],[0:-]</span></tt> 。当两个外部中断发生时，相应的位会变成1。</p>
+</div>
+<div class="section" id="id38">
+<h2><a class="toc-backref" href="#id131">2.9&nbsp;&nbsp;&nbsp;ATmega8的定时器/计数器</a></h2>
+<p>ATmega8有三个定时器/计数器：8bit T/C0、16bit T/C1、8bit T/C2。这些定时器除了具有定时和计数功能外，还有捕捉、比较、脉宽调制(PWM)输出、实时时钟计数等功能。</p>
+<div class="section" id="id39">
+<h3><a class="toc-backref" href="#id132">2.9.1&nbsp;&nbsp;&nbsp;定时器/计数器预订比例分频器</a></h3>
+<p>T/C0和T/C1由一个10bit预订比例分频器(prescaler)提供时钟源。时钟源可以来自芯片内部，也可以来自外部引脚。</p>
+<p>外部时钟频率不能超过系统时钟的1/4。且每个脉冲宽度要大于系统时钟。且外部时钟无法进入预分频器。</p>
+<p>特殊功能I/O寄存器 <strong>SFIOR</strong> 控制预分频器的复位，当位0:PSR10写入1时，就会复位。同时影响T/C0和T/C1。读取该位时总是0。</p>
+</div>
+<div class="section" id="t-c0">
+<h3><a class="toc-backref" href="#id133">2.9.2&nbsp;&nbsp;&nbsp;8位定时器/计数器0-T/C0</a></h3>
+<p>T/C0控制寄存器 <strong>TCCR0</strong> 定义 <tt class="docutils literal"><span class="pre">[7:-],[6:-],[5:-],[4:-],[3:-],[2:CS02],[1:CS01],[0:CS00]</span></tt> 。CSnn用于控制时钟源：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>CS02..00</td>
+<td>说明</td>
+</tr>
+<tr><td>000</td>
+<td>无时钟源，停止</td>
+</tr>
+<tr><td>001</td>
+<td>CLKio系统时钟</td>
+</tr>
+<tr><td>010</td>
+<td>CLKio/8，8分频</td>
+</tr>
+<tr><td>011</td>
+<td>CLKio/64，64分频</td>
+</tr>
+<tr><td>100</td>
+<td>CLKio/256，256分频</td>
+</tr>
+<tr><td>101</td>
+<td>CLKio/1024，1024分频</td>
+</tr>
+<tr><td>110</td>
+<td>外部T0引脚，下降沿驱动</td>
+</tr>
+<tr><td>111</td>
+<td>外部T0引脚，上升沿驱动</td>
+</tr>
+</tbody>
+</table>
+<p>当使用外部时钟源时，T0无论是否输出，都会引起计数，可以用于软件计数。</p>
+<p>T/C0计数器 <strong>TCNT0</strong> 。</p>
+<p>定时/计数器中断屏蔽寄存器 <strong>TIMSK</strong> 定义 <tt class="docutils literal"><span class="pre">[7:OCIE2],[6:TOIE2],[5:TICE1],[4:OCIE1A],[3:OCIE1B],[2:TOIE1],[1:-],[0:TOIE0]</span></tt> 。其中TOIE0位使能T/C0的溢出中断，1允许溢出中断。</p>
+<p>定时/计数器中断标志寄存器 <strong>TIFR</strong> 定义 <tt class="docutils literal"><span class="pre">[7:OCF2],[6:TOV2],[5:ICF1],[4:OCF1A],[3:OCF1B],[2:TOV1],[1:-],[0:TOV0]</span></tt> 。TOV0是T/C0的溢出标志位。当转到中断处理程序时，这个位自动清零。这个位写入个1会清除它。当SREG的I位、TOIE0、TOV0均为1时，才会产生溢出中断。</p>
+<p>TCNT0是8bit的单一向上计数，当达到0xff时，下一次计数就变成了0x00，并继续向上计数。当TCNT0为0x00的同时设置溢出标志位TOV0为1，可以用于申请中断。可以通过修改TCNT0的初始化值来调整计数器溢出的时间间隔。</p>
+</div>
+<div class="section" id="tc-1">
+<h3><a class="toc-backref" href="#id134">2.9.3&nbsp;&nbsp;&nbsp;16位定时器/计数器1-TC/1</a></h3>
+<p>主要特点：</p>
+<ol class="arabic simple">
+<li>真正的16bit设计，如16bit PWM</li>
+<li>两个独立的输出比较单元</li>
+<li>双缓冲输出比较寄存器</li>
+<li>一个输入捕获单元</li>
+<li>输入捕获噪声抑制</li>
+<li>比较匹配时，清零计数器(自动重装)</li>
+<li>无奇边非对称，相位可调的脉宽调制输出PWM</li>
+<li>周期可调的PWM</li>
+<li>频率发生器</li>
+<li>外部事件计数</li>
+<li>4个独立的中断源(TOV1、OCF1A、OCF1B、ICF1)</li>
+</ol>
+<p>时钟源可以来自芯片内部，也可以来自T1。不同于T/C0的单向加一计数器，T/C1的计数器可以执行加一、减一或清零的操作。计数值保存在16bit计数器TCNT1中，其由TCNT1H和TCNT1L组成。</p>
+<p>T/C1的输入捕获单元可以精确捕获外部事件，以及发生时的时间印记(time-stamp)。外部事件发生的触发信号由ICP1引脚输入。模拟比较器的ACO单元的输出信号也可以作为外部事件的触发信号。</p>
+<p>当输入捕获引起ICP1逻辑电平变化，或模拟比较器电平变化时，T/C1计数器的TCNT1的值就会写入捕获寄存器ICR1(16bit)，并将ICF1设为1。输入捕获可以用于频率和周期的精确测量。</p>
+<p>在设置T/C1为PWM模式后，可以写ICR1作为计数器的上限值。</p>
+<p>置位标志位ICNC1的使能可以对输入信号进行噪声抑制，一种数字滤波器，对输入信号进行4次采样，都相等时才触发信号，因此也比真实信号延时了4个时钟周期。</p>
+<p>&#64;page 83</p>
+</div>
+<div class="section" id="t-c2">
+<h3><a class="toc-backref" href="#id135">2.9.4&nbsp;&nbsp;&nbsp;8位定时器/计数器2-T/C2</a></h3>
+<p>主要特点：</p>
+<ol class="arabic simple">
+<li>单通道计数器</li>
+<li>比较匹配时清零定时器(自动重装，auto reload)</li>
+<li>无奇边非对称，相位可调的脉宽调制PWM</li>
+<li>频率发生器</li>
+<li>10bit的时钟预分频器</li>
+<li>溢出和比较匹配中断源</li>
+<li>允许使用从外部引脚的32KHz的手表晶振作为独立的计数时钟源(RTC)</li>
+</ol>
+<p>&#64;page 100</p>
+</div>
+</div>
+<div class="section" id="spi">
+<h2><a class="toc-backref" href="#id136">2.10&nbsp;&nbsp;&nbsp;同步串行接口SPI</a></h2>
+<p>SPI接口的特点：</p>
+<ol class="arabic simple">
+<li>全双工、3线同步数据传输</li>
+<li>可选的主/从操作模式</li>
+<li>数据传送时，可选择LSB方式或MSB方式</li>
+<li>七种可编程的位传送速率</li>
+<li>数据传送结束的中断标识</li>
+<li>写冲突标识保护</li>
+<li>从闲置模式下被唤醒(从机模式)</li>
+<li>倍速(CK/2)SPI传送(主机模式)</li>
+</ol>
+<div class="section" id="id40">
+<h3><a class="toc-backref" href="#id137">2.10.1&nbsp;&nbsp;&nbsp;SPI接口控制与数据传输过程</a></h3>
+<p>&#64;page 113</p>
+</div>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id138">2.10.2&nbsp;&nbsp;&nbsp;与SPI接口相关的寄存器</a></h3>
+<p>&#64;page 119</p>
+</div>
+</div>
+<div class="section" id="usart">
+<h2><a class="toc-backref" href="#id139">2.11&nbsp;&nbsp;&nbsp;通用同/异步串行接口USART</a></h2>
+<p>特点：</p>
+<ol class="arabic simple">
+<li>全双工操作</li>
+<li>支持同步或异步操作</li>
+<li>同步操作时，可主机时钟同步，也可从机时钟同步</li>
+<li>独立的高精度波特率发生器，不占用定时/计数器</li>
+<li>支持5、6、7、8、9位数据位，1位或2位停止位的串行数据帧结构</li>
+<li>由硬件支持的奇偶校验位发生和校验</li>
+<li>数据溢出检测</li>
+<li>帧错误检测</li>
+<li>包括错误起始位的检测的噪声滤波器和数字低通滤波器</li>
+<li>三个完全独立的中断：TX发送完成、TX发送数据寄存器空、RX接收完成</li>
+<li>支持多机通信模式</li>
+<li>支持倍速异步通信模式</li>
+</ol>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id140">2.11.1&nbsp;&nbsp;&nbsp;概述</a></h3>
+<p>&#64;page 121</p>
+</div>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id141">2.11.2&nbsp;&nbsp;&nbsp;串行时钟发生</a></h3>
+<p>&#64;page 123</p>
+</div>
+<div class="section" id="id44">
+<h3><a class="toc-backref" href="#id142">2.11.3&nbsp;&nbsp;&nbsp;数据帧格式</a></h3>
+<img alt="_images/book_atmega8_application_2.11.3_00.png" src="_images/book_atmega8_application_2.11.3_00.png" />
+<p>一个串行数据帧由数据位字加上同部位(开始和结束)，以及可选的错误检测位三部分构成。ATmega8的USART可以使用如下几种组合的帧格式：</p>
+<ol class="arabic simple">
+<li>1个起始位 start bit</li>
+<li>5、6、7、8、9位数据位 data bits</li>
+<li>一个无、奇校验、偶校验位 no even/add parity bit</li>
+<li>1或2个停止位 stop bits</li>
+</ol>
+<p>数据帧总是以起始位开始，紧接着就是数据字的最低位，最高位结束。如果使能了校验位则紧接着就是校验位，最后是结束位。</p>
+<p>一个数据帧传输完成可以立即进入下一个数据帧，或者让线路空闲。空闲时为高电平。信号为0也是高电平，1为低电平。</p>
+<p>校验位是对数据位各个位进行异或运算，结果再通0或1进行异或。</p>
+</div>
+<div class="section" id="id45">
+<h3><a class="toc-backref" href="#id143">2.11.4&nbsp;&nbsp;&nbsp;USART的初始化</a></h3>
+<p>通信前必须初始化，包括波特率、帧结构、接收器和发送器的使能。对中断驱动的USART操作还要将全局中断标志位清零(屏蔽全局中断)，然后再设置USART的初始化。</p>
+<p>改变USART设置需要在没有数据传输时进行。TXC和RXC分别表示发送完成和有数据已经收到。每次发送前要检查TXC标志位，且需要清零。</p>
+<p>汇编初始化:</p>
+<pre class="literal-block">
+USART_Init:
+; 设置波特率
+out UBRRH, r17
+out UBRRL, r16
+; 启用接收器和发送器
+ldi r16, (1&lt;&lt;RXEN)|(1&lt;&lt;TXEN)
+out UCSRB, r16
+; 设置帧格式8位数据，2个停止位
+ldi r16, (1&lt;&lt;URSEL)|(1&lt;&lt;USBS)|(3&lt;&lt;UCSZ0)
+out UCSRC, r16
+ret
+</pre>
+<p>C初始化:</p>
+<pre class="literal-block">
+void USART_Init(unsigned int baud) {
+    //设置波特率
+    UBRRH=(unsigned char)(baud&gt;&gt;8);
+    UBRRL=(unsigned char)baud;
+    //启用接收器和发送器
+    UCSRB=(1&lt;&lt;RXEN)|(1&lt;&lt;TXEN);
+    //设置帧格式：8位数据，2个停止位
+    UCSRC=(1&lt;&lt;URSEL)|(1&lt;&lt;USBS)|(3&lt;&lt;UCSZ0);
+}
+</pre>
+</div>
+<div class="section" id="id46">
+<h3><a class="toc-backref" href="#id144">2.11.5&nbsp;&nbsp;&nbsp;数据发送</a></h3>
+<p>&#64;page 127</p>
+</div>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id145">2.11.6&nbsp;&nbsp;&nbsp;数据接收</a></h3>
+<p>&#64;page 130</p>
+</div>
+<div class="section" id="id48">
+<h3><a class="toc-backref" href="#id146">2.11.7&nbsp;&nbsp;&nbsp;异步串行数据的硬件扫描检测和接收时序</a></h3>
+<p>&#64;page 133</p>
+</div>
+<div class="section" id="id49">
+<h3><a class="toc-backref" href="#id147">2.11.8&nbsp;&nbsp;&nbsp;多机通信模式</a></h3>
+<p>&#64;page 134</p>
+</div>
+<div class="section" id="id50">
+<h3><a class="toc-backref" href="#id148">2.11.9&nbsp;&nbsp;&nbsp;USART寄存器</a></h3>
+<p>&#64;page 135</p>
+</div>
+<div class="section" id="id51">
+<h3><a class="toc-backref" href="#id149">2.11.10&nbsp;&nbsp;&nbsp;串行通信波特率的设置与偏差</a></h3>
+<p>&#64;page 141</p>
+</div>
+</div>
+<div class="section" id="twi-i2c">
+<h2><a class="toc-backref" href="#id150">2.12&nbsp;&nbsp;&nbsp;两线串行TWI(I2C)总线接口</a></h2>
+<p>特点：</p>
+<ol class="arabic simple">
+<li>只需要两根线的串行通信接口</li>
+<li>支持主控器/被控器操作模式</li>
+<li>器件可作为发送器或接收器</li>
+<li>7位的地址空间，支持最大128个从机地址</li>
+<li>支持多主机模式</li>
+<li>高达400KHz的数据传输率</li>
+<li>斜率受限的输出驱动器</li>
+<li>噪声监控电路防止总线上的毛刺</li>
+<li>全可编程的从机地址</li>
+<li>地址监听中断使AVR从休眠模式唤醒</li>
+</ol>
+<div class="section" id="id52">
+<h3><a class="toc-backref" href="#id151">2.12.1&nbsp;&nbsp;&nbsp;两线串行总线接口定义</a></h3>
+<p>两线串行接口(TWI)是单片机应用的理想接口。只需要两根双向总线，一个是时钟线SCL，一个是数据线SDA。最大支持128个从设备。使用这种总线唯一需要增加的外部器件是两个总线上的上拉电阻。所有从设备都有各自的设备地址。</p>
+<p>TWI与I2c是兼容的。</p>
+</div>
+<div class="section" id="twi">
+<h3><a class="toc-backref" href="#id152">2.12.2&nbsp;&nbsp;&nbsp;TWI模块的概述</a></h3>
+<p>SCL和SDA引脚是TWI接口的引脚，输出驱动器包含一个斜率限制器以服从TWI规范。引脚输入部分包括毛刺抑制单元以去除50ns的毛刺。</p>
+<p>注意，当使用SCL和SDA端口时，可以启用I/O口内部的上拉电阻，这样可以省去外部的上拉电阻。</p>
+<p>主控器负责生成波特率，驱动SCL时钟线。被控器不需要设置波特率，但是时钟频率必须大于SCL频率的16倍。主控器模式时TWBR的值应大于10，否则可能产生不正确的输出。</p>
+<p>&#64;page 145</p>
+</div>
+<div class="section" id="id53">
+<h3><a class="toc-backref" href="#id153">2.12.3&nbsp;&nbsp;&nbsp;TWI寄存器</a></h3>
+<p>&#64;page 146</p>
+</div>
+<div class="section" id="id54">
+<h3><a class="toc-backref" href="#id154">2.12.4&nbsp;&nbsp;&nbsp;使用TWI总线</a></h3>
+<p>&#64;page 149</p>
+</div>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id155">2.12.5&nbsp;&nbsp;&nbsp;多主机系统和仲裁</a></h3>
+<p>&#64;page 158</p>
+</div>
+</div>
+<div class="section" id="id56">
+<h2><a class="toc-backref" href="#id156">2.13&nbsp;&nbsp;&nbsp;模拟比较器</a></h2>
+<p>模拟比较器对两个模拟输入端，正极AIN0，负极AIN1，的输入电压进行比较，AIN0&gt;AIN1时，ACO输出1。可以使用中断。</p>
+<p>&#64;page 159</p>
+</div>
+<div class="section" id="adc">
+<h2><a class="toc-backref" href="#id157">2.14&nbsp;&nbsp;&nbsp;模数转换功能ADC</a></h2>
+<div class="section" id="id57">
+<h3><a class="toc-backref" href="#id158">2.14.1&nbsp;&nbsp;&nbsp;特点</a></h3>
+<ol class="arabic simple">
+<li>10bit精度(ADC4和ADC5为8bit)</li>
+<li>0.5LSB的非线性度</li>
+<li>+/- 2LSB的绝对精度</li>
+<li>65uS - 260uS的转换时间</li>
+<li>每秒最大为15k SPS的采样速率</li>
+<li>6路输入复用可选的单端输入通道</li>
+<li>附加2路输入的双路复用单端输入通道(仅TQFP和MLF封装有效)</li>
+<li>ADC的电压输入范围(0-Vcc)</li>
+<li>可选的2.56V的ADC参考电压源</li>
+<li>连续转换模式和单次转换模式</li>
+<li>ADC转换完成触发中断</li>
+<li>休眠模式下的噪声抑制器(NOISE CANCELER)</li>
+</ol>
+<p>&#64;page 162</p>
+</div>
+<div class="section" id="id58">
+<h3><a class="toc-backref" href="#id159">2.14.2&nbsp;&nbsp;&nbsp;启动ADC转换</a></h3>
+<p>&#64;page 164</p>
+</div>
+<div class="section" id="id59">
+<h3><a class="toc-backref" href="#id160">2.14.3&nbsp;&nbsp;&nbsp;预分频与转换定时</a></h3>
+<p>&#64;page 164</p>
+</div>
+<div class="section" id="id60">
+<h3><a class="toc-backref" href="#id161">2.14.4&nbsp;&nbsp;&nbsp;ADC输入通道和参考电源的选择</a></h3>
+<p>&#64;page 166</p>
+</div>
+<div class="section" id="id61">
+<h3><a class="toc-backref" href="#id162">2.14.5&nbsp;&nbsp;&nbsp;ADC噪声抑制器</a></h3>
+<p>&#64;page 168</p>
+</div>
+<div class="section" id="id62">
+<h3><a class="toc-backref" href="#id163">2.14.6&nbsp;&nbsp;&nbsp;有关的I/O寄存器</a></h3>
+<p>&#64;page 170</p>
+</div>
+</div>
+<div class="section" id="id63">
+<h2><a class="toc-backref" href="#id164">2.15&nbsp;&nbsp;&nbsp;引导加载支持的自编程功能</a></h2>
+<p>&#64;page 173</p>
+<div class="section" id="id64">
+<h3><a class="toc-backref" href="#id165">2.15.1&nbsp;&nbsp;&nbsp;引导加载计数的实现</a></h3>
+<p>&#64;page 174</p>
+</div>
+<div class="section" id="id65">
+<h3><a class="toc-backref" href="#id166">2.15.2&nbsp;&nbsp;&nbsp;相关I/O寄存器</a></h3>
+<p>&#64;page 178</p>
+</div>
+<div class="section" id="id66">
+<h3><a class="toc-backref" href="#id167">2.15.3&nbsp;&nbsp;&nbsp;程序存储器Flash的自编程</a></h3>
+<p>&#64;page 181</p>
+</div>
+<div class="section" id="id67">
+<h3><a class="toc-backref" href="#id168">2.15.4&nbsp;&nbsp;&nbsp;一个简单的引导加载汇编程序</a></h3>
+<p>&#64;page 184</p>
+</div>
+</div>
+<div class="section" id="id68">
+<h2><a class="toc-backref" href="#id169">2.16&nbsp;&nbsp;&nbsp;ATmega8存储器编程</a></h2>
+<div class="section" id="id69">
+<h3><a class="toc-backref" href="#id170">2.16.1&nbsp;&nbsp;&nbsp;ATmega8的锁定位、熔丝位、标志位和校正位</a></h3>
+<p>&#64;page 186</p>
+</div>
+<div class="section" id="id70">
+<h3><a class="toc-backref" href="#id171">2.16.2&nbsp;&nbsp;&nbsp;并行编程模式</a></h3>
+<p>&#64;page 189</p>
+</div>
+<div class="section" id="id71">
+<h3><a class="toc-backref" href="#id172">2.16.3&nbsp;&nbsp;&nbsp;串行编程模式</a></h3>
+<p>&#64;page 196</p>
+</div>
+</div>
+<div class="section" id="id72">
+<h2><a class="toc-backref" href="#id173">2.17&nbsp;&nbsp;&nbsp;EEPROM数据存储器读写访问</a></h2>
+<div class="section" id="id73">
+<h3><a class="toc-backref" href="#id174">2.17.1&nbsp;&nbsp;&nbsp;EEPROM读写访问</a></h3>
+<p>&#64;page 199</p>
+</div>
+<div class="section" id="id74">
+<h3><a class="toc-backref" href="#id175">2.17.2&nbsp;&nbsp;&nbsp;寄存器描述</a></h3>
+<p>&#64;page 199</p>
+</div>
+<div class="section" id="id75">
+<h3><a class="toc-backref" href="#id176">2.17.3&nbsp;&nbsp;&nbsp;简单的读写EEPROM例程</a></h3>
+<p>&#64;page 201</p>
+</div>
+</div>
+</div>
+<div class="section" id="id76">
+<h1><a class="toc-backref" href="#id177">3&nbsp;&nbsp;&nbsp;ATmega8指令系统</a></h1>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id77">
+<h1><a class="toc-backref" href="#id178">4&nbsp;&nbsp;&nbsp;ATmega8开发工具</a></h1>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id78">
+<h1><a class="toc-backref" href="#id179">5&nbsp;&nbsp;&nbsp;ATmega8应用设计</a></h1>
+<div class="section" id="i2c">
+<h2><a class="toc-backref" href="#id180">5.1&nbsp;&nbsp;&nbsp;硬件I2C的应用</a></h2>
+<p>ATmega8有硬件的TWI接口，完全兼容PHILIPS的I2C总线，以字节为处理单位。支持查询和中断，比软件实现更好。</p>
+<p>书中例子以查询方式访问AT24C02。</p>
+<p>&#64;page 291</p>
+</div>
+<div class="section" id="a-d">
+<h2><a class="toc-backref" href="#id181">5.2&nbsp;&nbsp;&nbsp;A/D转换器的应用</a></h2>
+<p>ATmega8有多路10bit精度的逐次比较式ADC，在测量系统可以有效降低成本。由于ATmega8的ADC转换速度比较高，用户可以采取数字滤波来得到精确和稳定的结果。控制好ADC的速度和节奏可以达到双积分式ADC的性能。</p>
+<p>&#64;page 296</p>
+</div>
+<div class="section" id="id79">
+<h2><a class="toc-backref" href="#id182">5.3&nbsp;&nbsp;&nbsp;USART接口的应用</a></h2>
+<p>USART作为全双工的同步或异步通信接口。通信格式可选5、6、7、8、9位，停止位可以是1或2位，有硬件奇偶校验、超越检测、帧错误检测；有多机通信模式；在异步通信时还有双倍速模式。</p>
+<p>例子为查询方式。</p>
+<p>输出字符:</p>
+<pre class="literal-block">
+void putchar(unsigned char c) {
+    while(!(UCSRA &amp; (1&lt;&lt;UDRE)));        //判断上次发送完成
+    UDR=c;
+}
+</pre>
+<p>读取字符:</p>
+<pre class="literal-block">
+unsigned char getchar(void) {
+    while(!(UCSRA &amp; (1&lt;&lt;RXC)));         //判断有没有接收到数据
+    return UDR;
+}
+</pre>
+<p>初始化:</p>
+<pre class="literal-block">
+void uart_init(void) {
+    UCSRB=(1&lt;&lt;RXEN)|(1&lt;&lt;TXEN);          //允许收发
+    UBRRL=(fosc/16/(baud+1))%256;
+    UBRRH=(fosc/16/(baud+1))/256;
+    UCSRC=(1&lt;&lt;URSEL)|(1&lt;&lt;UCSZ1)|(1&lt;&lt;UCSZ0); //8bit数据+1位停止
+}
+</pre>
+</div>
+<div class="section" id="id80">
+<h2><a class="toc-backref" href="#id183">5.4&nbsp;&nbsp;&nbsp;ATmega8实时时钟的应用</a></h2>
+<p>ATmega8需要借助T/C2来实现RTC功能，计数进位方面也要软件实现。</p>
+<p>使用RTC的条件：</p>
+<ol class="arabic simple">
+<li>系统时钟必须使用内部RC振荡器，可靠性也高</li>
+<li>T2定时器配置为异步时钟，在TOSC1、TOSC2接上32768Hz晶振</li>
+</ol>
+<p>T/C2的初始化代码:</p>
+<pre class="literal-block">
+TCCR2=0x00;
+ASSR= 1&lt;&lt; AS2;  //异步时钟
+TCNT2= 0xe0;    //定时时间1秒
+TCCR2= (1&lt;&lt;CS22)|(1&lt;CS21)|(1&lt;&lt;CS20);    //预分频/1024
+</pre>
+<p>T/C2的中断溢出:</p>
+<pre class="literal-block">
+TCNT2=0xe0;
+second++;
+</pre>
+<p>初始化之后开启中断:</p>
+<pre class="literal-block">
+TIMSK=1&lt;&lt;TOIE2;
+sei();
+</pre>
+<p>书中的程序还有通过串口调整时间，以及每次时间更改时向串口输出时间的部分。我好像赶紧搞定USB接口模拟的串口啊，看起来好方便。</p>
+</div>
+<div class="section" id="boot">
+<h2><a class="toc-backref" href="#id184">5.5&nbsp;&nbsp;&nbsp;BOOT引导区的应用</a></h2>
+<p>&#64;page 305</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 17159, "title": "ATmega8\u539f\u7406\u53ca\u5e94\u7528\u624b\u518c", "src_size": 30875, "filehash": "d87cca12edcb9d2186ceba0f75fbb634", "dst_size": 64228} -->

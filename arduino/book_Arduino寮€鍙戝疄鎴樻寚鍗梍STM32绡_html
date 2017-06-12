@@ -1,0 +1,2274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Arduino开发实战指南 STM32篇</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<style type="text/css">
+
+/*
+*   math2html: convert LaTeX equations to HTML output.
+*
+*   Copyright (C) 2009,2010 Alex Fernández
+*
+*   Released under the terms of the `2-Clause BSD license'_, in short:
+*   Copying and distribution of this file, with or without modification,
+*   are permitted in any medium without royalty provided the copyright
+*   notice and this notice are preserved.
+*   This file is offered as-is, without any warranty.
+*
+* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause
+*
+*   Based on eLyXer: convert LyX source files to HTML output.
+*   http://elyxer.nongnu.org/
+*/
+/* --end--
+* CSS file for LaTeX formulas.
+*/
+
+/* Formulas */
+.formula {
+	text-align: center;
+	font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
+	margin: 1.2em 0;
+}
+span.formula {
+	white-space: nowrap;
+}
+div.formula {
+	padding: 0.5ex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Basic features */
+a.eqnumber {
+	display: inline-block;
+	float: right;
+	clear: right;
+	font-weight: bold;
+}
+span.unknown {
+	color: #800000;
+}
+span.ignored, span.arraydef {
+	display: none;
+}
+.formula i {
+	letter-spacing: 0.1ex;
+}
+
+/* Alignment */
+.align-left, .align-l {
+	text-align: left;
+}
+.align-right, .align-r {
+	text-align: right;
+}
+.align-center, .align-c {
+	text-align: center;
+}
+
+/* Structures */
+span.overline, span.bar {
+	text-decoration: overline;
+}
+.fraction, .fullfraction {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.fraction .fraction {
+	font-size: 80%;
+	line-height: 100%;
+}
+span.numerator {
+	display: block;
+}
+span.denominator {
+	display: block;
+	padding: 0ex;
+	border-top: thin solid;
+}
+sup.numerator, sup.unit {
+	font-size: 70%;
+	vertical-align: 80%;
+}
+sub.denominator, sub.unit {
+	font-size: 70%;
+	vertical-align: -20%;
+}
+span.sqrt {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.1ex;
+}
+sup.root {
+	font-size: 70%;
+	position: relative;
+	left: 1.4ex;
+}
+span.radical {
+	display: inline-block;
+	padding: 0ex;
+	font-size: 150%;
+	vertical-align: top;
+}
+span.root {
+	display: inline-block;
+	border-top: thin solid;
+	padding: 0ex;
+	vertical-align: middle;
+}
+span.symbol {
+	line-height: 125%;
+	font-size: 125%;
+}
+span.bigsymbol {
+	line-height: 150%;
+	font-size: 150%;
+}
+span.largesymbol {
+	font-size: 175%;
+}
+span.hugesymbol {
+	font-size: 200%;
+}
+span.scripts {
+	display: inline-table;
+	vertical-align: middle;
+}
+.script {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+span.limits {
+	display: inline-table;
+	vertical-align: middle;
+}
+.limit {
+	display: table-row;
+	line-height: 99%;
+}
+sup.limit, sub.limit {
+	line-height: 100%;
+}
+span.symbolover {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 100%;
+	bottom: 0.5em;
+	width: 0px;
+}
+span.withsymbol {
+	display: inline-block;
+}
+span.symbolunder {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 80%;
+	top: 0.3em;
+	width: 0px;
+}
+
+/* Environments */
+span.array, span.bracketcases, span.binomial, span.environment {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+span.arrayrow, span.binomrow {
+	display: table-row;
+	padding: 0ex;
+	border: 0ex;
+}
+span.arraycell, span.bracket, span.case, span.binomcell, span.environmentcell {
+	display: table-cell;
+	padding: 0ex 0.2ex;
+	line-height: 99%;
+	border: 0ex;
+}
+/*
+* CSS file for LaTeX formulas, extra stuff:
+* binomials, vertical braces, stackrel, fonts and colors.
+*/
+
+/* Inline binomials */
+span.binom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+span.binomstack {
+	display: block;
+	padding: 0em;
+}
+
+/* Over- and underbraces */
+span.overbrace {
+	border-top: 2pt solid;
+}
+span.underbrace {
+	border-bottom: 2pt solid;
+}
+
+/* Stackrel */
+span.stackrel {
+	display: inline-block;
+	text-align: center;
+}
+span.upstackrel {
+	display: block;
+	padding: 0em;
+	font-size: 80%;
+	line-height: 64%;
+	position: relative;
+	top: 0.15em;
+
+}
+span.downstackrel {
+	display: block;
+	vertical-align: bottom;
+	padding: 0em;
+}
+
+/* Fonts */
+span.mathsf, span.textsf {
+	font-style: normal;
+	font-family: sans-serif;
+}
+span.mathrm, span.textrm {
+	font-style: normal;
+	font-family: serif;
+}
+span.text, span.textnormal {
+	font-style: normal;
+}
+span.textipa {
+	color: #008080;
+}
+span.fraktur {
+	font-family: "Lucida Blackletter", eufm10, blackletter;
+}
+span.blackboard {
+	font-family: Blackboard, msbm10, serif;
+}
+span.scriptfont {
+	font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+	font-style: italic;
+}
+
+/* Colors */
+span.colorbox {
+	display: inline-block;
+	padding: 5px;
+}
+span.fbox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 2px;
+}
+span.boxed, span.framebox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 5px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="arduino-stm32">
+<h1 class="title">Arduino开发实战指南 STM32篇</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">作者:</th><td class="field-body">姚汉</td>
+</tr>
+<tr class="field"><th class="docinfo-name">出版社:</th><td class="field-body">北京,机械工业出版社,2013.11</td>
+</tr>
+<tr class="field"><th class="docinfo-name">ISBN:</th><td class="field-body">978-7-111-44582-1</td>
+</tr>
+</tbody>
+</table>
+<p>I.A  II.姚  III.单片微型计算机-指南  IV.TP368.1-62</p>
+<p>中国版本图书馆CIP数据核字(2013)第254049号</p>
+<p>2014年1月第1版第1次印刷  186mm x 240mm 9.75印张</p>
+<p>定价：59.00元</p>
+<p>介绍Maple控制器。性能比AVR的提高了很多。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#maple" id="id56">1&nbsp;&nbsp;&nbsp;Maple简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#maplearduino" id="id57">1.1&nbsp;&nbsp;&nbsp;Maple与Arduino的关系</a></li>
+<li><a class="reference internal" href="#id2" id="id58">1.2&nbsp;&nbsp;&nbsp;Maple的衍生版本</a><ul class="auto-toc">
+<li><a class="reference internal" href="#maple-ret6" id="id59">1.2.1&nbsp;&nbsp;&nbsp;Maple RET6</a></li>
+<li><a class="reference internal" href="#maple-mini" id="id60">1.2.2&nbsp;&nbsp;&nbsp;Maple Mini</a></li>
+<li><a class="reference internal" href="#maple-native" id="id61">1.2.3&nbsp;&nbsp;&nbsp;Maple Native</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3" id="id62">1.3&nbsp;&nbsp;&nbsp;Maple的硬件资源</a></li>
+<li><a class="reference internal" href="#libmaple" id="id63">1.4&nbsp;&nbsp;&nbsp;libmaple简介</a></li>
+<li><a class="reference internal" href="#maple-ide" id="id64">1.5&nbsp;&nbsp;&nbsp;Maple IDE的安装和使用</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id65">1.5.1&nbsp;&nbsp;&nbsp;下载Maple IDE</a></li>
+<li><a class="reference internal" href="#id5" id="id66">1.5.2&nbsp;&nbsp;&nbsp;安装Maple IDE</a></li>
+<li><a class="reference internal" href="#id6" id="id67">1.5.3&nbsp;&nbsp;&nbsp;第一个程序</a></li>
+<li><a class="reference internal" href="#id7" id="id68">1.5.4&nbsp;&nbsp;&nbsp;Maple IDE的使用</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id69">1.6&nbsp;&nbsp;&nbsp;Maple的开源协议</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id70">2&nbsp;&nbsp;&nbsp;Maple的Arduino兼容函数库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id10" id="id71">2.1&nbsp;&nbsp;&nbsp;基本程序结构</a></li>
+<li><a class="reference internal" href="#id11" id="id72">2.2&nbsp;&nbsp;&nbsp;Maple静态变量关键字</a></li>
+<li><a class="reference internal" href="#gpio" id="id73">2.3&nbsp;&nbsp;&nbsp;GPIO</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pinmode" id="id74">2.3.1&nbsp;&nbsp;&nbsp;<cite>pinMode()</cite></a></li>
+<li><a class="reference internal" href="#digitalwrite" id="id75">2.3.2&nbsp;&nbsp;&nbsp;<cite>digitalWrite()</cite></a></li>
+<li><a class="reference internal" href="#digitalread" id="id76">2.3.3&nbsp;&nbsp;&nbsp;<cite>digitalRead()</cite></a></li>
+<li><a class="reference internal" href="#togglepin" id="id77">2.3.4&nbsp;&nbsp;&nbsp;<cite>togglePin()</cite></a></li>
+<li><a class="reference internal" href="#toggleled" id="id78">2.3.5&nbsp;&nbsp;&nbsp;<cite>toggleLED()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12" id="id79">2.4&nbsp;&nbsp;&nbsp;模拟输入输出</a><ul class="auto-toc">
+<li><a class="reference internal" href="#analogwrite-pwmwrite" id="id80">2.4.1&nbsp;&nbsp;&nbsp;<cite>analogWrite()</cite> 与 <cite>pwmWrite()</cite></a></li>
+<li><a class="reference internal" href="#analogread" id="id81">2.4.2&nbsp;&nbsp;&nbsp;<cite>analogRead()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#i-o" id="id82">2.5&nbsp;&nbsp;&nbsp;高级I/O</a><ul class="auto-toc">
+<li><a class="reference internal" href="#shiftout" id="id83">2.5.1&nbsp;&nbsp;&nbsp;<cite>shiftOut()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spi" id="id84">2.6&nbsp;&nbsp;&nbsp;SPI接口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#begin" id="id85">2.6.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></li>
+<li><a class="reference internal" href="#write" id="id86">2.6.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+<li><a class="reference internal" href="#read" id="id87">2.6.3&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></li>
+<li><a class="reference internal" href="#transfer" id="id88">2.6.4&nbsp;&nbsp;&nbsp;<cite>transfer()</cite></a></li>
+<li><a class="reference internal" href="#end" id="id89">2.6.5&nbsp;&nbsp;&nbsp;<cite>end()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usartusb" id="id90">2.7&nbsp;&nbsp;&nbsp;USART与虚拟USB串口</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id13" id="id91">2.7.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></li>
+<li><a class="reference internal" href="#id14" id="id92">2.7.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+<li><a class="reference internal" href="#print-println" id="id93">2.7.3&nbsp;&nbsp;&nbsp;<cite>print()</cite> 和 <cite>println()</cite></a></li>
+<li><a class="reference internal" href="#id15" id="id94">2.7.4&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></li>
+<li><a class="reference internal" href="#available" id="id95">2.7.5&nbsp;&nbsp;&nbsp;<cite>available()</cite></a></li>
+<li><a class="reference internal" href="#flush" id="id96">2.7.6&nbsp;&nbsp;&nbsp;<cite>flush()</cite></a></li>
+<li><a class="reference internal" href="#txpin-rxpin" id="id97">2.7.7&nbsp;&nbsp;&nbsp;<cite>txPin()</cite> 和 <cite>rxPin()</cite></a></li>
+<li><a class="reference internal" href="#id16" id="id98">2.7.8&nbsp;&nbsp;&nbsp;<cite>end()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17" id="id99">2.8&nbsp;&nbsp;&nbsp;延时和定时器</a><ul class="auto-toc">
+<li><a class="reference internal" href="#delay-delaymicroseconds" id="id100">2.8.1&nbsp;&nbsp;&nbsp;<cite>delay()</cite> 与 <cite>delayMicroseconds()</cite></a></li>
+<li><a class="reference internal" href="#mills-micros" id="id101">2.8.2&nbsp;&nbsp;&nbsp;<cite>mills()</cite> 与 <cite>micros()</cite></a></li>
+<li><a class="reference internal" href="#id18" id="id102">2.8.3&nbsp;&nbsp;&nbsp;内部硬件定时器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id19" id="id103">2.9&nbsp;&nbsp;&nbsp;外部中断</a><ul class="auto-toc">
+<li><a class="reference internal" href="#interrupts-nointerrupts" id="id104">2.9.1&nbsp;&nbsp;&nbsp;<cite>interrupts()</cite> 与 <cite>nointerrupts()</cite></a></li>
+<li><a class="reference internal" href="#attachinterrupt-detachinterrupt" id="id105">2.9.2&nbsp;&nbsp;&nbsp;<cite>attachInterrupt()</cite> 与 <cite>detachInterrupt()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20" id="id106">2.10&nbsp;&nbsp;&nbsp;数学与位运算操作</a></li>
+<li><a class="reference internal" href="#wire" id="id107">2.11&nbsp;&nbsp;&nbsp;Wire库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id21" id="id108">2.11.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></li>
+<li><a class="reference internal" href="#begintransmission" id="id109">2.11.2&nbsp;&nbsp;&nbsp;<cite>beginTransmission()</cite></a></li>
+<li><a class="reference internal" href="#send" id="id110">2.11.3&nbsp;&nbsp;&nbsp;<cite>send()</cite></a></li>
+<li><a class="reference internal" href="#endtransmission" id="id111">2.11.4&nbsp;&nbsp;&nbsp;<cite>endTransmission()</cite></a></li>
+<li><a class="reference internal" href="#requestfrom" id="id112">2.11.5&nbsp;&nbsp;&nbsp;<cite>requestFrom()</cite></a></li>
+<li><a class="reference internal" href="#receive" id="id113">2.11.6&nbsp;&nbsp;&nbsp;<cite>receive()</cite></a></li>
+<li><a class="reference internal" href="#id22" id="id114">2.11.7&nbsp;&nbsp;&nbsp;<cite>available()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#servo" id="id115">2.12&nbsp;&nbsp;&nbsp;Servo库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#attach" id="id116">2.12.1&nbsp;&nbsp;&nbsp;<cite>attach()</cite></a></li>
+<li><a class="reference internal" href="#attached" id="id117">2.12.2&nbsp;&nbsp;&nbsp;<cite>attached()</cite></a></li>
+<li><a class="reference internal" href="#id23" id="id118">2.12.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+<li><a class="reference internal" href="#writemicroseconds" id="id119">2.12.4&nbsp;&nbsp;&nbsp;<cite>writeMicroseconds()</cite></a></li>
+<li><a class="reference internal" href="#readmicroseconds" id="id120">2.12.5&nbsp;&nbsp;&nbsp;<cite>readMicroseconds()</cite></a></li>
+<li><a class="reference internal" href="#id24" id="id121">2.12.6&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></li>
+<li><a class="reference internal" href="#detach" id="id122">2.12.7&nbsp;&nbsp;&nbsp;<cite>detach()</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#liquidcrystal" id="id123">2.13&nbsp;&nbsp;&nbsp;LiquidCrystal库</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id25" id="id124">2.13.1&nbsp;&nbsp;&nbsp;<cite>LiquidCrystal()</cite></a></li>
+<li><a class="reference internal" href="#id26" id="id125">2.13.2&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></li>
+<li><a class="reference internal" href="#id27" id="id126">2.13.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id28" id="id127">3&nbsp;&nbsp;&nbsp;电路基础</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id29" id="id128">3.1&nbsp;&nbsp;&nbsp;需要的工具与仪器</a></li>
+<li><a class="reference internal" href="#id30" id="id129">3.2&nbsp;&nbsp;&nbsp;电阻</a></li>
+<li><a class="reference internal" href="#id31" id="id130">3.3&nbsp;&nbsp;&nbsp;电感</a></li>
+<li><a class="reference internal" href="#id32" id="id131">3.4&nbsp;&nbsp;&nbsp;电容</a></li>
+<li><a class="reference internal" href="#bjt" id="id132">3.5&nbsp;&nbsp;&nbsp;BJT三极管</a></li>
+<li><a class="reference internal" href="#ic" id="id133">3.6&nbsp;&nbsp;&nbsp;74系列IC</a></li>
+<li><a class="reference internal" href="#lm7805ic" id="id134">3.7&nbsp;&nbsp;&nbsp;LM7805线性稳压IC</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id33" id="id135">4&nbsp;&nbsp;&nbsp;基本实验</a><ul class="auto-toc">
+<li><a class="reference internal" href="#led" id="id136">4.1&nbsp;&nbsp;&nbsp;LED渐变</a></li>
+<li><a class="reference internal" href="#id34" id="id137">4.2&nbsp;&nbsp;&nbsp;继电器控制</a></li>
+<li><a class="reference internal" href="#id35" id="id138">4.3&nbsp;&nbsp;&nbsp;1602字符液晶显示屏</a></li>
+<li><a class="reference internal" href="#id36" id="id139">4.4&nbsp;&nbsp;&nbsp;四位段码LED显示</a></li>
+<li><a class="reference internal" href="#ds1302" id="id140">4.5&nbsp;&nbsp;&nbsp;DS1302时钟芯片</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id37" id="id141">5&nbsp;&nbsp;&nbsp;传感器实验</a><ul class="auto-toc">
+<li><a class="reference internal" href="#lm35" id="id142">5.1&nbsp;&nbsp;&nbsp;LM35温度传感器</a></li>
+<li><a class="reference internal" href="#dht11" id="id143">5.2&nbsp;&nbsp;&nbsp;DHT11温湿度传感器</a></li>
+<li><a class="reference internal" href="#id38" id="id144">5.3&nbsp;&nbsp;&nbsp;酒精传感器</a></li>
+<li><a class="reference internal" href="#id39" id="id145">5.4&nbsp;&nbsp;&nbsp;超声波测距传感器</a></li>
+<li><a class="reference internal" href="#id40" id="id146">5.5&nbsp;&nbsp;&nbsp;光敏电阻光传感器</a></li>
+<li><a class="reference internal" href="#bh1750" id="id147">5.6&nbsp;&nbsp;&nbsp;BH1750环境光传感器模块</a></li>
+<li><a class="reference internal" href="#adxl335" id="id148">5.7&nbsp;&nbsp;&nbsp;ADXL335加速计</a></li>
+<li><a class="reference internal" href="#gp2y1010au0f" id="id149">5.8&nbsp;&nbsp;&nbsp;GP2Y1010AU0F灰尘传感器</a></li>
+<li><a class="reference internal" href="#bmp085" id="id150">5.9&nbsp;&nbsp;&nbsp;BMP085气压传感器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id41" id="id151">6&nbsp;&nbsp;&nbsp;运动控制实验</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id42" id="id152">6.1&nbsp;&nbsp;&nbsp;步进电机控制</a></li>
+<li><a class="reference internal" href="#id43" id="id153">6.2&nbsp;&nbsp;&nbsp;舵机电压表</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id44" id="id154">7&nbsp;&nbsp;&nbsp;其他实验</a><ul class="auto-toc">
+<li><a class="reference internal" href="#hc595" id="id155">7.1&nbsp;&nbsp;&nbsp;74hc595串并转换</a></li>
+<li><a class="reference internal" href="#cxxeeprom" id="id156">7.2&nbsp;&nbsp;&nbsp;24Cxx系列EEPROM读写</a></li>
+<li><a class="reference internal" href="#pid" id="id157">7.3&nbsp;&nbsp;&nbsp;PID温度自动控制</a></li>
+<li><a class="reference internal" href="#id45" id="id158">7.4&nbsp;&nbsp;&nbsp;Maple频率计</a></li>
+<li><a class="reference internal" href="#nec" id="id159">7.5&nbsp;&nbsp;&nbsp;NEC协议红外发射实验</a></li>
+<li><a class="reference internal" href="#irremote" id="id160">7.6&nbsp;&nbsp;&nbsp;使用IRremote库多协议红外收发</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id46" id="id161">8&nbsp;&nbsp;&nbsp;Maple上的操作系统简介</a><ul class="auto-toc">
+<li><a class="reference internal" href="#maplecoos" id="id162">8.1&nbsp;&nbsp;&nbsp;Maple上的CoOS</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id47" id="id163">8.1.1&nbsp;&nbsp;&nbsp;准备</a></li>
+<li><a class="reference internal" href="#id48" id="id164">8.1.2&nbsp;&nbsp;&nbsp;入门程序</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#maplefreertos" id="id165">8.2&nbsp;&nbsp;&nbsp;Maple上的FreeRTOS</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id49" id="id166">8.2.1&nbsp;&nbsp;&nbsp;简介</a></li>
+<li><a class="reference internal" href="#id50" id="id167">8.2.2&nbsp;&nbsp;&nbsp;入门程序</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id51" id="id168">9&nbsp;&nbsp;&nbsp;附录</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id52" id="id169">9.1&nbsp;&nbsp;&nbsp;附录1 Maple引脚功能表</a></li>
+<li><a class="reference internal" href="#id53" id="id170">9.2&nbsp;&nbsp;&nbsp;附录2 Maple mini引脚功能表</a></li>
+<li><a class="reference internal" href="#id54" id="id171">9.3&nbsp;&nbsp;&nbsp;定时器比较器通道与其相对应的引脚</a></li>
+<li><a class="reference internal" href="#id55" id="id172">9.4&nbsp;&nbsp;&nbsp;Maple RET6引脚功能表</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maple">
+<h1><a class="toc-backref" href="#id56">1&nbsp;&nbsp;&nbsp;Maple简介</a></h1>
+<div class="section" id="maplearduino">
+<h2><a class="toc-backref" href="#id57">1.1&nbsp;&nbsp;&nbsp;Maple与Arduino的关系</a></h2>
+<p>Maple是MIT的学会组成的LeafLab实验室开发的。对Arduino有很高的兼容性，包括引脚和函数库(不支持 <cite>tone()</cite> 和 <cite>pluseIn()</cite> 函数)。</p>
+<p>Maple采用了32bit的ARM处理器，速度更快，RAM和Flash容量更大，引脚更多，且并不贵。</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id58">1.2&nbsp;&nbsp;&nbsp;Maple的衍生版本</a></h2>
+<p>Maple也像Arduino一样出现了面向不同目标的版本。</p>
+<p>基础版本叫rev5，处理器为STM32F103RBT6。RAM=20KB，Flash=128KB。</p>
+<div class="section" id="maple-ret6">
+<h3><a class="toc-backref" href="#id59">1.2.1&nbsp;&nbsp;&nbsp;Maple RET6</a></h3>
+<p>升级了处理器到STM32F103RET6，多了2路DAC输出。RAM=64KB，Flash=512KB。</p>
+</div>
+<div class="section" id="maple-mini">
+<h3><a class="toc-backref" href="#id60">1.2.2&nbsp;&nbsp;&nbsp;Maple Mini</a></h3>
+<p>兼容面包板的双列直插外形。外形5.13cm x 1.82cm。处理器STM32F103CBT6。GPIO比rev5的少。</p>
+</div>
+<div class="section" id="maple-native">
+<h3><a class="toc-backref" href="#id61">1.2.3&nbsp;&nbsp;&nbsp;Maple Native</a></h3>
+<p>换用了更高端的处理器，且有外部扩展SRAM。高精度的DAC输出。</p>
+<p>处理器STM32F103ZET6。SRAM=64KB，Flash=512KB。外部扩展SRAM=1MB。106个GPIO。17个16bit PWM输出。21个12bit ADC输入。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id62">1.3&nbsp;&nbsp;&nbsp;Maple的硬件资源</a></h2>
+<p>处理器STM32F103RBT6。Cortex-M3核心，72MHz主频。近似的成本，而性能提升是飞跃的。</p>
+<p>各个版本的参数对比：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>比较项</td>
+<td>Maple rev5</td>
+<td>Maple Mini</td>
+<td>Maple Native</td>
+<td>Arduino UNO</td>
+</tr>
+<tr><td>处理器时钟</td>
+<td>72MHz</td>
+<td>72MHz</td>
+<td>72MHz</td>
+<td>16~20MHz</td>
+</tr>
+<tr><td>SRAM</td>
+<td>20KB</td>
+<td>20KB</td>
+<td>64KB+1MB</td>
+<td>2KB</td>
+</tr>
+<tr><td>Flash</td>
+<td>128KB</td>
+<td>128KB</td>
+<td>512KB</td>
+<td>32KB</td>
+</tr>
+<tr><td>EEPROM</td>
+<td>Flash虚拟</td>
+<td>Flash虚拟</td>
+<td>Flash虚拟</td>
+<td>1KB</td>
+</tr>
+<tr><td>可用GPIO</td>
+<td>43</td>
+<td>34</td>
+<td>106</td>
+<td>14</td>
+</tr>
+<tr><td>ADC</td>
+<td>12bit x 15</td>
+<td>12bit x 9</td>
+<td>12bit x 21</td>
+<td>10bit x 6</td>
+</tr>
+<tr><td>PWM</td>
+<td>16bit x 15</td>
+<td>16bit x 12</td>
+<td>16bit x 17</td>
+<td>8bit x 6</td>
+</tr>
+<tr><td>硬件SPI</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr><td>硬件I2C</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr><td>硬件USART</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr><td>硬件USB</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>无</td>
+</tr>
+<tr><td>引脚中断</td>
+<td>42共用16通道</td>
+<td>x</td>
+<td>106个共用16通道</td>
+<td>2个</td>
+</tr>
+<tr><td>DAC</td>
+<td>0</td>
+<td>0</td>
+<td>12bit x 2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="libmaple">
+<h2><a class="toc-backref" href="#id63">1.4&nbsp;&nbsp;&nbsp;libmaple简介</a></h2>
+<p>由LeafLab开发，封装了STM32底层库来提供更好的操作性。</p>
+<p><a class="reference external" href="https://github.com/leaflabs/libmaple">https://github.com/leaflabs/libmaple</a></p>
+<p>提供了底层的C库libmaple和上层封装的Wiring风格API。</p>
+</div>
+<div class="section" id="maple-ide">
+<h2><a class="toc-backref" href="#id64">1.5&nbsp;&nbsp;&nbsp;Maple IDE的安装和使用</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id65">1.5.1&nbsp;&nbsp;&nbsp;下载Maple IDE</a></h3>
+<p>支持Mac、Windows、Linux。官网 <a class="reference external" href="http://leaflabs.com/docs/maple-ide-install.html">http://leaflabs.com/docs/maple-ide-install.html</a> 下载。</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id66">1.5.2&nbsp;&nbsp;&nbsp;安装Maple IDE</a></h3>
+<p>Windows下解压即可使用，无需安装。需要指定DFU和虚拟串口驱动。</p>
+<p>安装DFU驱动：</p>
+<ol class="arabic simple">
+<li>Maple接入USB口</li>
+<li>按下RESET键，蓝色指示灯快速闪烁6次，然后慢闪烁几次</li>
+<li>再次按下RESET键，蓝色指示灯快速闪烁6次期间，按下BUT键不放，直到慢闪烁才放开</li>
+<li>此时Maple处于永久BootLoader状态，蓝色指示灯一直闪，可以安装DFU驱动</li>
+<li>Windows提示安装驱动，进入程序目录的 <tt class="docutils literal">drivers/mapleDrv/dfu</tt></li>
+</ol>
+<p>Linux下需要JRE，解压后运行 <tt class="docutils literal"><span class="pre">./install-udev-rules.sh</span></tt> 。然后 <tt class="docutils literal">sudo restart udev</tt> 。</p>
+<p>Mac下解压DMG，拖放到应用目录即可。</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id67">1.5.3&nbsp;&nbsp;&nbsp;第一个程序</a></h3>
+<p>选择目录 [File]=&gt;[Examples]=&gt;[Digital] 的Blink即可。</p>
+<p>烧写用 [Tools]=&gt;[Board]=&gt;[LeafLabs Maple .. to Flash] 。每个都有两个选项To Flash和To RAM。To RAM的更快，复位就丢失程序，空间小。</p>
+<p>[Verify]按钮就是编译程序。</p>
+<p>每次复位、重编程、接上USB，蓝色指示灯都会闪一会，表示在BootLoader模式。等到开始执行程序，就用 [Tools]=&gt;[Serial Port] 选择串口，然后用 [Upload] 按钮上传程序。</p>
+<p>Maple IDE通过虚拟串口来发送复位信号，复位后就会进入DFU模式一会，如果没有上传程序，则执行已经存入的。</p>
+<p>如果上传出错，导致正常下载无法进行。就可以在等待DFU设备时对Maple复位，进入永久BootLoader模式再下载。</p>
+<p>可以用一个虚拟串口发送文本的程序 [File]=&gt;[Examples]=&gt;[Stubs]=&gt;[Hello World] 然后 [Upload] 上传。之后用 [Serial Monitor Window] 查看输出。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id68">1.5.4&nbsp;&nbsp;&nbsp;Maple IDE的使用</a></h3>
+<p>跟Arduino IDE一样，也是再Processing IDE基础上开发的。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id69">1.6&nbsp;&nbsp;&nbsp;Maple的开源协议</a></h2>
+<p>Creative Commons share-a-like发布。</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id70">2&nbsp;&nbsp;&nbsp;Maple的Arduino兼容函数库</a></h1>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id71">2.1&nbsp;&nbsp;&nbsp;基本程序结构</a></h2>
+<p>两个入口函数 <cite>setup()</cite> 和 <cite>loop()</cite> 。 <cite>setup()</cite> 只在启动时执行一次， <cite>loop()</cite> 内的代码会循环执行。</p>
+<p>底层相关的操作都隐藏起来了，使用类似C++的语言。</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id72">2.2&nbsp;&nbsp;&nbsp;Maple静态变量关键字</a></h2>
+<p>一些静态变量关键字代替常数和引脚，规避不同型号开发板带来的兼容性问题，提高可读性。</p>
+<ol class="arabic simple">
+<li><cite>CYCLES_PER_MICROSECOND</cite> ：处理器每微秒的循环次数，Maple为72</li>
+<li><cite>CLOCK_SPEED_MHZ</cite> ：以MHz为单位的处理器时钟频率</li>
+<li><cite>CLOCK_SPEED_HZ</cite> ：以Hz为单位的处理器时钟频率</li>
+<li><cite>SYSTICK_RELOAD_VAL</cite> ：SysTick计数器重载值</li>
+<li><cite>BOARD_BUTTON_PIN</cite> ：BUT按键的引脚</li>
+<li><cite>BOARD_LED_PIN</cite> ：LED所在引脚</li>
+<li><cite>BOARD_NR_GPIO_PINS</cite> ：所有引出GPIO的数量，某些引脚可能已经被占用，具体被占用的参见 <cite>boardUsesPin()</cite> 函数</li>
+<li><cite>BOARD_NR_PWM_PINS</cite> ：所有PWM引脚数量</li>
+<li><cite>BOARD_NR_ADC_PINS</cite> ：所有ADC引脚数量</li>
+<li><cite>BOARD_NR_USED_PINS</cite> ：所有已被使用的GPIO引脚数量</li>
+</ol>
+<p>串口相关常量：</p>
+<ol class="arabic simple">
+<li><cite>BOARD_USART1_TX_PIN</cite> 、 <cite>BOARD_USART2_TX_PIN</cite> 、 <cite>BOARD_USART3_TX_PIN</cite> ：3个USART串口发送引脚</li>
+<li><cite>BOARD_USART1_RX_PIN</cite> 、 <cite>BOARD_USART2_RX_PIN</cite> 、 <cite>BOARD_USART3_RX_PIN</cite> ：3个USART串口接收引脚</li>
+<li><cite>BOARD_UART4_TX_PIN</cite> 、 <cite>BOARD_UART5_TX_PIN</cite> ：UART4、UART5的发送引脚(Maple Native)</li>
+<li><cite>BOARD_UART4_RX_PIN</cite> 、 <cite>BOARD_UART5_RX_PIN</cite> ：UART4、UART5的接收引脚(Maple Native)</li>
+<li><cite>BOARD_NR_USARTS</cite> ：可用USART串口数量</li>
+</ol>
+</div>
+<div class="section" id="gpio">
+<h2><a class="toc-backref" href="#id73">2.3&nbsp;&nbsp;&nbsp;GPIO</a></h2>
+<p>STM32输出高电平为3.3V，部分引脚可以接受5V输入，安全的做法还是需要做电平转换的。</p>
+<p>对5V数字信号的读取还好，输出可用开漏方式。</p>
+<div class="section" id="pinmode">
+<h3><a class="toc-backref" href="#id74">2.3.1&nbsp;&nbsp;&nbsp;<cite>pinMode()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void pinMode(uint8 pin, WiringPinMode mode)
+</pre>
+<p>pin为引脚编号。mode为要写入的模式。</p>
+<p>通常放在 <cite>setup()</cite> 中。</p>
+<p>各种mode取值：</p>
+<ol class="arabic simple">
+<li><cite>OUTPUT</cite> ：数字输出</li>
+<li><cite>OUTPUT_OPEN_DRAIN</cite> ：开漏输出，外接上拉电阻提供输出电源，可用于输出TTL电平</li>
+<li><cite>INPUT</cite> ：数字输入，如果不接电路，会由于电磁干扰随机得到1或0</li>
+<li><cite>INPUT_ANALOG</cite> ：模拟输入</li>
+<li><cite>INPUT_PULLUP</cite> ：带内部上拉的数字输入，没有外部信号时读取的是高电平</li>
+<li><cite>INPUT_PULLDOWN</cite> ：带内部下拉的数字输入，没有外部信号时读取的是低电平</li>
+<li><cite>INPUT_FLOATING</cite> ：和INPUT等效</li>
+<li><cite>PWM</cite> ：脉宽调制输出</li>
+<li><cite>PWM_OPEN_DRAIN</cite> ：开漏输出模式的PWM</li>
+</ol>
+<p>设置LED引脚为输出，并闪烁:</p>
+<pre class="literal-block">
+setup() {
+    pinMode(BOARD_LED_PIN, OUTPUT);
+}
+
+loop() {
+    digitalWrite(BOARD_LED_PIN, HIGH);  //输出高电平点亮LED
+    delay(1000);                        //延时1秒
+    digitalWrite(BOARD_LED_PIN, LOW);   //输出低电平熄灭LED
+    delay(1000);
+}
+</pre>
+<p>输出分为开漏(OUTPUT_OPEN_DRAIN)和推挽(OUTPUT)。开漏输出需要外接上拉电阻，然后输出最高达到Vcc的电压。用以兼容TTL电平。</p>
+<p>一些使用开漏的情况：</p>
+<ol class="arabic simple">
+<li>I2C协议必须使用开漏输出，避免总线上多个设备传输信号的冲突</li>
+<li>需要输出TTL电平(5V)时，将上拉电阻接到5V</li>
+</ol>
+</div>
+<div class="section" id="digitalwrite">
+<h3><a class="toc-backref" href="#id75">2.3.2&nbsp;&nbsp;&nbsp;<cite>digitalWrite()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint32 digitalWrite(uint8 pin, uint8 value)
+</pre>
+<p>pin为引脚。value为LOW或HIGH。</p>
+<p>如果在 <cite>loop()</cite> 里反复的输出高低电平，最高可以到700KHz。因为这个函数是为了方便，性能一般。可以用更加底层的函数来获取性能。</p>
+</div>
+<div class="section" id="digitalread">
+<h3><a class="toc-backref" href="#id76">2.3.3&nbsp;&nbsp;&nbsp;<cite>digitalRead()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint32 digitalRead(uint8 pin)
+</pre>
+<p>pin为引脚编号。必须先设置模式为INPUT、INPUT_PULLUP、INPUT_PULLDOWN。</p>
+<p>输入电压在0~1.16V时返回0，在1.83~3.3V时返回1。之间的值不一定。</p>
+</div>
+<div class="section" id="togglepin">
+<h3><a class="toc-backref" href="#id77">2.3.4&nbsp;&nbsp;&nbsp;<cite>togglePin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint32 togglePin(uint8 pin)
+</pre>
+<p>翻转引脚的值。</p>
+</div>
+<div class="section" id="toggleled">
+<h3><a class="toc-backref" href="#id78">2.3.5&nbsp;&nbsp;&nbsp;<cite>toggleLED()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint32 toggleLED()
+</pre>
+<p>翻转LED，如果不加入延时，人眼是看不到闪烁的。</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id79">2.4&nbsp;&nbsp;&nbsp;模拟输入输出</a></h2>
+<p>读取引脚的输入电压，或输出PWM，而不是DAC。</p>
+<div class="section" id="analogwrite-pwmwrite">
+<h3><a class="toc-backref" href="#id80">2.4.1&nbsp;&nbsp;&nbsp;<cite>analogWrite()</cite> 与 <cite>pwmWrite()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void pwmWrite(uint8 pin, uint16 duty_cycle)
+void analogWrite(uint8 pin, uint16 duty_cycle)
+</pre>
+<p>pin为引脚编号，duty_cycle为占空比参数0~65535。</p>
+<p>使用引脚输出PWM之前必须先将引脚定义为 <cite>PWM</cite> 或 <cite>PWM_OPENDRAIN</cite> 。支持PWM的引脚：PIN0~PIN3、PIN5~PIN9、PIN11、PIN12、PIN14、PIN24、PIN27、PIN28。</p>
+<p>Arduino的PIN10有PWM功能，而Maple则不是。</p>
+<p><cite>pwmWrite()</cite> 与 <cite>analogWrite()</cite> 其实是一样的，只是为了兼容而存在。</p>
+<p>注意分辨率，Arduino是256，而Maple是65536。Arduino的PWM频率是490Hz，而Maple的可以调整。</p>
+<p>如果需要得到稳定的模拟电压输出，需要外接一个小电容来得到电压平均值。</p>
+</div>
+<div class="section" id="analogread">
+<h3><a class="toc-backref" href="#id81">2.4.2&nbsp;&nbsp;&nbsp;<cite>analogRead()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint16_t analogRead(uint8 pin)
+</pre>
+<p>pin为引脚编号。</p>
+</div>
+</div>
+<div class="section" id="i-o">
+<h2><a class="toc-backref" href="#id82">2.5&nbsp;&nbsp;&nbsp;高级I/O</a></h2>
+<p>简化高级IO操作。注意Arduino的 <cite>pluseIn()</cite> 在Maple不支持。</p>
+<div class="section" id="shiftout">
+<h3><a class="toc-backref" href="#id83">2.5.1&nbsp;&nbsp;&nbsp;<cite>shiftOut()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void shiftOut(uint8 dataPin, uint8 clockPin, uint8 bitOrder, uint8 value)
+</pre>
+<p>dataPin为数据引脚，clockPin为时钟引脚。value为输出。</p>
+<p>bitOrder为输出顺序，MSBFIRST表示高位在前，LSBFIRST表示低位在前。</p>
+<p>软件实现的串行输出，速度较慢，如果需要快速的就用SPI。需要将两个引脚指定为OUTPUT。</p>
+</div>
+</div>
+<div class="section" id="spi">
+<h2><a class="toc-backref" href="#id84">2.6&nbsp;&nbsp;&nbsp;SPI接口</a></h2>
+<p>SPI-Serial Peripheral Interface最初由Motorola定义，很常用。</p>
+<p>常用4个信号线：MOSI、MISO、NSS(也叫CS，片选)、SCK。</p>
+<p>SPI的传输模式有4种，区分CPOL(时钟极性)和CPHA(时钟相位)。CPOL为空闲时时钟的电平状态，1表示高电平。CPHA表示在第一个边沿还是第二个边沿采样数据。CPHA=0则在使能后地一个时钟边沿被采样。</p>
+<p>硬件SPI必须使用特定引脚。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>名称</td>
+<td>MOSI</td>
+<td>MISO</td>
+<td>NSS</td>
+<td>SCK</td>
+</tr>
+<tr><td>SPI1</td>
+<td>11</td>
+<td>12</td>
+<td>10</td>
+<td>13</td>
+</tr>
+<tr><td>SPI2</td>
+<td>34</td>
+<td>33</td>
+<td>31</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+<p>硬件SPI最高可以到18MHz的SCK，软件最高则只有700KHz。</p>
+<p>在函数外建立硬件SPI的初始化，参数的数字决定启用哪个硬件SPI:</p>
+<pre class="literal-block">
+HardwareSPIspi(1);      //启用SPI1
+
+void setup() {
+}
+
+void loop() {
+}
+</pre>
+<div class="section" id="begin">
+<h3><a class="toc-backref" href="#id85">2.6.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void begin(SPIFrequency frenquency, uint32 bitOrder, uint32 mode)   //初始化SPI主机
+void beginSlave(uint32 bitOrder, uint32 mode)                       //初始化SPI从机
+</pre>
+<p>参数：</p>
+<ol class="arabic">
+<li><p class="first">frenquency：传输速率，默认1.125MHz，取值：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>SPI_18MHZ=0</li>
+<li>SPI_9MHZ=1</li>
+<li>SPI_4_5MHZ=2，4.5MHz</li>
+<li>SPI_2_25MHZ=3</li>
+<li>SPI_1_125MHZ=4</li>
+<li>SPI_562_500KHZ=5：562.5KHz</li>
+<li>SPI_281_250KHZ=6</li>
+<li>SPI_140_625KHZ=7</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">bitOrder：传输顺序，LSBFIRST为低位在前，MSBFIRST为高位在前，默认MSBFIRST</p>
+</li>
+<li><p class="first">mode：为CPOL和CPHA的模式设置，默认CPOL=0，CPHA=0</p>
+</li>
+</ol>
+</div>
+<div class="section" id="write">
+<h3><a class="toc-backref" href="#id86">2.6.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void write(byte data)
+void write(const uint8 *buffer, uint32 length)
+</pre>
+<p>参数：</p>
+<ol class="arabic simple">
+<li>data：要传输的数据</li>
+<li>buffer：要传输的缓冲区</li>
+<li>length：发送的数据长度</li>
+</ol>
+<p>如果需要高速发送多个字节，应该用发送缓冲区的方式，否则某些器件可能因为发送间隔而出错。</p>
+</div>
+<div class="section" id="read">
+<h3><a class="toc-backref" href="#id87">2.6.3&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+byte read()
+</pre>
+<p>读取一个字节，没有数据则阻塞。如果要接收的数据不只一个字节，则需要多次调用。</p>
+</div>
+<div class="section" id="transfer">
+<h3><a class="toc-backref" href="#id88">2.6.4&nbsp;&nbsp;&nbsp;<cite>transfer()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+byte transfer(byte data)
+</pre>
+<p>发送一字节的同时接收一字节。</p>
+</div>
+<div class="section" id="end">
+<h3><a class="toc-backref" href="#id89">2.6.5&nbsp;&nbsp;&nbsp;<cite>end()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void end()
+</pre>
+<p>关闭SPI接口，但是不改变接口的输入/输出状态。</p>
+</div>
+</div>
+<div class="section" id="usartusb">
+<h2><a class="toc-backref" href="#id90">2.7&nbsp;&nbsp;&nbsp;USART与虚拟USB串口</a></h2>
+<p>USART就是同步和异步都支持的串口。Maple因为内置USB接口，所以还提供了虚拟USB串口。</p>
+<p>虚拟USB串口的名字是 <cite>SerialUSB</cite> 。而3个USART串口是 <cite>Serial1</cite> 、 <cite>Serial2</cite> 、 <cite>Serial3</cite> 。每次通过虚拟USB串口发送数据至少消耗50mS事件，而且虚拟串口并不会检测USB接口是否真的已经连接。</p>
+<p>串口并不是RS232，尽管协议相同。RS232有+/-12V的电压，接上就会烧毁芯片。</p>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id91">2.7.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void begin(unsigned int baud)
+</pre>
+<p>baud是波特率，常用的是9600、115200。虚拟串口默认9600。</p>
+<p>SerialUSB并不需要调用，除非使用 <tt class="docutils literal">SerialUSB.end()</tt> 关闭后才需要。</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id92">2.7.2&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void write(unsigned char ch)    //发送1个字符
+void write(const char *str)     //发送NULL结尾字符串
+void write(void *buf, unsigned int size)    //发送缓冲区
+</pre>
+<p>ch是要发送的字符，buf为数据缓冲，size是缓冲区长度。</p>
+</div>
+<div class="section" id="print-println">
+<h3><a class="toc-backref" href="#id93">2.7.3&nbsp;&nbsp;&nbsp;<cite>print()</cite> 和 <cite>println()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void print(data)
+void print(long data, base)
+void println(data)
+void println(long data,base)
+</pre>
+<p>data是数据，可以是 <cite>unsigned char</cite> 、 <cite>char</cite> 、 <cite>const char*</cite> 、 <cite>int</cite> 、 <cite>unsigned int</cite> 、 <cite>long</cite> 、 <cite>unsigned long</cite> 、 <cite>double</cite> 类型的变量，当指定进制时必须用long类型。</p>
+<p>base指定进制，2~16之间选择。或用常量 <cite>BIN</cite> 、 <cite>DEC</cite> 、 <cite>HEX</cite> 、 <cite>BYTE</cite> 。</p>
+<p><cite>println()</cite> 就是会在结尾价格换行符，其他与 <cite>print()</cite> 相同。</p>
+<p><tt class="docutils literal">SerialUSB.print(255,HEX)</tt> 会显示为 <tt class="docutils literal">FF</tt> 。</p>
+</div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id94">2.7.4&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+unsigned char read()
+</pre>
+<p>读取一个尚未读取的数据。阻塞函数，如果缓冲区为空则一直等待。</p>
+</div>
+<div class="section" id="available">
+<h3><a class="toc-backref" href="#id95">2.7.5&nbsp;&nbsp;&nbsp;<cite>available()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+unsigned int available()
+</pre>
+<p>返回等待读取的字节数，常用于接收一长串数据。</p>
+</div>
+<div class="section" id="flush">
+<h3><a class="toc-backref" href="#id96">2.7.6&nbsp;&nbsp;&nbsp;<cite>flush()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void flush()
+</pre>
+<p>冲刷接收缓冲区，确保之后读取的数据都是最新的。不能用于 SerialUSB 。</p>
+</div>
+<div class="section" id="txpin-rxpin">
+<h3><a class="toc-backref" href="#id97">2.7.7&nbsp;&nbsp;&nbsp;<cite>txPin()</cite> 和 <cite>rxPin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+int txPin()
+int rxPin()
+</pre>
+<p>返回发送和接收引脚的编号。</p>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id98">2.7.8&nbsp;&nbsp;&nbsp;<cite>end()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void end()
+</pre>
+<p>结束串口通信，并释放占用的端口。</p>
+<p><tt class="docutils literal">SerialUSB.end()</tt> 之后Maple不会复位，需要手工复位才能重新下载。</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id99">2.8&nbsp;&nbsp;&nbsp;延时和定时器</a></h2>
+<div class="section" id="delay-delaymicroseconds">
+<h3><a class="toc-backref" href="#id100">2.8.1&nbsp;&nbsp;&nbsp;<cite>delay()</cite> 与 <cite>delayMicroseconds()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void delay(unsigned long time)
+void delayMicroseconds(unsigned long time)
+</pre>
+<p>都是延时，前者是毫秒，后者是微秒。</p>
+</div>
+<div class="section" id="mills-micros">
+<h3><a class="toc-backref" href="#id101">2.8.2&nbsp;&nbsp;&nbsp;<cite>mills()</cite> 与 <cite>micros()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint32 mills()
+uint32 micros()
+</pre>
+<p>从程序运行以来到现在的时间，单位分别是毫秒和微秒。前者50天溢出，后者70分钟溢出。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id102">2.8.3&nbsp;&nbsp;&nbsp;内部硬件定时器</a></h3>
+<p>Maple特有的硬件定时器独立控制，需要操作底层寄存器。仍然在发展中。Maple有4个16bit定时器，每个定时器有4个比较器，每个比较器都可以独立进行比较触发，触发可以直接控制PWM或产生中断。同一个定时器的不同比较器使用相同频率，但触发相位可以不同。</p>
+<p>注意避免与定时器使用相同的内部定时器。</p>
+<p>实例化:</p>
+<pre class="literal-block">
+HardwareTimer(uint8 timerNum)
+</pre>
+<p>例如实例名为timer1:</p>
+<pre class="literal-block">
+HardwareTimer timer1(1);
+</pre>
+<p>方法：</p>
+<ol class="arabic">
+<li><p class="first"><cite>void pause(void)</cite> ：暂停定时器</p>
+</li>
+<li><p class="first"><cite>void resume(void)</cite> ：恢复定时器</p>
+</li>
+<li><p class="first"><cite>uint32 getPrescaleFactor()</cite> ：获取分频系数，1~65535</p>
+</li>
+<li><p class="first"><cite>void setPrescaleFactor(uint32 factor)</cite> ：设置分频系数，1~65535，下次溢出或 <cite>refresh()</cite> 后生效，72MHz时的分频系数关系：</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>分频系数</td>
+<td>分辨率</td>
+<td>频率</td>
+<td>最大计时周期(分辨率x65535)</td>
+</tr>
+<tr><td>1</td>
+<td>13.889nS</td>
+<td>72MHz</td>
+<td>910uS</td>
+</tr>
+<tr><td>9</td>
+<td>125nS</td>
+<td>8MHz</td>
+<td>8.192uS</td>
+</tr>
+<tr><td>18</td>
+<td>250nS</td>
+<td>4MHz</td>
+<td>16.3838uS</td>
+</tr>
+<tr><td>36</td>
+<td>0.5uS</td>
+<td>2MHz</td>
+<td>32.7675mS</td>
+</tr>
+<tr><td>72</td>
+<td>1uS</td>
+<td>1MHz</td>
+<td>65.535mS</td>
+</tr>
+<tr><td>720</td>
+<td>10uS</td>
+<td>100KHz</td>
+<td>655.35mS</td>
+</tr>
+<tr><td>1440</td>
+<td>20uS</td>
+<td>50KHz</td>
+<td>1.3107S</td>
+</tr>
+<tr><td>7200</td>
+<td>100uS</td>
+<td>10KHz</td>
+<td>6.5535S</td>
+</tr>
+<tr><td>65536</td>
+<td>910.22uS</td>
+<td>1098.6Hz</td>
+<td>59.65S</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li><p class="first"><cite>uint16 getOverflow()</cite> ：获取设置的定时器溢出值</p>
+</li>
+<li><p class="first"><cite>void setOverflow(uint16 val)</cite> ：设置定时器的溢出值</p>
+</li>
+<li><p class="first"><cite>uint16 getCount()</cite> ：获得定时器当前值</p>
+</li>
+<li><p class="first"><cite>void setCount(uint16 val)</cite> ：设置当前值</p>
+</li>
+<li><p class="first"><cite>uint16 setPeriod(uint32 microseconds)</cite> ：设置定时周期，尽可能接近，会修改分频器和溢出值</p>
+</li>
+<li><p class="first"><cite>void setMode(int channel, timer_mode mode)</cite> ：选择定时器的通道的模式，mode可选值：</p>
+<blockquote>
+<ol class="arabic simple">
+<li><cite>TIMER_DISABLED</cite> ：关闭</li>
+<li><cite>TIMER_PWM</cite> ：PWM模式，初始化后的默认值</li>
+<li><cite>TIMER_OUTPUT_COMPARE</cite> ：定时器触发中断</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first"><cite>uint16 getCompare(int channel)</cite> ：获得定时器指定通道的比较值</p>
+</li>
+<li><p class="first"><cite>void setCompare(int channel, uint16 compare)</cite> ：设置指定通道的比较值，从0到溢出值-1，</p>
+</li>
+<li><p class="first"><cite>void attachInterrupt(int channel, void FuncPtr handler)</cite> ：设置定时器中断</p>
+</li>
+<li><p class="first"><cite>void detachInterrupt(int channel)</cite> ：取消中断</p>
+</li>
+<li><p class="first"><cite>void refresh()</cite> ：重置定时器，使得设置立即生效</p>
+</li>
+</ol>
+<p>建议的设置步骤：</p>
+<ol class="arabic simple">
+<li>用 <cite>pause()</cite> 暂停定时器</li>
+<li>设置分频系数和溢出值</li>
+<li>选择一个通道处理中断，设置该通道模式为 <cite>TIMER_OUTPUT_COMPARE</cite></li>
+<li>设置指定通道的比较值</li>
+<li>连接中断到中断处理函数</li>
+<li>用 <cite>refresh()</cite> 复位定时器</li>
+<li>用 <cite>resume()</cite> 恢复定时器运行</li>
+</ol>
+<p>一个例子，控制定时器1，分频系数5，溢出值255，几个计数值代表69.4mS，溢出周期为17.8uS。代码:</p>
+<pre class="literal-block">
+HardwareTimer timer(1);
+
+void setup() {
+    timer.setPrescaleFactor(5);
+    timer.setOverflow(255);
+}
+
+void loop() {
+}
+</pre>
+<p>让LED闪耀:</p>
+<pre class="literal-block">
+HardwareTimer timer1(1);
+
+void setup() {
+    pinMode(BOARD_LED_PIN, OUTPUT);
+    timer1.pause();
+    timer1.setPeriod(500000);   //0.5S
+    tiemr1.setMode(1,TIMER_OUTPUT_COMPARE);
+    timer1.setCompare(1,1);     //计数到1时触发中断
+    timer1.attachInterrupt(1,handler_led);
+    timer1.refresh();
+    timer1.resume();
+}
+
+void loop() {
+}
+
+void handler_led() {
+    toggleLED();
+}
+</pre>
+<p>Maple各个定时器通道与引脚的关系：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>定时器</td>
+<td>通道1</td>
+<td>通道2</td>
+<td>通道3</td>
+<td>通道4</td>
+</tr>
+<tr><td>Timer1</td>
+<td>D6</td>
+<td>D7</td>
+<td>D8</td>
+<td>x</td>
+</tr>
+<tr><td>Timer2</td>
+<td>D2</td>
+<td>D3</td>
+<td>D1</td>
+<td>D0</td>
+</tr>
+<tr><td>Timer3</td>
+<td>D12</td>
+<td>D11</td>
+<td>D27</td>
+<td>D28</td>
+</tr>
+<tr><td>Timer4</td>
+<td>D5</td>
+<td>D9</td>
+<td>D14</td>
+<td>D24</td>
+</tr>
+</tbody>
+</table>
+<p>定时器的输出频率 <span class="formula"><i>F</i><sub><i>PWM</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator">72*10<sup>6</sup><i>Hz</i></span><span class="ignored">)/(</span><span class="denominator"><i>prescale</i>*(<i>N</i> + 1)</span><span class="ignored">)</span></span></span> 。</p>
+<p>溢出值N相当于再做一级N+1分频。占空比则是 <span class="formula"><i>duty</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>compare</i></span><span class="ignored">)/(</span><span class="denominator"><i>N</i> + 1</span><span class="ignored">)</span></span></span> 。</p>
+<p>控制PWM的代码:</p>
+<pre class="literal-block">
+HardwareTimer timer1(2);
+
+void setup() {
+    pinMode(1,PWM);
+    timer1.pause();
+    timer1.setPrescaleFactor(72);
+    timer1.setOverflow(1);
+    timer1.setCompare(3,1)'
+    timer1.refresh();
+    timer1.resume();
+}
+
+void loop() {
+}
+</pre>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id103">2.9&nbsp;&nbsp;&nbsp;外部中断</a></h2>
+<p>根据外部引脚电压变化来调用某个函数，常用于检测外部事件。避免了使用循环函数来检测，节省了处理器资源。例如检测按键的按下。</p>
+<p>如果事件发生，处理器就暂停当前任务而跳转到该回调函数进行处理。</p>
+<p>所有GPIO都可以用于接收中断，但是共用16个中断通道，所以只能最多设置16个中断。不能同时设置共用同一个通道的引脚。</p>
+<p>中断与引脚映射：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="36%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>中断通道</td>
+<td>Maple中断引脚</td>
+<td>Maple Mini中断引脚</td>
+</tr>
+<tr><td>EXTI0</td>
+<td>D2,D15,D27</td>
+<td>D3,D11</td>
+</tr>
+<tr><td>EXTI1</td>
+<td>D3,D16,D28</td>
+<td>D10,D33</td>
+</tr>
+<tr><td>EXTI2</td>
+<td>D1,D17,D25</td>
+<td>D2,D9</td>
+</tr>
+<tr><td>EXTI3</td>
+<td>D0,D18,D42</td>
+<td>D8,D19</td>
+</tr>
+<tr><td>EXTI4</td>
+<td>D10,D19</td>
+<td>D7,D18</td>
+</tr>
+<tr><td>EXTI5</td>
+<td>D4,D13,D20</td>
+<td>D6,D17</td>
+</tr>
+<tr><td>EXTI6</td>
+<td>D5,D12,D35</td>
+<td>D5,D16</td>
+</tr>
+<tr><td>EXTI7</td>
+<td>D9,D11,D36</td>
+<td>D4,D15</td>
+</tr>
+<tr><td>EXTI8</td>
+<td>D6,D14,D37</td>
+<td>D27,D32</td>
+</tr>
+<tr><td>EXTI9</td>
+<td>D7,D25,D28</td>
+<td>D26</td>
+</tr>
+<tr><td>EXTI10</td>
+<td>D8,D26,D29</td>
+<td>D1,D25</td>
+</tr>
+<tr><td>EXTI11</td>
+<td>D30</td>
+<td>D0,D24</td>
+</tr>
+<tr><td>EXTI12</td>
+<td>D31</td>
+<td>D23,D31</td>
+</tr>
+<tr><td>EXTI13</td>
+<td>D21,D32,D39</td>
+<td>D14,D22,D30</td>
+</tr>
+<tr><td>EXTI14</td>
+<td>D22,D33,D40</td>
+<td>D13,D21,D29</td>
+</tr>
+<tr><td>EXTI15</td>
+<td>D23,D34,D41</td>
+<td>D12,D20,D28</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="interrupts-nointerrupts">
+<h3><a class="toc-backref" href="#id104">2.9.1&nbsp;&nbsp;&nbsp;<cite>interrupts()</cite> 与 <cite>nointerrupts()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void interrupts()
+void nointerrupts()
+</pre>
+<p>开启和屏蔽所有用户中断。比如事务中需要用到。</p>
+</div>
+<div class="section" id="attachinterrupt-detachinterrupt">
+<h3><a class="toc-backref" href="#id105">2.9.2&nbsp;&nbsp;&nbsp;<cite>attachInterrupt()</cite> 与 <cite>detachInterrupt()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void attachInterrupt(uint8 pin, voidFuncPtr handler, ExtIntTriggerMode mode)
+void detachInterrupt(uint8 pin)
+</pre>
+<p>参数：</p>
+<ol class="arabic">
+<li><p class="first">pin：引脚号</p>
+</li>
+<li><p class="first">handler：中断发生时的处理函数</p>
+</li>
+<li><p class="first">mode：为中断模式：</p>
+<blockquote>
+<ol class="arabic simple">
+<li>RASING</li>
+<li>FALLING</li>
+<li>CHANGE</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>中断处理函数不能接收参数，只能通过全局变量。</p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id106">2.10&nbsp;&nbsp;&nbsp;数学与位运算操作</a></h2>
+<ol class="arabic simple">
+<li><cite>min(x,y)</cite></li>
+<li><cite>max(x,y)</cite></li>
+<li><cite>abs(x)</cite></li>
+<li><cite>constrain(x,a,b)</cite> 将x约束到a&lt;x&lt;b之间</li>
+<li><cite>long map(value,fromStart,fromEnd,toStart,toEnd)</cite> ：将在一个区间内变化的变量映射到另一个区间中，映射后为 <span class="formula"><i>return</i> = (<i>value</i> − <i>fromStart</i>)⋅<span class="fraction"><span class="ignored">(</span><span class="numerator"><i>toEnd</i> − <i>toStart</i></span><span class="ignored">)/(</span><span class="denominator"><i>fromEnd</i> − <i>fromStart</i></span><span class="ignored">)</span></span> + <i>toStart</i></span></li>
+<li><cite>pow(x,y)</cite> ：计算 <span class="formula"><i>x</i><sup><i>y</i></sup></span></li>
+<li><cite>sqrt(x)</cite> ：平方</li>
+<li><cite>sin(x)</cite> ：弧度x的正弦值</li>
+<li><cite>cos(x)</cite> ：弧度x的余弦值</li>
+<li><cite>tan(x)</cite> ：弧度x的正切值</li>
+<li><cite>randomSeed(seed)</cite> ：设置随机数生成器的种子，x不能为0</li>
+<li><cite>random(max)</cite> 、 <cite>long(min,max)</cite> ：生成随机数</li>
+<li><cite>lowBit(x)</cite> ：返回x变量的低8位 [0,255]</li>
+<li><cite>bitRead(x,n)</cite> ：取x的n位上的值，等同于 <cite>(x&gt;&gt;n)&amp;1</cite></li>
+<li><cite>bitWrite(x,n,b)</cite> ：设置x的第n位为b</li>
+<li><cite>bitSet(x,n)</cite> ：将x的第n位设为1</li>
+<li><cite>bitClear(x,n)</cite> ：将x的第n位设为0</li>
+<li><cite>bit(n)</cite> ：返回一个无符号整数的第n位的表示，如 bit(0)==1、bit(1)==2、bit(2)==4</li>
+</ol>
+</div>
+<div class="section" id="wire">
+<h2><a class="toc-backref" href="#id107">2.11&nbsp;&nbsp;&nbsp;Wire库</a></h2>
+<p>以软件方式实现I2C通信，而硬件I2C还在开发中。</p>
+<p>I2C使用2个信号线，可以接多个从设备，使用地址与特定设备通信，支持多主机。8bit传输模式可以用100Kbps和400Kbps两种速率。</p>
+<p>SDA和SCL需要上拉电阻，通常为1.5~10KOhm。控制这些引脚的都是开漏模式。总线电容不应该大于400pF。</p>
+<p>下载Wire库： <a class="reference external" href="http://home.arcor.de/ala42/Wire.zip">http://home.arcor.de/ala42/Wire.zip</a> 。</p>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id108">2.11.1&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void begin(uint8 pinSDA, uint8 pinSCL)
+void begin()
+</pre>
+<p>指定两个引脚，然后以主机模式开启I2C通信。不带参数时使用默认的pin20=SDA、pin21=SCL。</p>
+</div>
+<div class="section" id="begintransmission">
+<h3><a class="toc-backref" href="#id109">2.11.2&nbsp;&nbsp;&nbsp;<cite>beginTransmission()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void beginTransmission(slave_addr)
+</pre>
+<p>设置指定的从机地址，随后调用 <cite>endTransmission()</cite> ，然后用 <cite>Wire.send()</cite> 可以发送数据给slave_addr的从机。</p>
+<p>代码示例:</p>
+<pre class="literal-block">
+#include &lt;Wire.h&gt;
+
+byte val=0;
+
+void setup() {
+    Wire.begin();
+}
+
+void loop() {
+    Wire.beginTransmission(44);
+    Wire.send(val);
+    Wire.endTransmission();
+    val++;
+    if (val==64) {
+        val=0;
+    }
+    delay(500);
+}
+</pre>
+</div>
+<div class="section" id="send">
+<h3><a class="toc-backref" href="#id110">2.11.3&nbsp;&nbsp;&nbsp;<cite>send()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void send(data)
+void send(buffer, length)
+</pre>
+<p>将要发送的内容放入缓冲区，实际调用 <cite>endTransmission()</cite> 时才是真正的发送。每次发送不能超过32字节。</p>
+</div>
+<div class="section" id="endtransmission">
+<h3><a class="toc-backref" href="#id111">2.11.4&nbsp;&nbsp;&nbsp;<cite>endTransmission()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+state endTransmission()
+</pre>
+<p>将缓冲区数据发送出去。返回值表示状态：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>状态</td>
+<td>含义</td>
+</tr>
+<tr><td>SUCCESS</td>
+<td>所有数据发送成功</td>
+</tr>
+<tr><td>EDTA</td>
+<td>缓冲区数据超过了32字节，数据没发出</td>
+</tr>
+<tr><td>ENACKADDR</td>
+<td>发送从机地址时没有得到ACK，数据没发出</td>
+</tr>
+<tr><td>ENACKTRNS</td>
+<td>发送数据后没有收到ACK确认，部分数据未发送</td>
+</tr>
+<tr><td>EOTHER</td>
+<td>其他错误</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="requestfrom">
+<h3><a class="toc-backref" href="#id112">2.11.5&nbsp;&nbsp;&nbsp;<cite>requestFrom()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void requestFrom(uint8 address, int num_bytes)
+</pre>
+<p>从address的地址接受num_bytes字节数据。返回数据长度是实际长度，并通过 <cite>receive()</cite> 读出。如果接收数据超过32字节，则把超出部分忽略。</p>
+<p>代码示例:</p>
+<pre class="literal-block">
+#include &lt;Wire.h&gt;
+
+void setup() {
+    Wire.begin();
+}
+
+void loop() {
+    Wire.requestFrom(2,6);
+    while(Wire.available()) {
+        char c=Wire.receive();  //读出下一字节
+        Serial.print(c);
+    }
+    delay(500);
+}
+</pre>
+</div>
+<div class="section" id="receive">
+<h3><a class="toc-backref" href="#id113">2.11.6&nbsp;&nbsp;&nbsp;<cite>receive()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+byte receive()
+</pre>
+<p>读出缓冲区的下一个字节。</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id114">2.11.7&nbsp;&nbsp;&nbsp;<cite>available()</cite></a></h3>
+<p>返回接收缓冲区中可以读取的字节数。</p>
+</div>
+</div>
+<div class="section" id="servo">
+<h2><a class="toc-backref" href="#id115">2.12&nbsp;&nbsp;&nbsp;Servo库</a></h2>
+<p>操作舵机的库，输出PWM信号。544~2400uS宽度的高电平。</p>
+<div class="section" id="attach">
+<h3><a class="toc-backref" href="#id116">2.12.1&nbsp;&nbsp;&nbsp;<cite>attach()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+bool attach(uint8 pin, uint16 minPulseWidth, uint16 maxPulseWidth, int16 minAngle, int16 maxAngle)
+bool attach(uint8 pin)
+</pre>
+<ol class="arabic simple">
+<li>pin：选择引脚来输出PWM波</li>
+<li>minPulseWidth：最小脉冲宽度，微秒为单位，默认值SERVO_DEFAULT_MIN_PW=544</li>
+<li>maxPulseWidth：最大脉冲宽度，微秒为单位，默认值SERVO_DEFAULT_MAX_PW=2400</li>
+<li>minAngle：舵机最小角度，单位是度，默认值SERVO_DEFAULT_MIN_ANGLE=0</li>
+<li>maxAngle：舵机最大角度，单位是度，默认值SERVO_DEFAULT_MAX_ANGLE=180</li>
+</ol>
+<p>初始化PWM输出的引脚。</p>
+<p>代码示例:</p>
+<pre class="literal-block">
+#include &lt;Servo.h&gt;
+Servo sev1;
+Servo sev2;
+void loop() {
+    sev1.attach(14);        //初始化一个引脚为14的舵机，转动范围是0~180度
+    sev2.attach(12,0,360);  //初始化一个引脚为12的舵机，转动范围是0~360度
+}
+</pre>
+</div>
+<div class="section" id="attached">
+<h3><a class="toc-backref" href="#id117">2.12.2&nbsp;&nbsp;&nbsp;<cite>attached()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+bool attached()
+</pre>
+<p>检测舵机是否正确连接了。</p>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id118">2.12.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void write(int angle)
+</pre>
+<p>设置舵机的转动角度为angle度。</p>
+</div>
+<div class="section" id="writemicroseconds">
+<h3><a class="toc-backref" href="#id119">2.12.4&nbsp;&nbsp;&nbsp;<cite>writeMicroseconds()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+void writeMicroseconds(uint16 pulseWidth)
+</pre>
+<p>设置控制舵机的脉冲宽度，微秒。</p>
+</div>
+<div class="section" id="readmicroseconds">
+<h3><a class="toc-backref" href="#id120">2.12.5&nbsp;&nbsp;&nbsp;<cite>readMicroseconds()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+uint16 readMicroseconds()
+</pre>
+<p>读取当前发送给舵机的脉冲宽度，微秒。</p>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id121">2.12.6&nbsp;&nbsp;&nbsp;<cite>read()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+int read()
+</pre>
+<p>读取当前舵机的角度值。</p>
+</div>
+<div class="section" id="detach">
+<h3><a class="toc-backref" href="#id122">2.12.7&nbsp;&nbsp;&nbsp;<cite>detach()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+bool deatach()
+</pre>
+<p>停止驱动舵机。</p>
+<p>代码示例:</p>
+<pre class="literal-block">
+#include &lt;Servo.h&gt;
+
+Servo sev;
+
+void setup() {
+    sev.attach(14);
+}
+
+void loop() {
+    sev.write(0);               //0度
+    delay(2000);
+    sev.writeMicroseconds(2000);//2000uS
+    delay(2000);
+    SerialUSB.println(sev.read());
+    SerialUSB.println(sev.readMicroseconds());
+    sev.detach();
+}
+</pre>
+</div>
+</div>
+<div class="section" id="liquidcrystal">
+<h2><a class="toc-backref" href="#id123">2.13&nbsp;&nbsp;&nbsp;LiquidCrystal库</a></h2>
+<p>控制Hitachi HD44780芯片或兼容协议的液晶屏幕。如1602和1604液晶。支持4位数据线或8位数据线传输。</p>
+<p>需要先建立 <cite>LiquidCrystal</cite> 类的对象，然后用该对象操作液晶屏。</p>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id124">2.13.1&nbsp;&nbsp;&nbsp;<cite>LiquidCrystal()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+LiquidCrystal lcd_4(rs,enable,d4,d5,d6,d7)
+LiquidCrystal lcd_4(rs,rw,enable,d4,d5,d6,d7)
+LiquidCrystal lcd_8(rs,enable,d0,d1,d2,d3,d4,d5,d6,d7)
+LiquidCrystal lcd_8(rs,rw,enable,d0,d1,d2,d3,d4,d5,d6,d7)
+</pre>
+<p>参数：</p>
+<ol class="arabic simple">
+<li>rs：连接到LCD rs引脚恶Maple引脚</li>
+<li>enable：连接到LCD enable引脚的Maple引脚</li>
+<li>rw：连接到LCD rw引脚的Maple引脚</li>
+<li>d0~d7：连接到LCD各位的Maple引脚</li>
+</ol>
+<p>接口分别对应4线和8线的液晶，以及区分是否有rw线。</p>
+<p>例子，建立液晶对象并显示&quot;Hello, world!&quot;:</p>
+<pre class="literal-block">
+#include &lt;LiquidCrystal.h&gt;
+LiquidCrystal lcd(12,11,5,4,3,2);
+
+void setup() {
+    lcd.begin(16,2);
+    lcd.print(&quot;hello, world!&quot;);
+}
+
+void loop() {
+}
+</pre>
+</div>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id125">2.13.2&nbsp;&nbsp;&nbsp;<cite>begin()</cite></a></h3>
+<p>原型:</p>
+<pre class="literal-block">
+lcd.begin(cols, rows)
+</pre>
+<p>参数：</p>
+<ol class="arabic simple">
+<li>cols：列数</li>
+<li>rows：行数</li>
+</ol>
+<p>设置液晶的行列数，如1602液晶就应该用 <tt class="docutils literal">lcd.begin(16,2)</tt> 。</p>
+</div>
+<div class="section" id="id27">
+<h3><a class="toc-backref" href="#id126">2.13.3&nbsp;&nbsp;&nbsp;<cite>write()</cite></a></h3>
+<p>&#64;page 48-52</p>
+</div>
+</div>
+</div>
+<div class="section" id="id28">
+<h1><a class="toc-backref" href="#id127">3&nbsp;&nbsp;&nbsp;电路基础</a></h1>
+<div class="section" id="id29">
+<h2><a class="toc-backref" href="#id128">3.1&nbsp;&nbsp;&nbsp;需要的工具与仪器</a></h2>
+<ol class="arabic simple">
+<li>万用表：多种参数的测量，数字式的更好，最好的是福禄克和安捷伦</li>
+<li>可调直流电源：输出所需电压，并测量电压和电流</li>
+<li>烙铁与焊料：内热式就可以，焊锡建议用无铅的</li>
+<li>镊子：夹住小元件</li>
+<li>斜口钳：剪断引脚和导线的</li>
+<li>剥线钳：多种型号</li>
+</ol>
+</div>
+<div class="section" id="id30">
+<h2><a class="toc-backref" href="#id129">3.2&nbsp;&nbsp;&nbsp;电阻</a></h2>
+<p>几个参数：</p>
+<ol class="arabic simple">
+<li>阻值：注意学色环识别的方法</li>
+<li>功率：最大允许耗能</li>
+<li>材料：对温度稳定性和功率等有影响</li>
+</ol>
+</div>
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id130">3.3&nbsp;&nbsp;&nbsp;电感</a></h2>
+<p>几个参数：</p>
+<ol class="arabic simple">
+<li>电感量：抵抗电流变化的能力</li>
+<li>额定电流</li>
+<li>类型：空心/磁心、磁心还区分多种材料</li>
+</ol>
+</div>
+<div class="section" id="id32">
+<h2><a class="toc-backref" href="#id131">3.4&nbsp;&nbsp;&nbsp;电容</a></h2>
+<p>存储电能，稳定电压。磁片电容高频性能好，但容量小。电解电容容量大，但高频性能不好。</p>
+</div>
+<div class="section" id="bjt">
+<h2><a class="toc-backref" href="#id132">3.5&nbsp;&nbsp;&nbsp;BJT三极管</a></h2>
+<p>通常区分NPN和PNP。基极BASE，发射极EMITTER，集电极COLLECTOR。</p>
+</div>
+<div class="section" id="ic">
+<h2><a class="toc-backref" href="#id133">3.6&nbsp;&nbsp;&nbsp;74系列IC</a></h2>
+<p>通用的逻辑IC，系列编号：</p>
+<ol class="arabic simple">
+<li>无：标准TTL电平逻辑</li>
+<li>LS：低功耗肖特基逻辑，比标准TTL电平速度更快</li>
+<li>HC：高速CMOS电平逻辑，速度与LS相当，最高频率80MHz</li>
+<li>AHC：三倍于HC速度的CMOS逻辑</li>
+</ol>
+<p>一些常用的74IC：</p>
+<ol class="arabic simple">
+<li>74hc00：四路2输入与非门</li>
+<li>74hc02：四路2输入或非门</li>
+<li>74hc04：六路反向器</li>
+<li>74hc08：四路2输入与门</li>
+<li>74hc14：六路反相斯密特触发器</li>
+<li>74hc32：四路3输入或门</li>
+<li>74hc86：四路2输入异或门</li>
+<li>74hc112：两路下降沿触发JK触发器，带置位和复位</li>
+<li>74hc132：四路2输入与非斯密特触发器</li>
+<li>74hc138：带使能3位二进制译码器</li>
+<li>74hc164：8位串入并出移位寄存器</li>
+<li>74hc595：三态输出的8位串入并出移位寄存器</li>
+</ol>
+</div>
+<div class="section" id="lm7805ic">
+<h2><a class="toc-backref" href="#id134">3.7&nbsp;&nbsp;&nbsp;LM7805线性稳压IC</a></h2>
+<p>可以简单的提供5V输出1.5A电流。输入7.5V~35V。消耗功率较大，需要散热片。</p>
+</div>
+</div>
+<div class="section" id="id33">
+<h1><a class="toc-backref" href="#id135">4&nbsp;&nbsp;&nbsp;基本实验</a></h1>
+<div class="section" id="led">
+<h2><a class="toc-backref" href="#id136">4.1&nbsp;&nbsp;&nbsp;LED渐变</a></h2>
+<p>想要渐变需要用PWM，材料还需要个100欧电阻。</p>
+<p>限流电阻的计算 <span class="formula"><i>R</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i> − <i>V</i><sub><i>LED</i></sub></span><span class="ignored">)/(</span><span class="denominator"><i>I</i></span><span class="ignored">)</span></span></span> 。V为输入电压， <span class="formula"><i>V</i><sub><i>LED</i></sub></span> 是LED的额定电压，通常红色LED是2.0~2.2V，黄色LED是1.8~2.0V，蓝色与白色LED是3.4~4.0V。3mm和5mm小功率LED，I取1~30mA。</p>
+</div>
+<div class="section" id="id34">
+<h2><a class="toc-backref" href="#id137">4.2&nbsp;&nbsp;&nbsp;继电器控制</a></h2>
+<p>可以用于间接控制高电压、大电流。本实验用5V输入的继电器，驱动电流72mA左右，最大控制250V、10A，寿命高于10万次。</p>
+<p>因为STM32输出电流不够，需要用三极管来驱动一下。另外注意一个反接的续流二极管。</p>
+</div>
+<div class="section" id="id35">
+<h2><a class="toc-backref" href="#id138">4.3&nbsp;&nbsp;&nbsp;1602字符液晶显示屏</a></h2>
+<p>&#64;page 71-75</p>
+</div>
+<div class="section" id="id36">
+<h2><a class="toc-backref" href="#id139">4.4&nbsp;&nbsp;&nbsp;四位段码LED显示</a></h2>
+<p>就是LED数码管。可以通过限流电阻驱动，取100欧。然后要用到扫描。</p>
+</div>
+<div class="section" id="ds1302">
+<h2><a class="toc-backref" href="#id140">4.5&nbsp;&nbsp;&nbsp;DS1302时钟芯片</a></h2>
+<p>RTC芯片，支持最高到2100年的年、月、日、时、分、秒、星期的显示。支持后背电池。</p>
+<p>Vcc1是主电源，Vcc2是后备电源。DS1302支持对外部电池充电，所以如果是不可充电的电池，需要串联二极管防止充电。</p>
+<p>可以下载到DS1302的库。</p>
+</div>
+</div>
+<div class="section" id="id37">
+<h1><a class="toc-backref" href="#id141">5&nbsp;&nbsp;&nbsp;传感器实验</a></h1>
+<div class="section" id="lm35">
+<h2><a class="toc-backref" href="#id142">5.1&nbsp;&nbsp;&nbsp;LM35温度传感器</a></h2>
+<p>常见的温度传感器有热敏电阻、二极管、热电偶、温度传感器芯片。</p>
+<p>热敏电阻的成本低，但是温度范围窄。区分NTC和PTC，看温度系数，通常需要校准。</p>
+<p>温度传感器可以无需校准，但是较贵。</p>
+<p>LM35是三端温度传感器。型号面对自己时，从左到右是+Vs、Vout、GND。输出电压与温度成正比，0V对应0摄氏度。温度每上升1摄氏度，输出电压上升10mV，内部有补偿电路，误差不超过1摄氏度。电源电压4~20V。</p>
+<p>&#64;page 87-90</p>
+</div>
+<div class="section" id="dht11">
+<h2><a class="toc-backref" href="#id143">5.2&nbsp;&nbsp;&nbsp;DHT11温湿度传感器</a></h2>
+<p>&#64;page 91-93</p>
+</div>
+<div class="section" id="id38">
+<h2><a class="toc-backref" href="#id144">5.3&nbsp;&nbsp;&nbsp;酒精传感器</a></h2>
+<p>&#64;page 93-95</p>
+</div>
+<div class="section" id="id39">
+<h2><a class="toc-backref" href="#id145">5.4&nbsp;&nbsp;&nbsp;超声波测距传感器</a></h2>
+<p>&#64;page 95-98</p>
+</div>
+<div class="section" id="id40">
+<h2><a class="toc-backref" href="#id146">5.5&nbsp;&nbsp;&nbsp;光敏电阻光传感器</a></h2>
+<p>&#64;page 98-99</p>
+</div>
+<div class="section" id="bh1750">
+<h2><a class="toc-backref" href="#id147">5.6&nbsp;&nbsp;&nbsp;BH1750环境光传感器模块</a></h2>
+<p>&#64;page 100-101</p>
+</div>
+<div class="section" id="adxl335">
+<h2><a class="toc-backref" href="#id148">5.7&nbsp;&nbsp;&nbsp;ADXL335加速计</a></h2>
+<p>&#64;page 101-103</p>
+</div>
+<div class="section" id="gp2y1010au0f">
+<h2><a class="toc-backref" href="#id149">5.8&nbsp;&nbsp;&nbsp;GP2Y1010AU0F灰尘传感器</a></h2>
+<p>广泛用于空气净化器的红外粉尘传感器，利用红外LED发射红外线，根据光敏二极管所接收的光强度判断空气中粉尘含量。灰尘越多，反射越强，输出信号越强。可以检测小到1um的粉尘。</p>
+<p>&#64;pag 103-105</p>
+</div>
+<div class="section" id="bmp085">
+<h2><a class="toc-backref" href="#id150">5.9&nbsp;&nbsp;&nbsp;BMP085气压传感器</a></h2>
+<p>&#64;page 105-111</p>
+</div>
+</div>
+<div class="section" id="id41">
+<h1><a class="toc-backref" href="#id151">6&nbsp;&nbsp;&nbsp;运动控制实验</a></h1>
+<div class="section" id="id42">
+<h2><a class="toc-backref" href="#id152">6.1&nbsp;&nbsp;&nbsp;步进电机控制</a></h2>
+<p>根据脉冲来转动，每一个信号转过一个固定角度，称为&quot;步&quot;。注意确保不过载。</p>
+<p>步进电机有3类：</p>
+<ol class="arabic simple">
+<li>永磁式步进电机：转子用永磁材料，转子的极数与定子极数相同，较好的动态性，力矩大，步距角大，精度低，步距角通常为7.5或15度</li>
+<li>反应式步进电机：转子是软磁材料，结构简单，成本低，步距角小，可达1.2度，动态性差，效率低，发热大</li>
+<li>混合式步进电机：最常用，定子上有多相绕组，转子使用永磁材料，转子和定子均有多个小齿来提高步距精度，步距角小，通常是0.9或1.8度，输出力矩大，动态性好</li>
+</ol>
+<p>&#64;page 112-115</p>
+</div>
+<div class="section" id="id43">
+<h2><a class="toc-backref" href="#id153">6.2&nbsp;&nbsp;&nbsp;舵机电压表</a></h2>
+<p>舵机是一种伺服(servo)装置。数字舵机与模拟舵机的驱动方式相同。</p>
+<p>主要工作参数：工作电压、信号类型、扭矩、动作速度、运动范围。通常工作电压4.5~6V，PWM控制信号，转动角度0~180度。扭矩通常0.15Nm~5Nm。动作速度不低于0.13s/60度。大部分舵机控制精度较低，少部分能达到0.5度的角度精度。</p>
+<p>&#64;page 116-118</p>
+</div>
+</div>
+<div class="section" id="id44">
+<h1><a class="toc-backref" href="#id154">7&nbsp;&nbsp;&nbsp;其他实验</a></h1>
+<div class="section" id="hc595">
+<h2><a class="toc-backref" href="#id155">7.1&nbsp;&nbsp;&nbsp;74hc595串并转换</a></h2>
+<p>&#64;page 119-120</p>
+</div>
+<div class="section" id="cxxeeprom">
+<h2><a class="toc-backref" href="#id156">7.2&nbsp;&nbsp;&nbsp;24Cxx系列EEPROM读写</a></h2>
+<p>&#64;page 120-125</p>
+</div>
+<div class="section" id="pid">
+<h2><a class="toc-backref" href="#id157">7.3&nbsp;&nbsp;&nbsp;PID温度自动控制</a></h2>
+<p>&#64;page 125-128</p>
+</div>
+<div class="section" id="id45">
+<h2><a class="toc-backref" href="#id158">7.4&nbsp;&nbsp;&nbsp;Maple频率计</a></h2>
+<p>&#64;page 128-129</p>
+</div>
+<div class="section" id="nec">
+<h2><a class="toc-backref" href="#id159">7.5&nbsp;&nbsp;&nbsp;NEC协议红外发射实验</a></h2>
+<p>&#64;page 129-132</p>
+</div>
+<div class="section" id="irremote">
+<h2><a class="toc-backref" href="#id160">7.6&nbsp;&nbsp;&nbsp;使用IRremote库多协议红外收发</a></h2>
+<p>&#64;page 132-135</p>
+</div>
+</div>
+<div class="section" id="id46">
+<h1><a class="toc-backref" href="#id161">8&nbsp;&nbsp;&nbsp;Maple上的操作系统简介</a></h1>
+<p>爱好者为Maple提供了CoOS和FreeRTOS的Maple库。</p>
+<div class="section" id="maplecoos">
+<h2><a class="toc-backref" href="#id162">8.1&nbsp;&nbsp;&nbsp;Maple上的CoOS</a></h2>
+<p>CoOS是专门为Cortex-M系列处理器开发的嵌入式实时多任务OS，开源免费，最小内核974byte。</p>
+<p>官网 <a class="reference external" href="http://www.coocox.org/CN/CoOS.htm">http://www.coocox.org/CN/CoOS.htm</a> 。</p>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id163">8.1.1&nbsp;&nbsp;&nbsp;准备</a></h3>
+<p>CoOS库来自于 <a class="reference external" href="http://akb77.com">http://akb77.com</a> ，剪裁后只保留了任务管理功能。在 <a class="reference external" href="http://akb77.com/g/files/media/MapleCoOS.rar">http://akb77.com/g/files/media/MapleCoOS.rar</a> 下载。同时在 <a class="reference external" href="http://akb77.com/g/files/media/systick.c">http://akb77.com/g/files/media/systick.c</a> 和 <a class="reference external" href="http://akb77.com/g/files/media/systick.h">http://akb77.com/g/files/media/systick.h</a> 下载两个文件。替换Maple程序目录的 <tt class="docutils literal">hardware/leaflabs/cores/maple</tt> 下的systick.c和systick.h文件。</p>
+<p>CoOS需要建立自己的任务，每个任务独立运行，CoOS调度。</p>
+<p>因为systick的定义不同，CoOS只支持Maple IDE v0.0.9。</p>
+</div>
+<div class="section" id="id48">
+<h3><a class="toc-backref" href="#id164">8.1.2&nbsp;&nbsp;&nbsp;入门程序</a></h3>
+<p>像其他库一样，包含MapleCoOS的头文件:</p>
+<pre class="literal-block">
+#include &lt;MapleCoOS.h&gt;
+</pre>
+<p>&#64;page 137-140</p>
+</div>
+</div>
+<div class="section" id="maplefreertos">
+<h2><a class="toc-backref" href="#id165">8.2&nbsp;&nbsp;&nbsp;Maple上的FreeRTOS</a></h2>
+<div class="section" id="id49">
+<h3><a class="toc-backref" href="#id166">8.2.1&nbsp;&nbsp;&nbsp;简介</a></h3>
+<p>广泛应用的嵌入式实时OS，免费开源，可以支持很多种处理器。</p>
+<p>Maple IDE v0.0.12已经自带了FreeRTOS库。</p>
+</div>
+<div class="section" id="id50">
+<h3><a class="toc-backref" href="#id167">8.2.2&nbsp;&nbsp;&nbsp;入门程序</a></h3>
+<p>先建立任务，然后添加到调度器。</p>
+<p>一个循环闪烁LED的任务:</p>
+<pre class="literal-block">
+static void vLEDTask(void *pvParameters) {
+    for(;;) {
+        vTaskDelay(500);
+        digitalWrite(BOARD_LED_PIN, HIGH);
+        vTaskDelay(500);
+        digitalWrite(BOARD_LED_PIN, LOW);
+    }
+}
+</pre>
+<p><cite>vTaskDelay()</cite> 只是延时固定时间，但是实际执行并不一定按照指定周期。要指定周期则是用 <cite>vTaskDelayUntil()</cite> ，可以保证任务按照指定的频率执行。</p>
+<p>一个uart通信的任务，基于USB虚拟串口:</p>
+<pre class="literal-block">
+static void vSerialTask(void *pvParameters) {
+    //记录上次调用时间
+    portTickType xLastWakeTime;
+    //初始化上次调用事件
+    xLastWakeTime=xTaskGetTickCount();
+    for(;;) {
+        vTaskDelayUntil(&amp;xLastWakeTime, 500);
+        SerialUSB.println(&quot;hello!FreeRTOS&quot;);
+    }
+}
+</pre>
+<p>在 <cite>setup()</cite> 入口用 <cite>xTaskCreate()</cite> 创建这2个任务，并用 <cite>vTaskStartScheduler()</cite> 开始调度。</p>
+<p><cite>xTaskCreate()</cite> 的原型:</p>
+<pre class="literal-block">
+xTaskCreate(
+    pdTASK_CODE pvTaskCode,             //任务函数入口
+    const portCHAR * const pcName,      //任务名，最长16字符
+    unsigned portSHORT usStackDepth,    //任务堆栈深度
+    void *pvParameters,                 //任务附加参数指针
+    unsigned portBASE_TYPE uxPriority,  //优先级，最大5
+    xTaskHandle *pvCreatedTask);        //任务句柄
+</pre>
+<p>删除任务用 <cite>vTaskDelete(xHandle)</cite> ，若xHandle=NULL，则是删除当前任务本身。一个会结束的任务:</p>
+<pre class="literal-block">
+static void vCountTask(void *pvParameters) {
+    for(int i=0; i&lt;100; i++) {
+        vTaskDelay(500);
+        SerialUSB.println(i);
+    }
+    vTaskDelete(NULL);  //运行100次就删除自身
+}
+</pre>
+<p>要导入的头文件:</p>
+<pre class="literal-block">
+#include &lt;MapleFreeRTOS.h&gt;
+</pre>
+<p>初始化设置函数:</p>
+<pre class="literal-block">
+void setup() {
+    pinMode(BOARD_LED_PIN, OUTPUT);
+    //建立2个任务
+    xTaskCreate(vLEDTask,
+        (signed portCHAR*)&quot;TaskLED&quot;,
+        configMINIMAL_STACK_SIZE,
+        NULL,
+        tskIDLE_PRIORITY+2,
+        NULL);
+    xTaskCreate(vSerialTask,
+        (signed portCHAR*)&quot;TaskSerial&quot;,
+        configMINIMAL_STACK_SIZE,
+        NULL,
+        tskIDLE_PRIORITY+2,
+        NULL);
+    //开始调度
+    vTaskStartScheduler();
+}
+
+void loop() {
+}
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="id51">
+<h1><a class="toc-backref" href="#id168">9&nbsp;&nbsp;&nbsp;附录</a></h1>
+<div class="section" id="id52">
+<h2><a class="toc-backref" href="#id169">9.1&nbsp;&nbsp;&nbsp;附录1 Maple引脚功能表</a></h2>
+<p>&#64;page 143-144</p>
+</div>
+<div class="section" id="id53">
+<h2><a class="toc-backref" href="#id170">9.2&nbsp;&nbsp;&nbsp;附录2 Maple mini引脚功能表</a></h2>
+<p>&#64;page 145-145</p>
+</div>
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id171">9.3&nbsp;&nbsp;&nbsp;定时器比较器通道与其相对应的引脚</a></h2>
+<p>&#64;page 146-146</p>
+</div>
+<div class="section" id="id55">
+<h2><a class="toc-backref" href="#id172">9.4&nbsp;&nbsp;&nbsp;Maple RET6引脚功能表</a></h2>
+<p>&#64;page 147-148</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 26178, "title": "Arduino\u5f00\u53d1\u5b9e\u6218\u6307\u5357 STM32\u7bc7", "src_size": 38828, "filehash": "7c11b81791e91fb034358908cedbe7c7", "dst_size": 85995} -->

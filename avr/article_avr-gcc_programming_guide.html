@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>AVR-GCC Programming Guide</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="avr-gcc-programming-guide">
+<h1 class="title">AVR-GCC Programming Guide</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">译者:</th><td class="field-body">gashero</td>
+</tr>
+<tr class="field"><th class="docinfo-name">地址:</th><td class="field-body"><a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/3/AVRGCCProgrammingGuide.php">http://electrons.psychogenic.com/modules/arms/art/3/AVRGCCProgrammingGuide.php</a></td>
+</tr>
+</tbody>
+</table>
+<p>当你决定用AVR作为项目的组件时，需要同时设计硬件和软件。这里我们使用自由软件AVR-GCC来使用汇编、C、C++来编程。关注点是设置Linux开发环境，也适用于其他Unix类平台，部分适用于Win32构建的avr-gcc。</p>
+<p>其他有用的文档：</p>
+<ol class="arabic simple">
+<li>[u] Standardized AVR Makefile Template： <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php">http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php</a></li>
+<li>[u] AVR Chip Programming with Linux： <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/7/AVRChipProgrammingwithLinux.php">http://electrons.psychogenic.com/modules/arms/art/7/AVRChipProgrammingwithLinux.php</a></li>
+</ol>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#id2" id="id9">1&nbsp;&nbsp;&nbsp;必须组件</a></li>
+<li><a class="reference internal" href="#id3" id="id10">2&nbsp;&nbsp;&nbsp;安装</a><ul class="auto-toc">
+<li><a class="reference internal" href="#binutils" id="id11">2.1&nbsp;&nbsp;&nbsp;binutils</a></li>
+<li><a class="reference internal" href="#gcc" id="id12">2.2&nbsp;&nbsp;&nbsp;GCC</a></li>
+<li><a class="reference internal" href="#id4" id="id13">2.3&nbsp;&nbsp;&nbsp;AVR libc</a></li>
+<li><a class="reference internal" href="#gdbsimulavr" id="id14">2.4&nbsp;&nbsp;&nbsp;GDB和SimulAVR</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id15">3&nbsp;&nbsp;&nbsp;构建程序</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id6" id="id16">3.1&nbsp;&nbsp;&nbsp;写汇编</a><ul class="auto-toc">
+<li><a class="reference internal" href="#avr-as" id="id17">3.1.1&nbsp;&nbsp;&nbsp;使用avr-as汇编</a></li>
+<li><a class="reference internal" href="#atmeltavrasm" id="id18">3.1.2&nbsp;&nbsp;&nbsp;ATMEL汇编与tavrasm</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#c" id="id19">3.2&nbsp;&nbsp;&nbsp;写C</a></li>
+<li><a class="reference internal" href="#id7" id="id20">3.3&nbsp;&nbsp;&nbsp;写C++</a></li>
+<li><a class="reference internal" href="#id8" id="id21">3.4&nbsp;&nbsp;&nbsp;构建和安装程序</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id9">1&nbsp;&nbsp;&nbsp;必须组件</a></h1>
+<p>为了拥有AVR开发环境，你需要如下组件：</p>
+<ol class="arabic simple">
+<li>gcc：Gnu编译器集合，配置和编译供AVR目标</li>
+<li>binutils：启用avr特定选项</li>
+<li><a class="reference external" href="http://www.nongnu.org/avr-libc/">avr-libc</a> ：C库</li>
+<li>编程器：硬件的，例如ISP编程器</li>
+<li>喜欢Linux系统的hacker</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id10">2&nbsp;&nbsp;&nbsp;安装</a></h1>
+<p>&#64;wait</p>
+<div class="section" id="binutils">
+<h2><a class="toc-backref" href="#id11">2.1&nbsp;&nbsp;&nbsp;binutils</a></h2>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="gcc">
+<h2><a class="toc-backref" href="#id12">2.2&nbsp;&nbsp;&nbsp;GCC</a></h2>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id13">2.3&nbsp;&nbsp;&nbsp;AVR libc</a></h2>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="gdbsimulavr">
+<h2><a class="toc-backref" href="#id14">2.4&nbsp;&nbsp;&nbsp;GDB和SimulAVR</a></h2>
+<p>SimulAVR供avr-gdb使用，来模拟和调试AVR程序。安装和使用这些程序的细节见 <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/6/SimulatingandDebuggingAVRprograms.php">http://electrons.psychogenic.com/modules/arms/art/6/SimulatingandDebuggingAVRprograms.php</a> 。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h1><a class="toc-backref" href="#id15">3&nbsp;&nbsp;&nbsp;构建程序</a></h1>
+<p>这里讨论编写、编译、链接AVR项目的基本步骤。</p>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id16">3.1&nbsp;&nbsp;&nbsp;写汇编</a></h2>
+<p>这里就不提供AVR指令集或汇编编程教程了，可以随意搜索到，比如 <a class="reference external" href="http://www.avr-asm-tutorial.net/">http://www.avr-asm-tutorial.net/</a> 。一个很好的信息源是 <a class="reference external" href="http://www.atmel.com/dyn/resources/prod_documents/DOC1022.PDF">http://www.atmel.com/dyn/resources/prod_documents/DOC1022.PDF</a> 。</p>
+<p>必要的汇编细节在这里简单提及。AVR有(possess)32个通用寄存器，不过有确定的约束(certain restriction)，5个常量算术和逻辑指令，可以在常量和寄存器之间做立即载入 <cite>LDI</cite> 操作。这些仅在一般的寄存器上有效(R16~R31)。</p>
+<p>推荐还是看看入门的教程。指令集在AVR家族是通用的，特定的汇编指令(例如包含头文件和定义常量)则是专供avr-as使用的。想要让源码可供avr-as使用，你需要做出一些改变，例如：</p>
+<ol class="arabic simple">
+<li>添加架构定义，如 <tt class="docutils literal">.arch atmega8</tt></li>
+<li>改变 <tt class="docutils literal">.def a=b</tt> 和 <tt class="docutils literal">.equ a=b</tt> 为 <tt class="docutils literal">#define a b</tt></li>
+<li>替换任何 <tt class="docutils literal">.include</tt> 指令为 <tt class="docutils literal">#include</tt></li>
+<li>其他</li>
+</ol>
+<p>做好这些修改后，随便找个汇编文件一般是不能编译的，比如使用了ATMEL汇编的 <cite>.inc</cite> 语法，或者DOS汇编的 <cite>.org</cite> 语法。</p>
+<p>所以你有两种选择，你可以坚持用avr-as和avr-gcc，使用已经安装的工具集，移植这些汇编代码，或者作为内嵌汇编。你也可以选择安装ATMEL汇编格式的汇编器，例如 <a class="reference external" href="http://www.tavrasm.org/">tavrasm</a> 。下面也会讲。</p>
+<div class="section" id="avr-as">
+<h3><a class="toc-backref" href="#id17">3.1.1&nbsp;&nbsp;&nbsp;使用avr-as汇编</a></h3>
+<p>你可以使用avr-as汇编器的info页 <tt class="docutils literal">info <span class="pre">avr-as</span></tt> 。</p>
+<p>完整的AVR指令集见 <a class="reference external" href="http://www.atmel.com/dyn/resources/prod_documents/DOC1022.PDF">http://www.atmel.com/dyn/resources/prod_documents/DOC1022.PDF</a> 。快速上手则要看GCC汇编，如果你熟悉C，很容易写出简单的C程序，然后用GCC转换为.s汇编文件，使用:</p>
+<pre class="literal-block">
+$ avr-gcc -Os -mmcu=atmega8 -I/usr/local/AVR/avr/include -S test.c
+</pre>
+<p>一个问题是，你会时区很多有用的 <tt class="docutils literal">avr/io.h</tt> 中的常量定义和原始寄存器名字。双音词你可以把 <tt class="docutils literal">out <span class="pre">56-0x20,r24</span></tt> 替换为更有意义的 <tt class="docutils literal">out PORTB,mydefinedregistername</tt> ，可以看到avr-gcc隐藏的细节。</p>
+<p>如下是一个简短的程序，用以测试编译和汇编，保存为 test.S</p>
+<pre class="literal-block">
+#include &lt;avr/io.h&gt;
+#define mp          r16
+#define outerwait   r17
+#define innerwait   r18
+
+.global main
+
+/*主函数设置PortB输出，然后循环开启和关闭*/
+main:
+    ldi     mp,0xff
+    out     DDRB,mp
+
+loop:
+    ldi     mp,0x00
+    out     PORTB,mp
+    rcall   waitabit
+
+    ldi     mp,0xff
+    out     PORTB,mp
+    rcall   waitabit
+
+    rjmp    loop        /*持续循环*/
+
+/*等待函数*/
+waitabit:
+    ldi     outerwait,0x77
+waitouterloop:
+    ldi     innerwait,0xff
+waitinnerloop:
+    subi    innerwait,0x01
+    brne    waitinnerloop
+    subi    outerwait,0x01
+    brne    waitouterloop
+    ret
+</pre>
+<p>你可以看到代码有些类似于C语法，比如注释和包含。包含文件与C中使用的相同，IO口定义也一样，如PORTB。</p>
+<p>直接尝试把这个文件交给avr-as会失败，部分原因是包含和定义被忽略了。应该使用avr-gcc来编译，这样才能做预处理步骤。</p>
+<p>在编译时，你会需要特定的架构信息，可以用 <cite>-mmcu</cite> 选项提供给avr-gcc:</p>
+<pre class="literal-block">
+$ /usr/local/AVR/bin/avr-gcc -Os -mmcu=atmega8 -Wa,-gstabs \
+    -I/usr/local/AVR/avr/include -c test.S
+</pre>
+<p>这里我们选择了ATmega8芯片平台，可以参考avr-gcc的文档，看看其他支持的芯片。</p>
+<p>这是个简单的程序，可以全部放入test.S文件，我们可以把编译和连接合并在一起使用-c和添加-o选项:</p>
+<pre class="literal-block">
+$ avr-gcc -Os -mmcu=atmega8 -Wa,-gstabs -o test.elf test.S
+</pre>
+<p>结果的elf文件就可以用于转换为HEX文件了，并由编程器写入。</p>
+<p>在编写汇编时，avr-gcc隐藏了讨人厌(tiresome)的细节，例如向量表管理和初始化。一个含有注释的汇编程序可以这么生成:</p>
+<pre class="literal-block">
+$ avr-objdump -S test.elf &gt; test.disasm
+</pre>
+<p>这样就可以看到细节了，包含很多有趣的段在向量表中:</p>
+<pre class="literal-block">
+Disassembly of section .test:
+
+00000000 &lt;__vectors&gt;:
+    0:  0c c0       rjmp .+24   ;0x1a
+    2:  12 c0       rjmp .+36   ;0x28
+    4:  11 c0       rjmp .+34   ;0x28
+    6:  10 c0       rjmp .+32   ;0x28
+    ...
+</pre>
+<p>这些都是avr-gcc生成的文件首部。RESET中断在地址0和12。</p>
+</div>
+<div class="section" id="atmeltavrasm">
+<h3><a class="toc-backref" href="#id18">3.1.2&nbsp;&nbsp;&nbsp;ATMEL汇编与tavrasm</a></h3>
+<p>&#64;wait</p>
+</div>
+</div>
+<div class="section" id="c">
+<h2><a class="toc-backref" href="#id19">3.2&nbsp;&nbsp;&nbsp;写C</a></h2>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id20">3.3&nbsp;&nbsp;&nbsp;写C++</a></h2>
+<p>&#64;wait</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id21">3.4&nbsp;&nbsp;&nbsp;构建和安装程序</a></h2>
+<p>你可以使用类似的方式使用gcc，主要的不同是使用avr-gcc和avr-g++，而不是普通的gcc和g++。</p>
+<p>当然，为AVR平台创建程序时，最终连接的程序是以ELF格式，并不适合于安装的8-bit单片机。具体格式依赖于硬件和编程器，常见的是HEX、SREC等格式。很多编程器如avrdude接收Intel HEX格式。</p>
+<p>一个简单的管理AVR项目的方式是使用Makefile。细节参见 <a class="reference external" href="http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php">http://electrons.psychogenic.com/modules/arms/art/8/AVRProjectOrganizationStandardizedAVRMakefileTemplate.php</a> 。</p>
+<p>你可以手动执行每个步骤，来了解细节。如下三个文件：</p>
+<ol class="arabic simple">
+<li>myclass.cpp：C++源文件</li>
+<li>functions.c：C源文件</li>
+<li>lowlevel.S：汇编文件</li>
+</ol>
+<p>&#64;wait</p>
+</div>
+</div>
+</div>
+</body>
+</html>
+<!-- fileinfo= {"char_count": 4348, "title": "AVR-GCC Programming Guide", "src_size": 6708, "filehash": "caf4adf64b5afdcd2f85c59e4637923a", "dst_size": 18121} -->
