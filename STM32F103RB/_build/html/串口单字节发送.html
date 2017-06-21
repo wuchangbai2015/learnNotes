@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>简单的串口单字节发送程序 &#8212; STM32F103RB v0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>简单的串口单字节发送程序<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>配置流程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rcc">
+<h3>1.开启相关的RCC时钟<a class="headerlink" href="#rcc" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>我们先使能对应外设的时钟。 这里， 我们不仅要开启串口的时钟，
+还需要把用到的 GPIO 口和 AFIO 口的时钟也开启起来。 查询《 STM32 中文手册》
+我们可以知道，STM32 的串口是挂载在 APB2 总线上面的，和 GPIO，AFIO 一样，
+由于我们使用的是 USART1，对应 GPIO 为 PA9 和 PA10，因此，我们只需使用</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>RCC_APB2PeriphClockCmd<span class="o">(</span>RCC_APB2Periph_USART1 <span class="p">|</span>RCC_APB2Periph_GPIOA<span class="p">|</span>RCC_APB2Periph_AFIO, ENABLE<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="gpio">
+<h3>2.配置相应的 GPIO 口<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div>由于我们使用的是USART1，查找数据手册我
+们可知，USART1对应的复用引脚为PA9和PA10，因此我们只需要设置 PA9和PA10
+即可。 因为 PA9 对应的是 TXD， PA10 对应得实 RXD， 因此我们需要将 PA9设置
+为复用推挽输出，将 PA10设置为浮空复用输入即可</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>GPIO_InitStructure.GPIO_Pin <span class="o">=</span> GPIO_Pin_9<span class="p">;</span> //USART1 TX
+
+GPIO_InitStructure.GPIO_Mode <span class="o">=</span> GPIO_Mode_AF_PP<span class="p">;</span> //复用推挽输出
+
+GPIO_InitStructure.GPIO_Speed <span class="o">=</span> GPIO_Speed_50MHz<span class="p">;</span>
+
+GPIO_Init<span class="o">(</span>GPIOA, <span class="p">&amp;</span>GPIO_InitStructure<span class="o">)</span><span class="p">;</span>
+
+GPIO_InitStructure.GPIO_Pin <span class="o">=</span> GPIO_Pin_10<span class="p">;</span> //USART1 RX
+
+GPIO_InitStructure.GPIO_Mode <span class="o">=</span> GPIO_Mode_IN_FLOATING<span class="p">;</span> //复用浮空输入
+
+GPIO_Init<span class="o">(</span>GPIOA, <span class="p">&amp;</span>GPIO_InitStructure<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>3.配置相应的串口模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>配置相应的串口模式。我们这里主要设置的是串口的发送方式， 通
+过函数“USART_Init()” 来实现。查询《 STM32 固件库中文手册》，我们可以完成</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>USART_InitTypeDef USART_InitStructure<span class="p">;</span> //串口初始化结构体声明
+
+USART_InitStructure.USART_BaudRate <span class="o">=</span> <span class="m">115200</span><span class="p">;</span>//设置波特率为 115200bps
+
+USART_InitStructure.USART_WordLength <span class="o">=</span> USART_WordLength_8b<span class="p">;</span> //数据位 <span class="m">8</span> 位
+
+USART_InitStructure.USART_StopBits <span class="o">=</span> USART_StopBits_1<span class="p">;</span> //停止位 <span class="m">1</span> 位
+
+USART_InitStructure.USART_Parity <span class="o">=</span> USART_Parity_No<span class="p">;</span> //无校验位
+
+USART_InitStructure.USART_HardwareFlowControl <span class="o">=</span>USART_HardwareFlowControl_None<span class="p">;</span> //无硬件流控
+
+USART_InitStructure.USART_Mode <span class="o">=</span> USART_Mode_Tx<span class="p">;</span> //发送模式打开
+
+USART_Init<span class="o">(</span>USART1, <span class="p">&amp;</span>USART_InitStructure<span class="o">)</span><span class="p">;</span> //配置串口参数函数
+
+USART_ClearFlag<span class="o">(</span>USART1,USART_FLAG_TC<span class="o">)</span><span class="p">;</span> //清除发送完成标志位
+
+USART_Cmd<span class="o">(</span>USART1, ENABLE<span class="o">)</span><span class="p">;</span> //使能串口 <span class="m">1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">简单的串口单字节发送程序</a><ul>
+<li><a class="reference internal" href="#id2">配置流程</a><ul>
+<li><a class="reference internal" href="#rcc">1.开启相关的RCC时钟</a></li>
+<li><a class="reference internal" href="#gpio">2.配置相应的 GPIO 口</a></li>
+<li><a class="reference internal" href="#id3">3.配置相应的串口模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/串口单字节发送.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 伍长柏.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/串口单字节发送.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

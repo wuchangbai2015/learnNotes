@@ -1,0 +1,80 @@
+
+
+简单的串口单字节发送程序
+===================================
+
+配置流程
+-----------------------------------	
+
+1.开启相关的RCC时钟
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	我们先使能对应外设的时钟。 这里， 我们不仅要开启串口的时钟，
+	还需要把用到的 GPIO 口和 AFIO 口的时钟也开启起来。 查询《 STM32 中文手册》
+	我们可以知道，STM32 的串口是挂载在 APB2 总线上面的，和 GPIO，AFIO 一样，
+	由于我们使用的是 USART1，对应 GPIO 为 PA9 和 PA10，因此，我们只需使用
+	
+	.. code-block:: sh
+		
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 |RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO, ENABLE);
+	
+2.配置相应的 GPIO 口
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	由于我们使用的是USART1，查找数据手册我
+	们可知，USART1对应的复用引脚为PA9和PA10，因此我们只需要设置 PA9和PA10
+	即可。 因为 PA9 对应的是 TXD， PA10 对应得实 RXD， 因此我们需要将 PA9设置
+	为复用推挽输出，将 PA10设置为浮空复用输入即可
+
+    .. code-block:: sh
+	
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //USART1 TX
+		
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; //复用推挽输出
+		
+		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+		
+		GPIO_Init(GPIOA, &GPIO_InitStructure);
+		
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10; //USART1 RX
+		
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; //复用浮空输入
+		
+		GPIO_Init(GPIOA, &GPIO_InitStructure);
+		
+		
+3.配置相应的串口模式
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	配置相应的串口模式。我们这里主要设置的是串口的发送方式， 通
+	过函数“USART_Init()” 来实现。查询《 STM32 固件库中文手册》，我们可以完成
+		
+	.. code-block:: sh
+		
+		USART_InitTypeDef USART_InitStructure; //串口初始化结构体声明
+		
+		USART_InitStructure.USART_BaudRate = 115200;//设置波特率为 115200bps
+		
+		USART_InitStructure.USART_WordLength = USART_WordLength_8b; //数据位 8 位
+		
+		USART_InitStructure.USART_StopBits = USART_StopBits_1; //停止位 1 位
+		
+		USART_InitStructure.USART_Parity = USART_Parity_No; //无校验位
+		
+		USART_InitStructure.USART_HardwareFlowControl =USART_HardwareFlowControl_None; //无硬件流控
+		
+		USART_InitStructure.USART_Mode = USART_Mode_Tx; //发送模式打开
+		
+		USART_Init(USART1, &USART_InitStructure); //配置串口参数函数
+		
+		USART_ClearFlag(USART1,USART_FLAG_TC); //清除发送完成标志位
+		
+		USART_Cmd(USART1, ENABLE); //使能串口 1
+	
+
+		
+	
+	
+	
+	
+
