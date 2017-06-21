@@ -70,6 +70,10 @@
 
 		}
 
+	参考链接：
+			www.eeboard.com/bbs/thread-40496-1-1.html
+			
+			http://www.51hei.com/mcu/3472.html
 	
 	
 	
