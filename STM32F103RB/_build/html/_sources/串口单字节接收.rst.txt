@@ -1,0 +1,126 @@
+
+
+简单的串口单字节接收程序
+===================================
+
+	串口程序的发送方式和接收方式其实有着本质的不同， 一般来说， 串口发送
+	时候， 仅仅只是使用顺序结构的发送函数来实现的， 发送函数的任务也只是简单
+	地将串口的发送字节送入发送 BUFFER 寄存器里面。 而串口的接受程序却是一般
+	采用中断的方式去做。 因而在设置串口时候， 我们还需要设置 NVIC， 以及使能
+	串口中断。 而函数实现起来， 仅仅只需要将串口单字节发送程序做简单的修改。
+	修改的内容有三个， 第一个设置 NVIC， 第二个使能串口中断， 第三个编写串口
+	接收中断函数。
+
+配置流程
+-----------------------------------	
+
+1.设置 NVI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	NVIC的设置主要使用函数NVIC_Init，设置的方式和我
+	们前面所说的外部中断一样， 只不过是修改一些配置的参数
+	
+	.. code-block:: sh
+		
+		void NVIC_Configuration(void)
+		
+		{
+		
+			NVIC_InitTypeDef NVIC_InitStructure; //NVIC 初始化结构体声明
+			
+			NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+			
+			NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn; //设置串口1中断
+			
+			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; //抢占优先级0
+			
+			NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; //子优先级为 0
+			
+			NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //使能
+			
+			NVIC_Init(&NVIC_InitStructure);
+			
+		}
+		
+2.使能串口中断
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	由于我们使用的是USART1，查找数据手册我
+	们可知，USART1对应的复用引脚为PA9和PA10，因此我们只需要设置 PA9和PA10
+	即可。 因为 PA9 对应的是 TXD， PA10 对应得实 RXD， 因此我们需要将 PA9设置
+	为复用推挽输出，将 PA10设置为浮空复用输入即可
+
+    .. code-block:: sh
+	
+		USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;//接受和发送模式都打开
+
+		USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); //使能接收中断
+			
+3.配置相应的串口模式
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	编写串口接收中断程序。我们在这里主要完成如下功能，当我的串
+	口发送“ 0x01” 时，就将 LED 打开；发送“ 0x00” 时，就将 LED 关闭。因此我们
+	需要找到串口接收程序的入口“ void USART1_IRQHandler(void)” 。在中断程序一
+	开始， 我们首先要判断的就是是否接受标志位有效， 只要使用代码
+	“ USART_GetITStatus(USART1, USART_IT_RXNE) != RESET” 做判断即可， 因此我们
+	可以得到如程序片段 22 的代码。每次进入后， 判断是否是
+	串口接收中断，如果是，则用“ rev_data = USART_ReceiveData(USART1);” 将数据
+	读入，并且把接收到的数据发送出来，便于我们调试。最后再去做判断，如果是
+	“ 00” ，则关闭灯，如果是“ 01” ，则打开灯。这样就完成了程序的操作。
+		
+	.. code-block:: sh
+		
+		void USART1_IRQHandler(void)
+		
+		{
+		
+			u8 rev_data;
+			
+			if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //判断读寄存器是否非空
+			
+			{
+			
+				rev_data = USART_ReceiveData(USART1);
+				
+				USART_SendData(USART1, rev_data);
+				
+				while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+				
+				if(rev_data == 0x00)
+				
+				{
+				
+					GPIO_ResetBits(GPIOB, GPIO_Pin_15); //点亮 LED
+					
+				} 
+				
+				else if(rev_data == 0x01)
+				
+				{
+				
+					GPIO_SetBits(GPIOB, GPIO_Pin_15); //熄灭 LED
+					
+				} 
+				
+				else
+				
+				{
+				
+					; //不做操作
+					
+				} 
+				
+			USART_ClearITPendingBit(USART1, USART_IT_RXNE);//清除接受中断标志
+			
+			}
+			
+		}
+	
+
+		
+	
+	
+	
+	
+
