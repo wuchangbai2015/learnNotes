@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>多字节串口示例程序 &#8212; STM32F103RB v0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>多字节串口示例程序<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>串口程序的发送方式和接收方式其实有着本质的不同， 一般来说， 串口发送
+时候， 仅仅只是使用顺序结构的发送函数来实现的， 发送函数的任务也只是简单
+地将串口的发送字节送入发送 BUFFER 寄存器里面。 而串口的接受程序却是一般
+采用中断的方式去做。 因而在设置串口时候， 我们还需要设置 NVIC， 以及使能
+串口中断。 而函数实现起来， 仅仅只需要将串口单字节发送程序做简单的修改。
+修改的内容有三个， 第一个设置 NVIC， 第二个使能串口中断， 第三个编写串口
+接收中断函数。</div></blockquote>
+<div class="section" id="id2">
+<h2>配置流程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nvi">
+<h3>1.设置 NVI<a class="headerlink" href="#nvi" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>NVIC的设置主要使用函数NVIC_Init，设置的方式和我
+们前面所说的外部中断一样， 只不过是修改一些配置的参数</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>void NVIC_Configuration<span class="o">(</span>void<span class="o">)</span>
+
+<span class="o">{</span>
+
+        NVIC_InitTypeDef NVIC_InitStructure<span class="p">;</span> //NVIC 初始化结构体声明
+
+        NVIC_PriorityGroupConfig<span class="o">(</span>NVIC_PriorityGroup_1<span class="o">)</span><span class="p">;</span>
+
+        NVIC_InitStructure.NVIC_IRQChannel <span class="o">=</span> USART1_IRQn<span class="p">;</span> //设置串口1中断
+
+        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority <span class="o">=</span> <span class="m">0</span><span class="p">;</span> //抢占优先级0
+
+        NVIC_InitStructure.NVIC_IRQChannelSubPriority <span class="o">=</span> <span class="m">0</span><span class="p">;</span> //子优先级为 <span class="m">0</span>
+
+        NVIC_InitStructure.NVIC_IRQChannelCmd <span class="o">=</span> ENABLE<span class="p">;</span> //使能
+
+        NVIC_Init<span class="o">(</span><span class="p">&amp;</span>NVIC_InitStructure<span class="o">)</span><span class="p">;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>2.使能串口中断<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div>由于我们使用的是USART1，查找数据手册我
+们可知，USART1对应的复用引脚为PA9和PA10，因此我们只需要设置 PA9和PA10
+即可。 因为 PA9 对应的是 TXD， PA10 对应得实 RXD， 因此我们需要将 PA9设置
+为复用推挽输出，将 PA10设置为浮空复用输入即可</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>USART_InitStructure.USART_Mode <span class="o">=</span> USART_Mode_Tx <span class="p">|</span> USART_Mode_Rx<span class="p">;</span>//接受和发送模式都打开
+
+USART_ITConfig<span class="o">(</span>USART1, USART_IT_RXNE, ENABLE<span class="o">)</span><span class="p">;</span> //使能接收中断
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h3>3.配置相应的串口模式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>编写串口接收中断程序。我们在这里主要完成如下功能，当我的串
+口发送“ 0x01” 时，就将 LED 打开；发送“ 0x00” 时，就将 LED 关闭。因此我们
+需要找到串口接收程序的入口“ void USART1_IRQHandler(void)” 。在中断程序一
+开始， 我们首先要判断的就是是否接受标志位有效， 只要使用代码
+“ USART_GetITStatus(USART1, USART_IT_RXNE) != RESET” 做判断即可， 因此我们
+可以得到如程序片段 22 的代码。每次进入后， 判断是否是
+串口接收中断，如果是，则用“ rev_data = USART_ReceiveData(USART1);” 将数据
+读入，并且把接收到的数据发送出来，便于我们调试。最后再去做判断，如果是
+“ 00” ，则关闭灯，如果是“ 01” ，则打开灯。这样就完成了程序的操作。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>void USART1_IRQHandler<span class="o">(</span>void<span class="o">)</span>
+
+<span class="o">{</span>
+
+        u8 rev_data<span class="p">;</span>
+
+        <span class="k">if</span><span class="o">(</span>USART_GetITStatus<span class="o">(</span>USART1, USART_IT_RXNE<span class="o">)</span> !<span class="o">=</span> RESET<span class="o">)</span> //判断读寄存器是否非空
+
+        <span class="o">{</span>
+
+                <span class="nv">rev_data</span> <span class="o">=</span> USART_ReceiveData<span class="o">(</span>USART1<span class="o">)</span><span class="p">;</span>
+
+                USART_SendData<span class="o">(</span>USART1, rev_data<span class="o">)</span><span class="p">;</span>
+
+                <span class="k">while</span><span class="o">(</span>USART_GetFlagStatus<span class="o">(</span>USART1, USART_FLAG_TXE<span class="o">)</span> <span class="o">==</span> RESET<span class="o">)</span><span class="p">;</span>
+
+                <span class="k">if</span><span class="o">(</span><span class="nv">rev_data</span> <span class="o">==</span> 0x00<span class="o">)</span>
+
+                <span class="o">{</span>
+
+                        GPIO_ResetBits<span class="o">(</span>GPIOB, GPIO_Pin_15<span class="o">)</span><span class="p">;</span> //点亮 LED
+
+                <span class="o">}</span>
+
+                <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nv">rev_data</span> <span class="o">==</span> 0x01<span class="o">)</span>
+
+                <span class="o">{</span>
+
+                        GPIO_SetBits<span class="o">(</span>GPIOB, GPIO_Pin_15<span class="o">)</span><span class="p">;</span> //熄灭 LED
+
+                <span class="o">}</span>
+
+                <span class="k">else</span>
+
+                <span class="o">{</span>
+
+                        <span class="p">;</span> //不做操作
+
+                <span class="o">}</span>
+
+        USART_ClearITPendingBit<span class="o">(</span>USART1, USART_IT_RXNE<span class="o">)</span><span class="p">;</span>//清除接受中断标志
+
+        <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">多字节串口示例程序</a><ul>
+<li><a class="reference internal" href="#id2">配置流程</a><ul>
+<li><a class="reference internal" href="#nvi">1.设置 NVI</a></li>
+<li><a class="reference internal" href="#id3">2.使能串口中断</a></li>
+<li><a class="reference internal" href="#id4">3.配置相应的串口模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/多字节串口示例.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 伍长柏.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/多字节串口示例.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
