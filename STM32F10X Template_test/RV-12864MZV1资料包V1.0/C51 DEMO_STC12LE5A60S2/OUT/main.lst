@@ -1,0 +1,121 @@
+C51 COMPILER V9.50a   MAIN                                                                 04/23/2016 22:37:57 PAGE 1   
+
+
+C51 COMPILER V9.50a, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\OUT\main.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE SOURCES\main.c LARGE BROWSE MODP2 INCDIR(.\SOURCES) DEBUG OBJ
+                    -ECTEXTEND PRINT(.\OUT\main.lst) TABS(2) OBJECT(.\OUT\main.obj)
+
+line level    source
+
+   1          //////////////////////////////////////////////////////////////////////////////////   
+   2          //本程序只供学习使用，未经作者许可，不得用于其它任何用途
+   3          //测试硬件：51 TFT TEST BOARD V1.0/MCU :STC12LE5A60S2/STC12C5A60S2   晶振:33MHZ
+   4          //RV12864 SPI串口TFT液晶驱动
+   5          //ronview@ShenZhen RonView co., LTD
+   6          //淘宝网站：https://shop150504992.taobao.com/
+   7          //我司提供技术支持，任何技术问题欢迎随时交流学习
+   8          //手机:17097319383
+   9          //邮箱:990777066@qq.com 
+  10          //QQ:990777066
+  11          //Skype:ronview
+  12          //QQ技术支持群：288486111
+  13          //创建日期:2016/3/18
+  14          //版本：V1.0
+  15          //版权所有，盗版必究。
+  16          //Copyright(C) 深圳龙威显示技术有限公司 2015-2065
+  17          //All rights reserved
+  18          //////////////////////////////////////////////////////////////////////////////////
+  19          /* 
+  20          代码测试环境:单片机STC12LE5A60S2/STC12C5A60S2,晶振33M  单片机工作电压3.3V
+  21          程序默认IO连接方式：
+  22          接线方式：D/C-P3^5;    SDI-P3^6;   SCK-P3^7;   CS-P1^0;   REST-P1^2;
+  23          */
+  24          #include "STC12C5A.H"
+  25          #include <intrins.h>
+  26          #include <sys.h>
+  27          #include <lcd.h>
+  28          
+  29          
+  30          sbit key1=P3^2;
+  31          sbit key2=P3^3;
+  32          sbit key3=P3^4;
+  33          //程序功能说明；
+  34          //开机显示龙威LOGO
+  35          //按键1（P3.2）按下显示ASCII字符；
+  36          //按键2（P3.3）按下显示汉字；
+  37          //按键3（P3.4）按下显示BMP
+  38          main()
+  39          { 
+  40   1        u8 i,j;
+  41   1        
+  42   1        LCDInit();      //LCD初始化
+  43   1        DisplayFont(1,1 , 0, FONT_128X64);
+  44   1        
+  45   1        while(1)
+  46   1        {   
+  47   2          if(key1==0) //如果按键1按下,进入显示ASCII字符
+  48   2          {              
+  49   3            ClearScreen();
+  50   3            for (i=0; i<16; i++)
+  51   3            {
+  52   4              DisplayFont(1, i*8+1, i, FONT_8X16);
+  53   4            }
+  54   3            for (i=0; i<16; i++)
+C51 COMPILER V9.50a   MAIN                                                                 04/23/2016 22:37:57 PAGE 2   
+
+  55   3            {
+  56   4              j = i;
+  57   4              DisplayFont(3, j*8+1, j+16, FONT_8X16);
+  58   4            }
+  59   3            for (i=0; i<16; i++)
+  60   3            {
+  61   4              j = i;
+  62   4              DisplayFont(5, j*8+1, j+32, FONT_8X16);
+  63   4            } 
+  64   3            for (i=0; i<16; i++)
+  65   3            {
+  66   4              j = i;
+  67   4              DisplayFont(7, j*8+1, j+48, FONT_8X16);
+  68   4            } 
+  69   3          }
+  70   2          if(key2==0) //如果按键2按下,进入显示汉字
+  71   2          {   
+  72   3            ClearScreen();
+  73   3            for (i=0; i<16; i++)
+  74   3            {
+  75   4              j = i;
+  76   4              DisplayFont(1, j*16+1, j, FONT_16X16);
+  77   4            } 
+  78   3            for (i=0; i<16; i++)
+  79   3            {
+  80   4              j = i;
+  81   4              DisplayFont(3, j*16+1, j+8, FONT_16X16);
+  82   4            } 
+  83   3            for (i=0; i<16; i++)
+  84   3            {
+  85   4              j = i;
+  86   4              DisplayFont(7, j*16+1, j+16, FONT_16X16);
+  87   4            } 
+  88   3          }
+  89   2          if(key3==0) //如果按键3按下,进入显示BMP图片
+  90   2          {
+  91   3            ClearScreen();
+  92   3            DisplayFont(1,1 , 0, FONT_128X64);
+  93   3          }
+  94   2        }
+  95   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    379    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,8 @@
+".\OUT\STARTUP.obj",
+".\OUT\main.obj",
+".\OUT\lcd.obj",
+".\OUT\sys.obj" 
+TO ".\OUT\RV" 
+PRINT(".\OUT\RV.m51") RAMSIZE(256) 
+CODE( 0X0000-0XEFFF )
+XDATA( 0X0000-0X03FF )

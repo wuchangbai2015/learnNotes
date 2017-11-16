@@ -1,0 +1,54 @@
+C51 COMPILER V9.50a   SYS                                                                  04/23/2016 22:37:57 PAGE 1   
+
+
+C51 COMPILER V9.50a, COMPILATION OF MODULE SYS
+OBJECT MODULE PLACED IN .\OUT\sys.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE SOURCES\sys.c LARGE BROWSE MODP2 INCDIR(.\SOURCES) DEBUG OBJE
+                    -CTEXTEND PRINT(.\OUT\sys.lst) TABS(2) OBJECT(.\OUT\sys.obj)
+
+line level    source
+
+   1          //////////////////////////////////////////////////////////////////////////////////   
+   2          //本程序只供学习使用，未经作者许可，不得用于其它任何用途
+   3          //测试硬件：51 TFT TEST BOARD V1.0/MCU :STC12LE5A60S2/STC12C5A60S2   晶振:33MHZ
+   4          //RV12864 SPI串口TFT液晶驱动
+   5          //ronview@ShenZhen RonView co., LTD
+   6          //淘宝网站：https://shop150504992.taobao.com/
+   7          //我司提供技术支持，任何技术问题欢迎随时交流学习
+   8          //手机:17097319383
+   9          //邮箱:990777066@qq.com 
+  10          //QQ:990777066
+  11          //Skype:ronview
+  12          //QQ技术支持群：288486111
+  13          //创建日期:2016/3/18
+  14          //版本：V1.0
+  15          //版权所有，盗版必究。
+  16          //Copyright(C) 深圳龙威显示技术有限公司 2015-2065
+  17          //All rights reserved
+  18          //////////////////////////////////////////////////////////////////////////////////
+  19          #include "STC12C5A.H"
+  20          #include <intrins.h>
+  21          #include "sys.h"
+  22          
+  23          
+  24          void delayms(int count)  // /* X1ms */
+  25          {
+  26   1              int i,j;
+  27   1              for(i=0;i<count;i++)
+  28   1                      for(j=0;j<1000;j++);
+  29   1      }
+  30          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     38    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
