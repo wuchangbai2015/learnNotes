@@ -96,6 +96,8 @@ void timer2_config(void)
 周期 = 36 * 10 / 72 000 000 
 频率 = 72 000 000 / 360 = 200 000 = 200k
   
+这个频率刚好可以产生100kHz的方波
+ 
 ********************************/
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     nvci_config();
@@ -184,7 +186,7 @@ void TIM2_IRQHandler(void)
         else if(pwm_fq < 100)
         {
             turnOff();
-        }
+        } 
         else
         {
             pwm_fq = 0;
