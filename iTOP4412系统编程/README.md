@@ -1,11 +1,13 @@
-使用ubuntu实现交叉编译
+一.使用ubuntu实现交叉编译
 
 编译指令为： arm-none-linux-gnueabi-gcc -o helloword helloworld.c -static 
 
+/****************************************************************************************/
 
-烧写ubunut最小系统用的指令：
+二.烧写ubunut最小系统用的指令：
 
 拷贝镜像到“platform-tools”文件夹下
+
 1.进入uboot模式
 
 上电，启动开发板，超级终端中，按“回车”键（一上电就按），进入uboot模式
@@ -44,11 +46,15 @@ fastboot.exe flash kernel zImage
 
 3.输入烧写ramdisk 命令:
 
+
 fastboot.exe flash ramdisk ramdisk-uboot.img
+
 
 4.输入烧写system 文件系统命令:
 
+
 fastboot.exe flash system system.img
+
 
 输入擦除命令：
 
@@ -57,4 +63,45 @@ fastboot -w
 输入重启开发板命令：
 
 fastboot reboot
+
+/****************************************************************************************/
+
+三. 代码的加载和运行
+
+u盘拷贝在ubunut下面交叉编译后的代码后挂载到4412上
+
+mount /dev/sda1 /mnt/disk/
+
+卸载 
+
+umount /mnt/disk/
+
+/****************************************************************************************/
+
+四.设置某一个程序或者其他东西成开机就运行
+
+将helloword文件先拷贝在一个目录下：
+
+cp -r /mut/disk /bin
+
+vim /etc/init.d/rcS
+
+将helloword文件写在rcs的最后面
+
+/bin/helloword &
+
+/****************************************************************************************/
+
+五.tftp服务器的搭建，主要用来给4412传程序，便于调试
+
+tftp文件中的/var/tftpboot是服务器的目录（在ubuntu中）需把编译好的二进制文件cp到这里
+
+TFTP传输应用程序：
+
+tftp -g -l helloworld -r helloworld + 服务器的ip
+
+
+/****************************************************************************************/
+
+
 
