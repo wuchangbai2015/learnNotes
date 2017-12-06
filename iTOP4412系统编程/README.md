@@ -94,11 +94,23 @@ vim /etc/init.d/rcS
 
 五.tftp服务器的搭建，主要用来给4412传程序，便于调试
 
+4412的ip地址：cat /etc/eth0-setting  
+
+要使TFTP来传递一些简单的文件，4412和ubuntu pc机在需在同一个网段
+
 tftp文件中的/var/tftpboot是服务器的目录（在ubuntu中）需把编译好的二进制文件cp到这里
 
 TFTP传输应用程序：
 
-tftp -g -l helloworld -r helloworld + 服务器的ip
+在4412板子上：tftp -g -l helloworld -r helloworld + 服务器的ip
+
+例如：  cd /bin
+
+	tftp -g -l helloword -r helloword 192.168.1.104 （192.168.1.104 是ubuntu pc 的ip）
+
+运行：chmod 777 helloword 
+
+      ./helloword
 
 
 /****************************************************************************************/
