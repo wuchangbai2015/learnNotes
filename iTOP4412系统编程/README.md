@@ -2,7 +2,7 @@
 
 编译指令为： 
 
-  arm-none-linux-gnueabi-gcc -o helloword helloworld.c -static 
+  	arm-none-linux-gnueabi-gcc -o helloword helloworld.c -static 
 
 /****************************************************************************************/
 
@@ -16,21 +16,21 @@
 
 2.分区命令，超级终端中，输入命令：
 
-  fdisk -c 0
+  	fdisk -c 0
 
 3.格式化命令，超级终端中输入命令：
 
-  fatformat mmc 0:1
+  	fatformat mmc 0:1
 
-  ext3format mmc 0:2
+  	ext3format mmc 0:2
 
-  ext3format mmc 0:3
+  	ext3format mmc 0:3
 
-  ext3format mmc 0:4
+  	ext3format mmc 0:4
 
 4.连接命令，超级终端中输入命令：
 
-  fastboot
+  	fastboot
 
 
 
@@ -39,32 +39,32 @@
 
 1.烧写uboot命令（不建议烧写，已经有了）：
 
-  fastboot.exe flash bootloader u-boot-iTOP-4412.bin
+  	fastboot.exe flash bootloader u-boot-iTOP-4412.bin
 
 2.烧写zImage内核命令：
 
-  fastboot.exe flash kernel zImage
+  	fastboot.exe flash kernel zImage
 
 
 3.输入烧写ramdisk 命令:
 
 
-  fastboot.exe flash ramdisk ramdisk-uboot.img
+  	fastboot.exe flash ramdisk ramdisk-uboot.img
 
 
 4.输入烧写system 文件系统命令:
 
 
-  fastboot.exe flash system system.img
+  	fastboot.exe flash system system.img
 
 
 输入擦除命令：
 
-  fastboot -w
+  	fastboot -w
 
 输入重启开发板命令：
 
-  fastboot reboot
+  	fastboot reboot
 
 /****************************************************************************************/
 
@@ -72,11 +72,11 @@
 
 u盘拷贝在ubunut下面交叉编译后的代码后挂载到4412上
 
-  mount /dev/sda1 /mnt/disk/
+  	mount /dev/sda1 /mnt/disk/
 
 卸载 
 
-  umount /mnt/disk/
+  	umount /mnt/disk/
 
 /****************************************************************************************/
 
@@ -84,13 +84,13 @@ u盘拷贝在ubunut下面交叉编译后的代码后挂载到4412上
 
 将helloword文件先拷贝在一个目录下：
 
-  cp -r /mut/disk /bin
+  	cp -r /mut/disk /bin
 
-  vim /etc/init.d/rcS
+  	vim /etc/init.d/rcS
 
 将helloword文件写在rcs的最后面
 
-  /bin/helloword &
+  	/bin/helloword &
 
 /****************************************************************************************/
 
@@ -98,7 +98,7 @@ u盘拷贝在ubunut下面交叉编译后的代码后挂载到4412上
 
 4412的ip地址：
 
-  cat /etc/eth0-setting  
+  	cat /etc/eth0-setting  
 
 要使TFTP来传递一些简单的文件，4412和ubuntu pc机在需在同一个网段
 
@@ -110,19 +110,19 @@ TFTP传输应用程序：
 
 在4412板子上：
 
-  tftp -g -l helloworld -r helloworld + 服务器的ip
+  	tftp -g -l helloworld -r helloworld + 服务器的ip
 
 例如：  
 
-  cd /bin
+  	cd /bin
 
-  tftp -g -l helloword -r helloword 192.168.1.104 （192.168.1.104 是ubuntu pc 的ip）
+  	tftp -g -l helloword -r helloword 192.168.1.104 （192.168.1.104 是ubuntu pc 的ip）
 
 运行：
   
-  chmod 777 helloword 
+  	chmod 777 helloword 
 
-  ./helloword
+  	./helloword
 
 
 /****************************************************************************************/
