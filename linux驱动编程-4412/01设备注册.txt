@@ -1,0 +1,50 @@
+– 注册设备。将设备结构体放到平台文件中，会自动注册设备，不用去调用注册设备的函数。
+
+	vim arch/arm/mach-exynos/mach-itop4412.c 
+
+添加代码：
+
+	#ifdef CONFIG_HELLO_CTL  
+
+	struct platform_device s3c_device_hello_ctl = {
+
+        .name = "hello",
+
+        .id            = -1,
+
+	}
+
+	#endif
+
+之后还是在这个文件里将上面写的这个写入到列表里面：
+
+	#ifdef CONFIG_HELLO_CTL	
+
+        &s3c_device_hello_ctl,
+
+	#endif
+
+– 在Kconfig文件中添加编译HELLO设备的宏定义
+
+	这个可以看/drivers/char下面的Kconfig文件    （这个宏可以自己在Kconfig中写，仿led的就好了，之后就可以在menuconfig看到）
+
+        config HELLO_CTL
+
+        	tristate "Enable HELLO config"
+
+        	default y
+
+       	 	help
+
+          	  Enable HELLO config
+
+
+        有了以上两步，就可以在menuconfig中看到HELLO这个东西了。然后以后就可以在menuconfig来选择编译不编译了。
+
+– 配置menuconfig中的HELLO宏定义，生成新的.config文件
+
+– 生成新的zImage
+
+-  注册完之后在虚拟平台总线下可以查到注册的设备
+
+	ls /sys/devices/platform/

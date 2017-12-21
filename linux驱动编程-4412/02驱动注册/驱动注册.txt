@@ -1,0 +1,5 @@
+驱动注册使用结构体platform_driver，该结构体在头文件“viminclude/linux/platform_device.h”中 驱动注册platform_driver_register，驱动卸载函数platform_driver_unregister也
+
+在这个头文件中
+
+这两个函数的参数都只有结构体platform_driver
